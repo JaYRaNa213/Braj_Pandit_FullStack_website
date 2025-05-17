@@ -15,14 +15,17 @@
 
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import Blog from "./pages/Blog";
-import Products from "./pages/Products";
-import Booking from "./pages/Booking";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboard";
-import ProtectedRoute from "./components/ProtectedRoute";
+import Home from "./pages/user/Home.jsx";
+import Blog from "./pages/user/Blog.jsx";
+import Products from "./pages/user/Products.jsx";
+import Booking from "./pages/user/Booking.jsx";
+// import Booking from "./pages/user/PujaBooking.jsx";
+
+import Login from "./pages/auth/Login.jsx";
+import Register from "./pages/auth/Register.jsx";
+
+import Dashboard from "./pages/admin/AdminDashboard.jsx";
+import ProtectedRoute from "./components/common/ProtectedRoute.jsx";
 
 // import Navbar from "./components/Navbar";
 
