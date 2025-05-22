@@ -15,7 +15,7 @@ This repository contains the backend of a ** Religious Website ** that provides 
 9. 🜡️ **Live Pooja Path & Bhajans**
 10. 🗉️ **Hindu Festival Products Store**
 11. 📞 **Contact Details & Customer Support**
-12. 💌 **Query & Feedback Section**
+12.  **Query & Feedback Section**
 
 ---
 
@@ -166,14 +166,13 @@ npm start
 - 💳 **Payment Gateway (Razorpay/Stripe/PayPal)** - For payment integration
 - 📑 **Multer** - File uploads
 - 🎨 **Figma Design** - UI/UX Design reference
-
 ---
 
 ## 👨‍💻 **Contributing**
 
 Contributions, issues, and feature requests are welcome!
 
----
+--
 
 ## 👩‍💻 **Contact**
 
@@ -181,10 +180,7 @@ Contributions, issues, and feature requests are welcome!
 📧 Email: [jayrana0909@gmail.com](mailto:jayrana0909@gmail.com)
 
 ---
-
 ## 💜 **License**
 
 This project is licensed under the **ISC License**.
 #
-
-
