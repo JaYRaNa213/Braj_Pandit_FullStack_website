@@ -10,7 +10,11 @@ export const register = async (req, res) => {
     res.status(201).json({
       success: true,
       message: 'User registered successfully',
-      data: user,
+      data: {
+        _id: newUser._id, // ✅ Return Mongo _id
+        name: newUser.name,
+        email: newUser.email,
+      },
     });
   } catch (error) {
     res.status(400).json({ success: false, message: error.message });
@@ -21,11 +25,12 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const token = await loginUser(email, password);
+    const {token ,refreshToken} = await loginUser(email, password);
     res.status(200).json({
       success: true,
       message: 'Login successful',
       token,
+      refreshToken
     });
   } catch (error) {
     res.status(401).json({ success: false, message: error.message });
