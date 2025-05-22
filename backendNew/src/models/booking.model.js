@@ -9,13 +9,16 @@ const bookingSchema = new mongoose.Schema({
     ref: 'User',
     required: true,
   },
+  time:{
+    required:true,
+  },
   // Reference to the pandit or service booked
   service: {
     type: String,
     required: true,
   },
   // Date and time of the booking
-  bookingDate: {
+  date: {
     type: Date,
     required: true,
   },

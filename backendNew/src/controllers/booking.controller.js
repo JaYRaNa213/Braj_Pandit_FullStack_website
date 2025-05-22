@@ -10,6 +10,7 @@ export const createBooking = async (req, res) => {
 
     // Debugging line (optional)
     console.log(req.body);
+    console.log(user);
 
     // Validate required fields
     if (!user || !service || !date || !time) {
