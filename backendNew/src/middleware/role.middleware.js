@@ -1,16 +1,11 @@
-// Middleware to check user role for authorization
-export const checkRole = (roles) => {
-  return (req, res, next) => {
-    try {
-      // Check if user is authenticated and has a role
-      if (!req.user || !roles.includes(req.user.role)) {
-        return res.status(403).json({ message: 'Access denied. Insufficient permissions!' });
-      }
+// src/middleware/role.middleware.js
+import ApiError from '../utils/ApiError.js';
 
-      // Move to the next middleware or route
-      next();
-    } catch (error) {
-      res.status(500).json({ message: 'Error checking user role', error: error.message });
+export const authorizeRoles = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return next(new ApiError(403, 'Access denied: Insufficient permissions'));
     }
+    next();
   };
 };

@@ -1,9 +1,10 @@
 // src/controllers/auth.controller.js
 import { registerUser, loginUser, logoutUser } from '../services/auth.service.js';
-import { getAllUsers } from '../services/auth.service.js';
+import { getAllUsers, getUserProfile } from '../services/auth.service.js';
 
-
-// Register j
+// ========================
+// ✅ Register Controller
+// ========================
 export const register = async (req, res) => {
   try {
     const user = await registerUser(req.body);
@@ -11,9 +12,9 @@ export const register = async (req, res) => {
       success: true,
       message: 'User registered successfully',
       data: {
-        _id: newUser._id, // ✅ Return Mongo _id
-        name: newUser.name,
-        email: newUser.email,
+        _id: user.userId, // ✅ Return generated userId
+        name: user.name,
+        email: user.email,
       },
     });
   } catch (error) {
@@ -21,31 +22,35 @@ export const register = async (req, res) => {
   }
 };
 
-// Login user controller
+// ========================
+// ✅ Login Controller
+// ========================
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const {token ,refreshToken} = await loginUser(email, password);
+    const { token, refreshToken, userId } = await loginUser(email, password); // ✅ Destructure userId
+
     res.status(200).json({
       success: true,
       message: 'Login successful',
       token,
-      refreshToken
+      refreshToken,
+      userId, // ✅ Return userId in response
     });
   } catch (error) {
     res.status(401).json({ success: false, message: error.message });
   }
 };
 
-// Logout user controller
+// ========================
+// ✅ Logout Controller
+// ========================
 export const logout = async (req, res) => {
   res.status(200).json({
     success: true,
     message: await logoutUser(),
   });
 };
-
-import { getUserProfile } from '../services/auth.service.js';
 
 // ========================
 // ✅ Get User Profile Controller
@@ -64,6 +69,10 @@ export const getProfile = async (req, res) => {
     res.status(404).json({ success: false, message: error.message });
   }
 };
+
+// ========================
+// ✅ Get All Users Controller
+// ========================
 export const getUsers = async (req, res) => {
   try {
     const users = await getAllUsers();
