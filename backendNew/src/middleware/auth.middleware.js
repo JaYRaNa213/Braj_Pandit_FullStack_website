@@ -26,8 +26,13 @@ export const verifyToken = asyncHandler(async (req, res, next) => {
       throw new ApiError(401, 'Invalid Access Token: User not found');
     }
 
-    // Attach the user to the request object
-    req.user = user;
+    // Attach the full user including role to req.user
+    req.user = {
+      id: user._id,
+      email: user.email,
+      name: user.name,
+      role: user.role,
+    };
 
     // Proceed to the next middleware or route
     next();
@@ -58,7 +63,14 @@ export const protect = (req, res, next) => {
   try {
     // Verify token
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-    req.user = decoded;
+
+    // Attach role info if included in token
+    req.user = {
+      id: decoded.id,
+      email: decoded.email,
+      role: decoded.role || 'user', // fallback to 'user' if missing
+    };
+
     next();
   } catch (error) {
     res.status(401).json({
@@ -67,7 +79,6 @@ export const protect = (req, res, next) => {
     });
   }
 };
-
 
 // ✅ Auth Middleware
 export const authMiddleware = (req, res, next) => {
@@ -78,7 +89,14 @@ export const authMiddleware = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-    req.user = decoded;
+
+    // Attach role info if included in token
+    req.user = {
+      id: decoded.id,
+      email: decoded.email,
+      role: decoded.role || 'user', // fallback to 'user' if missing
+    };
+
     next();
   } catch (error) {
     return res.status(401).json({ success: false, message: 'Invalid or expired token' });

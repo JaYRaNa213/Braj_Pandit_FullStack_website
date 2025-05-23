@@ -35,6 +35,7 @@ export const login = async (req, res) => {
       message: 'Login successful',
       token,
       refreshToken,
+      role,
       userId, // ✅ Return userId in response
     });
   } catch (error) {

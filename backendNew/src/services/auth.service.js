@@ -9,7 +9,7 @@ const users = [];
 // ✅ Register User Logic
 // ========================
 export const registerUser = async (userData) => {
-  const { name, email, password } = userData;
+  const { name, email, password ,role} = userData;
 
   const existingUser = users.find((user) => user.email === email);
   if (existingUser) {
@@ -20,7 +20,15 @@ export const registerUser = async (userData) => {
 
   const userId = Date.now().toString(); // ✅ Unique user ID
 
-  const newUser = { userId, name, email, password: hashedPassword };
+  const newUser = {
+    userId, 
+    name, 
+    email,  
+    role,
+    password: hashedPassword,}; 
+  // ✅ Default role added - > role: "user"
+  // ✅ Add user to in-memory DB
+
   users.push(newUser);
 
   console.log('✅ New User Registered:', newUser);
@@ -42,18 +50,23 @@ export const loginUser = async (email, password) => {
   }
 
   const token = jwt.sign(
-    { id: user.userId.toString(), email: user.email },
+    {
+      id: user.userId.toString(),
+      email: user.email,
+      role: user.role, // ✅ Include role in JWT
+    },
     process.env.ACCESS_TOKEN_SECRET,
     {
       expiresIn: process.env.ACCESS_TOKEN_EXPIRY || '1d',
     }
   );
 
-  // ✅ Return userId with tokens
+  // ✅ Return userId and role with tokens
   return {
     token,
     refreshToken: 'mock-refresh-token', // Optional enhancement
     userId: user.userId,
+    role: user.role, // ✅ Include role in response
   };
 };
 
