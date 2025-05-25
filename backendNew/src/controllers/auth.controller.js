@@ -15,6 +15,8 @@ export const register = async (req, res) => {
         _id: user.userId, // ✅ Return generated userId
         name: user.name,
         email: user.email,
+        role: user.role, // ✅ Return user role
+        createdAt: user.createdAt, // ✅ Return createdAt timestamp
       },
     });
   } catch (error) {
