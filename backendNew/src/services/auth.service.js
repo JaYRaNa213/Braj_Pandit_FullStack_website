@@ -1,45 +1,42 @@
 // src/services/auth.service.js
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-
-// In-memory user DB for demo
-const users = [];
+import User from '../models/User.js'; // ✅ Use Mongoose model
 
 // ========================
 // ✅ Register User Logic
 // ========================
 export const registerUser = async (userData) => {
-  const { name, email, password ,role} = userData;
+  const { name, email, password, role } = userData;
 
-  const existingUser = users.find((user) => user.email === email);
+  const existingUser = await User.findOne({ email });
   if (existingUser) {
     throw new Error('User already exists');
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  const userId = Date.now().toString(); // ✅ Unique user ID
-
-  const newUser = {
-    userId, 
-    name, 
-    email,  
-    role,
-    password: hashedPassword,}; 
-  // ✅ Default role added - > role: "user"
-  // ✅ Add user to in-memory DB
-
-  users.push(newUser);
+  const newUser = await User.create({
+    name,
+    email,
+    password: hashedPassword,
+    role: role || 'user',
+  });
 
   console.log('✅ New User Registered:', newUser);
-  return newUser;
+  return {
+    _id: newUser._id,
+    name: newUser.name,
+    email: newUser.email,
+    role: newUser.role,
+  };
 };
 
 // ========================
 // ✅ Login User Logic
 // ========================
 export const loginUser = async (email, password) => {
-  const user = users.find((user) => user.email === email);
+  const user = await User.findOne({ email });
   if (!user) {
     throw new Error('Invalid email or password');
   }
@@ -51,9 +48,9 @@ export const loginUser = async (email, password) => {
 
   const token = jwt.sign(
     {
-      id: user.userId.toString(),
+      id: user._id.toString(),
       email: user.email,
-      role: user.role, // ✅ Include role in JWT
+      role: user.role,
     },
     process.env.ACCESS_TOKEN_SECRET,
     {
@@ -61,12 +58,11 @@ export const loginUser = async (email, password) => {
     }
   );
 
-  // ✅ Return userId and role with tokens
   return {
     token,
-    refreshToken: 'mock-refresh-token', // Optional enhancement
-    userId: user.userId,
-    role: user.role, // ✅ Include role in response
+    refreshToken: 'mock-refresh-token',
+    userId: user._id,
+    role: user.role,
   };
 };
 
@@ -81,23 +77,21 @@ export const logoutUser = async () => {
 // ✅ Get User Profile
 // ========================
 export const getUserProfile = async (userId) => {
-  const user = users.find((user) => user.userId.toString() === userId);
+  const user = await User.findById(userId).select('-password');
   if (!user) {
     throw new Error('User not found');
   }
-
-  const { password, ...userWithoutPassword } = user;
-  console.log('✅ User Profile Fetched:', userWithoutPassword);
-  return userWithoutPassword;
+  console.log('✅ User Profile Fetched:', user);
+  return user;
 };
 
 // ========================
 // ✅ Get All Users
 // ========================
 export const getAllUsers = async () => {
-  if (users.length === 0) {
+  const users = await User.find().select('-password');
+  if (!users || users.length === 0) {
     throw new Error('No users found');
   }
-
-  return users.map(({ password, ...userWithoutPassword }) => userWithoutPassword);
+  return users;
 };

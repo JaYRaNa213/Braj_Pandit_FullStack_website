@@ -29,8 +29,8 @@ export const register = async (req, res) => {
 // ========================
 export const login = async (req, res) => {
   try {
-    const { email, password } = req.body;
-    const { token, refreshToken, userId } = await loginUser(email, password); // ✅ Destructure userId
+    const { email, password ,role} = req.body;
+    const { token, refreshToken, userId } = await loginUser(email, password,role); // ✅ Destructure userId
 
     res.status(200).json({
       success: true,
