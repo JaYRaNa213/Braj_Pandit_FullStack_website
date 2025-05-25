@@ -41,6 +41,7 @@
 │   │   ├── booking.model.js
 │   │   ├── payment.model.js
 │   │   ├── product.model.js
+│   │   ├── User.js
 │   │   └── user.model.js
 │   ├── routes
 │   │   ├── admin
@@ -83,5 +84,3 @@
 │       └── emails
 │           └── resetPassword.html
 └── tree.js
-
-✅ Tree generation complete!

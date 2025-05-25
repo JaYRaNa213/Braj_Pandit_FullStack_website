@@ -1,7 +1,8 @@
 // src/services/auth.service.js
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import User from '../models/User.js'; // ✅ Use Mongoose model
+import User from '../models/user.model.js';
+
 
 // ========================
 // ✅ Register User Logic
