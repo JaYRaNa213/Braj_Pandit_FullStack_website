@@ -1,19 +1,34 @@
-import { Routes, Route } from "react-router-dom";
-import Home from "../pages/user/Home";
-import Blog from "../pages/user/Blog";
-import Products from "../pages/user/Products";
-import Booking from "../pages/user/Booking";
-import Contact from "../pages/Contact";
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-export default function AppRoutes() {
+// Auth Pages
+import Login from "../pages/auth/Login";
+import Register from "../pages/auth/Register";
+
+// Route groups
+import AdminRoutes from "./AdminRoutes";
+import UserRoutes from "./UserRoutes";
+
+// Not Found fallback
+import NotFound from "../pages/NotFound";
+
+const AppRoutes = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/blogs" element={<Blog />} />
-      <Route path="/products" element={<Products />} />
-      <Route path="/booking" element={<Booking />} />
-      <Route path="/contact" element={<Contact />} />
-      <Route path="*" element={<h1>404 Not Found</h1>} />
-    </Routes>
+    <BrowserRouter>
+      <Routes>
+        {/* Auth Routes */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
+        {/* Admin & User Routes */}
+        <Route path="/*" element={<UserRoutes />} />
+        <Route path="/admin/*" element={<AdminRoutes />} />
+
+        {/* Fallback Not Found */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
+
+export default AppRoutes;

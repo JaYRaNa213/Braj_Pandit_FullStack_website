@@ -1,3 +1,6 @@
+// pages/auth/Register.jsx
+
+
 import { useState } from "react";
 import { register } from "../../services/api";
 import { useNavigate } from "react-router-dom";

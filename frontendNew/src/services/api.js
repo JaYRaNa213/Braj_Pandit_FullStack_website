@@ -1,34 +1,19 @@
+// src/services/api.js
 import axios from "axios";
 
-// Base URL of your backend API
-const API = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_URL, // Change this to your backend URL
-  withCredentials: true, // This allows sending cookies if using auth
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:7000/api/v1";
+
+const api = axios.create({
+  baseURL: API_BASE_URL,
 });
 
-// Interceptor (optional): Automatically attach tokens to headers
-API.interceptors.request.use((req) => {
+// Attach token automatically if exists
+api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
-  if (token) {
-    req.headers.Authorization = `Bearer ${token}`;
-  }
-  return req;
+  if (token) config.headers.Authorization = `Bearer ${token}`;
+  return config;
 });
 
-// Blog APIs
-export const getBlogs = () => API.get("/blogs");
-export const getBlogById = (id) => API.get(`/blogs/${id}`);
+export const getUser = () => api.get("/auth/user");
 
-// Product APIs
-export const getProducts = () => API.get("/products");
-
-// Booking API
-export const bookPuja = (data) => API.post("/booking", data);
-
-// Auth APIs
-export const login = (data) => api.post("/auth/login", data);
-export const register = (data) => api.post("/auth/register", data);
-export const getUser = () => api.get("/auth/me");
-
-
-export default API;
+export default api;

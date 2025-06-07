@@ -59,8 +59,10 @@
 │   │       ├── Booking.jsx
 │   │       ├── Cart.jsx
 │   │       ├── Home.jsx
+│   │       ├── Login.jsx
 │   │       ├── Products.jsx
 │   │       ├── PujaBooking.jsx
+│   │       ├── Register.jsx
 │   │       └── UserProfile.jsx
 │   ├── routes
 │   │   ├── AdminRoutes.jsx
