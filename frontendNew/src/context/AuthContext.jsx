@@ -1,38 +1,42 @@
-// src/context/AuthContext.jsx
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { getUser } from "../services/api";
+import React, { createContext, useState, useEffect } from "react";
 
-const AuthContext = createContext();
+// Create AuthContext
+export const AuthContext = createContext();
 
+// AuthProvider to wrap app and provide auth state
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null); // null = not logged in
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null); // { id, name, email, role, token }
 
-  const fetchUser = async () => {
-    try {
-      const res = await getUser();
-      setUser(res.data.user);
-    } catch (err) {
-      setUser(null);
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  // Load user from localStorage on mount (if any)
   useEffect(() => {
-    fetchUser();
+    const storedUser = localStorage.getItem("authUser");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
   }, []);
 
+  // Save user to localStorage on change
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem("authUser", JSON.stringify(user));
+    } else {
+      localStorage.removeItem("authUser");
+    }
+  }, [user]);
+
+  // Login function to set user (called after successful login)
+  const login = (userData) => {
+    setUser(userData);
+  };
+
+  // Logout function clears user
   const logout = () => {
-    localStorage.removeItem("token");
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, setUser, loading, logout }}>
+    <AuthContext.Provider value={{ user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
 };
-
-export const useAuth = () => useContext(AuthContext);

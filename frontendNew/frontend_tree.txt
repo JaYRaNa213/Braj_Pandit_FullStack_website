@@ -48,7 +48,9 @@
 │   │   │   ├── AddLiveVideo.jsx
 │   │   │   ├── AddProduct.jsx
 │   │   │   ├── AdminDashboard.jsx
-│   │   │   └── ManageProducts.jsx
+│   │   │   ├── ManageProducts.jsx
+│   │   │   ├── ManagePujaBookings.jsx
+│   │   │   └── ManagesBlogs.jsx
 │   │   ├── auth
 │   │   │   ├── Login.jsx
 │   │   │   └── Register.jsx

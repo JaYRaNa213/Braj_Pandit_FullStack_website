@@ -1,16 +1,22 @@
-// src/components/common/ProtectedRoute.jsx
-import React from "react";
-import { Navigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
+import React, { useContext } from "react";
+import { Navigate, Outlet } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
-export default function ProtectedRoute({ children, adminOnly = false }) {
-  const { user, loading } = useAuth();
+const ProtectedRoute = ({ roles = [] }) => {
+  const { user } = useContext(AuthContext);
 
-  if (loading) return <p className="text-center">Loading...</p>;
+  if (!user) {
+    // Not logged in, redirect to login page
+    return <Navigate to="/login" replace />;
+  }
 
-  if (!user) return <Navigate to="/login" />;
+  if (roles.length > 0 && !roles.includes(user.role)) {
+    // Role not authorized, redirect to home or unauthorized page
+    return <Navigate to="/" replace />;
+  }
 
-  if (adminOnly && user.role !== "admin") return <Navigate to="/" />;
+  // Authorized, render child routes
+  return <Outlet />;
+};
 
-  return children;
-}
+export default ProtectedRoute;

@@ -1,5 +1,7 @@
 // src/routes/AppRoutes.jsx
+import React from "react";
 import { Routes, Route } from "react-router-dom";
+
 import Home from "../pages/user/Home";
 import Register from "../pages/auth/Register";
 import Login from "../pages/auth/Login";
@@ -13,11 +15,6 @@ import Contact from "../pages/Contact";
 import NotFound from "../pages/NotFound";
 
 import AdminRoutes from "./AdminRoutes";
-import AdminDashboard from "../pages/admin/AdminDashboard";
-import AddBlogPost from "../pages/admin/AddBlogPost";
-import AddProduct from "../pages/admin/AddProduct";
-import AddLiveVideo from "../pages/admin/AddLiveVideo";
-import ManageProducts from "../pages/admin/ManageProducts";
 
 export default function AppRoutes() {
   return (
@@ -34,10 +31,10 @@ export default function AppRoutes() {
       <Route path="/profile" element={<UserProfile />} />
       <Route path="/contact" element={<Contact />} />
 
-      {/* Admin Routes */}
+      {/* Admin Routes handled separately */}
       <Route path="/admin/*" element={<AdminRoutes />} />
 
-      {/* Not Found */}
+      {/* 404 Not Found */}
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
