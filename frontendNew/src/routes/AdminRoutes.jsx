@@ -9,7 +9,8 @@ import Blog from "../pages/user/Blog";
 import Products from "../pages/user/Products";
 import Booking from "../pages/user/Booking";
 import PujaBooking from "../pages/user/PujaBooking";
-import Cart from "../pages/user/Cart";
+import Cart from "../pages/user/Cart"; // NO curly braces
+
 import UserProfile from "../pages/user/UserProfile";
 import Contact from "../pages/Contact";
 import NotFound from "../pages/NotFound";

@@ -1,10 +1,9 @@
-// src/hooks/useCart.js
+// ✅ Correct: src/hooks/useCart.js
 import { useState, useEffect } from "react";
 
 export const useCart = () => {
   const [cartItems, setCartItems] = useState([]);
 
-  // Load cart from localStorage or API
   useEffect(() => {
     const storedCart = localStorage.getItem("cart");
     if (storedCart) setCartItems(JSON.parse(storedCart));

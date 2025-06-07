@@ -14,7 +14,7 @@ import NotFound from "../pages/NotFound";
 
 const AppRoutes = () => {
   return (
-    <BrowserRouter>
+    
       <Routes>
         {/* Auth Routes */}
         <Route path="/login" element={<Login />} />
@@ -27,7 +27,7 @@ const AppRoutes = () => {
         {/* Fallback Not Found */}
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </BrowserRouter>
+    
   );
 };
 
