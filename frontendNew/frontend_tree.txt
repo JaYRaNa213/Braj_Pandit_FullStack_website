@@ -22,8 +22,12 @@
 │   │   │   ├── Loader.jsx
 │   │   │   ├── Navbar.jsx
 │   │   │   └── ProtectedRoute.jsx
-│   │   └── shared
-│   │       └── Button.jsx
+│   │   ├── shared
+│   │   │   └── Button.jsx
+│   │   └── user
+│   │       ├── Footer.jsx
+│   │       ├── Layout.jsx
+│   │       └── Navbar.jsx
 │   ├── constants
 │   │   ├── apiRoutes.js
 │   │   ├── appLabels.js
@@ -74,7 +78,3 @@
 ├── tailwind.config.js
 ├── tree.js
 └── vite.config.js
-
-
-
-

@@ -1,9 +1,9 @@
-import { Routes, Route } from 'react-router-dom';
-import Home from '../pages/Home';
-import Blog from '../pages/Blog';
-import Products from '../pages/Products';
-import Booking from '../pages/Booking';
-import Contact from '../pages/Contact';
+import { Routes, Route } from "react-router-dom";
+import Home from "../pages/user/Home";
+import Blog from "../pages/user/Blog";
+import Products from "../pages/user/Products";
+import Booking from "../pages/user/Booking";
+import Contact from "../pages/Contact";
 
 export default function AppRoutes() {
   return (
@@ -13,7 +13,7 @@ export default function AppRoutes() {
       <Route path="/products" element={<Products />} />
       <Route path="/booking" element={<Booking />} />
       <Route path="/contact" element={<Contact />} />
-      <Route path="NotFound" element={<h1>404 Not Found</h1>} />
+      <Route path="*" element={<h1>404 Not Found</h1>} />
     </Routes>
   );
 }

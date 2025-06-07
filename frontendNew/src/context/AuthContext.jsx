@@ -1,4 +1,5 @@
-import { createContext, useContext, useEffect, useState } from "react";
+// src/context/AuthContext.jsx
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { getUser } from "../services/api";
 
 const AuthContext = createContext();
@@ -22,17 +23,13 @@ export const AuthProvider = ({ children }) => {
     fetchUser();
   }, []);
 
-
-// step 8
   const logout = () => {
     localStorage.removeItem("token");
     setUser(null);
   };
-  
 
   return (
     <AuthContext.Provider value={{ user, setUser, loading, logout }}>
-
       {children}
     </AuthContext.Provider>
   );

@@ -1,3 +1,4 @@
+// src/components/common/Navbar.jsx
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
@@ -36,21 +37,3 @@ export default function Navbar() {
     </nav>
   );
 }
-
-// // src/components/Navbar.jsx
-// import React from "react";
-// import { Link } from "react-router-dom";
-
-// const Navbar = () => (
-//   <nav className="bg-blue-600 p-4">
-//     <ul className="flex justify-around text-white">
-//       <li><Link to="/">Home</Link></li>
-//       <li><Link to="/blogs">Blogs</Link></li>
-//       <li><Link to="/puja">Puja Booking</Link></li>
-//       <li><Link to="/cart">Cart</Link></li>
-//       <li><Link to="/profile">Profile</Link></li>
-//     </ul>
-//   </nav>
-// );
-
-// export default Navbar;
