@@ -1,7 +1,18 @@
-// src/layouts/UserLayout.jsx
 import React from "react";
-import Layout from "../components/user/Layout";
+import Navbar from "../components/common/Navbar"; // Or user/Navbar if you're using that
+import Footer from "../components/common/Footer";
+import { Outlet } from "react-router-dom";
 
-export default function UserLayout({ children }) {
-  return <Layout>{children}</Layout>;
-}
+const UserLayout = () => {
+  return (
+    <>
+      <Navbar />
+      <main className="min-h-screen">
+        <Outlet /> {/* 👈 Very important! This renders Home.jsx */}
+      </main>
+      <Footer />
+    </>
+  );
+};
+
+export default UserLayout;

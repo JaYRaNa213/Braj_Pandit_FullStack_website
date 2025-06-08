@@ -6,12 +6,13 @@ export default function Navbar() {
   const { user, logout } = useAuth();
 
   return (
-    <nav className="bg-purple-700 p-4 text-white flex justify-between items-center">
-      <Link to="/" className="text-xl font-bold">
-        🕉️ DharmaSite
+    <nav className="bg-[#4A1C1C] p-2 text-white flex justify-between items-center">
+          <img src="/images/pank.jpg" alt="pank" className="h-14 w-10 object-contain" />
+          <Link to="/" className="text-xl font-bold">
+      Mero Vrindavan !
       </Link>
 
-      <div className="space-x-4">
+      <div className="space-x-20">
         <Link to="/" className="hover:underline">Home</Link>
         <Link to="/blogs" className="hover:underline">Blogs</Link>
         <Link to="/products" className="hover:underline">Products</Link>

@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import UserLayout from "../layouts/UserLayout";
 
 // Importing user pages
-import Home from "../pages/user/Home";
+import Home from "../pages/user/Home.jsx";
 import Products from "../pages/user/Products";
 import Blog from "../pages/user/Blog";
 import Booking from "../pages/user/Booking";
