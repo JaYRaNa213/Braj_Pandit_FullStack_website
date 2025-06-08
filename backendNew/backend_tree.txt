@@ -1,3 +1,4 @@
+
 📂 Religious website Tree structure
 
 ├── .env
@@ -41,7 +42,6 @@
 │   │   ├── booking.model.js
 │   │   ├── payment.model.js
 │   │   ├── product.model.js
-│   │   ├── User.js
 │   │   └── user.model.js
 │   ├── routes
 │   │   ├── admin

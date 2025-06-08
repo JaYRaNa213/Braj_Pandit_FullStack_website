@@ -1,6 +1,10 @@
-// src/controllers/auth.controller.js
-import { registerUser, loginUser, logoutUser } from '../services/auth.service.js';
-import { getAllUsers, getUserProfile } from '../services/auth.service.js';
+import {
+  registerUser,
+  loginUser,
+  logoutUser,
+  getAllUsers,
+  getUserProfile,
+} from '../services/auth.service.js';
 
 // ========================
 // ✅ Register Controller
@@ -12,11 +16,11 @@ export const register = async (req, res) => {
       success: true,
       message: 'User registered successfully',
       data: {
-        _id: user.userId, // ✅ Return generated userId
+        _id: user.userId,
         name: user.name,
         email: user.email,
-        role: user.role, // ✅ Return user role
-        createdAt: user.createdAt, // ✅ Return createdAt timestamp
+        role: user.role,
+        createdAt: user.createdAt,
       },
     });
   } catch (error) {
@@ -29,8 +33,8 @@ export const register = async (req, res) => {
 // ========================
 export const login = async (req, res) => {
   try {
-    const { email, password ,role} = req.body;
-    const { token, refreshToken, userId } = await loginUser(email, password,role); // ✅ Destructure userId
+    const { email, password, role } = req.body;
+    const { token, refreshToken, userId } = await loginUser(email, password, role);
 
     res.status(200).json({
       success: true,
@@ -38,7 +42,7 @@ export const login = async (req, res) => {
       token,
       refreshToken,
       role,
-      userId, // ✅ Return userId in response
+      userId,
     });
   } catch (error) {
     res.status(401).json({ success: false, message: error.message });
@@ -60,7 +64,7 @@ export const logout = async (req, res) => {
 // ========================
 export const getProfile = async (req, res) => {
   try {
-    const userId = req.user.id; // Extracted from decoded JWT token
+    const userId = req.user.id; // Extracted from decoded JWT
     const userProfile = await getUserProfile(userId);
 
     res.status(200).json({
