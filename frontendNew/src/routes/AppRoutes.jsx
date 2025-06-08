@@ -1,5 +1,6 @@
+// src/routes/AppRoutes.jsx
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 // Auth Pages
 import Login from "../pages/auth/Login";
@@ -14,20 +15,18 @@ import NotFound from "../pages/NotFound";
 
 const AppRoutes = () => {
   return (
-    
-      <Routes>
-        {/* Auth Routes */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+    <Routes>
+      {/* Auth Routes */}
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
 
-        {/* Admin & User Routes */}
-        <Route path="/*" element={<UserRoutes />} />
-        <Route path="/admin/*" element={<AdminRoutes />} />
+      {/* Admin & User Routes */}
+      <Route path="/admin/*" element={<AdminRoutes />} />
+      <Route path="/*" element={<UserRoutes />} />
 
-        {/* Fallback Not Found */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    
+      {/* Fallback Not Found */}
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 };
 

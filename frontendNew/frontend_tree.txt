@@ -9,6 +9,14 @@
 ├── package.json
 ├── postcss.config.js
 ├── public
+│   ├── images
+│   │   ├── bussiness.jpg
+│   │   ├── money.jpg
+│   │   ├── rudraksha.jpg
+│   │   ├── study.jpg
+│   │   ├── tantra.png
+│   │   ├── wealth.png
+│   │   └── zodiac.png
 │   └── vite.svg
 ├── README.md
 ├── src

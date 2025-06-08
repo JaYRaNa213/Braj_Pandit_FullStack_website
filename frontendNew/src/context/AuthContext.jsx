@@ -1,13 +1,12 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
 
 // Create AuthContext
 export const AuthContext = createContext();
 
 // AuthProvider to wrap app and provide auth state
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null); // { id, name, email, role, token }
+  const [user, setUser] = useState(null);
 
-  // Load user from localStorage on mount (if any)
   useEffect(() => {
     const storedUser = localStorage.getItem("authUser");
     if (storedUser) {
@@ -15,7 +14,6 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  // Save user to localStorage on change
   useEffect(() => {
     if (user) {
       localStorage.setItem("authUser", JSON.stringify(user));
@@ -24,12 +22,10 @@ export const AuthProvider = ({ children }) => {
     }
   }, [user]);
 
-  // Login function to set user (called after successful login)
   const login = (userData) => {
     setUser(userData);
   };
 
-  // Logout function clears user
   const logout = () => {
     setUser(null);
   };
@@ -40,3 +36,8 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
+// Add this export:
+export function useAuth() {
+  return useContext(AuthContext);
+}
