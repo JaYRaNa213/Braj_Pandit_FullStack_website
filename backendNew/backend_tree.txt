@@ -84,3 +84,5 @@
 │       └── emails
 │           └── resetPassword.html
 └── tree.js
+
+✅ Tree generation complete!

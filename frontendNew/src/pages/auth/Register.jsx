@@ -1,9 +1,6 @@
-// pages/auth/Register.jsx
-
-
 import { useState } from "react";
-import { register } from "../../services/api";
 import { useNavigate } from "react-router-dom";
+import axios from "../../services/axios"; // ✅ this uses your axiosInstance
 
 export default function Register() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
@@ -15,12 +12,12 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await register(form);
+      await axios.post("/auth/register", form); // ✅ correct endpoint
       alert("Registered successfully!");
       navigate("/login");
     } catch (err) {
       alert("Failed to register.");
-      console.error(err);
+      console.error("Register error:", err.response?.data || err.message);
     }
   };
 
@@ -34,6 +31,7 @@ export default function Register() {
           placeholder="Name"
           className="w-full p-2 border rounded"
           onChange={handleChange}
+          value={form.name}
         />
         <input
           name="email"
@@ -41,6 +39,7 @@ export default function Register() {
           placeholder="Email"
           className="w-full p-2 border rounded"
           onChange={handleChange}
+          value={form.email}
         />
         <input
           name="password"
@@ -48,6 +47,7 @@ export default function Register() {
           placeholder="Password"
           className="w-full p-2 border rounded"
           onChange={handleChange}
+          value={form.password}
         />
         <button className="bg-green-600 text-white px-4 py-2 rounded">
           Register
