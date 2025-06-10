@@ -1,15 +1,16 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import {
   registerUser,
-  loginUser,
   logoutUser,
   getAllUsers,
   getUserProfile,
 } from '../services/auth.service.js';
 
 import User from '../models/user.model.js';
-import bcrypt from 'bcryptjs'; // ✅ Add this
+import bcrypt from 'bcryptjs';
 import generateToken from '../utils/generateToken.js';
-
 
 // ========================
 // ✅ Register Controller
@@ -34,40 +35,45 @@ export const register = async (req, res) => {
 };
 
 // ========================
-// ✅ Login Controller
+// ✅ Login Controller (with fixed admin support)
 // ========================
-// export const login = async (req, res) => {
-//   try {
-//     const { email, password, role } = req.body;
-//     const { token, refreshToken, userId } = await loginUser(email, password, role);
-
-//     res.status(200).json({
-//       success: true,
-//       message: 'Login successful',
-//       token,
-//       refreshToken,
-//       role,
-//       userId,
-//     });
-//   } catch (error) {
-//     res.status(401).json({ success: false, message: error.message });
-//   }
-// };
-
 export const login = async (req, res) => {
   const { email, password } = req.body;
+
+  // 1️⃣ Fixed Admin Login
+  if (
+    email === process.env.ADMIN_EMAIL &&
+    password === process.env.ADMIN_PASSWORD
+  ) {
+    const adminUser = {
+      _id: 'admin-fixed-id',
+      email,
+      name: 'Admin',
+      role: 'admin',
+    };
+    const token = generateToken(adminUser._id, 'admin');
+    return res.status(200).json({ token, user: adminUser });
+  }
+
+  // 2️⃣ Normal User Login
   const user = await User.findOne({ email });
-  if (!user) return res.status(401).json({ message: "Invalid email or password" });
+  if (!user) return res.status(401).json({ message: 'Invalid email or password' });
 
   const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) return res.status(401).json({ message: "Invalid email or password" });
+  if (!isMatch) return res.status(401).json({ message: 'Invalid email or password' });
 
-  // Generate token or session
-  const token = generateToken(user._id);
+  const token = generateToken(user._id, user.role || 'user');
   res.cookie('token', token, { httpOnly: true });
-  res.json({ token, user });
+  res.status(200).json({
+    token,
+    user: {
+      _id: user._id,
+      email: user.email,
+      name: user.name,
+      role: user.role || 'user',
+    },
+  });
 };
-
 
 // ========================
 // ✅ Logout Controller
@@ -84,7 +90,7 @@ export const logout = async (req, res) => {
 // ========================
 export const getProfile = async (req, res) => {
   try {
-    const userId = req.user.id; // Extracted from decoded JWT
+    const userId = req.user.id;
     const userProfile = await getUserProfile(userId);
 
     res.status(200).json({

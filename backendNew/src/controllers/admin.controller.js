@@ -5,7 +5,6 @@ export const getPujaBookings = async (req, res) => {
   try {
     const { page = 1, limit = 10, search = '', sort = 'date' } = req.query;
 
-    // Create a search filter (searching userName and pujaName case-insensitive)
     const searchFilter = search
       ? {
           $or: [
@@ -15,12 +14,10 @@ export const getPujaBookings = async (req, res) => {
         }
       : {};
 
-    // Count total documents matching filter
     const total = await Booking.countDocuments(searchFilter);
 
-    // Fetch paginated data sorted by specified field (ascending by default)
     const bookings = await Booking.find(searchFilter)
-      .sort({ [sort]: 1 }) // change to -1 for descending
+      .sort({ [sort]: 1 }) // Use -1 if descending is needed
       .skip((page - 1) * limit)
       .limit(Number(limit));
 
