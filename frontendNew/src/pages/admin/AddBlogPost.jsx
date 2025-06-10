@@ -1,90 +1,76 @@
-import React, { useState } from "react";
-import { cloudinaryUpload } from "../../utils/cloudinaryUpload";
+// src/pages/admin/AddBlogPost.jsx
+import React, { useState } from 'react';
+import axios from 'axios';
 
-function AddBlogPost() {
-  const [image, setImage] = useState(null);
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [uploadedUrl, setUploadedUrl] = useState("");
+const AddBlogPost = () => {
+  const [form, setForm] = useState({
+    title: '',
+    author: '',
+    content: '',
+    category: 'Puja',
+    image: null
+  });
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
 
-  const handleImageChange = (e) => {
-    setImage(e.target.files[0]);
-  };
-
-  const handleUpload = async () => {
-    if (!image) return alert("Please select an image.");
-    try {
-      const url = await cloudinaryUpload(image);
-      setUploadedUrl(url);
-      console.log("Blog Image URL:", url); // Use this URL for the blog post
-    } catch (err) {
-      console.error("Upload failed:", err);
+  const handleChange = (e) => {
+    if (e.target.name === 'image') {
+      const file = e.target.files[0];
+      setSelectedImage(file);
+      setImagePreview(URL.createObjectURL(file));
+      setForm({ ...form, image: file });
+    } else {
+      setForm({ ...form, [e.target.name]: e.target.value });
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const data = new FormData();
+    Object.keys(form).forEach((key) => {
+      data.append(key, form[key]);
+    });
 
-    const blogData = { title, content, imageUrl: uploadedUrl };
-
-    fetch("http://localhost:7000/api/blogs", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(blogData),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        alert("Blog post added successfully!");
-        console.log("Blog post data:", data);
-      })
-      .catch((err) => console.error("Error adding blog post:", err));
+    try {
+      await axios.post('http://localhost:7000/api/admin/blogs', data, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+        withCredentials: true,
+      });
+      alert('Blog posted successfully!');
+    } catch (error) {
+      console.error(error.response?.data || error.message);
+      alert('Error posting blog');
+    }
   };
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-bold mb-2">Add Blog Post</h2>
+    <div className="max-w-xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-xl">
+      <h2 className="text-2xl font-bold text-center mb-6 text-[#4A1C1C]">Add New Blog</h2>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <input type="text" name="title" placeholder="Title" onChange={handleChange} className="w-full border p-2 rounded" required />
+        <input type="text" name="author" placeholder="Author" onChange={handleChange} className="w-full border p-2 rounded" required />
+        <textarea name="content" placeholder="Content" onChange={handleChange} rows="4" className="w-full border p-2 rounded" required />
+        <select name="category" onChange={handleChange} className="w-full border p-2 rounded" value={form.category}>
+          <option value="Puja">Puja</option>
+          <option value="Festival">Festival</option>
+          <option value="Aarti">Aarti</option>
+          <option value="Religious Books">Religious Books</option>
+        </select>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Blog Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="border p-2 mb-2 w-full"
-        />
-        <textarea
-          placeholder="Blog Content"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          className="border p-2 mb-2 w-full"
-        />
-        <input type="file" onChange={handleImageChange} className="mb-2" />
-        <button
-          type="button"
-          onClick={handleUpload}
-          className="bg-blue-500 text-white px-4 py-2"
-        >
-          Upload Image
-        </button>
-
-        {uploadedUrl && (
-          <div className="mt-4">
-            <p>Uploaded Image:</p>
-            <img src={uploadedUrl} alt="Uploaded" className="w-64" />
+        <input type="file" name="image" accept="image/*" onChange={handleChange} className="w-full border p-2 rounded" />
+        {imagePreview && (
+          <div className="mt-2">
+            <p className="text-sm text-gray-600">Image Preview:</p>
+            <img src={imagePreview} alt="Preview" className="w-full max-h-60 object-cover rounded shadow" />
           </div>
         )}
 
-        <button
-          type="submit"
-          className="bg-green-500 text-white px-4 py-2 mt-4"
-        >
-          Add Blog Post
+        <button type="submit" className="bg-[#4A1C1C] text-white py-2 px-4 rounded w-full hover:bg-[#3a1515]">
+          Submit
         </button>
       </form>
     </div>
   );
-}
+};
 
 export default AddBlogPost;

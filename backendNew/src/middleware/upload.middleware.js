@@ -1,3 +1,6 @@
+// middleware/upload.middleware.js
+// src/middleware/upload.middleware.js
+
 // Import multer for file uploads
 import multer from 'multer';
 import path from 'path';

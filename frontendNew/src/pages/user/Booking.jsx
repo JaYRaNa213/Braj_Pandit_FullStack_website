@@ -7,6 +7,10 @@
 //   );
 // }
 
+
+
+import axiosInstance from "../../services/axios";
+
 import { useState } from "react";
 import { bookPuja } from "../../services/api";
 
@@ -16,6 +20,8 @@ export default function Booking() {
     email: "",
     service: "",
     date: "",
+    time:"",
+    pandit:""
   });
 
   const handleChange = (e) =>
@@ -24,7 +30,7 @@ export default function Booking() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("auth/booking",form);
+      const res = await axiosInstance.post("/booking/puja",formData);
       // await axios.post("/auth/register", form); 
       // const res = await bookPuja(formData);
       alert("Booking successful: " + res.data.message);
@@ -54,6 +60,8 @@ export default function Booking() {
           className="w-full p-2 border rounded"
           onChange={handleChange}
         />
+
+
         <input
           type="text"
           name="service"
@@ -62,9 +70,27 @@ export default function Booking() {
           className="w-full p-2 border rounded"
           onChange={handleChange}
         />
+
+        <input
+          type="text"
+          name="pandit"
+          placeholder="Pandit Jee name"
+          required
+          className="w-full p-2 border rounded"
+          onChange={handleChange}
+        />
+
+
         <input
           type="date"
           name="date"
+          required
+          className="w-full p-2 border rounded"
+          onChange={handleChange}
+        />
+        <input
+          type="time"
+          name="time"
           required
           className="w-full p-2 border rounded"
           onChange={handleChange}

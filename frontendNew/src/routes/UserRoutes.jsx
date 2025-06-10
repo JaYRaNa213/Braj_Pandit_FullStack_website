@@ -1,10 +1,11 @@
+// src/routes/UserRoutes.jsx
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import UserLayout from "../layouts/UserLayout";
 import ProtectedRoute from "./ProtectedRoute";
 
-// Importing user pages
-import Home from "../pages/user/Home.jsx";
+// User Pages
+import Home from "../pages/user/Home";
 import Products from "../pages/user/Products";
 import Blog from "../pages/user/Blog";
 import Booking from "../pages/user/Booking";
@@ -19,13 +20,13 @@ const UserRoutes = () => {
   return (
     <Routes>
       <Route element={<UserLayout />}>
-        {/* Public Routes */}
+        {/* Public Pages */}
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
         <Route path="/blogs" element={<Blog />} />
         <Route path="/contact" element={<Contact />} />
 
-        {/* Protected Routes */}
+        {/* Protected Pages */}
         <Route element={<ProtectedRoute roles={["user", "admin"]} />}>
           <Route path="/dashboard" element={<UserDashboard />} />
           <Route path="/booking" element={<Booking />} />

@@ -10,21 +10,21 @@ import Register from "../pages/auth/Register";
 import AdminRoutes from "./AdminRoutes";
 import UserRoutes from "./UserRoutes";
 
-// Not Found fallback
+// Not Found
 import NotFound from "../pages/NotFound";
 
 const AppRoutes = () => {
   return (
     <Routes>
-      {/* Auth Routes */}
+      {/* Auth Pages */}
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
 
-      {/* Admin & User Routes */}
+      {/* Grouped Routes */}
       <Route path="/admin/*" element={<AdminRoutes />} />
       <Route path="/*" element={<UserRoutes />} />
 
-      {/* Fallback Not Found */}
+      {/* Fallback */}
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

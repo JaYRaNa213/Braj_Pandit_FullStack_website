@@ -1,4 +1,4 @@
- Generating Religious Website Frontend Tree Structure...
+📂 Generating Religious Website Frontend Tree Structure...
 
 ├── .env
 ├── .gitignore
@@ -22,8 +22,8 @@
 │   │   ├── images.jpg
 │   │   ├── live
 │   │   │   ├── anirudh.jpg
-│   │   │   ├── Premanand-Ji-Maharaj.jpg       
-│   │   │   └── radha-raman-ji-murthi.jpeg     
+│   │   │   ├── Premanand-Ji-Maharaj.jpg   
+│   │   │   └── radha-raman-ji-murthi.jpeg 
 │   │   ├── mahashivaratri.jpg
 │   │   ├── marriage.jpg
 │   │   ├── money.jpg
@@ -34,7 +34,7 @@
 │   │   │   ├── pandit3.jpg
 │   │   │   └── pandit4.jpg
 │   │   ├── pank.jpg
-│   │   ├── Premanand-Ji-Maharaj.jpg
+│   │   ├── Premanand-Ji-Maharaj.jpg       
 │   │   ├── premMandir.jpg
 │   │   ├── products
 │   │   │   ├── diwaliPujan.jpg
@@ -94,8 +94,9 @@
 │   │   │   ├── AddLiveVideo.jsx
 │   │   │   ├── AddProduct.jsx
 │   │   │   ├── AdminDashboard.jsx
+│   │   │   ├── EditBlogPost.jsx
 │   │   │   ├── ManageProducts.jsx
-│   │   │   ├── ManagePujaBookings.jsx
+│   │   │   ├── ManagePujaBookings.jsx     
 │   │   │   └── ManagesBlogs.jsx
 │   │   ├── auth
 │   │   │   ├── Login.jsx
@@ -104,10 +105,10 @@
 │   │   ├── NotFound.jsx
 │   │   └── user
 │   │       ├── Blog.jsx
+│   │       ├── BlogDetails.jsx
 │   │       ├── Booking.jsx
 │   │       ├── Cart.jsx
 │   │       ├── Home.jsx
-│   │       ├── Login.jsx
 │   │       ├── Products.jsx
 │   │       ├── PujaBooking.jsx
 │   │       ├── Register.jsx
@@ -119,8 +120,13 @@
 │   │   ├── ProtectedRoute.jsx
 │   │   └── UserRoutes.jsx
 │   ├── services
+│   │   ├── admin
+│   │   │   └── blogService.js
 │   │   ├── adminService.js
 │   │   ├── api.js
+│   │   ├── axios.js
+│   │   ├── user
+│   │   │   └── blogService.js
 │   │   └── userService.js
 │   ├── types
 │   │   └── user.d.ts

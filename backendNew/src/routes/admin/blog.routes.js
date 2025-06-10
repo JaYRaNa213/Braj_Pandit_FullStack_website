@@ -1,21 +1,21 @@
+// admin/// blog.routes.js
+
 import express from 'express';
-import { getAllBlogs, getBlogById, addBlog, updateBlog, deleteBlog } from '../../controllers/blog.controller.js';
+import { addBlog, updateBlog, deleteBlog } from '../../controllers/blog.controller.js';
+import { isAuthenticated } from '../../middleware/auth.middleware.js';
+import { authorizeRoles } from '../../middleware/role.middleware.js';
+import { uploadSingle } from '../../middleware/upload.middleware.js';
 
 const router = express.Router();
 
-// ✅ Get all blogs
-router.get('/', getAllBlogs);
+// Admin: Add a new blog with image upload
+router.post('/', isAuthenticated, authorizeRoles('admin'), uploadSingle('image'), addBlog);
 
-// ✅ Get blog by ID
-router.get('/:id', getBlogById);
+// Admin: Update a blog by ID
+router.put('/:id', isAuthenticated, authorizeRoles('admin'), uploadSingle('image'), updateBlog);
 
-// ✅ Add a new blog
-router.post('/', addBlog);
 
-// ✅ Update blog by ID
-router.put('/:id', updateBlog);
-
-// ✅ Delete blog by ID
-router.delete('/:id', deleteBlog);
+// Admin: Delete a blog by ID
+router.delete('/:id', isAuthenticated, authorizeRoles('admin'), deleteBlog);
 
 export default router;

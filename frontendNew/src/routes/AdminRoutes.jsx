@@ -1,42 +1,32 @@
-// src/routes/AppRoutes.jsx
+// src/routes/AdminRoutes.jsx
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import AdminLayout from "../layouts/AdminLayout";
+import ProtectedRoute from "./ProtectedRoute";
 
-import Home from "../pages/user/Home";
-import Register from "../pages/auth/Register";
-import Login from "../pages/auth/Login";
-import Blog from "../pages/user/Blog";
-import Products from "../pages/user/Products";
-import Booking from "../pages/user/Booking";
-import PujaBooking from "../pages/user/PujaBooking";
-import Cart from "../pages/user/Cart"; // NO curly braces
-
-import UserProfile from "../pages/user/UserProfile";
-import Contact from "../pages/Contact";
+// Admin Pages
+import AdminDashboard from "../pages/admin/AdminDashboard";
+import AddBlogPost from "../pages/admin/AddBlogPost";
+import ManageBlogs from "../pages/admin/ManagesBlogs";
+import EditBlogPost from "../pages/admin/EditBlogPost";
 import NotFound from "../pages/NotFound";
 
-import AdminRoutes from "./AdminRoutes";
-
-export default function AppRoutes() {
+const AdminRoutes = () => {
   return (
     <Routes>
-      {/* User Routes */}
-      <Route path="/" element={<Home />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/blogs" element={<Blog />} />
-      <Route path="/products" element={<Products />} />
-      <Route path="/booking" element={<Booking />} />
-      <Route path="/puja-booking" element={<PujaBooking />} />
-      <Route path="/cart" element={<Cart />} />
-      <Route path="/profile" element={<UserProfile />} />
-      <Route path="/contact" element={<Contact />} />
+      <Route
+        element={<ProtectedRoute roles={["admin"]}><AdminLayout /></ProtectedRoute>}
+      >
+        <Route path="dashboard" element={<AdminDashboard />} />
+        <Route path="add-blog" element={<AddBlogPost />} />
+        <Route path="manage-blogs" element={<ManageBlogs />} />
+        <Route path="edit-blog/:id" element={<EditBlogPost />} />
+      </Route>
 
-      {/* Admin Routes handled separately */}
-      <Route path="/admin/*" element={<AdminRoutes />} />
-
-      {/* 404 Not Found */}
+      {/* Admin-specific fallback */}
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
-}
+};
+
+export default AdminRoutes;

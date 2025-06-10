@@ -1,3 +1,5 @@
+// File: frontendNew/src/layouts/UserLayout.jsx
+
 import React from "react";
 import Navbar from "../components/common/Navbar"; // Or user/Navbar if you're using that
 import Footer from "../components/common/Footer";

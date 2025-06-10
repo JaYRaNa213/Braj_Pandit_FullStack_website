@@ -1,5 +1,4 @@
-
-📂 Religious website backend Tree structure
+📂 Religious website Tree structure
 
 ├── .env
 ├── .gitignore
@@ -22,21 +21,23 @@
 │   │   └── payment.config.js
 │   ├── constant.js
 │   ├── controllers
-│   │   ├── auth.controller.js
-│   │   ├── blog.controller.js
-│   │   ├── booking.controller.js
-│   │   ├── email.controller.js
-│   │   ├── payment.controller.js
-│   │   ├── product.controller.js
-│   │   └── user.controller.js
+│   │   ├── admin.controller.js      
+│   │   ├── auth.controller.js       
+│   │   ├── blog.controller.js       
+│   │   ├── booking.controller.js    
+│   │   ├── email.controller.js      
+│   │   ├── pandit.controller.js     
+│   │   ├── payment.controller.js    
+│   │   ├── product.controller.js    
+│   │   └── user.controller.js       
 │   ├── docs
 │   ├── middleware
-│   │   ├── auth.middleware.js
+│   │   ├── auth.middleware.js       
 │   │   ├── error.middleware.js
-│   │   ├── multer.middleware.js
-│   │   ├── role.middleware.js
-│   │   ├── upload.middleware.js
-│   │   └── validate.middleware.js
+│   │   ├── multer.middleware.js     
+│   │   ├── role.middleware.js       
+│   │   ├── upload.middleware.js     
+│   │   └── validate.middleware.js   
 │   ├── models
 │   │   ├── blog.model.js
 │   │   ├── booking.model.js
@@ -45,26 +46,29 @@
 │   │   └── user.model.js
 │   ├── routes
 │   │   ├── admin
-│   │   │   ├── blog.routes.js
-│   │   │   └── product.routes.js
+│   │   │   ├── admin.routes.js      
+│   │   │   ├── blog.routes.js       
+│   │   │   ├── pandit.routes.js     
+│   │   │   └── product.routes.js    
 │   │   ├── index.routes.js
 │   │   ├── test.routes.js
 │   │   └── user
-│   │       ├── auth.routes.js
-│   │       ├── booking.routes.js
+│   │       ├── auth.routes.js       
+│   │       ├── blog.routes.js
+│   │       ├── booking.routes.js    
 │   │       ├── cart.js
-│   │       ├── email.routes.js
-│   │       ├── payment.routes.js
-│   │       └── user.routes.js
+│   │       ├── email.routes.js      
+│   │       ├── payment.routes.js    
+│   │       └── user.routes.js       
 │   ├── scripts
 │   ├── server.js
 │   ├── services
 │   │   ├── auth.service.js
 │   │   ├── blog.service.js
-│   │   ├── booking.service.js
+│   │   ├── booking.service.js       
 │   │   ├── email.service.js
 │   │   ├── payment.service.js
-│   │   └── product.service.js
+│   │   └── product.service.js       
 │   ├── tests
 │   ├── uploads
 │   ├── utils

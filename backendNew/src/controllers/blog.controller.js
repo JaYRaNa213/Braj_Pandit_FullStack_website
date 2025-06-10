@@ -51,25 +51,34 @@ export const addBlog = async (req, res) => {
   }
 };
 
-// ✅ Update a blog
 export const updateBlog = async (req, res) => {
   try {
+    let updatedData = {
+      ...req.body,
+      updatedBy: req.user.id,
+    };
+
+    if (req.file) {
+      const cloudinaryResponse = await uploadOnCloudinary(req.file.path);
+      updatedData.imageUrl = cloudinaryResponse?.secure_url;
+    }
+
     const blog = await Blog.findByIdAndUpdate(
       req.params.id,
-      {
-        ...req.body,
-        updatedBy: req.user.id
-      },
+      updatedData,
       { new: true, runValidators: true }
     );
 
-    if (!blog) return res.status(404).json({ success: false, message: 'Blog not found' });
+    if (!blog) {
+      return res.status(404).json({ success: false, message: 'Blog not found' });
+    }
 
     res.status(200).json({ success: true, message: 'Blog updated successfully', data: blog });
   } catch (error) {
     res.status(400).json({ success: false, message: 'Error updating blog', error: error.message });
   }
 };
+
 
 // ✅ Delete a blog
 export const deleteBlog = async (req, res) => {

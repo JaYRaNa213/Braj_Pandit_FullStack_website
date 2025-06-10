@@ -1,3 +1,5 @@
+// src/pages/auth/Login.jsx
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
@@ -14,11 +16,20 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('/auth/login', form);
+      const res = await axios.post("/auth/login", form);
 
-      localStorage.setItem("token", res.data.token);
-      setUser(res.data.user);
-      navigate("/dashboard");
+      const { token, user } = res.data;
+
+      localStorage.setItem("token", token);
+      setUser(user);
+
+      // 🚀 Redirect based on role
+      if (user.role === "admin") {
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/user/dashboard");
+      }
+
     } catch (err) {
       alert("Login failed.");
       console.error(err);
