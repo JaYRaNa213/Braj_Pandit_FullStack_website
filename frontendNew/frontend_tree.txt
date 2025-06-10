@@ -1,4 +1,4 @@
-📂 Religious Website Frontend Tree Structure
+ Generating Religious Website Frontend Tree Structure...
 
 ├── .env
 ├── .gitignore
@@ -10,12 +10,50 @@
 ├── postcss.config.js
 ├── public
 │   ├── images
+│   │   ├── articals
+│   │   │   ├── 1.jpg
+│   │   │   ├── 2.jpg
+│   │   │   └── 3.jpg
+│   │   ├── bhagwat.jpg
+│   │   ├── bihariG.jpg
 │   │   ├── bussiness.jpg
+│   │   ├── chaitra-navratri.jpg
+│   │   ├── diwali.jpg
+│   │   ├── images.jpg
+│   │   ├── live
+│   │   │   ├── anirudh.jpg
+│   │   │   ├── Premanand-Ji-Maharaj.jpg       
+│   │   │   └── radha-raman-ji-murthi.jpeg     
+│   │   ├── mahashivaratri.jpg
+│   │   ├── marriage.jpg
 │   │   ├── money.jpg
+│   │   ├── office.jpg
+│   │   ├── pandits
+│   │   │   ├── pandit1.jpg
+│   │   │   ├── pandit2.jpg
+│   │   │   ├── pandit3.jpg
+│   │   │   └── pandit4.jpg
+│   │   ├── pank.jpg
+│   │   ├── Premanand-Ji-Maharaj.jpg
+│   │   ├── premMandir.jpg
+│   │   ├── products
+│   │   │   ├── diwaliPujan.jpg
+│   │   │   ├── gita.jpg
+│   │   │   ├── jhula.jpg
+│   │   │   ├── k2.jpg
+│   │   │   ├── laddu.jpg
+│   │   │   ├── premImage.jpg
+│   │   │   ├── rK.jpg
+│   │   │   ├── tulashi.jpg
+│   │   │   └── vstra.jpg
 │   │   ├── rudraksha.jpg
+│   │   ├── shiv.jpg
+│   │   ├── shiv1.jpg
+│   │   ├── shiv2.jpg
 │   │   ├── study.jpg
 │   │   ├── tantra.png
 │   │   ├── wealth.png
+│   │   ├── yamuna.jpg
 │   │   └── zodiac.png
 │   └── vite.svg
 ├── README.md
@@ -28,8 +66,7 @@
 │   │   ├── common
 │   │   │   ├── Footer.jsx
 │   │   │   ├── Loader.jsx
-│   │   │   ├── Navbar.jsx
-│   │   │   └── ProtectedRoute.jsx
+│   │   │   └── Navbar.jsx
 │   │   ├── shared
 │   │   │   └── Button.jsx
 │   │   └── user
@@ -48,6 +85,7 @@
 │   ├── index.css
 │   ├── layouts
 │   │   ├── AdminLayout.jsx
+│   │   ├── MainLayout.jsx
 │   │   └── UserLayout.jsx
 │   ├── main.jsx
 │   ├── pages
@@ -73,10 +111,12 @@
 │   │       ├── Products.jsx
 │   │       ├── PujaBooking.jsx
 │   │       ├── Register.jsx
+│   │       ├── UserDashboard.jsx
 │   │       └── UserProfile.jsx
 │   ├── routes
 │   │   ├── AdminRoutes.jsx
 │   │   ├── AppRoutes.jsx
+│   │   ├── ProtectedRoute.jsx
 │   │   └── UserRoutes.jsx
 │   ├── services
 │   │   ├── adminService.js
@@ -90,3 +130,5 @@
 ├── tailwind.config.js
 ├── tree.js
 └── vite.config.js
+
+✅ Tree generation complete!

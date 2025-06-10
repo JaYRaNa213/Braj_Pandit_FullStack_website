@@ -7,7 +7,7 @@ const AddLiveVideo = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:7000/api/v1/videos", {
+    fetch("http://localhost:7000/api/videos", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ link: videoLink }),

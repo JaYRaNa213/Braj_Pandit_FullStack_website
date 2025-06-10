@@ -1,14 +1,16 @@
 // src/components/user/Layout.jsx
 import React from "react";
-import UserNavbar from "./Navbar";
-import UserFooter from "./Footer";
+import Navbar from "../common/Navbar";
+import Footer from "../common/Footer";
 
-export default function Layout({ children }) {
+const Layout = ({ children }) => {
   return (
-    <div className="min-h-screen flex flex-col">
-      <UserNavbar />
-      <main className="flex-grow container mx-auto px-4 py-6">{children}</main>
-      <UserFooter />
-    </div>
+    <>
+      <Navbar />
+      <main className="min-h-[80vh]">{children}</main>
+      <Footer />
+    </>
   );
-}
+};
+
+export default Layout;

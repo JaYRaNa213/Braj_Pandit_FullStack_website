@@ -28,7 +28,7 @@ function AddProduct() {
     // Send product info along with the uploaded image URL to backend API
     const productData = { name: productName, price, imageUrl: uploadedUrl };
 
-    fetch("http://localhost:7000/api/v1/products", {
+    fetch("http://localhost:7000/api/products", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

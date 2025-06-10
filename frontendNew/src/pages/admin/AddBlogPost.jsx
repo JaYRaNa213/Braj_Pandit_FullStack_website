@@ -27,7 +27,7 @@ function AddBlogPost() {
 
     const blogData = { title, content, imageUrl: uploadedUrl };
 
-    fetch("http://localhost:7000/api/v1/blogs", {
+    fetch("http://localhost:7000/api/blogs", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

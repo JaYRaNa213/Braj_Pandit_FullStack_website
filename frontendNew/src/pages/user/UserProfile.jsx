@@ -29,7 +29,7 @@ function UserProfile() {
     // Send user data (name, email, and uploaded image URL) to backend
     const userProfileData = { name, email, profileImage: uploadedUrl };
 
-    fetch("http://localhost:7000/api/v1/users/profile", {
+    fetch("http://localhost:7000/api/users/profile", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

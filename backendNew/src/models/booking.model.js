@@ -7,22 +7,27 @@ const bookingSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: true,
+    // required: true,
   },
-  // Booking time
-  time: {
-    type: String,
-    required: true,
-  },
-  // Reference to the pandit or service booked
+  // Service booked (e.g., Puja, Havan, etc.)
   service: {
     type: String,
-    required: true,
+    // required: true,
   },
   // Date of the booking
   date: {
     type: Date,
-    required: true,
+    // required: true,
+  },
+  // Time of the booking
+  time: {
+    type: String,
+    // required: true,
+  },
+  // Pandit selected for the booking
+  pandit: {
+    type: String,
+    // required: true,
   },
   // Status of the booking (default is 'pending')
   status: {
@@ -30,10 +35,12 @@ const bookingSchema = new mongoose.Schema({
     enum: ['pending', 'confirmed', 'cancelled'],
     default: 'pending',
   },
-  // Additional details for the booking
+  // Additional information or notes
   additionalInfo: {
     type: String,
   },
+}, {
+  timestamps: true, // Optional: adds createdAt and updatedAt
 });
 
 // Create and export the Booking model

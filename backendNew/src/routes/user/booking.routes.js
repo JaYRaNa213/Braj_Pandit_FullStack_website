@@ -5,6 +5,7 @@ import {
   getUserBookings,
   getSingleBooking,
   updateBooking,
+  updateBookingStatus,  // <-- Add this import
   deleteBooking,
 } from '../../controllers/booking.controller.js';
 import { authMiddleware } from '../../middleware/auth.middleware.js';
@@ -12,7 +13,10 @@ import { authorizeRoles } from '../../middleware/role.middleware.js';
 
 const router = express.Router();
 
-// User-only: Create booking
+// Puja Booking (alias)
+router.post('/puja', authMiddleware, authorizeRoles('user'), createBooking);
+
+// Default Create Booking
 router.post('/', authMiddleware, authorizeRoles('user'), createBooking);
 
 // Admin: Get all bookings
@@ -29,5 +33,8 @@ router.put('/:id', authMiddleware, authorizeRoles('admin'), updateBooking);
 
 // Admin: Delete booking
 router.delete('/:id', authMiddleware, authorizeRoles('admin'), deleteBooking);
+
+// **NEW** Admin: Update only booking status
+router.patch('/:id/status', authMiddleware, authorizeRoles('admin'), updateBookingStatus);
 
 export default router;

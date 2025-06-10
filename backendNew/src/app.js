@@ -1,5 +1,4 @@
 // src/app.js
-
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
@@ -8,7 +7,14 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-// Route imports - updated paths based on your tree
+// Load environment variables
+dotenv.config();
+
+// Fix for __dirname in ES module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Route imports
 import authRoutes from './routes/user/auth.routes.js';
 import bookingRoutes from './routes/user/booking.routes.js';
 import productRoutes from './routes/admin/product.routes.js';
@@ -17,35 +23,27 @@ import paymentRoutes from './routes/user/payment.routes.js';
 import emailRoutes from './routes/user/email.routes.js';
 import testRoutes from './routes/test.routes.js';
 
-// Error handling middlewares
+// Error middleware
 import { notFound, errorHandler } from './middleware/error.middleware.js';
 
-// Load env variables
-dotenv.config();
-
-// ES modules __dirname fix
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Initialize express app
+// Express app instance
 const app = express();
 
-// Middleware
+// Global middlewares
 app.use(express.json({ limit: '16kb' }));
 app.use(express.urlencoded({ extended: true, limit: '16kb' }));
-
-app.use(
-  cors({
-    origin: process.env.CORS_ORIGIN,
-    credentials: true,
-  })
-);
-
-app.use(morgan('dev'));
-app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
+app.use(morgan('dev'));
 
-// API routes
+app.use(cors({
+  origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+  credentials: true,
+}));
+
+// Static files
+app.use(express.static(path.join(__dirname, 'public')));
+
+// API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/products', productRoutes);
@@ -54,15 +52,13 @@ app.use('/api/payments', paymentRoutes);
 app.use('/api/emails', emailRoutes);
 app.use('/api/test', testRoutes);
 
-// Home route
+// Health check route
 app.get('/', (req, res) => {
-  res.send('Welcome to the Religious Website API!');
+  res.send('🌸 Welcome to the Vrinda Religious Website API 🌸');
 });
 
-// 404 handler
+// 404 and error handler
 app.use(notFound);
-
-// Global error handler
 app.use(errorHandler);
 
 export default app;

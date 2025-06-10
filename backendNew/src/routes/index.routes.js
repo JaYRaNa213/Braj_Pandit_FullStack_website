@@ -1,3 +1,5 @@
+// Main router for the application
+// routes/index.routes.js
 // Import required modules
 import express from 'express';
 import authRoutes from './user/auth.routes.js';

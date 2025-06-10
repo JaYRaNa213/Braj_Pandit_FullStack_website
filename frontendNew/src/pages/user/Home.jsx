@@ -1,6 +1,68 @@
 
 
 import React, { useEffect, useState } from "react";
+const pandits = [
+  {
+    name: 'Acharya virendra Sharma',
+    expertise: 'Vedic Astrology',
+    experience: '35+ years',
+    location: 'Vrindavan',
+    img: '/images/pandits/pandit2.jpg',
+  },
+  {
+    name: 'Acharya pawan Sharma',
+    expertise: 'Vedic Astrology',
+    experience: '35+ years',
+    location: 'Vrindavan',
+    img: '/images/pandits/pandit3.jpg',
+  },
+  {
+    name: 'Acharya lalit Sharma',
+    expertise: 'Vedic Astrology',
+    experience: '35+ years',
+    location: 'Vrindavan',
+    img: '/images/pandits/pandit4.jpg',
+  },
+  {
+    name: ' jay thakur ',
+    expertise: 'Pooja Vidhi',
+    experience: '30+ years',
+    location: 'Mathura',
+    img: '/images/pandits/pandit1.jpg',
+  },
+  {
+    name: 'Swami Pawan Das',
+    expertise: 'Bhagwat Katha',
+    experience: '40+ years',
+    location: 'Varanasi',
+    img: '/images/pandits/pandit2.jpg',
+  },
+  {
+    name: 'Pt. Mohan Nath',
+    expertise: 'Pitra Dosh Nivaran',
+    experience: '28+ years',
+    location: 'Haridwar',
+    img: '/images/pandits/pandit1.jpg',
+  },
+  {
+    name: 'Pt. Nandlal Tripathi',
+    expertise: 'Mahamrityunjay Pooja',
+    experience: '32+ years',
+    location: 'Prayagraj',
+    img: '/images/pandits/pandit3.jpg',
+  },
+  {
+    name: 'Pt. Hariram Joshi',
+    expertise: 'Navgrah Shanti',
+    experience: '36+ years',
+    location: 'Ayodhya',
+    img: '/images/pandits/pandit4.jpg',
+  },
+];
+
+
+
+
 
 const blogs = [
   {
@@ -98,6 +160,60 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Live Bhajan Section */}
+
+      
+      <section className="py-16 bg-gradient-to-b from-white via-red-50 to-white" style={{ backgroundImage: "url('/images/bg-bhajan.jpg')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
+  <div className="container mx-auto px-4 text-center">
+    <h2 className="text-4xl font-bold text-red-600 mb-12">Live Bhajan & Kirtan</h2>
+
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {/* Card 1 */}
+      <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition">
+        <img src="/images/live/Premanand-Ji-Maharaj.jpg" alt="Krishna Bhajan" className="w-full h-56 object-cover" />
+        <div className="p-6">
+          <h3 className="text-2xl font-semibold mb-2">Shree Krishna Radha Bhajan</h3>
+          <p className="text-gray-600 mb-4">
+            Immerse in soulful melodies dedicated to Lord Krishna – celebrating love, leela, and devotion from Vrindavan.
+          </p>
+          <button className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-full">
+            🔴 Live Now
+          </button>
+        </div>
+      </div>
+
+      {/* Card 2 */}
+      <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition">
+        <img src="/images/live/radha-raman-ji-murthi.jpeg" alt="Ram Bhajan" className="w-full h-56 object-cover" />
+        <div className="p-6">
+          <h3 className="text-2xl font-semibold mb-2">Shree Radha Raman Kirtan</h3>
+          <p className="text-gray-600 mb-4">
+            Devotional kirtan glorifying Lord Ram’s righteousness, strength, and dharma. Chant with divine energy and calm.
+          </p>
+          <button className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-full">
+            🔴 Live Now
+          </button>
+        </div>
+      </div>
+
+      {/* Card 3 */}
+      <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition">
+        <img src="/images/live/anirudh.jpg" alt="Durga Bhajan" className="w-full h-56 object-cover" />
+        <div className="p-6">
+          <h3 className="text-2xl font-semibold mb-2">Bhagwat Katha BY Anirudha Charya Jee</h3>
+          <p className="text-gray-600 mb-4">
+            Powerful bhajans praising Maa Durga’s strength and grace – invoking protection, shakti, and inner peace.
+          </p>
+          <button className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-full">
+            🔴 Live Now
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 
 
       {/* Learn More & Contact */}
@@ -122,79 +238,151 @@ const Home = () => {
       <section className="py-16 bg-gradient-to-b from-red-50 via-yellow-50 to-white">
   <div className="container mx-auto px-4">
     <h2 className="text-4xl font-bold text-center text-red-600 mb-12">
-      Featured Religious <span className="text-yellow-600">Books</span>
+      Featured Religious <span className="text-yellow-600">Products </span>
     </h2>
 
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
       {/* Product Card 1 */}
+      <div className="bg-white rounded-xl shadow-md hover:shadow-2xl transition overflow-hidden">
+        <img src="/images/products/diwaliPujan.jpg" alt="Bhagavad Gita" className="w-full h-56 object-cover" />
+        <div className="p-4">
+          <h3 className="text-xl font-semibold mb-2">Diwali Poojan Samagri</h3>
+          <p className="text-gray-600 mb-2">Diwali Poojan Samagri Including Most of the Products </p>
+          <p className="text-lg font-bold text-red-500 mb-4">₹599</p>
+          <div className="flex gap-2">
+            <button className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-white py-2 px-4 rounded-lg">
+              Add to Cart
+            </button>
+            <button className="flex-1 bg-red-500 hover:bg-red-600 text-black py-2 px-4 rounded-lg">
+              Buy Now
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Product Card 2*/}
       <div className="bg-white rounded-xl shadow-md hover:shadow-2xl transition overflow-hidden">
         <img src="/images/products/gita.jpg" alt="Bhagavad Gita" className="w-full h-56 object-cover" />
         <div className="p-4">
           <h3 className="text-xl font-semibold mb-2">Shrimad Bhagavad Gita</h3>
           <p className="text-gray-600 mb-2">Sacred dialogue between Lord Krishna and Arjuna.</p>
-          <p className="text-lg font-bold text-red-500 mb-4">₹199</p>
+          <p className="text-lg font-bold text-red-500 mb-4">₹499</p>
           <div className="flex gap-2">
-            <button className="flex-1 bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg">
+            <button className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-white py-2 px-4 rounded-lg">
               Add to Cart
             </button>
-            <button className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-black py-2 px-4 rounded-lg">
-              Compare
+            <button className="flex-1 bg-red-500 hover:bg-red-600 text-black py-2 px-4 rounded-lg">
+              Buy Now
             </button>
           </div>
         </div>
       </div>
-
-
-
-      {/* Product Card 2 */}
-      <div className="bg-white rounded-xl shadow-md hover:shadow-2xl transition overflow-hidden">
-        <img src="/images/products/gita.jpg" alt="Satlok Gyan" className="w-full h-56 object-cover" />
-        <div className="p-4">
-          <h3 className="text-xl font-semibold mb-2">Satlok Gyan</h3>
-          <p className="text-gray-600 mb-2">Available in 20+ languages, exploring divine knowledge.</p>
-          <p className="text-lg font-bold text-red-500 mb-4">₹149</p>
-          <div className="flex gap-2">
-            <button className="flex-1 bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg">
-              Add to Cart
-            </button>
-            <button className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-black py-2 px-4 rounded-lg">
-              Compare
-            </button>
-          </div>
-        </div>
-      </div>
-
       {/* Product Card 3 */}
       <div className="bg-white rounded-xl shadow-md hover:shadow-2xl transition overflow-hidden">
-        <img src="/images/products/ved.jpg" alt="Ved Gyan" className="w-full h-56 object-cover" />
+        <img src="/images/products/jhula.jpg" alt="Bhagavad Gita" className="w-full h-56 object-cover" />
         <div className="p-4">
-          <h3 className="text-xl font-semibold mb-2">Ved Gyan</h3>
-          <p className="text-gray-600 mb-2">Ancient Vedic knowledge and spiritual teachings.</p>
-          <p className="text-lg font-bold text-red-500 mb-4">₹249</p>
+          <h3 className="text-xl font-semibold mb-2">Shree krishna Palna</h3>
+          <p className="text-gray-600 mb-2">Lokpriya Palna with Peacock style for Shree Krishna </p>
+          <p className="text-lg font-bold text-red-500 mb-4">₹399</p>
           <div className="flex gap-2">
-            <button className="flex-1 bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg">
+            <button className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-white py-2 px-4 rounded-lg">
               Add to Cart
             </button>
-            <button className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-black py-2 px-4 rounded-lg">
-              Compare
+            <button className="flex-1 bg-red-500 hover:bg-red-600 text-black py-2 px-4 rounded-lg">
+              Buy Now
+            </button>
+          </div>
+        </div>
+      </div>
+      {/* Product Card 4 */}
+      <div className="bg-white rounded-xl shadow-md hover:shadow-2xl transition overflow-hidden">
+        <img src="/images/products/premImage.jpg" alt="Bhagavad Gita" className="w-full h-56 object-cover" />
+        <div className="p-4">
+          <h3 className="text-xl font-semibold mb-2">Tasveer & Posters</h3>
+          <p className="text-gray-600 mb-2">Poster and Tasveer Of Premanand Jee Maharaj</p>
+          <p className="text-lg font-bold text-red-500 mb-4">₹199</p>
+          <div className="flex gap-2">
+            <button className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-white py-2 px-4 rounded-lg">
+              Add to Cart
+            </button>
+            <button className="flex-1 bg-red-500 hover:bg-red-600 text-black py-2 px-4 rounded-lg">
+              Buy Now
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      {/* Product Card 5 */}
+      <div className="bg-white rounded-xl shadow-md hover:shadow-2xl transition overflow-hidden">
+        <img src="/images/products/vstra.jpg" alt="Bhagavad Gita" className="w-full h-56 object-cover" />
+        <div className="p-4">
+          <h3 className="text-xl font-semibold mb-2">Vastra Of Laddu Gopal Jee</h3>
+          <p className="text-gray-600 mb-2">Vastra Of laddu Gopal Jee</p>
+          <p className="text-lg font-bold text-red-500 mb-4">₹50</p>
+          <div className="flex gap-2">
+            <button className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-white py-2 px-4 rounded-lg">
+              Add to Cart
+            </button>
+            <button className="flex-1 bg-red-500 hover:bg-red-600 text-black py-2 px-4 rounded-lg">
+              Buy Now
             </button>
           </div>
         </div>
       </div>
 
-      {/* Product Card 4 */}
+
+
+      {/* Product Card 6 */}
+
       <div className="bg-white rounded-xl shadow-md hover:shadow-2xl transition overflow-hidden">
-        <img src="/images/products/ramayan.jpg" alt="Ramayan" className="w-full h-56 object-cover" />
+        <img src="/images/products/k2.jpg" alt="Satlok Gyan" className="w-full h-56 object-cover" />
         <div className="p-4">
-          <h3 className="text-xl font-semibold mb-2">Ramayan</h3>
-          <p className="text-gray-600 mb-2">Sacred epic describing Lord Ram’s journey and values.</p>
-          <p className="text-lg font-bold text-red-500 mb-4">₹299</p>
+          <h3 className="text-xl font-semibold mb-2">PALNA</h3>
+          <p className="text-gray-600 mb-2">Shree Krishna was Also love to sit in Palna</p>
+          <p className="text-lg font-bold text-red-500 mb-4">₹149</p>
           <div className="flex gap-2">
-            <button className="flex-1 bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg">
+            <button className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-white py-2 px-4 rounded-lg">
               Add to Cart
             </button>
-            <button className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-black py-2 px-4 rounded-lg">
-              Compare
+            <button className="flex-1 bg-red-500 hover:bg-red-600 text-black py-2 px-4 rounded-lg">
+              Buy Now
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Product Card 7 */}
+      <div className="bg-white rounded-xl shadow-md hover:shadow-2xl transition overflow-hidden">
+        <img src="/images/products/laddu.jpg" alt="Ved Gyan" className="w-full h-56 object-cover" />
+        <div className="p-4">
+          <h3 className="text-xl font-semibold mb-2">Laddu Gopal Jee</h3>
+          <p className="text-gray-600 mb-2">Laddu Gopal Jee, it is the most Famous  </p>
+          <p className="text-lg font-bold text-red-500 mb-4">₹199</p>
+          <div className="flex gap-2">
+            <button className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-white py-2 px-4 rounded-lg">
+              Add to Cart
+            </button>
+            <button className="flex-1 bg-red-500 hover:bg-red-600 text-black py-2 px-4 rounded-lg">
+              Buy Now
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Product Card 8 */}
+      <div className="bg-white rounded-xl shadow-md hover:shadow-2xl transition overflow-hidden">
+        <img src="/images/products/tulashi.jpg" alt="Ramayan" className="w-full h-56 object-cover" />
+        <div className="p-4">
+          <h3 className="text-xl font-semibold mb-2">Tulshi Mala</h3>
+          <p className="text-gray-600 mb-2">Krishna also love Tulshi Mala  , It represent the divoties  </p>
+          <p className="text-lg font-bold text-red-500 mb-4">₹199</p>
+          <div className="flex gap-2">
+            <button className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-white py-2 px-4 rounded-lg">
+              Add to Cart
+            </button>
+            <button className="flex-1 bg-red-500 hover:bg-red-600 text-black py-2 px-4 rounded-lg">
+              Buy Now
             </button>
           </div>
         </div>
@@ -203,6 +391,17 @@ const Home = () => {
   </div>
 </section>
 
+ {/* view more  products  */}
+
+      <header className="text-center my-2">
+        <div className="space-x-4 mb-10">
+          <button className="px-6 py-2 border-2 border-red-600 rounded-full text-red-600 hover:bg-red-50 transition">
+            View More
+          </button>
+        </div>
+        
+      </header>
+
 
 
 
@@ -210,14 +409,18 @@ const Home = () => {
 
       {/* Service Logos */}
 
-
+{/* 
       <section className="w-full max-w-5xl mb-16 mx-auto">
         <div className="flex flex-wrap justify-center gap-6">
           {["rudraksha.jpg", "tantra.png", "zodiac.png", "study.jpg", "wealth.png", "money.jpg", "bussiness.jpg"].map((img, idx) => (
             <img key={idx} src={`/images/${img}`} alt={`service-${idx}`} className="h-20 w-20 object-contain" />
           ))}
         </div>
-      </section>
+      </section> */}
+
+
+
+
 
       {/* Pooja Services */}
       <section className="w-full max-w-6xl mb-16 mx-auto">
@@ -371,56 +574,59 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Live Bhajan Section */}
-      <section className="py-16 bg-gradient-to-b from-white via-red-50 to-white" style={{ backgroundImage: "url('/images/bg-bhajan.jpg')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
-  <div className="container mx-auto px-4 text-center">
-    <h2 className="text-4xl font-bold text-red-600 mb-12">Live Bhajan & Kirtan</h2>
 
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-      {/* Card 1 */}
-      <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition">
-        <img src="/images/live/Premanand-Ji-Maharaj.jpg" alt="Krishna Bhajan" className="w-full h-56 object-cover" />
-        <div className="p-6">
-          <h3 className="text-2xl font-semibold mb-2">Shree Krishna Radha Bhajan</h3>
-          <p className="text-gray-600 mb-4">
-            Immerse in soulful melodies dedicated to Lord Krishna – celebrating love, leela, and devotion from Vrindavan.
+
+
+      
+
+
+
+{/* Our PanditJis Section */}
+
+
+
+<section className="bg-white px-4 md:px-16 py-16">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8 items-start">
+        {/* Left Side */}
+        <div className="md:w-1/2 space-y-6">
+          <h2 className="text-4xl font-bold text-[#4A1C1C]">
+            Our <span className="text-red-600">Verified</span> PanditJi
+          </h2>
+          <p className="text-gray-700 text-lg">
+            Book highly knowledgeable Vedic Pandits and Purohits, well-versed
+            in Sanskrit mantras, Hindu scriptures, and astrology. Ensuring a
+            spiritually enriching and traditionally accurate ritual experience.
           </p>
-          <button className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-full">
-            🔴 Live Now
+          <button className="mt-4 bg-transparent border-2 border-[#4A1C1C] text-[#4A1C1C] font-semibold px-6 py-2 rounded-full hover:bg-[#4A1C1C] hover:text-white transition">
+            See All PanditJis
           </button>
         </div>
-      </div>
 
-      {/* Card 2 */}
-      <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition">
-        <img src="/images/live/radha-raman-ji-murthi.jpeg" alt="Ram Bhajan" className="w-full h-56 object-cover" />
-        <div className="p-6">
-          <h3 className="text-2xl font-semibold mb-2">Shree Radha Raman Kirtan</h3>
-          <p className="text-gray-600 mb-4">
-            Devotional kirtan glorifying Lord Ram’s righteousness, strength, and dharma. Chant with divine energy and calm.
-          </p>
-          <button className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-full">
-            🔴 Live Now
-          </button>
+        {/* Right Side - Grid */}
+        <div className="md:w-1/2 grid grid-cols-4 gap-2">
+          {pandits.map((pandit, index) => (
+            <div
+              key={index}
+              className="bg-[#F9F3F1] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition w-[140px]"
+            >
+              <img
+                src={pandit.img}
+                alt={pandit.name}
+                className="w-full h-[120px] object-cover"
+              />
+              <div className="p-2 text-[#4A1C1C]">
+                <h3 className="text-sm font-semibold">{pandit.name}</h3>
+                <p className="text-xs">{pandit.expertise}</p>
+                <div className="text-[10px] flex justify-between mt-1 text-gray-700">
+                  <span>{pandit.experience}</span>
+                  <span>{pandit.location}</span>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-
-      {/* Card 3 */}
-      <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition">
-        <img src="/images/live/anirudh.jpg" alt="Durga Bhajan" className="w-full h-56 object-cover" />
-        <div className="p-6">
-          <h3 className="text-2xl font-semibold mb-2">Bhagwat Katha BY Anirudha Charya Jee</h3>
-          <p className="text-gray-600 mb-4">
-            Powerful bhajans praising Maa Durga’s strength and grace – invoking protection, shakti, and inner peace.
-          </p>
-          <button className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-full">
-            🔴 Live Now
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
     </div>
   );

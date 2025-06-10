@@ -6,6 +6,11 @@ import {
   getUserProfile,
 } from '../services/auth.service.js';
 
+import User from '../models/user.model.js';
+import bcrypt from 'bcryptjs'; // ✅ Add this
+import generateToken from '../utils/generateToken.js';
+
+
 // ========================
 // ✅ Register Controller
 // ========================
@@ -31,23 +36,38 @@ export const register = async (req, res) => {
 // ========================
 // ✅ Login Controller
 // ========================
-export const login = async (req, res) => {
-  try {
-    const { email, password, role } = req.body;
-    const { token, refreshToken, userId } = await loginUser(email, password, role);
+// export const login = async (req, res) => {
+//   try {
+//     const { email, password, role } = req.body;
+//     const { token, refreshToken, userId } = await loginUser(email, password, role);
 
-    res.status(200).json({
-      success: true,
-      message: 'Login successful',
-      token,
-      refreshToken,
-      role,
-      userId,
-    });
-  } catch (error) {
-    res.status(401).json({ success: false, message: error.message });
-  }
+//     res.status(200).json({
+//       success: true,
+//       message: 'Login successful',
+//       token,
+//       refreshToken,
+//       role,
+//       userId,
+//     });
+//   } catch (error) {
+//     res.status(401).json({ success: false, message: error.message });
+//   }
+// };
+
+export const login = async (req, res) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
+  if (!user) return res.status(401).json({ message: "Invalid email or password" });
+
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) return res.status(401).json({ message: "Invalid email or password" });
+
+  // Generate token or session
+  const token = generateToken(user._id);
+  res.cookie('token', token, { httpOnly: true });
+  res.json({ token, user });
 };
+
 
 // ========================
 // ✅ Logout Controller

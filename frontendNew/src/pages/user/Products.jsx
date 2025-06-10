@@ -1,17 +1,7 @@
-// export default function Products() {
-//   return (
-//     <div className="p-6">
-//       <h2 className="text-xl font-bold">Our Products</h2>
-//       <p>All religious products will be shown here.</p>
-//     </div>
-//   );
-// }
-
-
 import { useEffect, useState } from "react";
 import { getProducts } from "../../services/api";
 
-export default function Products() {
+const Products = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -44,4 +34,6 @@ export default function Products() {
       )}
     </div>
   );
-}
+};
+
+export default Products;
