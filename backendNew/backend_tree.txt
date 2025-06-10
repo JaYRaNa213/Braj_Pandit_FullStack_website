@@ -1,5 +1,5 @@
 
-📂 Religious website Tree structure
+📂 Religious website backend Tree structure
 
 ├── .env
 ├── .gitignore

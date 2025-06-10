@@ -6,6 +6,7 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import indexRoutes from './routes/index.routes.js';
 
 // Load environment variables
 dotenv.config();
@@ -22,6 +23,9 @@ import blogRoutes from './routes/admin/blog.routes.js';
 import paymentRoutes from './routes/user/payment.routes.js';
 import emailRoutes from './routes/user/email.routes.js';
 import testRoutes from './routes/test.routes.js';
+
+import userblogRoutes from './routes/user/blog.routes.js';
+import adminblogRoutes from './routes/admin/blog.routes.js';
 
 // Error middleware
 import { notFound, errorHandler } from './middleware/error.middleware.js';
@@ -45,9 +49,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // API Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/bookings', bookingRoutes);
+
+app.use('/api/booking', bookingRoutes);
+
 app.use('/api/products', productRoutes);
-app.use('/api/blogs', blogRoutes);
+
+
+app.use('/api/user/blogs', userblogRoutes);
+app.use('/api/admin/blogs', adminblogRoutes);
+
 app.use('/api/payments', paymentRoutes);
 app.use('/api/emails', emailRoutes);
 app.use('/api/test', testRoutes);

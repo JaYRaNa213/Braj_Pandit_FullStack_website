@@ -15,7 +15,7 @@ const IGNORE_FOLDERS = ['node_modules', '.git', '.next', 'dist', '.cache', '.ide
 // const OUTPUT_FILE = './directory_tree.txt';
 
 // Initialize content for writing
-let treeOutput = '📂 Religious website Tree structure\n\n';
+let treeOutput = '📂 Religious website backend Tree structure\n\n';
 
 // Function to print directory tree
 function printTree(dirPath, prefix = '', depth = 0) {
