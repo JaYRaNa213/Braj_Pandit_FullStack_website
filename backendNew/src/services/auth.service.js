@@ -1,4 +1,4 @@
-// src/services/auth.service.js
+// backendNew/src/services/auth.service.js
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import User from '../models/user.model.js';

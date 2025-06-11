@@ -1,20 +1,17 @@
-// frontendNew/src/services/axios.js
-// services/ axios.js
+// src/services/axios.js
+import axios from 'axios';
 
-import axios from "axios";
-
-const axiosInstance = axios.create({
-  baseURL: "http://localhost:7000/api",
+const instance = axios.create({
+  baseURL: 'http://localhost:7000/api',
   withCredentials: true,
 });
 
-// Attach token to every request if available
-axiosInstance.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
+instance.interceptors.request.use((config) => {
+  const token = localStorage.getItem('accessToken');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
 });
 
-export default axiosInstance;
+export default instance;

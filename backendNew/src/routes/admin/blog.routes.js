@@ -1,21 +1,18 @@
-// admin/// blog.routes.js
-
+// src/routes/admin/blog.routes.js
 import express from 'express';
-import { addBlog, updateBlog, deleteBlog } from '../../controllers/blog.controller.js';
-import { isAuthenticated } from '../../middleware/auth.middleware.js';
-import { authorizeRoles } from '../../middleware/role.middleware.js';
-import { uploadSingle } from '../../middleware/upload.middleware.js';
+import {
+  addBlog,
+  updateBlog,
+  deleteBlog,
+} from '../../controllers/blog.controller.js';
+import { verifyToken, authorizeRoles } from '../../middleware/auth.middleware.js';
+import upload from '../../middleware/multer.middleware.js';
 
 const router = express.Router();
 
-// Admin: Add a new blog with image upload
-router.post('/', isAuthenticated, authorizeRoles('admin'), uploadSingle('image'), addBlog);
-
-// Admin: Update a blog by ID
-router.put('/:id', isAuthenticated, authorizeRoles('admin'), uploadSingle('image'), updateBlog);
-
-
-// Admin: Delete a blog by ID
-router.delete('/:id', isAuthenticated, authorizeRoles('admin'), deleteBlog);
+// 🛡️ Admin Blog Routes
+router.post('/blogs', verifyToken, authorizeRoles('admin'), upload.single('image'), addBlog);
+router.put('/blogs/:id', verifyToken, authorizeRoles('admin'), upload.single('image'), updateBlog);
+router.delete('/blogs/:id', verifyToken, authorizeRoles('admin'), deleteBlog);
 
 export default router;

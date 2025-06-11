@@ -1,6 +1,6 @@
 import express from 'express';
 import { register, login, logout, getProfile, getUsers } from '../../controllers/auth.controller.js';
-import { authMiddleware } from '../../middleware/auth.middleware.js';
+import { verifyToken } from '../../middleware/auth.middleware.js'; // ✅ use verifyToken instead
 
 const router = express.Router();
 
@@ -8,9 +8,7 @@ const router = express.Router();
 router.post('/register', register);
 router.post('/login', login);
 router.post('/logout', logout);
-router.get('/profile', authMiddleware, getProfile);
-
-// ✅ New Route for Get All Users
-router.get('/users', authMiddleware, getUsers);
+router.get('/profile', verifyToken, getProfile); // ✅ replaced
+router.get('/users', verifyToken, getUsers);     // ✅ replaced
 
 export default router;

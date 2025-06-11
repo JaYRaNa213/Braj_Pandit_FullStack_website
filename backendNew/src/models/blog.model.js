@@ -10,11 +10,11 @@ const blogSchema = new mongoose.Schema({
     enum: ['Puja', 'Festival', 'Aarti', 'Religious Books'],
     required: true
   },
-  imageUrl: { type: String, required: true },
+  imageUrl: { type: String},
   publishedAt: { type: Date, default: Date.now },
   Comments: [{
-    user: { type: String, required: true },
-    comment: { type: String, required: true },
+    user: { type: String },
+    comment: { type: String},
     createdAt: { type: Date, default: Date.now }
   }],
   createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },

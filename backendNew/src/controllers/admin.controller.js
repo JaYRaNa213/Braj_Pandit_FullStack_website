@@ -1,9 +1,18 @@
 import Booking from '../models/booking.model.js';
 
-// GET /api/admin/puja-bookings?search=abc&page=1&limit=10&sort=date
 export const getPujaBookings = async (req, res) => {
   try {
-    const { page = 1, limit = 10, search = '', sort = 'date' } = req.query;
+    const {
+      page = 1,
+      limit = 10,
+      search = '',
+      sort = 'date',
+      order = 'asc',
+    } = req.query;
+
+    const currentPage = Math.max(Number(page), 1);
+    const perPage = Math.max(Number(limit), 1);
+    const sortOrder = order === 'desc' ? -1 : 1;
 
     const searchFilter = search
       ? {
@@ -17,15 +26,17 @@ export const getPujaBookings = async (req, res) => {
     const total = await Booking.countDocuments(searchFilter);
 
     const bookings = await Booking.find(searchFilter)
-      .sort({ [sort]: 1 }) // Use -1 if descending is needed
-      .skip((page - 1) * limit)
-      .limit(Number(limit));
+      .sort({ [sort]: sortOrder }) // asc/desc handled
+      .skip((currentPage - 1) * perPage)
+      .limit(perPage);
 
     res.status(200).json({
       success: true,
+      message: 'Puja bookings fetched successfully',
       total,
-      page: Number(page),
-      limit: Number(limit),
+      totalPages: Math.ceil(total / perPage),
+      page: currentPage,
+      limit: perPage,
       data: bookings,
     });
   } catch (err) {

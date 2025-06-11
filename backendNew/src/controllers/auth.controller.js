@@ -1,3 +1,4 @@
+// src/controllers/auth.controller.js
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -12,9 +13,7 @@ import User from '../models/user.model.js';
 import bcrypt from 'bcryptjs';
 import generateToken from '../utils/generateToken.js';
 
-// ========================
-// ✅ Register Controller
-// ========================
+// ✅ Register
 export const register = async (req, res) => {
   try {
     const user = await registerUser(req.body);
@@ -34,60 +33,55 @@ export const register = async (req, res) => {
   }
 };
 
-// ========================
-// ✅ Login Controller (with fixed admin support)
-// ========================
+// ✅ Login (Fixed Admin + Users)
 export const login = async (req, res) => {
   const { email, password } = req.body;
 
-  // 1️⃣ Fixed Admin Login
-  if (
-    email === process.env.ADMIN_EMAIL &&
-    password === process.env.ADMIN_PASSWORD
-  ) {
-    const adminUser = {
-      _id: 'admin-fixed-id',
-      email,
-      name: 'Admin',
-      role: 'admin',
-    };
-    const token = generateToken(adminUser._id, 'admin');
-    return res.status(200).json({ token, user: adminUser });
+  // Fixed Admin Login
+  if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
+    const token = generateToken('admin-fixed-id', 'admin');
+    return res.status(200).json({
+      token,
+      user: {
+        _id: 'admin-fixed-id',
+        email,
+        name: 'Admin',
+        role: 'admin',
+      },
+    });
   }
 
-  // 2️⃣ Normal User Login
+  // Normal User Login
   const user = await User.findOne({ email });
   if (!user) return res.status(401).json({ message: 'Invalid email or password' });
 
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) return res.status(401).json({ message: 'Invalid email or password' });
 
-  const token = generateToken(user._id, user.role || 'user');
+  const token = generateToken(user._id, user.role);
   res.cookie('token', token, { httpOnly: true });
+
   res.status(200).json({
     token,
     user: {
       _id: user._id,
       email: user.email,
       name: user.name,
-      role: user.role || 'user',
+      role: user.role,
     },
   });
 };
 
-// ========================
-// ✅ Logout Controller
-// ========================
+// ✅ Logout
 export const logout = async (req, res) => {
+  res.clearCookie('token');
   res.status(200).json({
     success: true,
     message: await logoutUser(),
   });
 };
 
-// ========================
-// ✅ Get User Profile Controller
-// ========================
+// ✅ Profile
 export const getProfile = async (req, res) => {
   try {
     const userId = req.user.id;
@@ -103,9 +97,7 @@ export const getProfile = async (req, res) => {
   }
 };
 
-// ========================
-// ✅ Get All Users Controller
-// ========================
+// ✅ Get All Users
 export const getUsers = async (req, res) => {
   try {
     const users = await getAllUsers();
