@@ -29,7 +29,9 @@ router.get('/puja-bookings', getPujaBookings);
 router.put('/puja-bookings/:id', updatePujaBookingStatus);
 
 // ✅ Blog Management
-router.post('/blogs', upload.single('image'), createBlog);
+router.post('/blogs', verifyToken,isAdmin,upload.single('image'), addBlog);
+
+
 router.put('/blogs/:id', upload.single('image'), updateBlog);
 router.delete('/blogs/:id', deleteBlog);
 

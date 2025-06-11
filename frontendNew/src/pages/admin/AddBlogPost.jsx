@@ -1,6 +1,6 @@
 // src/pages/admin/AddBlogPost.jsx
 import React, { useState } from 'react';
-import axios from 'axios';
+import axios from '../../services/axios'; // ✅ use your custom instance
 
 const AddBlogPost = () => {
   const [form, setForm] = useState({
@@ -10,15 +10,15 @@ const AddBlogPost = () => {
     category: 'Puja',
     image: null
   });
-  const [selectedImage, setSelectedImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
 
   const handleChange = (e) => {
     if (e.target.name === 'image') {
       const file = e.target.files[0];
-      setSelectedImage(file);
-      setImagePreview(URL.createObjectURL(file));
-      setForm({ ...form, image: file });
+      if (file) {
+        setForm({ ...form, image: file });
+        setImagePreview(URL.createObjectURL(file));
+      }
     } else {
       setForm({ ...form, [e.target.name]: e.target.value });
     }
@@ -26,20 +26,24 @@ const AddBlogPost = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const data = new FormData();
     Object.keys(form).forEach((key) => {
       data.append(key, form[key]);
     });
 
     try {
-      await axios.post('http://localhost:7000/api/admin/blogs', data, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-        withCredentials: true,
+      const response = await axios.post('/admin/blogs', data, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
       });
-      alert('Blog posted successfully!');
+
+      alert('✅ Blog posted successfully!');
+      console.log('Blog Response:', response.data);
     } catch (error) {
-      console.error(error.response?.data || error.message);
-      alert('Error posting blog');
+      console.error('Blog post error:', error.response?.data || error.message);
+      alert('❌ Error posting blog');
     }
   };
 
