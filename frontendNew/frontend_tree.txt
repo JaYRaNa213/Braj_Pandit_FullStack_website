@@ -1,4 +1,4 @@
-📂 Generating Religious Website Frontend Tree Structure...
+📂 Religious Website Frontend Tree Structure
 
 ├── .env
 ├── .gitignore
@@ -22,8 +22,8 @@
 │   │   ├── images.jpg
 │   │   ├── live
 │   │   │   ├── anirudh.jpg
-│   │   │   ├── Premanand-Ji-Maharaj.jpg   
-│   │   │   └── radha-raman-ji-murthi.jpeg 
+│   │   │   ├── Premanand-Ji-Maharaj.jpg
+│   │   │   └── radha-raman-ji-murthi.jpeg
 │   │   ├── mahashivaratri.jpg
 │   │   ├── marriage.jpg
 │   │   ├── money.jpg
@@ -34,7 +34,7 @@
 │   │   │   ├── pandit3.jpg
 │   │   │   └── pandit4.jpg
 │   │   ├── pank.jpg
-│   │   ├── Premanand-Ji-Maharaj.jpg       
+│   │   ├── Premanand-Ji-Maharaj.jpg
 │   │   ├── premMandir.jpg
 │   │   ├── products
 │   │   │   ├── diwaliPujan.jpg
@@ -96,7 +96,7 @@
 │   │   │   ├── AdminDashboard.jsx
 │   │   │   ├── EditBlogPost.jsx
 │   │   │   ├── ManageProducts.jsx
-│   │   │   ├── ManagePujaBookings.jsx     
+│   │   │   ├── ManagePujaBookings.jsx
 │   │   │   └── ManagesBlogs.jsx
 │   │   ├── auth
 │   │   │   ├── Login.jsx
@@ -136,112 +136,3 @@
 ├── tailwind.config.js
 ├── tree.js
 └── vite.config.js
-
-✅ Tree generation complete!
-
-
-
-
-
-
-
-
-
-
-
-📦 frontend
-├── .env
-├── .gitignore
-├── index.html
-├── package.json
-├── postcss.config.js
-├── tailwind.config.js
-├── vite.config.js
-├── README.md
-├── frontend_tree.txt
-├── public/
-│   └── images/
-│       ├── articles/
-│       ├── bhajans/
-│       ├── pandits/
-│       ├── products/
-│       ├── festivals/
-│       └── misc/
-├── src/
-│   ├── App.jsx
-│   ├── App.css
-│   ├── index.css
-│   ├── main.jsx
-│   ├── assets/
-│   │   └── react.svg
-│   ├── components/
-│   │   ├── common/
-│   │   │   ├── Navbar.jsx
-│   │   │   ├── Footer.jsx
-│   │   │   ├── Loader.jsx
-│   │   │   └── Modal.jsx
-│   │   ├── shared/
-│   │   │   ├── Button.jsx
-│   │   │   └── Card.jsx
-│   │   └── user/
-│   │       ├── UserNavbar.jsx
-│   │       └── UserFooter.jsx
-│   ├── context/
-│   │   └── AuthContext.jsx
-│   ├── constants/
-│   │   ├── apiRoutes.js
-│   │   ├── appLabels.js
-│   │   └── userRoles.js
-│   ├── hooks/
-│   │   ├── useAuth.js
-│   │   └── useCart.js
-│   ├── layouts/
-│   │   ├── MainLayout.jsx
-│   │   ├── AdminLayout.jsx
-│   │   └── UserLayout.jsx
-│   ├── pages/
-│   │   ├── auth/
-│   │   │   ├── Login.jsx
-│   │   │   └── Register.jsx
-│   │   ├── admin/
-│   │   │   ├── AdminDashboard.jsx
-│   │   │   ├── AddBlogPost.jsx
-│   │   │   ├── EditBlogPost.jsx
-│   │   │   ├── AddProduct.jsx
-│   │   │   ├── ManageProducts.jsx
-│   │   │   ├── AddLiveVideo.jsx
-│   │   │   ├── ManagePujaBookings.jsx
-│   │   │   └── ManageBlogs.jsx
-│   │   ├── user/
-│   │   │   ├── Home.jsx
-│   │   │   ├── Blog.jsx
-│   │   │   ├── BlogDetails.jsx
-│   │   │   ├── Products.jsx
-│   │   │   ├── Booking.jsx
-│   │   │   ├── Cart.jsx
-│   │   │   ├── PujaBooking.jsx
-│   │   │   ├── UserDashboard.jsx
-│   │   │   └── UserProfile.jsx
-│   │   ├── Contact.jsx
-│   │   └── NotFound.jsx
-│   ├── routes/
-│   │   ├── AppRoutes.jsx
-│   │   ├── AdminRoutes.jsx
-│   │   ├── UserRoutes.jsx
-│   │   └── ProtectedRoute.jsx
-│   ├── services/
-│   │   ├── axios.js
-│   │   ├── api.js
-│   │   ├── admin/
-│   │   │   ├── blogService.js
-│   │   │   └── productService.js
-│   │   └── user/
-│   │       ├── blogService.js
-│   │       ├── bookingService.js
-│   │       ├── cartService.js
-│   │       └── userService.js
-│   ├── types/
-│   │   └── user.d.ts
-│   └── utils/
-│       ├── helpers.js
-│       └── cloudinaryUpload.js

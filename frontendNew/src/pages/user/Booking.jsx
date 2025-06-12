@@ -30,9 +30,9 @@ export default function Booking() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axiosInstance.post("/booking/puja",formData);
+      // const res = await axiosInstance.post("/booking/puja",formData);
       // await axios.post("/auth/register", form); 
-      // const res = await bookPuja(formData);
+      const res = await bookPuja(formData);
       alert("Booking successful: " + res.data.message);
     } catch (err) {
       alert("Failed to book. Please try again.");

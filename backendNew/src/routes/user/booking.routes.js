@@ -1,3 +1,5 @@
+// backendNew/src/routes/user/booking.routes.js
+
 import express from 'express';
 import {
   createBooking,
@@ -8,13 +10,13 @@ import {
   updateBookingStatus,  // <-- Add this import
   deleteBooking,
 } from '../../controllers/booking.controller.js';
-import { authMiddleware } from '../../middleware/auth.middleware.js';
+import { authMiddleware, verifyToken } from '../../middleware/auth.middleware.js';
 import { authorizeRoles } from '../../middleware/role.middleware.js';
 
 const router = express.Router();
 
 // Puja Booking (alias)
-router.post('/puja', authMiddleware, authorizeRoles('user'), createBooking);
+router.post('/puja',verifyToken, authMiddleware, authorizeRoles('user'), createBooking);
 
 // Default Create Booking
 router.post('/', authMiddleware, authorizeRoles('user'), createBooking);

@@ -14,4 +14,6 @@ instance.interceptors.request.use((config) => {
   return config;
 });
 
-export default instance;
+const axiosinstance = instance;
+
+export default axiosinstance;

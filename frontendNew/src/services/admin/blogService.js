@@ -9,6 +9,7 @@ export const createBlog = async (formData) => {
   const response = await axiosInstance.post('/admin/blogs', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${token}`,
     },
     withCredentials: true,
   });

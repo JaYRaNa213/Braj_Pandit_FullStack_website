@@ -42,12 +42,22 @@ export const getComments = (blogId) => {
 export const getProducts = () => {
   return api.get("/products");  // Adjust endpoint as per your backend API
 };
+
 export const bookPuja = (bookingData) => {
-  return api.post("/booking/puja", bookingData); // adjust endpoint & payload as per your backend API
+  const token = localStorage.getItem("accessToken"); // read token
+  return api.post("/booking/puja", bookingData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 };
-
-
-
-
-
+export const getPujaBookings = () => {
+  const token = localStorage.getItem("accessToken"); // read token
+  console.log("Fetching puja bookings with token:", token);
+  return api.get("/booking/puja", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
 export default api;

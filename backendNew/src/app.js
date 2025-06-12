@@ -24,6 +24,8 @@ import testRoutes from './routes/test.routes.js';
 import userBlogRoutes from './routes/user/blog.routes.js';
 import adminBlogRoutes from './routes/admin/blog.routes.js';
 
+import adminBookingRoutes from "./routes/admin/booking.routes.js";
+
 // Middleware imports
 import { notFound, errorHandler } from './middleware/error.middleware.js';
 
@@ -53,10 +55,14 @@ app.use('/api/user/blogs', userBlogRoutes);
 
 // ✅ Admin routes (protected with token and admin middleware)
 app.use('/api/admin/blogs', verifyToken, adminBlogRoutes);
+// ✅ Admin routes (protected with token and admin middleware)
+// app.use('/api/admin', verifyToken, adminBlogRoutes);
 
 app.use('/api/payments', paymentRoutes);
 app.use('/api/emails', emailRoutes);
 app.use('/api/test', testRoutes);
+
+app.use("/api/admin", adminBookingRoutes);
 
 // ✅ Health check
 app.get('/', (req, res) => {

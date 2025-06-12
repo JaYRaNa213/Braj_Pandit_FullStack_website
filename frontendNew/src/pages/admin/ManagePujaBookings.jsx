@@ -1,3 +1,5 @@
+// path: frontendNew/src/pages/admin/ManagePujaBookings.jsx
+
 import React, { useEffect, useState } from "react";
 import { getPujaBookings, deletePujaBooking } from "../../services/adminService";
 
