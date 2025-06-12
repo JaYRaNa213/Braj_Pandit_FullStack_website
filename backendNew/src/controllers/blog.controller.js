@@ -32,16 +32,24 @@ export const getBlogById = async (req, res) => {
 // ✅ Add a new blog (Admin only)
 export const addBlog = async (req, res) => {
   try {
-    const { title, content, author, image } = req.body;
+    const { title, content, category,author } = req.body;
 
-    if (!title || !content || !author || !image) {
+    if (!title || !content || !author || !req.file) {
       return res.status(400).json({
         success: false,
         message: 'All fields are required',
       });
     }
 
-    const blog = await Blog.create({ title, content, author, image });
+    const imageUrl = `/uploads/${req.file.filename}`;
+
+    const blog = await Blog.create({ 
+      title,
+      content, 
+      author, 
+      category:"Puja", // Default category
+      imageUrl,
+    });
 
     res.status(201).json({
       success: true,

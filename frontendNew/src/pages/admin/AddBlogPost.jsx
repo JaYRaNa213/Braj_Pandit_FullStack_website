@@ -8,7 +8,7 @@ const AddBlogPost = () => {
     title: '',
     author: '',
     content: '',
-    category: 'Puja',
+    category: '',
     image: null,
   });
 
@@ -36,6 +36,11 @@ const AddBlogPost = () => {
 
     const token = localStorage.getItem('token'); // ✅ fixed key
 
+    console.log("➡️ Axios request headers", {
+  Authorization: `Bearer ${token}`,
+});
+
+
     console.log("📤 Submitting blog with data:", form);
     console.log("📦 Token from localStorage:", token);
 
@@ -61,13 +66,18 @@ const AddBlogPost = () => {
       });
       setImagePreview(null);
     } catch (error) {
-      console.error("❌ Blog post error:", {
-        status: error.response?.status,
-        data: error.response?.data,
-        message: error.message,
-      });
-      alert(`❌ Blog Error: ${error.response?.data?.message || error.message}`);
-    }
+  const errorMessage =
+    error.response?.data?.message || error.message || 'Something went wrong';
+
+  console.error('❌ Blog post error:', {
+    status: error.response?.status,
+    data: error.response?.data,
+    message: errorMessage,
+  });
+
+  alert(`❌ Blog Error: ${errorMessage}`);
+}
+
   };
 
   return (
