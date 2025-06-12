@@ -1,3 +1,6 @@
+// src/pages/admin/ManageProducts.jsx
+
+
 import React, { useEffect, useState } from "react";
 import { getProducts, deleteProduct } from "../../services/adminService";
 

@@ -1,4 +1,4 @@
-// src/services/admin/blogService.js
+// frontendNew/src/services/admin/blogService.js
 import axiosInstance from '../axios';
 
 /**
@@ -6,6 +6,7 @@ import axiosInstance from '../axios';
  * @param {FormData} formData - Must include title, content, image
  */
 export const createBlog = async (formData) => {
+  const token = localStorage.getItem('accessToken'); // 🔥 Fix here
   const response = await axiosInstance.post('/admin/blogs', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',

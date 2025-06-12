@@ -1,3 +1,6 @@
+
+//src/pages/user/BlogDetails.jsx
+
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getBlogById } from "@/services/user/blogService";

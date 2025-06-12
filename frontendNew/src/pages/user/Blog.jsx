@@ -1,3 +1,7 @@
+// src/pages/user/Blog.jsx
+// src/pages/user/Blog.jsx
+
+
 import React, { useEffect, useState } from "react";
 import { getAllBlogs } from "../../services/user/blogService";
 

@@ -1,3 +1,6 @@
+// File: backendNew/src/services/blog.service.js
+
+
 import Blog from '../models/blog.model.js';
 
 const getAllBlogs = async () => await Blog.find();

@@ -1,3 +1,5 @@
+// File: frontendNew/src/pages/admin/AddBlogPost.jsx
+
 import React, { useState } from 'react';
 import axios from '../../services/axios'; // Custom axios instance
 

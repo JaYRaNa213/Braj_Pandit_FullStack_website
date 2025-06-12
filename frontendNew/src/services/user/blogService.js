@@ -1,4 +1,4 @@
-// src/services/user/blogService.js
+// frontendNew/src/services/user/blogService.js
 
 import axiosInstance from '../axios';
 

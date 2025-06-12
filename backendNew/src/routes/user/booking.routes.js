@@ -7,9 +7,11 @@ import {
   getUserBookings,
   getSingleBooking,
   updateBooking,
-  updateBookingStatus,  // <-- Add this import
+  updateBookingStatus,
   deleteBooking,
-} from '../../controllers/booking.controller.js';
+} from '../../controllers/booking.controller.js'; 
+
+
 import { authMiddleware, verifyToken } from '../../middleware/auth.middleware.js';
 import { authorizeRoles } from '../../middleware/role.middleware.js';
 

@@ -32,24 +32,27 @@ export const getBlogById = async (req, res) => {
 // ✅ Add a new blog (Admin only)
 export const addBlog = async (req, res) => {
   try {
-    let imageUrl = '';
-    if (req.file) {
-      const cloudinaryResponse = await uploadOnCloudinary(req.file.path);
-      imageUrl = cloudinaryResponse?.secure_url;
+    const { title, content, author, image } = req.body;
+
+    if (!title || !content || !author || !image) {
+      return res.status(400).json({
+        success: false,
+        message: 'All fields are required',
+      });
     }
 
-    const blog = new Blog({
-      ...req.body,
-      imageUrl,
-      createdBy: req.user.id
-    });
+    const blog = await Blog.create({ title, content, author, image });
 
-    await blog.save();
-    res.status(201).json({ success: true, message: 'Blog added successfully', data: blog });
+    res.status(201).json({
+      success: true,
+      message: 'Blog created successfully',
+      data: blog,
+    });
   } catch (error) {
-    res.status(400).json({ success: false, message: 'Error adding blog', error: error.message });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
+
 
 export const updateBlog = async (req, res) => {
   try {

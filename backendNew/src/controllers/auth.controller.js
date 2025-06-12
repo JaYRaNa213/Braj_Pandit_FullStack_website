@@ -16,7 +16,21 @@ import generateToken from '../utils/generateToken.js';
 // ✅ Register
 export const register = async (req, res) => {
   try {
-    const user = await registerUser(req.body);
+    console.log("Incoming data:", req.body); // 🐛 Log input
+
+    const name = req.body.name?.trim();
+    const email = req.body.email?.trim();
+    const password = req.body.password?.trim();
+
+    if (!name || !email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: 'Name, email, and password are required.',
+      });
+    }
+
+    const user = await registerUser({ name, email, password });
+
     res.status(201).json({
       success: true,
       message: 'User registered successfully',
@@ -33,43 +47,66 @@ export const register = async (req, res) => {
   }
 };
 
-// ✅ Login (Fixed Admin + Users)
-export const login = async (req, res) => {
-  const { email, password } = req.body;
 
-  // Fixed Admin Login
-  if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
-    const token = generateToken('admin-fixed-id', 'admin');
-    return res.status(200).json({
+ // Login  (Fixed Admin + Users)
+ 
+export const login = async (req, res) => {
+  try {
+    const email = req.body.email?.trim();
+    const password = req.body.password?.trim();
+
+    if (!email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: 'Email and password are required.',
+      });
+    }
+
+    // ✅ Fixed Admin Login
+    if (
+      email === process.env.ADMIN_EMAIL &&
+      password === process.env.ADMIN_PASSWORD
+    ) {
+      const token = generateToken('admin-fixed-id', 'admin');
+      return res.status(200).json({
+        token,
+        user: {
+          _id: 'admin-fixed-id',
+          email,
+          name: 'Admin',
+          role: 'admin',
+        },
+      });
+    }
+
+    // ✅ Normal User Login
+    const user = await User.findOne({ email });
+    if (!user)
+      return res
+        .status(401)
+        .json({ success: false, message: 'Invalid email or password' });
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch)
+      return res
+        .status(401)
+        .json({ success: false, message: 'Invalid email or password' });
+
+    const token = generateToken(user._id, user.role);
+    res.cookie('token', token, { httpOnly: true });
+
+    res.status(200).json({
       token,
       user: {
-        _id: 'admin-fixed-id',
-        email,
-        name: 'Admin',
-        role: 'admin',
+        _id: user._id,
+        email: user.email,
+        name: user.name,
+        role: user.role,
       },
     });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Server Error' });
   }
-
-  // Normal User Login
-  const user = await User.findOne({ email });
-  if (!user) return res.status(401).json({ message: 'Invalid email or password' });
-
-  const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) return res.status(401).json({ message: 'Invalid email or password' });
-
-  const token = generateToken(user._id, user.role);
-  res.cookie('token', token, { httpOnly: true });
-
-  res.status(200).json({
-    token,
-    user: {
-      _id: user._id,
-      email: user.email,
-      name: user.name,
-      role: user.role,
-    },
-  });
 };
 
 // ✅ Logout

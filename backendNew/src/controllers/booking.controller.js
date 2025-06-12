@@ -1,3 +1,5 @@
+//src/controllers/booking.controller.js
+
 import Booking from '../models/booking.model.js';
 
 // ✅ User: Create Booking

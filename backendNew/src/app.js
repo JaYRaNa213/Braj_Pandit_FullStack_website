@@ -1,4 +1,5 @@
-// src/app.js
+// backendNew/src/app.js
+
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
@@ -7,14 +8,14 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-// Load environment variables
+// Load env vars
 dotenv.config();
 
-// Fix for __dirname in ES module
+// Fix __dirname in ES Modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Route imports
+// 🔁 Routes
 import authRoutes from './routes/user/auth.routes.js';
 import bookingRoutes from './routes/user/booking.routes.js';
 import productRoutes from './routes/admin/product.routes.js';
@@ -23,18 +24,17 @@ import emailRoutes from './routes/user/email.routes.js';
 import testRoutes from './routes/test.routes.js';
 import userBlogRoutes from './routes/user/blog.routes.js';
 import adminBlogRoutes from './routes/admin/blog.routes.js';
+import adminBookingRoutes from './routes/admin/booking.routes.js';
+import commentRoutes from './routes/user/comment.routes.js';
 
-import adminBookingRoutes from "./routes/admin/booking.routes.js";
-
-// Middleware imports
+// 🔁 Middlewares
 import { notFound, errorHandler } from './middleware/error.middleware.js';
+import { verifyToken } from './middleware/auth.middleware.js'; // ✅ Corrected path
 
-import { verifyToken } from './middleware/auth.middleware.js';
-
-// ✅ Initialize Express app
+// ✅ App Initialization
 const app = express();
 
-// ✅ Global middlewares
+// ✅ Global Middlewares
 app.use(express.json({ limit: '16kb' }));
 app.use(express.urlencoded({ extended: true, limit: '16kb' }));
 app.use(cookieParser());
@@ -44,32 +44,31 @@ app.use(cors({
   credentials: true,
 }));
 
-// ✅ Static files (for image or file uploads)
+// ✅ Static Files
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ✅ Routes
+// ✅ User Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/booking', bookingRoutes);
+app.use('/api/bookings', bookingRoutes);
 app.use('/api/products', productRoutes);
+// ✅ User Blog Routes
 app.use('/api/user/blogs', userBlogRoutes);
-
-// ✅ Admin routes (protected with token and admin middleware)
-app.use('/api/admin/blogs', verifyToken, adminBlogRoutes);
-// ✅ Admin routes (protected with token and admin middleware)
-// app.use('/api/admin', verifyToken, adminBlogRoutes);
-
 app.use('/api/payments', paymentRoutes);
 app.use('/api/emails', emailRoutes);
 app.use('/api/test', testRoutes);
 
-app.use("/api/admin", adminBookingRoutes);
+// ✅ Admin Routes (PROTECTED)
+app.use('/api/admin/blogs', verifyToken, adminBlogRoutes);
+app.use('/api/admin/bookings', verifyToken, adminBookingRoutes); // ✅ FIXED
 
-// ✅ Health check
+app.use('/api/comments', commentRoutes);
+
+// ✅ Health Route
 app.get('/', (req, res) => {
   res.send('🌸 Welcome to the Vrinda Religious Website API 🌸');
 });
 
-// ✅ Error handlers
+// ✅ Error Handling
 app.use(notFound);
 app.use(errorHandler);
 
