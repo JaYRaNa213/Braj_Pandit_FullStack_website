@@ -1,6 +1,6 @@
 import axios from "axios";
-import axiosInstance from "../services/axios.js";
-import { AUTH, USER, BOOKING, PAYMENT } from "../constants/apiRoutes";
+import axiosInstance from "../axios.js";
+import { AUTH, USER, BOOKING, PAYMENT } from "../../constants/apiRoutes.js";
 
 // ✅ Public Routes (No Auth Required)
 const register = async (userData) => {

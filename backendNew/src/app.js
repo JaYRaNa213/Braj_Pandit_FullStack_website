@@ -19,6 +19,8 @@ const __dirname = path.dirname(__filename);
 import authRoutes from './routes/user/auth.routes.js';
 import bookingRoutes from './routes/user/booking.routes.js';
 import productRoutes from './routes/admin/product.routes.js';
+import userProductRoutes from './routes/user/product.routes.js';
+
 import paymentRoutes from './routes/user/payment.routes.js';
 import emailRoutes from './routes/user/email.routes.js';
 import testRoutes from './routes/test.routes.js';
@@ -55,19 +57,28 @@ app.use('/api/auth', authRoutes);
 
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/bookings', userBookingRoutes);
+app.use('/api/admin/bookings', verifyToken, adminBookingRoutes); // ✅ FIXED
 
-app.use('/api/products', productRoutes);
-// ✅ User Blog Routes
+
+// ✅ Admin Routes (PROTECTED)
+app.use('/api/admin/blogs', verifyToken, adminBlogRoutes);
 app.use('/api/user/blogs', userBlogRoutes);
+
+
+app.use('/api/products', userProductRoutes);
+app.use('/api/admin/products', productRoutes);
+// ✅ User Blog Routes
+
+app.use('/api/comments', commentRoutes);
+
 app.use('/api/payments', paymentRoutes);
 app.use('/api/emails', emailRoutes);
 app.use('/api/test', testRoutes);
 
-// ✅ Admin Routes (PROTECTED)
-app.use('/api/admin/blogs', verifyToken, adminBlogRoutes);
-app.use('/api/admin/bookings', verifyToken, adminBookingRoutes); // ✅ FIXED
 
-app.use('/api/comments', commentRoutes);
+
+
+
 
 app.use('/uploads', express.static(path.join(process.cwd(), 'src/public/images/uploads')));
 
