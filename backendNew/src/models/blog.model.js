@@ -8,7 +8,8 @@ const blogSchema = new mongoose.Schema({
   category: {
     type: String,
     enum: ['Puja', 'Festival', 'Aarti', 'Religious Books'],
-    // required: true
+    required: true,
+    default: 'Puja'
   },
   imageUrl: { type: String},
   publishedAt: { type: Date, default: Date.now },
@@ -20,9 +21,6 @@ const blogSchema = new mongoose.Schema({
   createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 
   updatedBy: { type: String, required: false },
-
-
-//   updatedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: false },
 
 });
 

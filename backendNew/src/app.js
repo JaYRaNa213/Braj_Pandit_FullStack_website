@@ -63,6 +63,8 @@ app.use('/api/admin/bookings', verifyToken, adminBookingRoutes); // ✅ FIXED
 
 app.use('/api/comments', commentRoutes);
 
+app.use('/uploads', express.static(path.join(process.cwd(), 'src/public/images/uploads')));
+
 // ✅ Health Route
 app.get('/', (req, res) => {
   res.send('🌸 Welcome to the Vrinda Religious Website API 🌸');

@@ -30,10 +30,12 @@ export const getBlogById = async (req, res) => {
 };
 
 // ✅ Add a new blog (Admin only)
+// ✅ Add a new blog (Admin only)
 export const addBlog = async (req, res) => {
   try {
-    const { title, content, category,author } = req.body;
+    const { title, content, category = "Puja", author } = req.body;
 
+    // Check for required fields
     if (!title || !content || !author || !req.file) {
       return res.status(400).json({
         success: false,
@@ -41,14 +43,22 @@ export const addBlog = async (req, res) => {
       });
     }
 
-    const imageUrl = `/uploads/${req.file.filename}`;
+    // ✅ Upload to Cloudinary
+    const uploadResult = await uploadOnCloudinary(req.file.path);
+    if (!uploadResult || !uploadResult.secure_url) {
+      return res.status(400).json({
+        success: false,
+        message: 'Image upload failed',
+      });
+    }
 
+    // ✅ Create blog with Cloudinary image URL
     const blog = await Blog.create({ 
       title,
       content, 
       author, 
-      category:"Puja", // Default category
-      imageUrl,
+      category,
+      imageUrl: uploadResult.secure_url, // ✅ Correct image URL
     });
 
     res.status(201).json({
