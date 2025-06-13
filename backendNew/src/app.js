@@ -27,6 +27,9 @@ import adminBlogRoutes from './routes/admin/blog.routes.js';
 import adminBookingRoutes from './routes/admin/booking.routes.js';
 import commentRoutes from './routes/user/comment.routes.js';
 
+import userBookingRoutes from './routes/user/booking.routes.js';
+
+
 // 🔁 Middlewares
 import { notFound, errorHandler } from './middleware/error.middleware.js';
 import { verifyToken } from './middleware/auth.middleware.js'; // ✅ Corrected path
@@ -49,7 +52,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // ✅ User Routes
 app.use('/api/auth', authRoutes);
+
 app.use('/api/bookings', bookingRoutes);
+app.use('/api/bookings', userBookingRoutes);
+
 app.use('/api/products', productRoutes);
 // ✅ User Blog Routes
 app.use('/api/user/blogs', userBlogRoutes);

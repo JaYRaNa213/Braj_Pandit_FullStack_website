@@ -1,9 +1,9 @@
 // src/services/api.js
-import axios from "axios";
+import axiosInstance from "axios";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:7000/api/";
 
-const api = axios.create({
+const api = axiosInstance.create({
   baseURL: API_BASE_URL,
 });
 
@@ -21,43 +21,30 @@ export const login = (credentials) => {
 export const register = (userData) => {
   return api.post("/auth/register", userData);
 };
-export const getBlogs = () => {
-  return api.get("/blogs");  // Adjust the endpoint as per your backend API
-};
-export const getBlogById = (id) => {
-  return api.get(`/blogs/${id}`);  // Adjust the endpoint as per your backend API
-};
-export const createBlog = (blogData) => {
-  return api.post("/blogs", blogData);  // Adjust the endpoint as per your backend API
-};
-export const updateBlog = (id, blogData) => {
-  return api.put(`/blogs/${id}`, blogData);  // Adjust the endpoint as per your backend API
-};
-export const deleteBlog = (id) => {
-  return api.delete(`/blogs/${id}`);  // Adjust the endpoint as per your backend API
-};
-export const getComments = (blogId) => {
-  return api.get(`/blogs/${blogId}/comments`);  // Adjust the endpoint as per your backend API
-};
-export const getProducts = () => {
-  return api.get("/products");  // Adjust endpoint as per your backend API
+// ✅ BLOG
+export const getBlogs = () => axiosInstance.get("/blogs");
+export const getBlogById = (id) => axiosInstance.get(`/blogs/${id}`);
+export const createBlog = (blogData) => axiosInstance.post("/blogs", blogData);
+export const updateBlog = (id, blogData) => axiosInstance.put(`/blogs/${id}`, blogData);
+export const deleteBlog = (id) => axiosInstance.delete(`/blogs/${id}`);
+
+
+// ✅ COMMENTS
+export const getComments = (blogId) => axiosInstance.get(`/blogs/${blogId}/comments`);
+
+// ✅ PRODUCTS
+export const getProducts = () => axiosInstance.get("/products");
+
+// ✅ BOOKINGS
+export const bookPuja = (bookingData) => {
+  const token = localStorage.getItem("accessToken");
+  return api.post("/bookings", bookingData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 };
 
-export const bookPuja = (bookingData) => {
-  const token = localStorage.getItem("accessToken"); // read token
-  return api.post("/booking/puja", bookingData, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-};
-export const getPujaBookings = () => {
-  const token = localStorage.getItem("accessToken"); // read token
-  console.log("Fetching puja bookings with token:", token);
-  return api.get("/booking/puja", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-};
-export default api;
+export const getPujaBookings = () => axiosInstance.get("/bookings");
+
+export default axiosInstance;
