@@ -21,7 +21,7 @@ const productSchema = new mongoose.Schema({
   // Category of the product (e.g., books, puja items, etc.)
   category: {
     type: String,
-    required: true,
+    // required: true,
   },
   // Stock quantity available
   stock: {
@@ -29,10 +29,17 @@ const productSchema = new mongoose.Schema({
     default: 0,
   },
   // URL of the product image
-  imageUrl: {
-    type: String,
+  // imageUrl: {
+  //   type: String,
+  // },
+
+  imageUrl: String,
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
   },
-});
+},{timestamps:true}
+);
 
 // Create and export the Product model
 const Product = mongoose.model('Product', productSchema);

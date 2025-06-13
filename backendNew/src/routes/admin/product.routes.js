@@ -1,44 +1,15 @@
-// src/routes/product.routes.js
 import express from 'express';
-import {
-  addProduct,
-  getAllProducts,
-  getProductById,
-  updateProduct,
-  deleteProduct,
-} from '../../controllers/product.controller.js';
+import { addProduct, getAllProducts, deleteProduct, updateProduct } from '../../controllers/product.controller.js';
+import { verifyToken } from '../../middleware/auth.middleware.js';
+import { isAdmin } from '../../middleware/role.middleware.js';
 import upload from '../../middleware/multer.middleware.js';
 
 const router = express.Router();
 
-/**
- * @route POST /api/products
- * @description Add a new product with image upload
- */
-router.post('/', upload.single('productImage'), addProduct);
-
-/**
- * @route GET /api/products
- * @description Get all products
- */
+router.post('/', verifyToken, isAdmin, upload.single('image'), addProduct);
+router.get('/', verifyToken, isAdmin, getAllProducts);
+router.delete('/:id', verifyToken, isAdmin, deleteProduct);
+router.put('/:id', verifyToken, isAdmin, upload.single('image'), updateProduct);
 router.get('/', getAllProducts);
-
-/**
- * @route GET /api/products/:id
- * @description Get a product by ID
- */
-router.get('/:id', getProductById);
-
-/**
- * @route PUT /api/products/:id
- * @description Update a product by ID
- */
-router.put('/:id', upload.single('productImage'), updateProduct);
-
-/**
- * @route DELETE /api/products/:id
- * @description Delete a product by ID
- */
-router.delete('/:id', deleteProduct);
 
 export default router;
