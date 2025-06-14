@@ -1,3 +1,4 @@
+// File: backendNew/tree.js
 // Use import statements instead of require
 import fs from 'fs';
 import path from 'path';
@@ -12,7 +13,7 @@ const MAX_DEPTH = 5;
 const IGNORE_FOLDERS = ['node_modules', '.git', '.next', 'dist', '.cache', '.idea', '.vscode'];
 
 // File to save tree output
-// const OUTPUT_FILE = './directory_tree.txt';
+const OUTPUT_FILE = './backend_tree.txt'; // ✅ Uncommented and set to the desired file name
 
 // Initialize content for writing
 let treeOutput = '📂 Religious website backend Tree structure\n\n';
@@ -21,16 +22,32 @@ let treeOutput = '📂 Religious website backend Tree structure\n\n';
 function printTree(dirPath, prefix = '', depth = 0) {
   if (depth > MAX_DEPTH) return;
 
-  const files = fs.readdirSync(dirPath);
+  let files;
+  try {
+    files = fs.readdirSync(dirPath);
+  } catch (e) {
+    console.error(`Error reading directory ${dirPath}: ${e.message}`);
+    treeOutput += `${prefix} [Error reading directory]\n`;
+    return;
+  }
+
 
   files.forEach((file, index) => {
     const filePath = path.join(dirPath, file);
-    const isDirectory = fs.statSync(filePath).isDirectory();
+    let isDirectory;
+    try {
+      isDirectory = fs.statSync(filePath).isDirectory();
+    } catch (e) {
+       console.error(`Error stating file ${filePath}: ${e.message}`);
+       // If stat fails, assume it's not a directory or skip
+       return;
+    }
+
     const isLast = index === files.length - 1;
     const newPrefix = prefix + (isLast ? '└── ' : '├── ');
 
     // Skip ignored folders
-    if (IGNORE_FOLDERS.includes(file)) return;
+    if (isDirectory && IGNORE_FOLDERS.includes(file)) return;
 
     // Print and save the file/folder name
     console.log(newPrefix + file);
@@ -48,6 +65,11 @@ console.log('📂 Religious website Tree structure\n');
 printTree(ROOT_DIR);
 console.log('\n✅ Tree generation complete!');
 
-// // Save the output to the file
-fs.writeFileSync(OUTPUT_FILE, treeOutput);
-console.log(`\n📄 Tree saved to ${OUTPUT_FILE}`);
+// Save the output to the file
+try {
+    fs.writeFileSync(OUTPUT_FILE, treeOutput);
+    console.log(`\n📄 Tree saved to ${OUTPUT_FILE}`);
+} catch (e) {
+    console.error(`Error writing tree to file ${OUTPUT_FILE}: ${e.message}`);
+}
+
