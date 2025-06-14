@@ -1,3 +1,6 @@
+//src/services/admin/adminService.js
+
+
 import axiosInstance from "axios";
 
 const API_BASE = "/api/admin"; // Adjust base URL if needed
@@ -41,3 +44,8 @@ export const deletePujaBooking = async (id) => {
   const response = await axiosInstance.delete(`${API_BASE}/puja-bookings/${id}`);
   return response.data;
 };
+
+// Get admin dashboard summary (stats & chart)
+export const getAdminDashboardSummary = () =>
+  axiosInstance.get(`${API_BASE}/dashboard/summary`);
+

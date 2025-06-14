@@ -49,5 +49,5 @@ printTree(ROOT_DIR);
 console.log('\n✅ Tree generation complete!');
 
 // // Save the output to the file
-// fs.writeFileSync(OUTPUT_FILE, treeOutput);
-// console.log(`\n📄 Tree saved to ${OUTPUT_FILE}`);
+fs.writeFileSync(OUTPUT_FILE, treeOutput);
+console.log(`\n📄 Tree saved to ${OUTPUT_FILE}`);
