@@ -30,11 +30,19 @@ import adminBookingRoutes from './routes/admin/booking.routes.js';
 import commentRoutes from './routes/user/comment.routes.js';
 
 import userBookingRoutes from './routes/user/booking.routes.js';
+import adminOrderRoutes from './routes/admin/order.routes.js';
+import cartRoutes from './routes/user/cart.routes.js';
+import orderRoutes from './routes/user/order.routes.js';
+
 
 
 // 🔁 Middlewares
 import { notFound, errorHandler } from './middleware/error.middleware.js';
 import { verifyToken } from './middleware/auth.middleware.js'; // ✅ Corrected path
+
+import adminDashboardRoutes from './routes/admin/dashboard.routes.js';
+import userRoutes from './routes/user/user.routes.js';
+;
 
 // ✅ App Initialization
 const app = express();
@@ -71,12 +79,21 @@ app.use('/api/admin/products', productRoutes);
 
 app.use('/api/comments', commentRoutes);
 
+
+app.use('/api/cart', cartRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/api/admin/orders', adminOrderRoutes);
+
+
+
+
+app.use('/api/admin/dashboard', adminDashboardRoutes);
+app.use('/api/user', userRoutes); // ✅ Enables /api/user/dashboard/summary
+
+
 app.use('/api/payments', paymentRoutes);
 app.use('/api/emails', emailRoutes);
 app.use('/api/test', testRoutes);
-
-
-
 
 
 

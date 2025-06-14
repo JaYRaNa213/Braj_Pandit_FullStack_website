@@ -1,12 +1,13 @@
-
-// routes/user/user.routes.js
-
 import express from 'express';
-import { updateUserProfile } from '../controllers/user.controller.js';
-import { authMiddleware } from '../middleware/auth.middleware.js';
+import { updateUserProfile, getUserDashboardSummary } from '../../controllers/user.controller.js';
+import { verifyToken } from '../../middleware/auth.middleware.js';
 
 const router = express.Router();
 
-router.put('/profile', authMiddleware, updateUserProfile);
+// ✅ Update user profile
+router.put('/profile', verifyToken, updateUserProfile);
+
+// ✅ User dashboard summary (bookings, orders, cart etc.)
+router.get('/summary', verifyToken, getUserDashboardSummary);
 
 export default router;

@@ -1,4 +1,12 @@
-import User from '../models/user.model.js'; // Adjust the path if needed
+import User from '../models/user.model.js';
+import Booking from '../models/booking.model.js';
+import Cart from '../models/cart.model.js';
+
+import Order from '../models/order.model.js';
+
+// Import these if you want to use them
+import Blog from '../models/blog.model.js';
+import Product from '../models/product.model.js';
 
 export const updateUserProfile = async (req, res) => {
   try {
@@ -21,6 +29,42 @@ export const updateUserProfile = async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Server Error. Unable to update profile.',
+    });
+
+    
+  }
+};
+
+
+
+export const getUserDashboardSummary = async (req, res) => {
+  try {
+    const userId = req.user._id || req.user.id;
+    console.log("User ID:", userId);
+
+    const bookingCount = await Booking.countDocuments({ user: userId });
+
+    const cart = await Cart.findOne({ user: userId });
+    const cartItemCount = cart ? cart.items.length : 0;
+
+    const recentBlogs = await Blog.find().sort({ createdAt: -1 }).limit(3);
+    const recentProducts = await Product.find().sort({ createdAt: -1 }).limit(3);
+
+    res.status(200).json({
+      success: true,
+      message: 'User dashboard summary fetched successfully',
+      data: {
+        bookingCount,
+        cartItemCount,
+        recentBlogs,
+        recentProducts,
+      },
+    });
+  } catch (error) {
+    console.error('Error in getUserDashboardSummary:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Server Error',
     });
   }
 };

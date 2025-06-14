@@ -1,3 +1,5 @@
+//src/routes/admin/admin.routes.js
+
 import express from 'express';
 import {
   getPujaBookings,
