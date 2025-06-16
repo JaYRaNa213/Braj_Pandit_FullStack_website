@@ -1,34 +1,34 @@
-// path: frontendNew/src/pages/admin/ManagePujaBookings.jsx
-
 import React, { useEffect, useState } from "react";
-import { getPujaBookings, deletePujaBooking } from "../../services/adminService";
+import { getPujaBookings, deletePujaBooking } from "../../services/admin/adminService";
 
 const ManagePujaBookings = () => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Pagination, search, sorting states
   const [page, setPage] = useState(1);
-  const [limit] = useState(10); // fixed page size or make dynamic
+  const [limit] = useState(10);
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState('date');
-
   const [total, setTotal] = useState(0);
 
   const fetchBookings = async () => {
-    try {
-      setLoading(true);
-      // Pass query params to service function (we'll add them)
-      const data = await getPujaBookings({ page, limit, search, sort });
-      setBookings(data.data);
-      setTotal(data.total);
-      setLoading(false);
-    } catch (err) {
-      setError("Failed to fetch bookings.");
-      setLoading(false);
-    }
-  };
+  try {
+    setLoading(true);
+    setError(null);
+    console.log("Fetching bookings...");
+    const response = await getPujaBookings({ page, limit, search, sort });
+    console.log("Response:", response);
+    setBookings(response.data || []);   // 👈 FIXED HERE
+    setTotal(response.total || 0);
+  } catch (err) {
+    console.error("Error fetching bookings:", err);
+    setError("Failed to fetch bookings.");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   useEffect(() => {
     fetchBookings();
@@ -39,24 +39,22 @@ const ManagePujaBookings = () => {
       try {
         await deletePujaBooking(id);
         fetchBookings();
-      } catch {
+      } catch (err) {
         alert("Failed to delete booking.");
       }
     }
   };
 
-  // Pagination controls
   const totalPages = Math.ceil(total / limit);
 
   return (
-    <div className="p-6 max-w-5xl mx-auto">
+    <div className="p-6 max-w-6xl mx-auto">
       <h1 className="text-3xl font-semibold mb-6">Manage Puja Bookings</h1>
 
-      {/* Search and Sort */}
       <div className="flex justify-between mb-4">
         <input
           type="text"
-          placeholder="Search by user or puja"
+          placeholder="Search by service or pandit"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="border rounded p-2 w-1/3"
@@ -68,8 +66,8 @@ const ManagePujaBookings = () => {
         >
           <option value="date">Sort by Date (Asc)</option>
           <option value="-date">Sort by Date (Desc)</option>
-          <option value="userName">Sort by User Name</option>
-          <option value="pujaName">Sort by Puja Name</option>
+          <option value="service">Sort by Service</option>
+          <option value="pandit">Sort by Pandit</option>
         </select>
       </div>
 
@@ -77,47 +75,47 @@ const ManagePujaBookings = () => {
         <div>Loading bookings...</div>
       ) : error ? (
         <div className="text-red-600">{error}</div>
+      ) : bookings.length === 0 ? (
+        <div>No bookings found.</div>
       ) : (
         <>
           <table className="w-full border border-gray-300 rounded-md overflow-hidden">
             <thead className="bg-gray-100 text-left">
               <tr>
-                <th className="p-3 border-b border-gray-300">User</th>
-                <th className="p-3 border-b border-gray-300">Puja Name</th>
-                <th className="p-3 border-b border-gray-300">Date</th>
-                <th className="p-3 border-b border-gray-300">Actions</th>
+                <th className="p-3 border-b">User</th>
+                <th className="p-3 border-b">Service</th>
+                <th className="p-3 border-b">Pandit</th>
+                <th className="p-3 border-b">Date</th>
+                <th className="p-3 border-b">Time</th>
+                <th className="p-3 border-b">Status</th>
+                <th className="p-3 border-b">Actions</th>
               </tr>
             </thead>
             <tbody>
-              {bookings.length === 0 ? (
-                <tr>
-                  <td colSpan="4" className="text-center p-4">
-                    No bookings found.
+              {bookings.map((booking) => (
+                <tr key={booking._id} className="hover:bg-gray-50">
+                  <td className="p-3 border-b">{booking.userName}</td>
+                  <td className="p-3 border-b">{booking.service}</td>
+                  <td className="p-3 border-b">{booking.pandit}</td>
+                  <td className="p-3 border-b">
+                    {new Date(booking.date).toLocaleDateString()}
+                  </td>
+                  <td className="p-3 border-b">{booking.time}</td>
+                  <td className="p-3 border-b capitalize">{booking.status}</td>
+                  <td className="p-3 border-b">
+                    <button
+                      onClick={() => handleDelete(booking._id)}
+                      className="text-red-600 hover:underline"
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
-              ) : (
-                bookings.map((booking) => (
-                  <tr key={booking._id} className="hover:bg-gray-50">
-                    <td className="p-3 border-b border-gray-300">{booking.userName}</td>
-                    <td className="p-3 border-b border-gray-300">{booking.pujaName}</td>
-                    <td className="p-3 border-b border-gray-300">
-                      {new Date(booking.date).toLocaleDateString()}
-                    </td>
-                    <td className="p-3 border-b border-gray-300">
-                      <button
-                        className="text-red-600 hover:underline"
-                        onClick={() => handleDelete(booking._id)}
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))
-              )}
+              ))}
             </tbody>
           </table>
 
-          {/* Pagination Controls */}
+          {/* Pagination */}
           <div className="flex justify-between items-center mt-4">
             <button
               onClick={() => setPage((prev) => Math.max(prev - 1, 1))}

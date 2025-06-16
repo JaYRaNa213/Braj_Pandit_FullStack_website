@@ -40,7 +40,7 @@ const adminLinks = [
   {
     label: "Manage Puja Bookings",
     icon: <CalendarCheck className="w-5 h-5 text-[#4A1C1C]" />,
-    path: "/admin/pujabookings",
+    path: "/admin/manage-bookings", // ✅ FIXED
   },
   {
     label: "Manage Users",
@@ -68,6 +68,7 @@ const adminLinks = [
     path: "/logout",
   },
 ];
+
 
 // 📊 Summary Statistic Card Configuration
 const statCardsConfig = [

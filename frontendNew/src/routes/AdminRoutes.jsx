@@ -11,6 +11,8 @@ import EditBlogPost from "../pages/admin/EditBlogPost";
 import ManageProducts from "../pages/admin/ManageProducts";
 import AddProduct from "../pages/admin/AddProduct";
 import NotFound from "../pages/NotFound";
+
+import ManagePujaBookings from "../pages/admin/ManagePujaBookings";
 import UserList from "../pages/admin/UserList";
 
 
@@ -37,8 +39,9 @@ const AdminRoutes = () => {
         <Route path="users" element={<UserList />} />
 
 
+        <Route path="puja/bookings" element={<ManagePujaBookings />} />
+<Route path="manage-bookings" element={<ManagePujaBookings />} />
 
-        {/* <Route path="/admin/puja-bookings" element={<PujaBookings />} /> */}
       </Route>
 
       {/* Admin-specific fallback */}

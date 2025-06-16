@@ -22,13 +22,14 @@ export const getPujaBookings = async (req, res) => {
 
     const currentPage = Math.max(Number(page), 1);
     const perPage = Math.max(Number(limit), 1);
-    const sortOrder = order === 'desc' ? -1 : 1;
+    const sortField = sort.replace('-', '');
+    const sortOrder = sort.startsWith('-') ? -1 : 1;
 
     const searchFilter = search
       ? {
           $or: [
-            { userName: { $regex: search, $options: 'i' } },
-            { pujaName: { $regex: search, $options: 'i' } },
+            { service: { $regex: search, $options: 'i' } },
+            { pandit: { $regex: search, $options: 'i' } },
           ],
         }
       : {};
@@ -36,22 +37,32 @@ export const getPujaBookings = async (req, res) => {
     const total = await Booking.countDocuments(searchFilter);
 
     const bookings = await Booking.find(searchFilter)
-      .sort({ [sort]: sortOrder }) // asc/desc handled
+      .populate("user", "name")
+      .sort({ [sortField]: sortOrder })
       .skip((currentPage - 1) * perPage)
       .limit(perPage);
 
+    const formatted = bookings.map((b) => ({
+      _id: b._id,
+      userName: b.user?.name || 'N/A',
+      service: b.service,
+      pandit: b.pandit,
+      date: b.date,
+      time: b.time,
+      status: b.status,
+    }));
+
     res.status(200).json({
       success: true,
-      message: 'Puja bookings fetched successfully',
+      message: "Bookings fetched",
+      data: formatted,
       total,
-      totalPages: Math.ceil(total / perPage),
       page: currentPage,
-      limit: perPage,
-      data: bookings,
+      totalPages: Math.ceil(total / perPage),
     });
   } catch (err) {
-    console.error('Error fetching puja bookings:', err);
-    res.status(500).json({ success: false, message: 'Server Error' });
+    console.error("Booking fetch error:", err);
+    res.status(500).json({ success: false, message: "Server error" });
   }
 };
 
@@ -155,3 +166,12 @@ export const deleteUserByAdmin = async (req, res) => {
     res.status(500).json({ success: false, message: "Failed to delete user" });
   }
 };
+
+
+export const deletePujaBooking = asyncHandler(async (req, res) => {
+  const booking = await Booking.findByIdAndDelete(req.params.id);
+  if (!booking) {
+    return res.status(404).json({ success: false, message: 'Booking not found' });
+  }
+  res.status(200).json({ success: true, message: 'Booking deleted successfully' });
+});

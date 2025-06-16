@@ -1,3 +1,6 @@
+//src//models/booking.model.js
+
+
 // Import mongoose to define the schema and model
 import mongoose from 'mongoose';
 

@@ -31,20 +31,8 @@ export const deleteBlog = async (id) => {
   return response.data;
 };
 
-// Get all puja bookings
-export const getPujaBookings = async ({ page = 1, limit = 10, search = '', sort = 'date' } = {}) => {
-  const response = await axiosInstance.get('/admin/puja/bookings', {
-    params: { page, limit, search, sort },
-  });
-  return response.data;
-};
 
 
-// Delete a puja booking by id
-export const deletePujaBooking = async (id) => {
-  const response = await axiosInstance.delete(`/admin/puja/bookings/${id}`);
-  return response.data;
-};
 export const getAllUsers = () => axios.get("/admin/users");
 export const updateUser = (id, data) => axios.put(`/admin/users/${id}`, data);
 export const deleteUser = (id) => axios.delete(`/admin/users/${id}`);
@@ -53,3 +41,15 @@ export const deleteUser = (id) => axios.delete(`/admin/users/${id}`);
 // Admin Dashboard Summary
 export const getAdminDashboardSummary = () =>
   axiosInstance.get('/admin/dashboard/summary');
+
+export const getPujaBookings = async ({ page, limit, search, sort }) => {
+  const response = await axiosInstance.get("/admin/puja/bookings", {
+    params: { page, limit, search, sort },
+  });
+  return response.data;
+};
+
+export const deletePujaBooking = async (id) => {
+  const response = await axiosInstance.delete(`/admin/puja/bookings/${id}`);
+  return response.data;
+};

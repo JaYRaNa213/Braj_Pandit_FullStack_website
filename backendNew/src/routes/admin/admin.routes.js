@@ -12,6 +12,7 @@ import {
 import {
   getPujaBookings,
   updatePujaBookingStatus,
+  deletePujaBooking,
   getAllUsers,
   updateUserByAdmin,
   deleteUserByAdmin,
@@ -41,9 +42,7 @@ router.use(authMiddleware, authorizeRoles('admin'));
 // ✅ Dashboard Summary
 router.get('/dashboard-summary', getUserAdminDashboardSummary);
 
-// ✅ Puja Bookings
-router.get('/puja/bookings', getPujaBookings);
-router.put('/puja/bookings/:id', updatePujaBookingStatus);
+
 
 // ✅ Blog Management
 router.post('/blogs', upload.single('image'), addBlog);
@@ -61,5 +60,10 @@ router.get('/users', getAllUsers
 );
 router.put('/users/:id', updateUserByAdmin);
 router.delete('/users/:id', deleteUserByAdmin);
+
+router.get("/puja/bookings",verifyToken,getPujaBookings);
+router.delete("/puja/bookings/:id", verifyToken,deletePujaBooking);
+router
+
 
 export default router;

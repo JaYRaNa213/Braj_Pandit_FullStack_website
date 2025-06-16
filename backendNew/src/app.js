@@ -67,8 +67,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/auth', authRoutes);
 
 app.use('/api/bookings', bookingRoutes);
-// app.use('/api/bookings', userBookingRoutes);
 app.use('/api/admin/bookings', verifyToken, adminBookingRoutes); // ✅ FIXED
+
+app.use("/api/admin", adminRoutes); // this adds `/admin` prefix
 
 
 // ✅ Admin Routes (PROTECTED)
