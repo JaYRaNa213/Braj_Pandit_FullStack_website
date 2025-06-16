@@ -32,7 +32,7 @@ const UserRoutes = () => {
         <Route element={<ProtectedRoute roles={["user", "admin"]} />}>
           <Route path="/dashboard" element={<UserDashboard />} />
           <Route path="/booking" element={<Booking />} />
-          <Route path="/puja-booking" element={<PujaBooking />} />
+          <Route path="/puja/booking" element={<PujaBooking />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/my-orders" element={<MyOrders />} /> {/* ✅ Secured */}

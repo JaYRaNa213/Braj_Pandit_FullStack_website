@@ -40,12 +40,12 @@ const adminLinks = [
   {
     label: "Manage Puja Bookings",
     icon: <CalendarCheck className="w-5 h-5 text-[#4A1C1C]" />,
-    path: "/admin/manage-puja-bookings",
+    path: "/admin/pujabookings",
   },
   {
     label: "Manage Users",
     icon: <Users className="w-5 h-5 text-[#4A1C1C]" />,
-    path: "/admin/manage-users",
+    path: "/admin/users",
   },
   {
     label: "All Orders",

@@ -33,7 +33,7 @@ export const deleteBlog = async (id) => {
 
 // Get all puja bookings
 export const getPujaBookings = async ({ page = 1, limit = 10, search = '', sort = 'date' } = {}) => {
-  const response = await axiosInstance.get('/admin/puja-bookings', {
+  const response = await axiosInstance.get('/admin/puja/bookings', {
     params: { page, limit, search, sort },
   });
   return response.data;
@@ -42,9 +42,13 @@ export const getPujaBookings = async ({ page = 1, limit = 10, search = '', sort 
 
 // Delete a puja booking by id
 export const deletePujaBooking = async (id) => {
-  const response = await axiosInstance.delete(`/admin/puja-bookings/${id}`);
+  const response = await axiosInstance.delete(`/admin/puja/bookings/${id}`);
   return response.data;
 };
+export const getAllUsers = () => axios.get("/admin/users");
+export const updateUser = (id, data) => axios.put(`/admin/users/${id}`, data);
+export const deleteUser = (id) => axios.delete(`/admin/users/${id}`);
+
 
 // Admin Dashboard Summary
 export const getAdminDashboardSummary = () =>

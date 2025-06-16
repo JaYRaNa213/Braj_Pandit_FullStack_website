@@ -12,7 +12,7 @@ const AdminLayout = () => {
           <Link to="/admin" className="block hover:underline">Dashboard</Link>
           <Link to="/admin/manage-blogs" className="block hover:underline">Manage Blogs</Link>
           <Link to="/admin/manage-products" className="block hover:underline">Manage Products</Link>
-          <Link to="/admin/manage-puja-bookings" className="block hover:underline">Manage Puja Bookings</Link>
+          <Link to="/admin/puja/bookings" className="block hover:underline">Manage Puja Bookings</Link>
         </nav>
       </aside>
 

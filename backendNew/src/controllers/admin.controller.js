@@ -106,3 +106,52 @@ export const getAllUsersAdmin = asyncHandler(async (req, res) => {
   const users = await User.find().select('-password -refreshToken');
   res.status(200).json(new ApiResponse(200, users, 'All users fetched successfully'));
 });
+
+
+
+
+export const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find().select("-password");
+    res.status(200).json({ success: true, data: users });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Failed to fetch users" });
+  }
+};
+
+// 🔹 Update user by admin
+export const updateUserByAdmin = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, email, phone, address, role, isVerified } = req.body;
+
+    const user = await User.findById(id);
+    if (!user) return res.status(404).json({ success: false, message: "User not found" });
+
+    user.name = name || user.name;
+    user.email = email || user.email;
+    user.phone = phone || user.phone;
+    user.address = address || user.address;
+    user.role = role || user.role;
+    user.isVerified = isVerified ?? user.isVerified;
+
+    await user.save();
+    res.status(200).json({ success: true, message: "User updated", user });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Failed to update user" });
+  }
+};
+
+// 🔹 Delete user by admin
+export const deleteUserByAdmin = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deletedUser = await User.findByIdAndDelete(id);
+    if (!deletedUser) return res.status(404).json({ success: false, message: "User not found" });
+
+    res.status(200).json({ success: true, message: "User deleted" });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Failed to delete user" });
+  }
+};
