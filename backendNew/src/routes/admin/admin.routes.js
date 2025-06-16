@@ -12,7 +12,7 @@ import {
 import {
   getPujaBookings,
   updatePujaBookingStatus,
-  getAllUsersAdmin,
+  getAllUsers,
   updateUserByAdmin,
   deleteUserByAdmin,
 } from '../../controllers/admin.controller.js';
@@ -56,7 +56,9 @@ router.put('/products/:id', upload.single('image'), updateProduct);
 router.delete('/products/:id', deleteProduct);
 
 // ✅ User Management (Admin Only)
-router.get('/users', getAllUsersAdmin);
+router.get('/users', getAllUsers
+  
+);
 router.put('/users/:id', updateUserByAdmin);
 router.delete('/users/:id', deleteUserByAdmin);
 
