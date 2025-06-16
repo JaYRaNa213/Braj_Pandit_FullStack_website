@@ -1,89 +1,106 @@
+// src/pages/admin/AddProduct.jsx
+
 import React, { useState } from "react";
-import { cloudinaryUpload } from "../../utils/cloudinaryUpload";
+import axiosInstance from "../../services/axios";
 
 function AddProduct() {
   const [image, setImage] = useState(null);
   const [productName, setProductName] = useState("");
   const [price, setPrice] = useState("");
-  const [uploadedUrl, setUploadedUrl] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
   };
 
-  const handleUpload = async () => {
-    if (!image) return alert("Please select an image to upload.");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!image || !productName || !price || !description || !category) {
+      alert("Please fill all fields and select an image.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("name", productName);
+    formData.append("price", price);
+    formData.append("description", description);
+    formData.append("category", category);
+    formData.append("image", image);
+
+    setLoading(true);
     try {
-      const url = await cloudinaryUpload(image);
-      setUploadedUrl(url);
-      console.log("Product Image URL:", url); // Use this URL in the product creation form
+      const res = await axiosInstance.post("/admin/products", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      if (res?.data?.success) {
+        alert("✅ Product added successfully!");
+        setProductName("");
+        setPrice("");
+        setDescription("");
+        setCategory("");
+        setImage(null);
+      } else {
+        alert("❌ Failed to add product: " + (res?.data?.message || "Unknown error"));
+      }
     } catch (err) {
-      console.error("Upload failed:", err);
+      console.error("❌ Error adding product:", err);
+      alert("Something went wrong while adding the product.");
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // Send product info along with the uploaded image URL to backend API
-    const productData = { name: productName, price, imageUrl: uploadedUrl };
-
-    fetch("http://localhost:7000/api/products", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(productData),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        alert("Product added successfully!");
-        console.log("Product data:", data);
-      })
-      .catch((err) => console.error("Error submitting product:", err));
-  };
-
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-bold mb-2">Add Product</h2>
-
-      <form onSubmit={handleSubmit}>
+    <div className="p-6 max-w-2xl mx-auto bg-white rounded-xl shadow">
+      <h2 className="text-2xl font-bold text-[#4A1C1C] mb-6">Add New Product</h2>
+      <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"
           placeholder="Product Name"
           value={productName}
           onChange={(e) => setProductName(e.target.value)}
-          className="border p-2 mb-2 w-full"
+          className="w-full border p-3 rounded"
         />
         <input
           type="number"
           placeholder="Price"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
-          className="border p-2 mb-2 w-full"
+          className="w-full border p-3 rounded"
         />
-
-        <input type="file" onChange={handleImageChange} className="mb-2" />
-        <button
-          type="button"
-          onClick={handleUpload}
-          className="bg-blue-500 text-white px-4 py-2"
-        >
-          Upload Image
-        </button>
-
-        {uploadedUrl && (
-          <div className="mt-4">
-            <p>Uploaded Image:</p>
-            <img src={uploadedUrl} alt="Uploaded" className="w-64" />
-          </div>
-        )}
-
+        <input
+          type="text"
+          placeholder="Description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          className="w-full border p-3 rounded"
+        />
+        <input
+          type="text"
+          placeholder="Category"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          className="w-full border p-3 rounded"
+        />
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
+          className="w-full border p-2 rounded"
+        />
         <button
           type="submit"
-          className="bg-green-500 text-white px-4 py-2 mt-4"
+          className="w-full bg-[#4A1C1C] text-white py-3 rounded hover:bg-[#3a1515] transition"
+          disabled={loading}
         >
-          Add Product
+          {loading ? "Adding..." : "Add Product"}
         </button>
       </form>
     </div>

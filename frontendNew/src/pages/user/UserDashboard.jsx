@@ -1,62 +1,5 @@
 // // UserDashboard.jsx
 
-// import React from "react";
-// import { Link } from "react-router-dom";
-// import { useAuth } from "../../context/AuthContext";
-
-// const UserDashboard = () => {
-//   const { user, logout } = useAuth();
-
-//   const handleLogout = () => {
-//     logout();
-//     window.location.href = "/login";
-//   };
-
-//   return (
-//     <div className="min-h-screen bg-gray-50 p-6">
-//       <div className="max-w-4xl mx-auto bg-white p-6 rounded shadow-md">
-//         <h1 className="text-3xl font-bold mb-2">Welcome, {user?.name || "User"}!</h1>
-//         <p className="text-gray-600 mb-4">Here’s your personalized dashboard.</p>
-
-//         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-//           <Link
-//             to="/profile"
-//             className="bg-blue-100 p-4 rounded hover:bg-blue-200 transition"
-//           >
-//             👤 View / Edit Profile
-//           </Link>
-//           <Link
-//             to="/my-bookings"
-//             className="bg-green-100 p-4 rounded hover:bg-green-200 transition"
-//           >
-//             📅 My Puja Bookings
-//           </Link>
-//           <Link
-//             to="/my-orders"
-//             className="bg-yellow-100 p-4 rounded hover:bg-yellow-200 transition"
-//           >
-//             📦 My Orders
-//           </Link>
-//           <Link
-//             to="/blogs"
-//             className="bg-purple-100 p-4 rounded hover:bg-purple-200 transition"
-//           >
-//             📚 Read Religious Blogs
-//           </Link>
-//         </div>
-
-//         <button
-//           onClick={handleLogout}
-//           className="mt-6 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
-//         >
-//           Logout
-//         </button>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default UserDashboard;
 
 
 
@@ -71,9 +14,12 @@ const UserDashboard = () => {
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:7000/api/bookings/my", {
-      credentials: "include",
-    })
+    fetch("/api/bookings/my", {
+  headers: {
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  },
+})
+
       .then((res) => res.json())
       .then((data) => setBookings(data.data || []))
       .catch((err) => console.error("Error fetching bookings:", err));
@@ -83,6 +29,7 @@ const UserDashboard = () => {
     logout();
     window.location.href = "/login";
   };
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-100 to-pink-50 py-10 px-4">
@@ -105,7 +52,7 @@ const UserDashboard = () => {
               <p className="text-sm text-blue-600 mt-1">Update your personal details.</p>
             </Link>
             <Link
-              to="/my-orders"
+              to="/orders"
               className="block bg-yellow-100 border border-yellow-300 hover:shadow-md transition p-5 rounded-xl"
             >
               <h2 className="text-xl font-semibold text-yellow-800">📦 My Orders</h2>

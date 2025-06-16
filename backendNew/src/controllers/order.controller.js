@@ -2,6 +2,8 @@
 import Order from '../models/order.model.js';
 import Cart from '../models/cart.model.js';
 
+import asyncHandler from "../utils/asyncHandler.js";
+
 export const placeOrder = async (req, res) => {
   try {
     const cart = await Cart.findOne({ user: req.user._id }).populate('items.product');
@@ -52,3 +54,17 @@ export const updateOrderStatus = async (req, res) => {
 
   res.status(200).json({ success: true, message: 'Order status updated', order });
 };
+
+
+
+
+export const getMyOrders = asyncHandler(async (req, res) => {
+  const orders = await Order.find({ user: req.user._id }).sort({ createdAt: -1 });
+
+  res.status(200).json({
+    success: true,
+    message: "Fetched user orders",
+    data: orders,
+  });
+});
+

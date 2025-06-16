@@ -8,7 +8,7 @@ const AddBlogPost = () => {
     title: '',
     author: '',
     content: '',
-    category: '',
+    category: 'Puja', // ✅ Initialize with the default dropdown value
     image: null,
   });
 
@@ -31,16 +31,17 @@ const AddBlogPost = () => {
 
     const data = new FormData();
     Object.keys(form).forEach((key) => {
+      // Append all form fields, including the category
       data.append(key, form[key]);
     });
 
-    const token = localStorage.getItem('token'); // ✅ fixed key
+    const token = localStorage.getItem('token');
 
     console.log("➡️ Axios request headers", {
-  Authorization: `Bearer ${token}`,
-});
+      Authorization: `Bearer ${token}`,
+    });
 
-
+    // Log the form state *before* sending
     console.log("📤 Submitting blog with data:", form);
     console.log("📦 Token from localStorage:", token);
 
@@ -50,34 +51,33 @@ const AddBlogPost = () => {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,
         },
-        withCredentials: true, // ✅ ensure credentials (cookies) are sent
+        withCredentials: true,
       });
 
       alert('✅ Blog posted successfully!');
       console.log('Blog Response:', response.data);
 
-      // Reset form
+      // Reset form to initial state (matching default dropdown)
       setForm({
         title: '',
         author: '',
         content: '',
-        category: 'Puja',
+        category: 'Puja', // ✅ Reset to the default dropdown value
         image: null,
       });
       setImagePreview(null);
     } catch (error) {
-  const errorMessage =
-    error.response?.data?.message || error.message || 'Something went wrong';
+      const errorMessage =
+        error.response?.data?.message || error.message || 'Something went wrong';
 
-  console.error('❌ Blog post error:', {
-    status: error.response?.status,
-    data: error.response?.data,
-    message: errorMessage,
-  });
+      console.error('❌ Blog post error:', {
+        status: error.response?.status,
+        data: error.response?.data,
+        message: errorMessage,
+      });
 
-  alert(`❌ Blog Error: ${errorMessage}`);
-}
-
+      alert(`❌ Blog Error: ${errorMessage}`);
+    }
   };
 
   return (
@@ -118,7 +118,7 @@ const AddBlogPost = () => {
           name="category"
           onChange={handleChange}
           className="w-full border p-2 rounded"
-          value={form.category}
+          value={form.category} // This will now correctly start as 'Puja'
         >
           <option value="Puja">Puja</option>
           <option value="Festival">Festival</option>

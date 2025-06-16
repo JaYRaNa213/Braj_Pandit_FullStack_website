@@ -1,5 +1,6 @@
 // src/services/api.js
-import axiosInstance from "axios";
+import axiosInstance from "./axios"; // ✅ CORRECT: use your configured axios instance
+
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:7000/api/";
 
@@ -33,7 +34,32 @@ export const deleteBlog = (id) => axiosInstance.delete(`/blogs/${id}`);
 export const getComments = (blogId) => axiosInstance.get(`/blogs/${blogId}/comments`);
 
 // ✅ PRODUCTS
-export const getProducts = () => axiosInstance.get("/products");
+
+// USER: Get all products (public)
+export const getProducts = () => {
+  return axiosInstance.get("/products"); // hits http://localhost:7000/api/products
+};
+
+// ADMIN: Get all products (admin)
+export const getAdminProducts = () => axiosInstance.get("/admin/products");
+
+// ADMIN: Delete product
+export const deleteProduct = (id) => axiosInstance.delete(`/admin/products/${id}`);
+
+// ADMIN: Add product (expects FormData for image upload)
+export const addProduct = (formData) =>
+  axiosInstance.post("/admin/products", formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+
+  // ADMIN: Update product (expects FormData for image upload)
+export const updateProduct = (id, formData) =>
+  axiosInstance.put(`/admin/products/${id}`, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+
+
+
 
 // ✅ BOOKINGS
 export const bookPuja = (bookingData) => {

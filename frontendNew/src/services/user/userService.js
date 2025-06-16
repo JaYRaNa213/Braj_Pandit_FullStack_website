@@ -59,6 +59,15 @@ const getPaymentStatus = async (paymentId) => {
   return response.data;
 };
 
+const uploadProfileImage = async (formData) => {
+  const response = await axiosInstance.post(USER.UPLOAD_IMAGE, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return response.data;
+};
+
 export {
   register,
   login,
@@ -71,4 +80,5 @@ export {
   deleteBooking,
   createPayment,
   getPaymentStatus,
+  uploadProfileImage,
 };

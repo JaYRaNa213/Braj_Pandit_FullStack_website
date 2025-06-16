@@ -6,10 +6,10 @@ import upload from '../../middleware/multer.middleware.js';
 
 const router = express.Router();
 
+// Admin-only routes
 router.post('/', verifyToken, isAdmin, upload.single('image'), addProduct);
 router.get('/', verifyToken, isAdmin, getAllProducts);
 router.delete('/:id', verifyToken, isAdmin, deleteProduct);
 router.put('/:id', verifyToken, isAdmin, upload.single('image'), updateProduct);
-router.get('/', getAllProducts);
 
 export default router;

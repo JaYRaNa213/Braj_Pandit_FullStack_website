@@ -64,7 +64,7 @@ export const loginUser = async (email, password, role) => {
       email: user.email,
       role: user.role,
     },
-    process.env.ACCESS_TOKEN_SECRET,
+    process.env.JWT_SECRET,
     {
       expiresIn: process.env.ACCESS_TOKEN_EXPIRY || '1d',
     }

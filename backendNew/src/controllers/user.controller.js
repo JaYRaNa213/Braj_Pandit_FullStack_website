@@ -9,10 +9,11 @@ import Product from '../models/product.model.js';
 
 import asyncHandler from '../utils/asyncHandler.js';
 import ApiResponse from '../utils/ApiResponse.js';
+import { uploadOnCloudinary } from '../utils/cloudinary.js';
 
 // ✅ GET User Profile
 export const getUserProfile = asyncHandler(async (req, res) => {
-  const userId = req.user._id;
+  const userId = req.user.id;
 
   const user = await User.findById(userId).select('-password');
   if (!user) {
@@ -56,3 +57,21 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
   );
 });
 
+
+
+
+
+
+
+export const uploadProfileImage = asyncHandler(async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json(new ApiResponse(400, null, "No file uploaded"));
+  }
+
+  const uploadResult = await uploadOnCloudinary(req.file.path);
+  if (!uploadResult) {
+    return res.status(500).json(new ApiResponse(500, null, "Cloudinary upload failed"));
+  }
+
+  return res.status(200).json(new ApiResponse(200, uploadResult.secure_url, "Image uploaded"));
+});

@@ -22,6 +22,11 @@ const blogSchema = new mongoose.Schema({
 
   updatedBy: { type: String, required: false },
 
+},
+{
+  timestamps: true,
+  createdAt: { type: Date, default: Date.now },
+  
 });
 
 const Blog = mongoose.model('Blog', blogSchema);

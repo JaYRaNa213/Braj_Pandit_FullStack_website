@@ -1,8 +1,5 @@
-// src/pages/admin/ManageProducts.jsx
-
-
 import React, { useEffect, useState } from "react";
-import { getProducts, deleteProduct } from "../../services/adminService";
+import { getAdminProducts, deleteProduct } from "../../services/api";
 
 const ManageProducts = () => {
   const [products, setProducts] = useState([]);
@@ -12,8 +9,8 @@ const ManageProducts = () => {
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const data = await getProducts();
-      setProducts(data);
+      const res = await getAdminProducts();
+      setProducts(res.data?.data || []);
       setLoading(false);
     } catch (err) {
       setError("Failed to fetch products.");

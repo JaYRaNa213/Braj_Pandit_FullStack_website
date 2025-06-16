@@ -1,4 +1,4 @@
-📂 Generating Religious Website Frontend Tree Structure...
+📂 Religious Website Frontend Tree Structure
 
 ├── .env
 ├── .gitignore
@@ -23,7 +23,7 @@
 │   │   ├── live
 │   │   │   ├── anirudh.jpg
 │   │   │   ├── Premanand-Ji-Maharaj.jpg
-│   │   │   └── radha-raman-ji-murthi.jpeg        
+│   │   │   └── radha-raman-ji-murthi.jpeg
 │   │   ├── mahashivaratri.jpg
 │   │   ├── marriage.jpg
 │   │   ├── money.jpg
@@ -109,6 +109,7 @@
 │   │       ├── Booking.jsx
 │   │       ├── Cart.jsx
 │   │       ├── Home.jsx
+│   │       ├── ProductDetails.jsx
 │   │       ├── Products.jsx
 │   │       ├── PujaBooking.jsx
 │   │       ├── Register.jsx
@@ -143,5 +144,3 @@
 │   ├── images.jpg
 │   └── mahashivaratri.jpg
 └── vite.config.js
-
-✅ Tree generation complete!

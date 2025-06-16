@@ -5,21 +5,22 @@ import {
   getPujaBookings,
   updatePujaBookingStatus,
   getAllUsersAdmin,
-} from '../../controllers/admin/admin.controller.js';
+} from '../../controllers/admin.controller.js';
 import {
-  createBlog,
+  addBlog,
   updateBlog,
   deleteBlog,
-} from '../../controllers/admin/blog.controller.js';
+} from '../../controllers/blog.controller.js';
 import {
-  createProduct,
+  addProduct,
   updateProduct,
   deleteProduct,
-} from '../../controllers/admin/product.controller.js';
+} from '../../controllers/product.controller.js';
 
-import authMiddleware from '../../middlewares/auth.middleware.js';
-import { authorizeRoles } from '../../middlewares/role.middleware.js';
-import upload from '../../middlewares/multer.middleware.js'; // for blog/product image uploads
+import { verifyToken,isAdmin, authMiddleware, authorizeRoles } from '../../middleware/auth.middleware.js';
+import upload from '../../middleware/multer.middleware.js'; // for blog/product image uploads
+
+import { getAdminDashboardSummary } from '../../controllers/dashboard.controller.js';
 
 const router = express.Router();
 
@@ -36,10 +37,15 @@ router.post('/blogs', verifyToken, isAdmin, upload.single('image'), addBlog);
 
 
 router.put('/blogs/:id', upload.single('image'), updateBlog);
+
+// ✅ Add this route (if not already added)
+router.get('/dashboard-summary', verifyToken, isAdmin,authorizeRoles('admin'), getAdminDashboardSummary);
+
+
 router.delete('/blogs/:id', deleteBlog);
 
 // ✅ Product Management
-router.post('/products', upload.single('image'), createProduct);
+router.post('/products', upload.single('image'), addProduct);
 router.put('/products/:id', upload.single('image'), updateProduct);
 router.delete('/products/:id', deleteProduct);
 

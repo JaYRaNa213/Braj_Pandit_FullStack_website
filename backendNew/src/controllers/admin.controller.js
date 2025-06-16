@@ -6,6 +6,9 @@ import Product from '../models/product.model.js';
 import Order from '../models/order.model.js';
 import Blog from '../models/blog.model.js';
 
+import asyncHandler from '../utils/asyncHandler.js';
+import ApiResponse from '../utils/ApiResponse.js';
+
 
 export const getPujaBookings = async (req, res) => {
   try {
@@ -81,3 +84,25 @@ export const getUserAdminDashboardSummary = async (req, res) => {
     });
   }
 };
+
+// ✅ Update Puja booking status
+export const updatePujaBookingStatus = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  const booking = await Booking.findById(id);
+  if (!booking) {
+    return res.status(404).json(new ApiResponse(404, null, 'Booking not found'));
+  }
+
+  booking.status = status;
+  await booking.save();
+
+  return res.status(200).json(new ApiResponse(200, booking, 'Booking status updated'));
+});
+
+
+export const getAllUsersAdmin = asyncHandler(async (req, res) => {
+  const users = await User.find().select('-password -refreshToken');
+  res.status(200).json(new ApiResponse(200, users, 'All users fetched successfully'));
+});

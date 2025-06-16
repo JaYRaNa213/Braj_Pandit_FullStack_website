@@ -18,7 +18,9 @@ export const ADMIN = {
   // Add more admin-specific routes if needed
 };
 
+
 export const USER = {
+
   AUTH: {
     REGISTER: `${BASE_URL}/user/auth/register`,
     LOGIN: `${BASE_URL}/user/auth/login`,
@@ -26,9 +28,9 @@ export const USER = {
   },
   BOOKING: {
     CREATE: `${BASE_URL}/user/booking`,
-    LIST: `${BASE_URL}/user/booking`,
-    UPDATE: `${BASE_URL}/user/booking`, // PUT with /:id
-    DELETE: `${BASE_URL}/user/booking`, // DELETE with /:id
+    LIST: `${BASE_URL}/booking/my`,
+    UPDATE: `${BASE_URL}/booking/my`, // PUT with /:id
+    DELETE: `${BASE_URL}/booking/my`, // DELETE with /:id
   },
   PRODUCTS: {
     LIST: `${BASE_URL}/user/products`,
@@ -43,8 +45,18 @@ export const USER = {
   PAYMENT: {
     CREATE: `${BASE_URL}/user/payment`,
   },
+  PROFILE: "/api/user/profile",
+  UPDATE_PROFILE: "/api/user/profile",
+  UPLOAD_IMAGE: "/api/user/upload-image",
   // Add more user-specific routes if needed
 };
+
+// // constants/apiRoutes.js
+// export const USER = {
+//   PROFILE: "/api/user/profile",
+//   UPDATE_PROFILE: "/api/user/profile",
+//   UPLOAD_IMAGE: "/api/user/upload-image",
+// };
 
 export default {
   ADMIN,

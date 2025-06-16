@@ -33,7 +33,10 @@ import userBookingRoutes from './routes/user/booking.routes.js';
 import adminOrderRoutes from './routes/admin/order.routes.js';
 import cartRoutes from './routes/user/cart.routes.js';
 import orderRoutes from './routes/user/order.routes.js';
+import adminRoutes from './routes/admin/admin.routes.js';
 
+
+import dashboardRoutes from './routes/admin/dashboard.routes.js';
 
 
 // 🔁 Middlewares
@@ -64,7 +67,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/auth', authRoutes);
 
 app.use('/api/bookings', bookingRoutes);
-app.use('/api/bookings', userBookingRoutes);
+// app.use('/api/bookings', userBookingRoutes);
 app.use('/api/admin/bookings', verifyToken, adminBookingRoutes); // ✅ FIXED
 
 
@@ -74,6 +77,7 @@ app.use('/api/user/blogs', userBlogRoutes);
 
 
 app.use('/api/products', userProductRoutes);
+// app.use('/api/admin/products', productRoutes);
 app.use('/api/admin/products', productRoutes);
 // ✅ User Blog Routes
 
@@ -81,6 +85,7 @@ app.use('/api/comments', commentRoutes);
 
 
 app.use('/api/cart', cartRoutes);
+
 app.use('/api/orders', orderRoutes);
 app.use('/api/admin/orders', adminOrderRoutes);
 
@@ -89,7 +94,9 @@ app.use('/api/admin/orders', adminOrderRoutes);
 
 app.use('/api/admin/dashboard', adminDashboardRoutes);
 app.use('/api/user', userRoutes); // ✅ Enables /api/user/dashboard/summary
+app.use('/api/admin', verifyToken, adminRoutes); // ✅ Admin Dashboard
 
+// app.use('/api/admin', dashboardRoutes);
 
 app.use('/api/payments', paymentRoutes);
 app.use('/api/emails', emailRoutes);

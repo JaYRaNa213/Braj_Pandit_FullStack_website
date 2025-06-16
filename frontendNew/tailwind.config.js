@@ -19,6 +19,6 @@ export default {
     },
   },
   plugins: [
-    require('tailwindcss-animate'), // ✅ Add here (inside array)
+    require('@tailwindcss/forms'),
   ],
 }

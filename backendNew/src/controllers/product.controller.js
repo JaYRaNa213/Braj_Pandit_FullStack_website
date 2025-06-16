@@ -1,8 +1,5 @@
 // src/controllers/product.controller.js
 
-// // Mock database to store product data temporarily (replace with DB logic later)
-// let products = [];
-
 
 import Product from '../models/product.model.js';
 

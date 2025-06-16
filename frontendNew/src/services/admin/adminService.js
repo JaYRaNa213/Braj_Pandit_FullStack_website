@@ -1,9 +1,9 @@
 //src/services/admin/adminService.js
 
 
-import axiosInstance from "axios";
 
-const API_BASE = "/api/admin"; // Adjust base URL if needed
+import axiosInstance from "../axios.js";
+
 
 // Get all products
 export const addProduct = (productData) =>
@@ -18,21 +18,22 @@ export const deleteProduct = (id) =>
 export const updateProduct = (id, productData) =>
   axiosInstance.put(`/admin/products/${id}`, productData);
 
+
 // Get all blogs
+// Admin Blogs
 export const getBlogs = async () => {
-  const response = await axiosInstance.get(`${API_BASE}/blogs`);
+  const response = await axiosInstance.get('/admin/blogs');
   return response.data.data || response.data;
 };
 
-// Delete a blog by id
 export const deleteBlog = async (id) => {
-  const response = await axiosInstance.delete(`${API_BASE}/blogs/${id}`);
+  const response = await axiosInstance.delete(`/admin/blogs/${id}`);
   return response.data;
 };
 
 // Get all puja bookings
 export const getPujaBookings = async ({ page = 1, limit = 10, search = '', sort = 'date' } = {}) => {
-  const response = await axiosInstance.get(`${API_BASE}/puja-bookings`, {
+  const response = await axiosInstance.get('/admin/puja-bookings', {
     params: { page, limit, search, sort },
   });
   return response.data;
@@ -41,11 +42,10 @@ export const getPujaBookings = async ({ page = 1, limit = 10, search = '', sort 
 
 // Delete a puja booking by id
 export const deletePujaBooking = async (id) => {
-  const response = await axiosInstance.delete(`${API_BASE}/puja-bookings/${id}`);
+  const response = await axiosInstance.delete(`/admin/puja-bookings/${id}`);
   return response.data;
 };
 
-// Get admin dashboard summary (stats & chart)
+// Admin Dashboard Summary
 export const getAdminDashboardSummary = () =>
-  axiosInstance.get(`${API_BASE}/dashboard/summary`);
-
+  axiosInstance.get('/admin/dashboard/summary');
