@@ -1,70 +1,150 @@
-// src/controllers/order.controller.js
-import Order from '../models/order.model.js';
-import Cart from '../models/cart.model.js';
+import Order from "../models/order.model.js";
+import User from "../models/user.model.js";
+import Product from "../models/product.model.js";
 
-import asyncHandler from "../utils/asyncHandler.js";
+// ==========================
+// ===== USER SIDE ==========
+// ==========================
 
+// 1. Place Order
 export const placeOrder = async (req, res) => {
   try {
-    const cart = await Cart.findOne({ user: req.user._id }).populate('items.product');
+    const { products, address, paymentMethod } = req.body;
 
-    if (!cart || cart.items.length === 0) {
-      return res.status(400).json({ success: false, message: 'Cart is empty' });
+    if (!products || products.length === 0) {
+      return res.status(400).json({ success: false, message: "No products to order" });
     }
 
-    const totalAmount = cart.items.reduce(
-      (acc, item) => acc + item.product.price * item.quantity, 0
-    );
+    let totalPrice = 0;
+    const populatedProducts = [];
 
-    const order = await Order.create({
-      user: req.user._id,
-      products: cart.items.map(item => ({
-        product: item.product._id,
-        quantity: item.quantity
-      })),
-      totalAmount,
+    for (const p of products) {
+      const prod = await Product.findById(p.productId || p.product);
+      if (!prod) return res.status(404).json({ success: false, message: `Product not found: ${p.productId}` });
+      totalPrice += prod.price * (p.quantity || 1);
+      populatedProducts.push({
+        productId: prod._id,
+        quantity: p.quantity || 1
+      });
+    }
+
+    const order = new Order({
+      user: req.user.id,
+      products: populatedProducts,
+      address,
+      paymentMethod: paymentMethod || "COD",
+      status: "pending",
+      totalAmount: totalPrice
     });
 
-    await Cart.findOneAndDelete({ user: req.user._id });
+    await order.save();
 
-    res.status(201).json({ success: true, message: 'Order placed', order });
+    res.status(201).json({ success: true, message: "Order placed successfully", order });
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Server Error', error: error.message });
+    console.error("Place order error:", error);
+    res.status(500).json({ success: false, message: "Server error" });
   }
 };
 
-export const getUserOrders = async (req, res) => {
-  const orders = await Order.find({ user: req.user._id }).populate('products.product');
-  res.status(200).json({ success: true, orders });
+// 2. Get My Orders
+export const getMyOrders = async (req, res) => {
+  try {
+    const orders = await Order.find({ user: req.user.id })
+      .populate({
+        path: "products.productId",
+        select: "name price image",
+        strictPopulate: false
+      })
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({ success: true, orders });
+  } catch (error) {
+    console.error("❌ getMyOrders failed:", error.message);
+    res.status(500).json({ success: false, message: "Failed to fetch your orders" });
+  }
 };
 
+
+// ==========================
+// ===== ADMIN SIDE =========
+// ==========================
+
+// 3. Get All Orders
 export const getAllOrders = async (req, res) => {
-  const orders = await Order.find().populate('user').populate('products.product');
-  res.status(200).json({ success: true, orders });
-};
+  try {
+    const orders = await Order.find({})
+      .populate("user", "name email")
+      .populate({
+        path: "products.productId",
+        select: "name price imageUrl",
+        options: { strictPopulate: false }
+      });
 
-export const updateOrderStatus = async (req, res) => {
-  const { id } = req.params;
-  const { status } = req.body;
-
-  const order = await Order.findByIdAndUpdate(id, { orderStatus: status }, { new: true });
-  if (!order) {
-    return res.status(404).json({ success: false, message: 'Order not found' });
+    console.log("Admin fetched orders:", orders.length); // Debug
+    res.json({ success: true, orders });
+  } catch (error) {
+    console.error("Admin get orders error:", error);
+    res.status(500).json({ success: false, message: "Failed to fetch orders" });
   }
-
-  res.status(200).json({ success: true, message: 'Order status updated', order });
 };
 
 
+// 4. Get Single Order by ID
+export const getOrderById = async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id)
+      .populate("user", "name email")
+      .populate("products.productId", "name price image");
 
+    if (!order) return res.status(404).json({ success: false, message: "Order not found" });
 
-export const getMyOrders = asyncHandler(async (req, res) => {
-  const orders = await Order.find({ user: req.user._id }).sort({ createdAt: -1 });
+    res.json({ success: true, order });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
 
-  res.status(200).json({
-    success: true,
-    message: "Fetched user orders",
-    data: orders,
-  });
-});
+// 5. Update Order Status (confirm, shipped, delivered, cancelled, refused)
+export const updateOrderStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
 
+    const validStatuses = ["pending", "confirmed", "shipped", "delivered", "cancelled", "refused"];
+    if (!validStatuses.includes(status)) {
+      return res.status(400).json({ success: false, message: "Invalid status" });
+    }
+
+    const order = await Order.findByIdAndUpdate(id, { status }, { new: true })
+      .populate("user", "name email")
+      .populate("products.productId", "name price image");
+
+    if (!order) return res.status(404).json({ success: false, message: "Order not found" });
+
+    res.json({ success: true, message: "Order status updated", order });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+// 6. Cancel or Refuse Order (admin or optionally user)
+export const cancelOrder = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const order = await Order.findById(id);
+
+    if (!order) return res.status(404).json({ success: false, message: "Order not found" });
+
+    // Only allow cancellation if it's still pending or confirmed
+    if (!["pending", "confirmed"].includes(order.status)) {
+      return res.status(400).json({ success: false, message: "Cannot cancel at this stage" });
+    }
+
+    order.status = "cancelled";
+    await order.save();
+
+    res.json({ success: true, message: "Order cancelled", order });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};

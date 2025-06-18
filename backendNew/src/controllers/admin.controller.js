@@ -1,7 +1,7 @@
 
 import express from 'express';
 import User from '../models/user.model.js';
-import Booking from '../models/booking.model.js';
+import Booking from "../models/booking.model.js";
 import Product from '../models/product.model.js';
 import Order from '../models/order.model.js';
 import Blog from '../models/blog.model.js';
@@ -96,21 +96,31 @@ export const getUserAdminDashboardSummary = async (req, res) => {
   }
 };
 
-// ✅ Update Puja booking status
-export const updatePujaBookingStatus = asyncHandler(async (req, res) => {
-  const { id } = req.params;
-  const { status } = req.body;
 
-  const booking = await Booking.findById(id);
-  if (!booking) {
-    return res.status(404).json(new ApiResponse(404, null, 'Booking not found'));
+export const updatePujaBookingStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    console.log("Updating booking ID:", id);
+    console.log("New status:", status);
+
+    const booking = await Booking.findByIdAndUpdate(
+      id,
+      { status },
+      { new: true }
+    );
+
+    if (!booking) {
+      return res.status(404).json({ success: false, message: "Booking not found" });
+    }
+
+    res.json({ success: true, message: "Status updated", booking });
+  } catch (error) {
+    console.error("Error updating booking status:", error);
+    res.status(500).json({ success: false, message: "Server error" });
   }
-
-  booking.status = status;
-  await booking.save();
-
-  return res.status(200).json(new ApiResponse(200, booking, 'Booking status updated'));
-});
+};
 
 
 export const getAllUsersAdmin = asyncHandler(async (req, res) => {
@@ -175,3 +185,111 @@ export const deletePujaBooking = asyncHandler(async (req, res) => {
   }
   res.status(200).json({ success: true, message: 'Booking deleted successfully' });
 });
+
+
+// controllers/admin/order.controller.js
+
+
+export const getAllOrders = async (req, res) => {
+  try {
+    const { page = 1, limit = 10, search = '', sort = '-createdAt' } = req.query;
+
+    const skip = (page - 1) * limit;
+
+    // Optional: dynamic search on user name, email, product name, or status
+    const searchFilter = search
+      ? {
+          $or: [
+            { status: { $regex: search, $options: 'i' } },
+          ],
+        }
+      : {};
+
+    const orders = await Order.find(searchFilter)
+      .populate('user', 'name email') // user.name and user.email
+      .populate('products.product', 'name price') // product.name and price
+      .sort(sort)
+      .skip(parseInt(skip))
+      .limit(parseInt(limit));
+
+    const total = await Order.countDocuments(searchFilter);
+
+    const formattedOrders = orders.map((order) => ({
+      _id: order._id,
+      user: {
+        id: order.user?._id,
+        name: order.user?.name || 'N/A',
+        email: order.user?.email || 'N/A',
+      },
+      products: order.products.map((item) => ({
+        name: item.product?.name || 'N/A',
+        price: item.product?.price || 0,
+        quantity: item.quantity,
+        subtotal: (item.quantity * (item.product?.price || 0)).toFixed(2),
+      })),
+      totalAmount: order.totalAmount,
+      status: order.status,
+      paymentMethod: order.paymentMethod || 'N/A',
+      shippingAddress: order.shippingAddress || 'N/A',
+      createdAt: order.createdAt,
+      updatedAt: order.updatedAt,
+    }));
+
+    res.status(200).json({
+      success: true,
+      message: "Orders fetched successfully",
+      data: formattedOrders,
+      total,
+      page: parseInt(page),
+      totalPages: Math.ceil(total / limit),
+    });
+  } catch (error) {
+    console.error("Error fetching orders:", error);
+    res.status(500).json({
+      success: false,
+      message: "Server error while fetching orders",
+    });
+  }
+};
+
+
+
+export const updateOrderStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    if (!status) {
+      return res.status(400).json({
+        success: false,
+        message: "Status is required",
+      });
+    }
+
+    const order = await Order.findById(id)
+      .populate('user', 'name email')
+      .populate('products.product', 'name price');
+
+    if (!order) {
+      return res.status(404).json({
+        success: false,
+        message: "Order not found",
+      });
+    }
+
+    order.status = status;
+    await order.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Order status updated successfully",
+      order,
+    });
+  } catch (error) {
+    console.error("Error updating order status:", error);
+    res.status(500).json({
+      success: false,
+      message: "Server error while updating order status",
+    });
+  }
+};

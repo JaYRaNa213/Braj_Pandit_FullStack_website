@@ -117,7 +117,7 @@ export const getAllProducts = async (req, res) => {
 export const updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, description, price, category } = req.body;
+    const { name, description, price, category,stock } = req.body;
 
     // ✅ Prepare updated data
     let updatedData = {
@@ -126,6 +126,7 @@ export const updateProduct = async (req, res) => {
       price,
       category,
       updatedBy: req.user._id,
+      stock
     };
 
     // ✅ If new image is provided, upload to Cloudinary

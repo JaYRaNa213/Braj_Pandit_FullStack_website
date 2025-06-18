@@ -51,7 +51,7 @@ router.delete('/blogs/:id', deleteBlog);
 
 // ✅ Product Management
 router.post('/products', upload.single('image'), addProduct);
-router.put('/products/:id', upload.single('image'), updateProduct);
+router.patch('/products/:id', upload.single('image'), updateProduct);
 router.delete('/products/:id', deleteProduct);
 
 // ✅ User Management (Admin Only)
@@ -63,7 +63,8 @@ router.delete('/users/:id', deleteUserByAdmin);
 
 router.get("/puja/bookings",verifyToken,getPujaBookings);
 router.delete("/puja/bookings/:id", verifyToken,deletePujaBooking);
-router
+router.put("/puja/bookings/:id/status", verifyToken, updatePujaBookingStatus);
+
 
 
 export default router;

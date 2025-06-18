@@ -45,6 +45,31 @@ const ManagePujaBookings = () => {
     }
   };
 
+  const handleConfirm = async (id) => {
+  try {
+    const res = await fetch(`http://localhost:7000/api/admin/puja/bookings/${id}/status`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`, // or use your context
+      },
+      body: JSON.stringify({ status: "confirmed" }),
+    });
+
+    const data = await res.json();
+    if (data.success) {
+      fetchBookings(); // refresh bookings list
+    } else {
+      alert("Failed to confirm booking.");
+    }
+  } catch (err) {
+    console.error("Error confirming booking:", err);
+    alert("Error confirming booking.");
+  }
+};
+
+
+
   const totalPages = Math.ceil(total / limit);
 
   return (
@@ -101,15 +126,28 @@ const ManagePujaBookings = () => {
                     {new Date(booking.date).toLocaleDateString()}
                   </td>
                   <td className="p-3 border-b">{booking.time}</td>
-                  <td className="p-3 border-b capitalize">{booking.status}</td>
-                  <td className="p-3 border-b">
-                    <button
-                      onClick={() => handleDelete(booking._id)}
-                      className="text-red-600 hover:underline"
-                    >
-                      Delete
-                    </button>
-                  </td>
+
+
+                 <td className="p-3 border-b">
+  {booking.status !== "confirmed" && (
+    <button
+      onClick={() => handleConfirm(booking._id)}
+      className="text-green-600 hover:underline mr-3"
+    >
+      Confirm
+    </button>
+  )}
+  <button
+    onClick={() => handleDelete(booking._id)}
+    className="text-red-600 hover:underline"
+  >
+    Delete
+  </button>
+</td>
+
+
+
+
                 </tr>
               ))}
             </tbody>

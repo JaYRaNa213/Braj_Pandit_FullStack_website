@@ -21,6 +21,7 @@ import bookingRoutes from './routes/user/booking.routes.js';
 import productRoutes from './routes/admin/product.routes.js';
 import userProductRoutes from './routes/user/product.routes.js';
 
+
 import paymentRoutes from './routes/user/payment.routes.js';
 import emailRoutes from './routes/user/email.routes.js';
 import testRoutes from './routes/test.routes.js';
@@ -30,10 +31,11 @@ import adminBookingRoutes from './routes/admin/booking.routes.js';
 import commentRoutes from './routes/user/comment.routes.js';
 
 import userBookingRoutes from './routes/user/booking.routes.js';
-import adminOrderRoutes from './routes/admin/order.routes.js';
 import cartRoutes from './routes/user/cart.routes.js';
 import orderRoutes from './routes/user/order.routes.js';
 import adminRoutes from './routes/admin/admin.routes.js';
+import userOrderRoutes from "./routes/user/order.routes.js";
+import adminOrderRoutes from "./routes/admin/order.routes.js";
 
 
 import dashboardRoutes from './routes/admin/dashboard.routes.js';
@@ -87,7 +89,9 @@ app.use('/api/comments', commentRoutes);
 
 app.use('/api/cart', cartRoutes);
 
-app.use('/api/orders', orderRoutes);
+
+
+app.use('/api/orders', userOrderRoutes);
 app.use('/api/admin/orders', adminOrderRoutes);
 
 

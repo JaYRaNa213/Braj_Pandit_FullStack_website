@@ -1,6 +1,7 @@
 import axios from "axios";
 import axiosInstance from "../axios.js";
 import { AUTH, USER, BOOKING, PAYMENT } from "../../constants/apiRoutes.js";
+import { toast } from 'react-toastify';
 
 // ✅ Public Routes (No Auth Required)
 const register = async (userData) => {
@@ -68,6 +69,33 @@ const uploadProfileImage = async (formData) => {
   return response.data;
 };
 
+// const placeOrder = (data) => axiosInstance.post("api/orders", data);
+// const getMyOrders = () => axiosInstance.get("api/orders/my");
+
+
+
+export const placeOrder = async (data) => {
+  try {
+    const res = await axiosInstance.post('/api/orders', data);
+    toast.success('Order placed successfully');
+    return res.data;
+  } catch (err) {
+    toast.error(err.response?.data?.message || 'Order placement failed');
+    throw err;
+  }
+};
+
+export const getMyOrders = async () => {
+  try {
+    const res = await axiosInstance.get('/api/orders/my');
+    return res.data.orders;
+  } catch (err) {
+    toast.error('Failed to load your orders');
+    return [];
+  }
+};
+
+
 export {
   register,
   login,
@@ -81,4 +109,6 @@ export {
   createPayment,
   getPaymentStatus,
   uploadProfileImage,
+  placeOrder,
+  getMyOrders
 };

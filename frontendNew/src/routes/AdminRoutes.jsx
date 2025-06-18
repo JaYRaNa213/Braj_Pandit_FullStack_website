@@ -15,6 +15,9 @@ import NotFound from "../pages/NotFound";
 import ManagePujaBookings from "../pages/admin/ManagePujaBookings";
 import UserList from "../pages/admin/UserList";
 
+import ManageOrders from '../pages/admin/ManageOrders';
+import OrderDetailsAdmin from '../pages/admin/OrderDetailsAdmin';
+
 
 
 // import PujaBookings from "../pages/user/PujaBookings";
@@ -35,12 +38,14 @@ const AdminRoutes = () => {
         {/* Product Management Routes */}
         <Route path="manage-products" element={<ManageProducts />} />
         <Route path="add-product" element={<AddProduct />} />
+        <Route path="orders" element={<ManageOrders />} />
+        <Route path="orders/:id" element={<OrderDetailsAdmin />} />
 
         <Route path="users" element={<UserList />} />
 
 
         <Route path="puja/bookings" element={<ManagePujaBookings />} />
-<Route path="manage-bookings" element={<ManagePujaBookings />} />
+        <Route path="manage-bookings" element={<ManagePujaBookings />} />
 
       </Route>
 

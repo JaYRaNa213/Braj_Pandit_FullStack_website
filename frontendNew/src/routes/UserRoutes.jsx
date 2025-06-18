@@ -16,6 +16,8 @@ import MyOrders from "../pages/user/MyOrders";
 import Contact from "../pages/Contact";
 import NotFound from "../pages/NotFound";
 import ProductDetails from "../pages/user/ProductDetails";
+import Checkout from '../pages/user/Checkout';
+import OrderDetails from '../pages/user/OrderDetails';
 
 const UserRoutes = () => {
   return (
@@ -36,6 +38,12 @@ const UserRoutes = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/my-orders" element={<MyOrders />} /> {/* ✅ Secured */}
+
+          <Route path="orders" element={<MyOrders />} />
+          <Route path="orders/:id" element={<OrderDetails />} />
+          <Route path="checkout" element={<Checkout />} />
+
+
         </Route>
 
         {/* Fallback */}

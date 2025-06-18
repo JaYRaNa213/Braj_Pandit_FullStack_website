@@ -1,6 +1,7 @@
 // src/pages/admin/AdminDashboard.jsx
 
 import React, { useEffect, useState } from "react";
+import OrderStatusChart from '@/components/OrderStatusChart';
 import { Link } from "react-router-dom";
 import {
   LayoutDashboard,
@@ -171,33 +172,44 @@ setSummary(summaryData);
           ))}
         </div>
 
-        {/* 📈 Booking Chart */}
-        {chartData.length > 0 ? (
-          <div className="bg-white rounded-xl shadow p-6 mb-12">
-            <h2 className="text-xl font-semibold mb-4 text-[#4A1C1C]">
-              Weekly Booking Overview
-            </h2>
-            <ResponsiveContainer width="100%" height={300}>
-              <LineChart data={chartData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="date" />
-                <YAxis allowDecimals={false} />
-                <Tooltip />
-                <Line
-                  type="monotone"
-                  dataKey="count"
-                  stroke="#4A1C1C"
-                  strokeWidth={3}
-                  dot={{ r: 4 }}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-        ) : (
-          <div className="bg-white rounded-xl shadow p-6 mb-12 text-center text-gray-500">
-            No weekly booking data available.
-          </div>
-        )}
+{/* 📈 Booking & Order Charts */}
+<div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+  {/* 📈 Booking Chart */}
+  {chartData.length > 0 ? (
+    <div className="bg-white rounded-xl shadow p-6">
+      <h2 className="text-xl font-semibold mb-4 text-[#4A1C1C]">
+        Weekly Booking Overview
+      </h2>
+      <ResponsiveContainer width="100%" height={300}>
+        <LineChart data={chartData}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="date" />
+          <YAxis allowDecimals={false} />
+          <Tooltip />
+          <Line
+            type="monotone"
+            dataKey="count"
+            stroke="#4A1C1C"
+            strokeWidth={3}
+            dot={{ r: 4 }}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
+  ) : (
+    <div className="bg-white rounded-xl shadow p-6 text-center text-gray-500">
+      No booking data available.
+    </div>
+  )}
+
+  {/* 📦 Order Status Chart (newly added) */}
+  <div className="bg-white rounded-xl shadow p-6">
+    <h2 className="text-xl font-semibold mb-4 text-[#4A1C1C]">
+      Order Status Summary
+    </h2>
+    <OrderStatusChart data={summary?.totals} />
+  </div>
+</div>
 
         {/* 🔗 Admin Action Links */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">

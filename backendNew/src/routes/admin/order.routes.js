@@ -1,11 +1,17 @@
 import express from 'express';
-import { getAllOrders, updateOrderStatus } from '../../controllers/order.controller.js';
+import
+ { getAllOrders,
+   updateOrderStatus,
+   getOrderById,
+   cancelOrder,
+   } from '../../controllers/order.controller.js';
 import { verifyToken } from '../../middleware/auth.middleware.js';
-import { isAdmin } from '../../middleware/role.middleware.js';
 
 const router = express.Router();
 
-router.get('/', verifyToken, isAdmin, getAllOrders);
-router.put('/:id', verifyToken, isAdmin, updateOrderStatus);
+router.get('/', verifyToken, getAllOrders);
+router.put('/:id/status', verifyToken, updateOrderStatus);
+router.get('/:id', verifyToken, getOrderById);
+router.delete('/:id/cancel', verifyToken, cancelOrder);
 
 export default router;
