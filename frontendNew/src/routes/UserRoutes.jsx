@@ -4,7 +4,7 @@ import UserLayout from "../layouts/UserLayout";
 import ProtectedRoute from "./ProtectedRoute";
 
 // User Pages
-import Home from "../pages/user/Home";
+import Home from "../pages/user/home/Home.jsx";
 import Products from "../pages/user/Products";
 import Blog from "../pages/user/Blog";
 import Booking from "../pages/user/Booking";

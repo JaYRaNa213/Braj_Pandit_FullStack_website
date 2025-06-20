@@ -67,6 +67,8 @@
 │   │   │   ├── Footer.jsx
 │   │   │   ├── Loader.jsx
 │   │   │   └── Navbar.jsx
+│   │   ├── OrderCard.jsx
+│   │   ├── OrderStatusChart.jsx
 │   │   ├── shared
 │   │   │   └── Button.jsx
 │   │   └── user
@@ -95,9 +97,12 @@
 │   │   │   ├── AddProduct.jsx
 │   │   │   ├── AdminDashboard.jsx
 │   │   │   ├── EditBlogPost.jsx
+│   │   │   ├── ManageOrders.jsx
 │   │   │   ├── ManageProducts.jsx
 │   │   │   ├── ManagePujaBookings.jsx
-│   │   │   └── ManagesBlogs.jsx
+│   │   │   ├── ManagesBlogs.jsx
+│   │   │   ├── OrderDetailsAdmin.jsx
+│   │   │   └── UserList.jsx
 │   │   ├── auth
 │   │   │   ├── Login.jsx
 │   │   │   └── Register.jsx
@@ -108,7 +113,21 @@
 │   │       ├── BlogDetails.jsx
 │   │       ├── Booking.jsx
 │   │       ├── Cart.jsx
+│   │       ├── Checkout.jsx
+│   │       ├── home
+│   │       │   ├── Articles.jsx
+│   │       │   ├── BlogSection.jsx
+│   │       │   ├── BookingForm.jsx
+│   │       │   ├── HeroSection.jsx
+│   │       │   ├── Home.jsx
+│   │       │   ├── HomeProducts.jsx
+│   │       │   ├── LiveBhajans.jsx
+│   │       │   ├── PujaServices.jsx
+│   │       │   ├── VerifiedPanditJis.jsx
+│   │       │   └── ViewMoreBtn.jsx
 │   │       ├── Home.jsx
+│   │       ├── MyOrders.jsx
+│   │       ├── OrderDetails.jsx
 │   │       ├── ProductDetails.jsx
 │   │       ├── Products.jsx
 │   │       ├── PujaBooking.jsx
@@ -126,6 +145,7 @@
 │   │   │   └── blogService.js
 │   │   ├── api.js
 │   │   ├── axios.js
+│   │   ├── orderService.js
 │   │   └── user
 │   │       ├── blogService.js
 │   │       └── userService.js
