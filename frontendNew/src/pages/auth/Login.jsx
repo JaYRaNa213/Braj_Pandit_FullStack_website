@@ -37,7 +37,7 @@ if (!token || !user) {
 
 toast.success("Login successful!");
 login(token); // ✅ use token now
-navigate(user.role === "admin" ? "/admin/dashboard" : "/user/dashboard");
+navigate(user.role === "admin" ? "/admin/dashboard" : "/dashboard");
     } catch (err) {
       console.error("Login error:", err.response?.data || err.message);
       toast.error(

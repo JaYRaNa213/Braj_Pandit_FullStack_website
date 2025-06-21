@@ -14,16 +14,16 @@ const UserDashboard = () => {
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
-    fetch("/api/bookings/my", {
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
-  },
-})
+  fetch("http://localhost:7000/api/bookings/my", {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => setBookings(data.data || []))
+    .catch((err) => console.error("Error fetching bookings:", err));
+}, []);
 
-      .then((res) => res.json())
-      .then((data) => setBookings(data.data || []))
-      .catch((err) => console.error("Error fetching bookings:", err));
-  }, []);
 
   const handleLogout = () => {
     logout();

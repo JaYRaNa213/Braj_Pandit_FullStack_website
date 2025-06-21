@@ -60,24 +60,26 @@ export const AuthProvider = ({ children }) => {
 
   // 🧠 Load user from token on app load
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      try {
-        const decoded = jwtDecode(token);
-        if (decoded.exp * 1000 < Date.now()) {
-          // Token expired
-          localStorage.removeItem("token");
-          setUser(null);
-        } else {
-          setUser(decoded);
-        }
-      } catch (err) {
-        console.error("❌ Invalid token in localStorage:", err.message);
+  const token = localStorage.getItem("token");
+  if (token) {
+    try {
+      const decoded = jwtDecode(token);
+      console.log("🔓 Decoded token:", decoded);
+      if (decoded.exp * 1000 < Date.now()) {
+        console.warn("⚠️ Token expired. Logging out.");
         localStorage.removeItem("token");
         setUser(null);
+      } else {
+        setUser(decoded);
       }
+    } catch (err) {
+      console.error("❌ Invalid token in localStorage:", err.message);
+      localStorage.removeItem("token");
+      setUser(null);
     }
-  }, []);
+  }
+}, []);
+
 
   // ✅ Login sets token and decoded user
   const login = (token) => {

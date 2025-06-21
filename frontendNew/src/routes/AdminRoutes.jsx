@@ -25,12 +25,12 @@ const AdminRoutes = () => {
   return (
     <Routes>
       <Route
-        element={
-          <ProtectedRoute roles={["admin"]}>
-            <AdminLayout />
-          </ProtectedRoute>
-        }
-      >
+  element={
+    <ProtectedRoute allowedRoles={["admin"]}>   {/* ✅ fixed */}
+      <AdminLayout />
+    </ProtectedRoute>
+  }
+>
         <Route path="dashboard" element={<AdminDashboard />} />
         <Route path="add-blog" element={<AddBlogPost />} />
         <Route path="manage-blogs" element={<ManageBlogs />} />
