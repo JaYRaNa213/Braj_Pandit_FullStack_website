@@ -87,7 +87,7 @@ app.use('/api/admin/products', productRoutes);
 app.use('/api/comments', commentRoutes);
 
 
-app.use('/api/cart', cartRoutes);
+app.use("/api/cart", cartRoutes);
 
 
 

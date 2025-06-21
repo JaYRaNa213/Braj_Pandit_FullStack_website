@@ -12,8 +12,6 @@ import BookingForm from "./BookingForm";
 import Articles from "./Articles";
 import BlogSection from "./BlogSection";
 import VerifiedPanditJis from "./VerifiedPanditJis";
-
-
 import Footer from "../../../components/common/Footer";
 
 const Home = () => {
