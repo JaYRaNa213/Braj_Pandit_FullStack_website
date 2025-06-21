@@ -1,29 +1,44 @@
-// scripts/createAdmin.js
+import mongoose from 'mongoose';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
+import User from '../models/user.model.js';
+import bcrypt from 'bcryptjs';
 
-import mongoose from "mongoose";
-import dotenv from "dotenv";
-import bcrypt from "bcryptjs";
-import User from "../models/user.model.js";
+// Correct path to .env relative to this script
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
-dotenv.config();
+const createAdmin = async () => {
+  try {
+    if (!process.env.MONGO_URI) {
+      throw new Error('❌ MONGO_URI is undefined. Check your .env path and contents.');
+    }
 
-await mongoose.connect(process.env.MONGODB_URI); // use your DB URI
+    console.log('📡 Connecting to DB:', process.env.MONGO_URI);
+    await mongoose.connect(process.env.MONGO_URI);
 
-const adminExists = await User.findOne({ email: "jayrana0909@gmail.com" });
+    const existing = await User.findOne({ email: 'jayrana0909@gmail.com' });
+    if (existing) {
+      console.log('✅ Admin already exists');
+      return process.exit(0);
+    }
 
-if (!adminExists) {
-  const hashedPassword = await bcrypt.hash("Jay2002@", 10);
+    const hashedPassword = await bcrypt.hash('Jay2002@', 10);
+    const admin = await User.create({
+      name: 'Super Admin Jay Rana',
+      email: 'jayrana0909@gmail.com',
+      password: hashedPassword,
+      role: 'admin',
+    });
 
-  await User.create({
-    name: "Super Admin",
-    email: "jayrana0909@gmail.com",
-    password: hashedPassword,
-    role: "admin",
-  });
+    console.log('✅ Admin created with ID:', admin._id.toString());
+    process.exit(0);
+  } catch (err) {
+    console.error('❌ Failed to create admin:', err.message);
+    process.exit(1);
+  }
+};
 
-  console.log("✅ Admin user created");
-} else {
-  console.log("⚠️ Admin already exists");
-}
-
-await mongoose.disconnect();
+createAdmin();
