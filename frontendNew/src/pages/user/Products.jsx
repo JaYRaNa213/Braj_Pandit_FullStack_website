@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { getProducts } from "../../services/api";
 import { FaShoppingCart } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom"; // ✅ Added useNavigate
+import { Link, useNavigate } from "react-router-dom";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate(); // ✅ Hook to navigate to checkout
+  const navigate = useNavigate();
 
-  // ✅ Fetch all products from backend
   useEffect(() => {
     getProducts()
       .then((res) => {
@@ -26,9 +25,8 @@ const Products = () => {
       .finally(() => setLoading(false));
   }, []);
 
-  // ✅ Buy Now button click handler
   const handleBuyNow = (product) => {
-    navigate("/checkout", { state: { product } }); // ✅ Pass product to Checkout page
+    navigate("/checkout", { state: { product } });
   };
 
   return (
@@ -48,6 +46,14 @@ const Products = () => {
               key={product._id}
               className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-6 border border-[#e0c097]"
             >
+              {/* ✅ Image Section */}
+              <img
+                src={product.imageUrl || "/default-product.png"}
+                alt={product.name}
+                className="w-full h-56 object-cover rounded-xl mb-4"
+              />
+
+              {/* ✅ Product Details */}
               <Link to={`/products/${product._id}`}>
                 <h3 className="text-xl font-semibold mb-2 text-[#4A1C1C] hover:underline">
                   {product.name}
@@ -57,7 +63,7 @@ const Products = () => {
               <p className="text-green-700 font-bold text-lg">₹{product.price}</p>
 
               <button
-                onClick={() => handleBuyNow(product)} // ✅ Button now works
+                onClick={() => handleBuyNow(product)}
                 className="mt-4 bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded flex items-center gap-2"
               >
                 <FaShoppingCart /> Buy Now
