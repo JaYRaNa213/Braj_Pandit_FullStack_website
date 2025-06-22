@@ -1,14 +1,13 @@
+// ✅ FILE: Checkout.jsx (Final Updated)
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { placeOrder } from '../../services/orderService';
 import { toast } from 'react-toastify';
 import { useAuth } from '../../context/AuthContext';
-import { useCart } from '../../context/CartContext';
-import { FaShoppingBag, FaMoneyBillWave, FaCartPlus } from 'react-icons/fa';
+import { FaShoppingBag, FaMoneyBillWave } from 'react-icons/fa';
 
 const Checkout = () => {
   const { user } = useAuth();
-  const { addToCart } = useCart();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -23,33 +22,33 @@ const Checkout = () => {
 
   const [paymentMethod, setPaymentMethod] = useState('cod');
   const [items, setItems] = useState([]);
-  const [fromBuyNow, setFromBuyNow] = useState(false);
 
   useEffect(() => {
     const buyNowProduct = location.state?.product;
-
     if (buyNowProduct) {
       setItems([
         {
-          product: buyNowProduct._id || buyNowProduct.id || 'demo-id',
+          product: buyNowProduct._id,
           name: buyNowProduct.name,
           price: buyNowProduct.price,
           quantity: 1,
-          imageUrl: buyNowProduct.imageUrl || buyNowProduct.img || '/default-product.png',
+          imageUrl: buyNowProduct.imageUrl || '/default-product.png',
         },
       ]);
-      setFromBuyNow(true);
     } else {
       const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
       if (storedCart.length === 0) {
         toast.error('No items to checkout.');
         navigate('/');
       } else {
-        setItems(storedCart.map(item => ({
-          ...item,
-          imageUrl: item.imageUrl || item.img || '/default-product.png',
-        })));
-        setFromBuyNow(false);
+        const mappedItems = storedCart.map((item) => ({
+          product: item.product._id || item.product,
+          name: item.product.name || item.name,
+          price: item.product.price || item.price || 0,
+          quantity: item.quantity || 1,
+          imageUrl: item.product.imageUrl || item.imageUrl || '/default-product.png',
+        }));
+        setItems(mappedItems);
       }
     }
   }, [location.state, navigate]);
@@ -58,38 +57,32 @@ const Checkout = () => {
     setShipping({ ...shipping, [e.target.name]: e.target.value });
   };
 
-  const handleAddToCart = () => {
-    if (items.length) {
-      addToCart({
-        ...items[0],
-        quantity: 1,
-        product: items[0].product,
-      });
-      toast.success('Added to cart!');
-      navigate('/cart');
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!user) {
-      toast.error("Please login to place an order.");
-      navigate("/login");
+      toast.error('Please login to place an order.');
+      navigate('/login');
       return;
     }
 
     try {
-      const payload = {
-        products: items.map(item => ({
-          productId: item.product,
-          quantity: item.quantity,
-        })),
-        address: shipping,
-        paymentMethod,
-      };
+      const orderItems = items.map((item) => ({
+        product: item.product,
+        quantity: item.quantity,
+      }));
 
-      const res = await placeOrder(payload);
+      const totalPrice = items.reduce(
+        (acc, item) => acc + (Number(item.price) || 0) * (item.quantity || 1),
+        0
+      );
+
+      const res = await placeOrder({
+        orderItems,
+        shippingAddress: shipping,
+        paymentMethod,
+        totalPrice,
+      });
 
       if (res.success) {
         toast.success('✅ Order placed!');
@@ -99,7 +92,7 @@ const Checkout = () => {
         toast.error(res.message || '❌ Order failed.');
       }
     } catch (err) {
-      console.error("Order placement error:", err);
+      console.error(err);
       toast.error('Something went wrong!');
     }
   };
@@ -116,7 +109,7 @@ const Checkout = () => {
         </p>
       ) : (
         <div className="grid md:grid-cols-2 gap-10">
-          {/* Left - Order Summary */}
+          {/* Order Summary */}
           <div>
             <h3 className="text-xl font-semibold mb-4 border-b pb-2">🛒 Your Items</h3>
             <div className="space-y-4">
@@ -133,31 +126,25 @@ const Checkout = () => {
                   <div className="flex-1">
                     <h4 className="text-md font-medium">{item.name}</h4>
                     <p className="text-gray-600">
-                      ₹{item.price.toFixed(2)} × {item.quantity}
+                      ₹{Number(item.price).toFixed(2)} × {item.quantity}
                     </p>
                   </div>
                 </div>
               ))}
             </div>
             <div className="text-right mt-4 text-xl font-bold text-green-700">
-              Total: ₹{items.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2)}
+              Total: ₹
+              {items
+                .reduce((acc, item) => acc + (Number(item.price) || 0) * (item.quantity || 1), 0)
+                .toFixed(2)}
             </div>
-
-            {fromBuyNow && (
-              <div className="mt-4 text-right">
-                <button
-                  onClick={handleAddToCart}
-                  className="inline-flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg shadow"
-                >
-                  <FaCartPlus /> Add to Cart Instead
-                </button>
-              </div>
-            )}
           </div>
 
-          {/* Right - Shipping & Payment */}
+          {/* Shipping & Payment */}
           <form onSubmit={handleSubmit} className="space-y-5">
-            <h3 className="text-xl font-semibold mb-2 border-b pb-2">📦 Shipping Details</h3>
+            <h3 className="text-xl font-semibold mb-2 border-b pb-2">
+              📦 Shipping Details
+            </h3>
             {Object.entries(shipping).map(([key, value]) => (
               <div key={key}>
                 <label className="block text-sm font-medium text-gray-600 capitalize mb-1">
@@ -192,8 +179,7 @@ const Checkout = () => {
               type="submit"
               className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-3 rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl"
             >
-              <FaMoneyBillWave className="inline mr-2" />
-              Place Order
+              <FaMoneyBillWave className="inline mr-2" /> Place Order
             </button>
           </form>
         </div>

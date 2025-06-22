@@ -1,5 +1,3 @@
-// src/pages/user/CartPage.jsx
-
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
@@ -10,7 +8,7 @@ const CartPage = () => {
   const { cartItems, removeFromCart, updateQuantity } = useCart();
 
   const total = cartItems.reduce(
-    (acc, item) => acc + item.price * item.quantity,
+    (acc, item) => acc + item.product.price * item.quantity,
     0
   );
 
@@ -31,48 +29,53 @@ const CartPage = () => {
       ) : (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {cartItems.map((item) => (
-              <div
-                key={item.product}
-                className="flex items-center gap-4 bg-white p-4 rounded-xl shadow-md"
-              >
-                <img
-                  src={item.imageUrl || item.img || "/default-product.png"}
-                  alt={item.name}
-                  className="w-24 h-24 object-cover rounded-lg"
-                />
-                <div className="flex-1">
-                  <h3 className="text-xl font-medium">{item.name}</h3>
-                  <p className="text-gray-600">₹{item.price.toFixed(2)}</p>
-                  <div className="flex items-center gap-2 mt-2">
-                    <button
-                      onClick={() =>
-                        updateQuantity(item.product, item.quantity - 1)
-                      }
-                      disabled={item.quantity <= 1}
-                      className="px-2 py-1 bg-yellow-300 rounded hover:bg-yellow-400"
-                    >
-                      <FaMinus />
-                    </button>
-                    <span className="text-md font-semibold">{item.quantity}</span>
-                    <button
-                      onClick={() =>
-                        updateQuantity(item.product, item.quantity + 1)
-                      }
-                      className="px-2 py-1 bg-yellow-300 rounded hover:bg-yellow-400"
-                    >
-                      <FaPlus />
-                    </button>
-                  </div>
-                </div>
-                <button
-                  onClick={() => removeFromCart(item.product)}
-                  className="text-red-600 hover:text-red-800"
+            {cartItems.map((item) => {
+              const product = item.product;
+              return (
+                <div
+                  key={product._id}
+                  className="flex items-center gap-4 bg-white p-4 rounded-xl shadow-md"
                 >
-                  <FaTrash />
-                </button>
-              </div>
-            ))}
+                  <img
+                    src={product.imageUrl || "/default-product.png"}
+                    alt={product.name}
+                    className="w-24 h-24 object-cover rounded-lg"
+                  />
+                  <div className="flex-1">
+                    <h3 className="text-xl font-medium">{product.name}</h3>
+                    <p className="text-gray-600">₹{product.price.toFixed(2)}</p>
+                    <div className="flex items-center gap-2 mt-2">
+                      <button
+                        onClick={() =>
+                          updateQuantity(product._id, item.quantity - 1)
+                        }
+                        disabled={item.quantity <= 1}
+                        className="px-2 py-1 bg-yellow-300 rounded hover:bg-yellow-400"
+                      >
+                        <FaMinus />
+                      </button>
+                      <span className="text-md font-semibold">
+                        {item.quantity}
+                      </span>
+                      <button
+                        onClick={() =>
+                          updateQuantity(product._id, item.quantity + 1)
+                        }
+                        className="px-2 py-1 bg-yellow-300 rounded hover:bg-yellow-400"
+                      >
+                        <FaPlus />
+                      </button>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => removeFromCart(product._id)}
+                    className="text-red-600 hover:text-red-800"
+                  >
+                    <FaTrash />
+                  </button>
+                </div>
+              );
+            })}
           </div>
 
           {/* Total and Checkout */}
