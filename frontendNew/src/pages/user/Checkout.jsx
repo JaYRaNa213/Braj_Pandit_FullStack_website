@@ -1,13 +1,15 @@
-// ✅ FILE: Checkout.jsx (Fully Fixed & Final)
+// src/pages/user/Checkout.jsx
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { placeOrder } from '../../services/orderService';
 import { toast } from 'react-toastify';
 import { useAuth } from '../../context/AuthContext';
+import { useCart } from '../../context/CartContext';
 import { FaShoppingBag, FaMoneyBillWave } from 'react-icons/fa';
 
 const Checkout = () => {
   const { user } = useAuth();
+  const { cartItems, clearCart } = useCart();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -25,6 +27,7 @@ const Checkout = () => {
 
   useEffect(() => {
     const buyNowProduct = location.state?.product;
+
     if (buyNowProduct) {
       setItems([
         {
@@ -32,26 +35,37 @@ const Checkout = () => {
           name: buyNowProduct.name,
           price: buyNowProduct.price,
           quantity: 1,
-          imageUrl: buyNowProduct.imageUrl || '/gita.jpg',
+          imageUrl: buyNowProduct.imageUrl || '/default-product.png',
         },
       ]);
     } else {
-      const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
-      if (storedCart.length === 0) {
-        toast.error('No items to checkout.');
-        navigate('/');
-      } else {
-        const mappedItems = storedCart.map((item) => ({
-          product: item.product._id || item.product,
-          name: item.product.name || item.name,
-          price: item.product.price || item.price || 0,
-          quantity: item.quantity || 1,
-          imageUrl: item.product.imageUrl || item.imageUrl || '/default-product.png',
+      if (user && cartItems.length > 0) {
+        const mappedItems = cartItems.map((item) => ({
+          product: item.product._id,
+          name: item.product.name,
+          price: item.product.price,
+          quantity: item.quantity,
+          imageUrl: item.product.imageUrl || '/default-product.png',
         }));
         setItems(mappedItems);
+      } else {
+        const localCart = JSON.parse(localStorage.getItem('cart')) || [];
+        if (localCart.length === 0) {
+          toast.error('No items to checkout.');
+          navigate('/');
+        } else {
+          const mappedItems = localCart.map((item) => ({
+            product: item.product._id || item.product,
+            name: item.product.name || item.name,
+            price: item.product.price || item.price || 0,
+            quantity: item.quantity || 1,
+            imageUrl: item.product.imageUrl || item.imageUrl || '/default-product.png',
+          }));
+          setItems(mappedItems);
+        }
       }
     }
-  }, [location.state, navigate]);
+  }, [location.state, user, cartItems, navigate]);
 
   const handleChange = (e) => {
     setShipping({ ...shipping, [e.target.name]: e.target.value });
@@ -81,6 +95,7 @@ const Checkout = () => {
       if (res.success) {
         toast.success('✅ Order placed!');
         localStorage.removeItem('cart');
+        clearCart(); // 🔥 clear context cart
         navigate('/my-orders');
       } else {
         toast.error(res.message || '❌ Order failed.');

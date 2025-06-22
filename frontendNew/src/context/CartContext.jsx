@@ -1,3 +1,4 @@
+// src/context/CartContext.js
 import React, { createContext, useContext, useEffect, useState } from "react";
 import axiosInstance from "../services/axios";
 
@@ -7,15 +8,14 @@ export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
-    const token = localStorage.getItem("token");
     const fetchCart = async () => {
       try {
         if (token) {
           const res = await axiosInstance.get("/cart", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+            headers: { Authorization: `Bearer ${token}` },
           });
           setCartItems(res.data.cart?.items || []);
         } else {
@@ -30,18 +30,16 @@ export const CartProvider = ({ children }) => {
     };
 
     fetchCart();
-  }, []);
+  }, [token]);
 
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cartItems));
-  }, [cartItems]);
+    if (!token) {
+      localStorage.setItem("cart", JSON.stringify(cartItems));
+    }
+  }, [cartItems, token]);
 
   const addToCart = async (product) => {
-    const token = localStorage.getItem("token");
-    const payload = {
-      productId: product._id,
-      quantity: 1,
-    };
+    const payload = { productId: product._id, quantity: 1 };
 
     try {
       if (token) {
@@ -52,8 +50,8 @@ export const CartProvider = ({ children }) => {
         setCartItems(res.data.cart?.items || []);
       } else {
         setCartItems((prev) => {
-          const exists = prev.find((i) => i.product._id === product._id);
-          if (exists) {
+          const existing = prev.find((i) => i.product._id === product._id);
+          if (existing) {
             return prev.map((i) =>
               i.product._id === product._id
                 ? { ...i, quantity: i.quantity + 1 }
@@ -69,8 +67,6 @@ export const CartProvider = ({ children }) => {
   };
 
   const updateQuantity = async (productId, quantity) => {
-    const token = localStorage.getItem("token");
-
     try {
       if (token) {
         await axiosInstance.put("/cart/update", { productId, quantity });
@@ -87,8 +83,6 @@ export const CartProvider = ({ children }) => {
   };
 
   const removeFromCart = async (productId) => {
-    const token = localStorage.getItem("token");
-
     try {
       if (token) {
         await axiosInstance.delete("/cart/remove", {
