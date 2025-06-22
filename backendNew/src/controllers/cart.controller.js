@@ -72,3 +72,23 @@ export const removeCartItem = async (req, res) => {
     res.status(500).json({ success: false, message: 'Server Error', error: error.message });
   }
 };
+
+export const syncCart = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const items = req.body.items;
+
+    // Replace user's cart with new items
+    await Cart.findOneAndUpdate(
+      { user: userId },
+      { items },
+      { upsert: true, new: true }
+    );
+
+    res.status(200).json({ message: "Cart synced successfully" });
+  } catch (err) {
+    console.error("Cart sync failed:", err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+

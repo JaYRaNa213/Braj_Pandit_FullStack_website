@@ -74,7 +74,7 @@
 
 
 
-
+// frontendNew/src/routes/UserRoutes.jsx
 
 
 import React from "react";
@@ -88,7 +88,7 @@ import Products from "../pages/user/Products";
 import Blog from "../pages/user/Blog";
 import Booking from "../pages/user/Booking";
 import PujaBooking from "../pages/user/PujaBooking";
-import Cart from "../pages/user/Cart";
+import Cart from "../pages/user/CartPage";
 import UserProfile from "../pages/user/UserProfile";
 import UserDashboard from "../pages/user/UserDashboard.jsx";
 import MyOrders from "../pages/user/MyOrders";

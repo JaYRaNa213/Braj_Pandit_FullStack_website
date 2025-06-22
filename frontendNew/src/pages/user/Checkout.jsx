@@ -3,10 +3,12 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { placeOrder } from '../../services/orderService';
 import { toast } from 'react-toastify';
 import { useAuth } from '../../context/AuthContext';
-import { FaShoppingBag, FaMoneyBillWave } from 'react-icons/fa';
+import { useCart } from '../../context/CartContext';
+import { FaShoppingBag, FaMoneyBillWave, FaCartPlus } from 'react-icons/fa';
 
 const Checkout = () => {
   const { user } = useAuth();
+  const { addToCart } = useCart();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -21,9 +23,11 @@ const Checkout = () => {
 
   const [paymentMethod, setPaymentMethod] = useState('cod');
   const [items, setItems] = useState([]);
+  const [fromBuyNow, setFromBuyNow] = useState(false);
 
   useEffect(() => {
     const buyNowProduct = location.state?.product;
+
     if (buyNowProduct) {
       setItems([
         {
@@ -31,9 +35,10 @@ const Checkout = () => {
           name: buyNowProduct.name,
           price: buyNowProduct.price,
           quantity: 1,
-          imageUrl: buyNowProduct.imageUrl || '/gita.jpg',
+          imageUrl: buyNowProduct.imageUrl || buyNowProduct.img || '/default-product.png',
         },
       ]);
+      setFromBuyNow(true);
     } else {
       const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
       if (storedCart.length === 0) {
@@ -42,14 +47,27 @@ const Checkout = () => {
       } else {
         setItems(storedCart.map(item => ({
           ...item,
-          imageUrl: item.imageUrl || '/default-product.png',
+          imageUrl: item.imageUrl || item.img || '/default-product.png',
         })));
+        setFromBuyNow(false);
       }
     }
   }, [location.state, navigate]);
 
   const handleChange = (e) => {
     setShipping({ ...shipping, [e.target.name]: e.target.value });
+  };
+
+  const handleAddToCart = () => {
+    if (items.length) {
+      addToCart({
+        ...items[0],
+        quantity: 1,
+        product: items[0].product,
+      });
+      toast.success('Added to cart!');
+      navigate('/cart');
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -62,22 +80,16 @@ const Checkout = () => {
     }
 
     try {
-      const orderItems = items.map(item => ({
-        product: item.product,
-        quantity: item.quantity,
-      }));
-
-      const totalPrice = items.reduce(
-        (acc, item) => acc + item.price * item.quantity,
-        0
-      );
-
-      const res = await placeOrder({
-        orderItems,
-        shippingAddress: shipping,
+      const payload = {
+        products: items.map(item => ({
+          productId: item.product,
+          quantity: item.quantity,
+        })),
+        address: shipping,
         paymentMethod,
-        totalPrice,
-      });
+      };
+
+      const res = await placeOrder(payload);
 
       if (res.success) {
         toast.success('✅ Order placed!');
@@ -87,7 +99,7 @@ const Checkout = () => {
         toast.error(res.message || '❌ Order failed.');
       }
     } catch (err) {
-      console.error(err);
+      console.error("Order placement error:", err);
       toast.error('Something went wrong!');
     }
   };
@@ -104,7 +116,7 @@ const Checkout = () => {
         </p>
       ) : (
         <div className="grid md:grid-cols-2 gap-10">
-          {/* Left - Order Summary with Images */}
+          {/* Left - Order Summary */}
           <div>
             <h3 className="text-xl font-semibold mb-4 border-b pb-2">🛒 Your Items</h3>
             <div className="space-y-4">
@@ -114,22 +126,33 @@ const Checkout = () => {
                   className="flex items-center gap-4 p-4 border bg-white rounded-xl shadow-sm"
                 >
                   <img
-                    src={item.imageUrl || '/default-product.png'}
+                    src={item.imageUrl}
                     alt={item.name}
                     className="w-20 h-20 object-cover rounded-lg border"
                   />
                   <div className="flex-1">
                     <h4 className="text-md font-medium">{item.name}</h4>
                     <p className="text-gray-600">
-                      ₹{item.price} × {item.quantity}
+                      ₹{item.price.toFixed(2)} × {item.quantity}
                     </p>
                   </div>
                 </div>
               ))}
             </div>
             <div className="text-right mt-4 text-xl font-bold text-green-700">
-              Total: ₹{items.reduce((acc, item) => acc + item.price * item.quantity, 0)}
+              Total: ₹{items.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2)}
             </div>
+
+            {fromBuyNow && (
+              <div className="mt-4 text-right">
+                <button
+                  onClick={handleAddToCart}
+                  className="inline-flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg shadow"
+                >
+                  <FaCartPlus /> Add to Cart Instead
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Right - Shipping & Payment */}
@@ -137,7 +160,9 @@ const Checkout = () => {
             <h3 className="text-xl font-semibold mb-2 border-b pb-2">📦 Shipping Details</h3>
             {Object.entries(shipping).map(([key, value]) => (
               <div key={key}>
-                <label className="block text-sm font-medium text-gray-600 capitalize mb-1">{key}</label>
+                <label className="block text-sm font-medium text-gray-600 capitalize mb-1">
+                  {key}
+                </label>
                 <input
                   name={key}
                   required
@@ -150,7 +175,9 @@ const Checkout = () => {
             ))}
 
             <div>
-              <label className="block text-sm font-medium text-gray-600 mb-1">💳 Payment Method</label>
+              <label className="block text-sm font-medium text-gray-600 mb-1">
+                💳 Payment Method
+              </label>
               <select
                 value={paymentMethod}
                 onChange={(e) => setPaymentMethod(e.target.value)}
