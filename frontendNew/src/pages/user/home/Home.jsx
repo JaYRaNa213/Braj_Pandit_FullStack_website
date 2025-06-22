@@ -1,7 +1,4 @@
-//Home.jsx (line of code( 1 - )) 
-//src/pages/user/home/Home.jsx
-
-import React from "react";
+import React, { useRef } from "react";
 
 import HeroSection from "./HeroSection";
 import LiveBhajans from "./LiveBhajans";
@@ -15,16 +12,40 @@ import VerifiedPanditJis from "./VerifiedPanditJis";
 import Footer from "../../../components/common/Footer";
 
 const Home = () => {
+  const bookingRef = useRef(null);
+  const servicesRef = useRef(null);
+
+  const scrollToBooking = () => {
+    bookingRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const scrollToServices = () => {
+    servicesRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div className="min-h-screen bg-white text-gray-900">
-      <HeroSection />
+      <HeroSection
+        onBookPanditClick={scrollToBooking}
+        onSeeServicesClick={scrollToServices}
+      />
       <LiveBhajans />
       <HomeProducts />
+      
+
+      <div ref={servicesRef}>
+        <PujaServices />
+      </div>
       <ViewMoreBtn />
-      <PujaServices />
-      <BookingForm />
+
+      <div ref={bookingRef}>
+        <BookingForm />
+      </div>
+
       <Articles />
+      <ViewMoreBtn />
       <BlogSection />
+      
       <VerifiedPanditJis />
       {/* <Footer /> */}
     </div>

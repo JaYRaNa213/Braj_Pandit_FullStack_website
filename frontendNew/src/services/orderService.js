@@ -23,6 +23,10 @@ export const getOrderById = async (id) => {
   return res.data;
 };
 
+export const userCancelOrder = (orderId) => {
+  return axiosInstance.put(`/orders/${orderId}/cancel`).then(res => res.data);
+};
+
 // ===============================
 // 🔸 ADMIN ORDER SERVICES
 // ===============================

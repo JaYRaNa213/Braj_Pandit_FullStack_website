@@ -97,7 +97,7 @@ import NotFound from "../pages/NotFound";
 import ProductDetails from "../pages/user/ProductDetails";
 import Checkout from "../pages/user/Checkout";
 import OrderDetails from "../pages/user/OrderDetails";
-
+import CancelSuccess from "../pages/user/CancelSuccess";
 const UserRoutes = () => {
   return (
     <Routes>
@@ -120,6 +120,9 @@ const UserRoutes = () => {
           <Route path="orders" element={<MyOrders />} />
           <Route path="orders/:id" element={<OrderDetails />} />
           <Route path="checkout" element={<Checkout />} />
+
+          <Route path="/cancel-success" element={<CancelSuccess />} />
+
         </Route>
 
         {/* ✅ Fallback */}

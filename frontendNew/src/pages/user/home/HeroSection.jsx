@@ -8,7 +8,7 @@ const heroImages = [
   "/images/yamuna.jpg",
 ];
 
-const HeroSection = () => {
+const HeroSection = ({ onBookPanditClick, onSeeServicesClick }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
@@ -33,21 +33,31 @@ const HeroSection = () => {
           <div className="absolute inset-0 bg-black opacity-50"></div>
         </div>
       ))}
+
       <div className="relative z-30 text-center text-white flex items-center justify-center h-full px-4">
         <div className="max-w-3xl">
-          <h5>Welcome to BrajPandit</h5>
+          <h5 className="text-lg font-medium mb-2">Welcome to BrajPandit</h5>
           <h1 className="text-5xl font-bold mb-4">
-            Your <span className="text-red-600">Trusted</span> Platform for Sacred <span className="text-yellow-400">Hindu Ceremonies</span>
+            Your <span className="text-red-600">Trusted</span> Platform for Sacred{" "}
+            <span className="text-yellow-400">Hindu Ceremonies</span>
           </h1>
           <p className="mb-6 text-lg">
             We provide highly qualified and experienced Panditjee for all communities like Gujarati, Rajasthani, Marathi, Sindhi, Bihari, Bengali, and Panjabi.
           </p>
-          <a href="#" className="bg-red-500 text-white py-2 px-6 rounded-full hover:bg-red-700 text-lg">
-            BOOK PANDIT
-          </a>
-          <a href="#" className="bg-blue-500 text-white py-2 px-10 rounded-full hover:bg-blue-700 text-lg ml-12">
-            See All Pooja Services
-          </a>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+            <button
+              onClick={onBookPanditClick}
+              className="bg-red-500 hover:bg-red-700 text-white py-2 px-6 rounded-full text-lg transition duration-300"
+            >
+              BOOK PANDIT
+            </button>
+            <button
+              onClick={onSeeServicesClick}
+              className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-8 rounded-full text-lg transition duration-300"
+            >
+              See All Pooja Services
+            </button>
+          </div>
         </div>
       </div>
     </section>

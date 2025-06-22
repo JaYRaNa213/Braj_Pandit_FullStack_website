@@ -1,9 +1,4 @@
-// // UserDashboard.jsx
-
-
-
-
-
+// src/pages/user/UserDashboard.jsx
 
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -14,30 +9,43 @@ const UserDashboard = () => {
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
-  fetch("http://localhost:7000/api/bookings/my", {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-    },
-  })
-    .then((res) => res.json())
-    .then((data) => setBookings(data.data || []))
-    .catch((err) => console.error("Error fetching bookings:", err));
-}, []);
-
+    fetch("http://localhost:7000/api/bookings/my", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setBookings(data.data || []))
+      .catch((err) => console.error("Error fetching bookings:", err));
+  }, []);
 
   const handleLogout = () => {
     logout();
     window.location.href = "/login";
   };
 
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-100 to-pink-50 py-10 px-4">
-      <div className="max-w-6xl mx-auto bg-white shadow-2xl rounded-xl overflow-hidden border border-gray-200">
-        {/* Header Section */}
-        <div className="bg-gradient-to-r from-yellow-400 via-red-400 to-pink-500 text-white py-8 px-6 text-center">
-          <h1 className="text-4xl font-bold mb-2">🌸 Welcome, {user?.name || "Devotee"}!</h1>
-          <p className="text-md text-white/90">May your journey to devotion be smooth and divine.</p>
+      <div className="max-w-6xl mx-auto bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-200">
+        {/* Header Section with Avatar */}
+        <div className="bg-gradient-to-r from-amber-400 to-orange-500 text-white py-8 px-6">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <img
+                src={user?.avatar || user?.profilePic || "/default-avatar.png"}
+                alt="User Avatar"
+                className="w-16 h-16 rounded-full object-cover border-2 border-white shadow"
+              />
+              <div>
+                <h1 className="text-2xl sm:text-3xl font-bold">
+                  Welcome, {user?.name || "User"}
+                </h1>
+                <p className="text-white/90 text-sm sm:text-base">
+                  Explore your profile, orders, and puja bookings
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Main Content Section */}
@@ -46,36 +54,36 @@ const UserDashboard = () => {
           <div className="lg:col-span-1 space-y-4">
             <Link
               to="/profile"
-              className="block bg-blue-100 border border-blue-300 hover:shadow-md transition p-5 rounded-xl"
+              className="block bg-blue-50 border border-blue-200 hover:shadow transition p-5 rounded-xl"
             >
-              <h2 className="text-xl font-semibold text-blue-800">👤 View / Edit Profile</h2>
-              <p className="text-sm text-blue-600 mt-1">Update your personal details.</p>
+              <h2 className="text-lg font-semibold text-blue-800">Profile</h2>
+              <p className="text-sm text-blue-600 mt-1">Update your personal details</p>
             </Link>
             <Link
               to="/orders"
-              className="block bg-yellow-100 border border-yellow-300 hover:shadow-md transition p-5 rounded-xl"
+              className="block bg-yellow-50 border border-yellow-200 hover:shadow transition p-5 rounded-xl"
             >
-              <h2 className="text-xl font-semibold text-yellow-800">📦 My Orders</h2>
-              <p className="text-sm text-yellow-700 mt-1">Track your religious product orders.</p>
+              <h2 className="text-lg font-semibold text-yellow-800">My Orders</h2>
+              <p className="text-sm text-yellow-700 mt-1">Track your spiritual product orders</p>
             </Link>
             <Link
               to="/blogs"
-              className="block bg-purple-100 border border-purple-300 hover:shadow-md transition p-5 rounded-xl"
+              className="block bg-purple-50 border border-purple-200 hover:shadow transition p-5 rounded-xl"
             >
-              <h2 className="text-xl font-semibold text-purple-800">📚 Religious Blogs</h2>
-              <p className="text-sm text-purple-700 mt-1">Read the latest articles and updates.</p>
+              <h2 className="text-lg font-semibold text-purple-800">Blogs</h2>
+              <p className="text-sm text-purple-700 mt-1">Read latest articles and insights</p>
             </Link>
             <button
               onClick={handleLogout}
-              className="w-full bg-red-500 hover:bg-red-600 text-white py-3 mt-4 rounded-xl font-semibold"
+              className="w-full bg-red-500 hover:bg-red-600 text-white py-3 mt-4 rounded-xl font-semibold transition"
             >
-              🚪 Logout
+              Logout
             </button>
           </div>
 
           {/* Booking Cards */}
           <div className="lg:col-span-2">
-            <h2 className="text-2xl font-bold mb-4 text-gray-800">📅 Your Recent Puja Bookings</h2>
+            <h2 className="text-2xl font-bold mb-4 text-gray-800">Your Recent Puja Bookings</h2>
             {bookings.length === 0 ? (
               <div className="text-gray-500 text-sm">You have no bookings yet.</div>
             ) : (
@@ -83,12 +91,14 @@ const UserDashboard = () => {
                 {bookings.map((booking) => (
                   <div
                     key={booking._id}
-                    className="border border-gray-200 rounded-xl p-5 shadow-sm bg-gradient-to-br from-white to-gray-50"
+                    className="border border-gray-200 rounded-xl p-5 shadow-sm bg-white hover:shadow-md transition"
                   >
                     <div className="flex justify-between items-center mb-2">
-                      <h3 className="text-lg font-semibold text-pink-700">{booking.service}</h3>
+                      <h3 className="text-base font-semibold text-orange-700">
+                        {booking.service}
+                      </h3>
                       <span
-                        className={`text-sm px-3 py-1 rounded-full font-medium ${
+                        className={`text-xs px-2 py-1 rounded-full font-medium ${
                           booking.status === "confirmed"
                             ? "bg-green-100 text-green-700"
                             : booking.status === "cancelled"
@@ -100,8 +110,7 @@ const UserDashboard = () => {
                       </span>
                     </div>
                     <p className="text-sm text-gray-600">
-                      <strong>Date:</strong>{" "}
-                      {new Date(booking.date).toLocaleDateString()}
+                      <strong>Date:</strong> {new Date(booking.date).toLocaleDateString()}
                     </p>
                     <p className="text-sm text-gray-600">
                       <strong>Time:</strong> {booking.time}
