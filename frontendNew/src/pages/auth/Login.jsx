@@ -1,3 +1,5 @@
+// src/pages/auth/Login.jsx
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../services/axios";
@@ -8,7 +10,7 @@ export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, setUser } = useAuth();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -22,22 +24,56 @@ export default function Login() {
     return true;
   };
 
+  const syncCartToBackend = async (token) => {
+    const localCart = JSON.parse(localStorage.getItem("cart")) || [];
+    try {
+      await axiosInstance.put(
+        "/cart/sync",
+        { cart: localCart },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    } catch (err) {
+      console.error("❌ Cart sync failed:", err);
+    }
+  };
+
+  const fetchAndStoreProfile = async (token) => {
+    try {
+      const res = await axiosInstance.get("/user/profile", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const user = res.data.data.user;
+      localStorage.setItem("user", JSON.stringify(user));
+      setUser(user); // ✅ Set in context
+    } catch (err) {
+      console.error("❌ Failed to fetch user profile:", err);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
     setLoading(true);
+
     try {
       const res = await axiosInstance.post("/auth/login", form);
-      const { token, user } = res.data || {};
-if (!token || !user) {
-  toast.error("Invalid response from server.");
-  setLoading(false);
-  return;
-}
+      const { token, user } = res.data;
 
-toast.success("Login successful!");
-login(token); // ✅ use token now
-navigate(user.role === "admin" ? "/admin/dashboard" : "/dashboard");
+      if (!token || !user) {
+        toast.error("Invalid response from server.");
+        return;
+      }
+
+      toast.success("Login successful!");
+      login(token); // Save token and JWT user
+      await fetchAndStoreProfile(token); // Fetch full profile
+      await syncCartToBackend(token);
+
+      navigate(user.role === "admin" ? "/admin/dashboard" : "/dashboard");
     } catch (err) {
       console.error("Login error:", err.response?.data || err.message);
       toast.error(
@@ -51,15 +87,11 @@ navigate(user.role === "admin" ? "/admin/dashboard" : "/dashboard");
 
   return (
     <div className="flex min-h-screen">
-      {/* Left Side */}
       <div className="w-1/2 flex flex-col items-center justify-center bg-[#4A1C1C] text-white px-10">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold mb-4">Welcome Back</h1>
-          <p>Log in to continue your spiritual journey with BrajPandit.</p>
-        </div>
+        <h1 className="text-4xl font-bold mb-4">Welcome Back</h1>
+        <p>Log in to continue your spiritual journey with BrajPandit.</p>
       </div>
 
-      {/* Right Side (Login Card) */}
       <div className="w-1/2 flex items-center justify-center bg-gray-100">
         <div className="bg-white rounded-l-[50px] shadow-xl p-10 w-full max-w-md">
           <h2 className="text-2xl font-bold text-center text-[#4A1C1C] mb-6">
@@ -72,7 +104,7 @@ navigate(user.role === "admin" ? "/admin/dashboard" : "/dashboard");
               placeholder="Email"
               value={form.email}
               onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#4A1C1C]"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md"
             />
             <input
               type="password"
@@ -80,7 +112,7 @@ navigate(user.role === "admin" ? "/admin/dashboard" : "/dashboard");
               placeholder="Password"
               value={form.password}
               onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#4A1C1C]"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md"
             />
             <div className="text-right">
               <button

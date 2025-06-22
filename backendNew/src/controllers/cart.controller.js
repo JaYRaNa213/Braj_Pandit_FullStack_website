@@ -1,10 +1,11 @@
-// src/controllers/cart.controller.js
+import mongoose from "mongoose";
 import Cart from '../models/cart.model.js';
 import Product from '../models/product.model.js';
 
+// ➕ Add to Cart
 export const addToCart = async (req, res) => {
   const { productId, quantity } = req.body;
-  const userId = req.user._id;
+  const userId = req.user.id;
 
   try {
     let cart = await Cart.findOne({ user: userId });
@@ -30,20 +31,22 @@ export const addToCart = async (req, res) => {
   }
 };
 
+// 🛒 Get User Cart
 export const getUserCart = async (req, res) => {
   try {
-    const cart = await Cart.findOne({ user: req.user._id }).populate('items.product');
+    const cart = await Cart.findOne({ user: req.user.id }).populate('items.product');
     res.status(200).json({ success: true, cart });
   } catch (error) {
     res.status(500).json({ success: false, message: 'Server Error', error: error.message });
   }
 };
 
+// ✏️ Update Item Quantity
 export const updateCartItem = async (req, res) => {
   const { productId, quantity } = req.body;
 
   try {
-    const cart = await Cart.findOne({ user: req.user._id });
+    const cart = await Cart.findOne({ user: req.user.id });
 
     const item = cart.items.find(item => item.product.toString() === productId);
     if (item) {
@@ -57,12 +60,13 @@ export const updateCartItem = async (req, res) => {
   }
 };
 
+// ❌ Remove Cart Item
 export const removeCartItem = async (req, res) => {
   const { productId } = req.body;
 
   try {
     const cart = await Cart.findOneAndUpdate(
-      { user: req.user._id },
+      { user: req.user.id },
       { $pull: { items: { product: productId } } },
       { new: true }
     );
@@ -73,22 +77,43 @@ export const removeCartItem = async (req, res) => {
   }
 };
 
+// 🔄 Sync Cart from localStorage to MongoDB
 export const syncCart = async (req, res) => {
   try {
-    const userId = req.user._id;
-    const items = req.body.items;
+    const userId = req.user.id;
+    const localCart = req.body.cart || [];
 
-    // Replace user's cart with new items
-    await Cart.findOneAndUpdate(
-      { user: userId },
-      { items },
-      { upsert: true, new: true }
-    );
+    let userCart = await Cart.findOne({ user: userId });
 
-    res.status(200).json({ message: "Cart synced successfully" });
+    if (!userCart) {
+      userCart = new Cart({ user: userId, items: [] });
+    }
+
+    localCart.forEach((incomingItem) => {
+      const existingItem = userCart.items.find((i) =>
+        i.product.toString() === incomingItem.product
+      );
+
+      if (existingItem) {
+        existingItem.quantity += incomingItem.quantity;
+      } else {
+        userCart.items.push({
+          product: new mongoose.Types.ObjectId(incomingItem.product),
+          quantity: incomingItem.quantity,
+        });
+      }
+    });
+
+    await userCart.save();
+    const populatedCart = await userCart.populate("items.product");
+
+    res.status(200).json({
+      success: true,
+      message: "Cart synced successfully",
+      items: populatedCart.items,
+    });
   } catch (err) {
     console.error("Cart sync failed:", err);
-    res.status(500).json({ message: "Internal Server Error" });
+    res.status(500).json({ success: false, message: "Failed to sync cart" });
   }
 };
-
