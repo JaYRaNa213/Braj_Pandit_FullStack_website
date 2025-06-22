@@ -1,5 +1,6 @@
 // src/middleware/auth.middleware.js
 import jwt from 'jsonwebtoken';
+import mongoose from 'mongoose'; // ✅ Required for ObjectId check
 import ApiError from '../utils/ApiError.js';
 import User from '../models/user.model.js';
 import asyncHandler from '../utils/asyncHandler.js';
@@ -16,11 +17,17 @@ export const verifyToken = asyncHandler(async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decoded.id;
 
-    // ✅ Special Case: Fixed Admin Login
-    if (decoded?.id === 'admin-fixed-id') {
+    // ✅ Validate userId format
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      throw new ApiError(401, 'Invalid user ID format');
+    }
+
+    // ✅ Special Case: Admin
+    if (userId === process.env.ADMIN_ID) {
       req.user = {
-        id: decoded.id,
+        id: new mongoose.Types.ObjectId(userId),
         name: 'Admin',
         email: process.env.ADMIN_EMAIL,
         role: 'admin',
@@ -29,7 +36,7 @@ export const verifyToken = asyncHandler(async (req, res, next) => {
     }
 
     // ✅ Normal User from DB
-    const user = await User.findById(decoded.id).select('-password -refreshToken');
+    const user = await User.findById(userId).select('-password -refreshToken');
     if (!user) throw new ApiError(401, 'User not found');
 
     req.user = {
@@ -56,9 +63,9 @@ export const authorizeRoles = (...roles) => (req, res, next) => {
   next();
 };
 
+// ✅ Fallback middleware (not usually used if verifyToken is used)
 export const authMiddleware = (req, res, next) => {
   const authHeader = req.headers.authorization;
-
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     return next(new ApiError(401, 'Unauthorized: No token provided'));
   }
@@ -76,9 +83,8 @@ export const authMiddleware = (req, res, next) => {
     return next(new ApiError(401, 'Unauthorized: Invalid token'));
   }
 };
-// At the bottom of auth.middleware.js
 
-
+// ✅ Admin-only check
 export const isAdmin = (req, res, next) => {
   if (req.user?.role !== 'admin') {
     return next(new ApiError(403, 'Access denied: Admins only'));

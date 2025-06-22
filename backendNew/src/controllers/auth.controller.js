@@ -13,11 +13,9 @@ import User from '../models/user.model.js';
 import bcrypt from 'bcryptjs';
 import generateToken from '../utils/generateToken.js';
 
-// ✅ Register
+// ✅ Register User
 export const register = async (req, res) => {
   try {
-    console.log("Incoming data:", req.body); // 🐛 Log input
-
     const name = req.body.name?.trim();
     const email = req.body.email?.trim();
     const password = req.body.password?.trim();
@@ -47,9 +45,7 @@ export const register = async (req, res) => {
   }
 };
 
-
- // Login  (Fixed Admin + Users)
- 
+// ✅ Login (Handles Admin + Users)
 export const login = async (req, res) => {
   try {
     const email = req.body.email?.trim();
@@ -62,16 +58,16 @@ export const login = async (req, res) => {
       });
     }
 
-    // ✅ Fixed Admin Login
+    // ✅ Admin Login
     if (
       email === process.env.ADMIN_EMAIL &&
       password === process.env.ADMIN_PASSWORD
     ) {
-      const token = generateToken('admin-fixed-id', 'admin');
+      const token = generateToken(process.env.ADMIN_ID, 'admin');
       return res.status(200).json({
         token,
         user: {
-          _id: 'admin-fixed-id',
+          _id: process.env.ADMIN_ID,
           email,
           name: 'Admin',
           role: 'admin',
@@ -118,7 +114,7 @@ export const logout = async (req, res) => {
   });
 };
 
-// ✅ Profile
+// ✅ Get Authenticated User Profile
 export const getProfile = async (req, res) => {
   try {
     const userId = req.user.id;
