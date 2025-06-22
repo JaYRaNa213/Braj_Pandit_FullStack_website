@@ -1,4 +1,4 @@
-// ✅ FILE: Checkout.jsx (Final Updated)
+// ✅ FILE: Checkout.jsx (Fully Fixed & Final)
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { placeOrder } from '../../services/orderService';
@@ -28,11 +28,11 @@ const Checkout = () => {
     if (buyNowProduct) {
       setItems([
         {
-          product: buyNowProduct._id,
+          product: buyNowProduct._id || buyNowProduct.id,
           name: buyNowProduct.name,
           price: buyNowProduct.price,
           quantity: 1,
-          imageUrl: buyNowProduct.imageUrl || '/default-product.png',
+          imageUrl: buyNowProduct.imageUrl || '/gita.jpg',
         },
       ]);
     } else {
@@ -67,21 +67,15 @@ const Checkout = () => {
     }
 
     try {
-      const orderItems = items.map((item) => ({
-        product: item.product,
+      const productsPayload = items.map((item) => ({
+        productId: item.product,
         quantity: item.quantity,
       }));
 
-      const totalPrice = items.reduce(
-        (acc, item) => acc + (Number(item.price) || 0) * (item.quantity || 1),
-        0
-      );
-
       const res = await placeOrder({
-        orderItems,
-        shippingAddress: shipping,
+        products: productsPayload,
+        address: shipping,
         paymentMethod,
-        totalPrice,
       });
 
       if (res.success) {
@@ -92,7 +86,7 @@ const Checkout = () => {
         toast.error(res.message || '❌ Order failed.');
       }
     } catch (err) {
-      console.error(err);
+      console.error('🔥 Order Error:', err);
       toast.error('Something went wrong!');
     }
   };
@@ -109,7 +103,7 @@ const Checkout = () => {
         </p>
       ) : (
         <div className="grid md:grid-cols-2 gap-10">
-          {/* Order Summary */}
+          {/* Left - Order Summary */}
           <div>
             <h3 className="text-xl font-semibold mb-4 border-b pb-2">🛒 Your Items</h3>
             <div className="space-y-4">
@@ -140,16 +134,12 @@ const Checkout = () => {
             </div>
           </div>
 
-          {/* Shipping & Payment */}
+          {/* Right - Shipping & Payment */}
           <form onSubmit={handleSubmit} className="space-y-5">
-            <h3 className="text-xl font-semibold mb-2 border-b pb-2">
-              📦 Shipping Details
-            </h3>
+            <h3 className="text-xl font-semibold mb-2 border-b pb-2">📦 Shipping Details</h3>
             {Object.entries(shipping).map(([key, value]) => (
               <div key={key}>
-                <label className="block text-sm font-medium text-gray-600 capitalize mb-1">
-                  {key}
-                </label>
+                <label className="block text-sm font-medium text-gray-600 capitalize mb-1">{key}</label>
                 <input
                   name={key}
                   required
@@ -162,9 +152,7 @@ const Checkout = () => {
             ))}
 
             <div>
-              <label className="block text-sm font-medium text-gray-600 mb-1">
-                💳 Payment Method
-              </label>
+              <label className="block text-sm font-medium text-gray-600 mb-1">💳 Payment Method</label>
               <select
                 value={paymentMethod}
                 onChange={(e) => setPaymentMethod(e.target.value)}
@@ -179,7 +167,8 @@ const Checkout = () => {
               type="submit"
               className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-3 rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl"
             >
-              <FaMoneyBillWave className="inline mr-2" /> Place Order
+              <FaMoneyBillWave className="inline mr-2" />
+              Place Order
             </button>
           </form>
         </div>
