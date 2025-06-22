@@ -19,6 +19,8 @@ export const placeOrder = async (req, res) => {
     const populatedProducts = [];
 
     for (const p of products) {
+      console.log("🔎 Looking for product ID:", p.productId || p.product);
+
       const prod = await Product.findById(p.productId || p.product);
       if (!prod) return res.status(404).json({ success: false, message: `Product not found: ${p.productId}` });
       totalPrice += prod.price * (p.quantity || 1);
