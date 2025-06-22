@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { placeOrder } from '../../services/orderService';
 import { toast } from 'react-toastify';
 import { useAuth } from '../../context/AuthContext';
+import { FaShoppingBag, FaMoneyBillWave } from 'react-icons/fa';
 
 const Checkout = () => {
   const { user } = useAuth();
@@ -30,6 +31,7 @@ const Checkout = () => {
           name: buyNowProduct.name,
           price: buyNowProduct.price,
           quantity: 1,
+          imageUrl: buyNowProduct.imageUrl || '/gita.jpg',
         },
       ]);
     } else {
@@ -38,7 +40,10 @@ const Checkout = () => {
         toast.error('No items to checkout.');
         navigate('/');
       } else {
-        setItems(storedCart);
+        setItems(storedCart.map(item => ({
+          ...item,
+          imageUrl: item.imageUrl || '/default-product.png',
+        })));
       }
     }
   }, [location.state, navigate]);
@@ -88,56 +93,83 @@ const Checkout = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white shadow rounded-xl mt-8">
-      <h2 className="text-2xl font-bold mb-4">Checkout</h2>
+    <div className="max-w-5xl mx-auto px-6 py-10 bg-gradient-to-tr from-white to-gray-100 rounded-2xl shadow-xl mt-10">
+      <h2 className="text-3xl font-bold text-center text-red-700 mb-6 flex items-center justify-center gap-2">
+        <FaShoppingBag className="text-2xl" /> Checkout
+      </h2>
 
       {items.length === 0 ? (
-        <p className="text-red-600">No products to checkout.</p>
+        <p className="text-center text-lg text-red-500 font-semibold">
+          No products to checkout.
+        </p>
       ) : (
-        <>
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-2">Items:</h3>
-            {items.map((item, index) => (
-              <div key={index} className="flex justify-between mb-1">
-                <span>{item.name}</span>
-                <span>₹{item.price} x {item.quantity}</span>
-              </div>
-            ))}
-            <div className="font-bold mt-2 border-t pt-2 text-right">
+        <div className="grid md:grid-cols-2 gap-10">
+          {/* Left - Order Summary with Images */}
+          <div>
+            <h3 className="text-xl font-semibold mb-4 border-b pb-2">🛒 Your Items</h3>
+            <div className="space-y-4">
+              {items.map((item, index) => (
+                <div
+                  key={index}
+                  className="flex items-center gap-4 p-4 border bg-white rounded-xl shadow-sm"
+                >
+                  <img
+                    src={item.imageUrl || '/default-product.png'}
+                    alt={item.name}
+                    className="w-20 h-20 object-cover rounded-lg border"
+                  />
+                  <div className="flex-1">
+                    <h4 className="text-md font-medium">{item.name}</h4>
+                    <p className="text-gray-600">
+                      ₹{item.price} × {item.quantity}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="text-right mt-4 text-xl font-bold text-green-700">
               Total: ₹{items.reduce((acc, item) => acc + item.price * item.quantity, 0)}
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Right - Shipping & Payment */}
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <h3 className="text-xl font-semibold mb-2 border-b pb-2">📦 Shipping Details</h3>
             {Object.entries(shipping).map(([key, value]) => (
-              <input
-                key={key}
-                name={key}
-                required
-                value={value}
-                onChange={handleChange}
-                placeholder={key[0].toUpperCase() + key.slice(1)}
-                className="w-full p-2 border border-gray-300 rounded"
-              />
+              <div key={key}>
+                <label className="block text-sm font-medium text-gray-600 capitalize mb-1">{key}</label>
+                <input
+                  name={key}
+                  required
+                  value={value}
+                  onChange={handleChange}
+                  placeholder={`Enter your ${key}`}
+                  className="w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-red-500 focus:outline-none"
+                />
+              </div>
             ))}
 
-            <select
-              value={paymentMethod}
-              onChange={(e) => setPaymentMethod(e.target.value)}
-              className="w-full p-2 border rounded"
-            >
-              <option value="cod">Cash on Delivery</option>
-              <option value="online">Online Payment</option>
-            </select>
+            <div>
+              <label className="block text-sm font-medium text-gray-600 mb-1">💳 Payment Method</label>
+              <select
+                value={paymentMethod}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+                className="w-full p-3 border rounded-lg bg-white shadow-sm focus:ring-2 focus:ring-red-500"
+              >
+                <option value="cod">Cash on Delivery</option>
+                <option value="online">Online Payment</option>
+              </select>
+            </div>
 
             <button
               type="submit"
-              className="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded font-semibold"
+              className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-3 rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl"
             >
+              <FaMoneyBillWave className="inline mr-2" />
               Place Order
             </button>
           </form>
-        </>
+        </div>
       )}
     </div>
   );
