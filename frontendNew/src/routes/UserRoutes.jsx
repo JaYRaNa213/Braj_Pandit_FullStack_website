@@ -98,6 +98,9 @@ import ProductDetails from "../pages/user/ProductDetails";
 import Checkout from "../pages/user/Checkout";
 import OrderDetails from "../pages/user/OrderDetails";
 import CancelSuccess from "../pages/user/CancelSuccess";
+
+import BlogDetails from "../pages/user/BlogDetails";
+
 const UserRoutes = () => {
   return (
     <Routes>
@@ -122,6 +125,7 @@ const UserRoutes = () => {
           <Route path="checkout" element={<Checkout />} />
 
           <Route path="/cancel-success" element={<CancelSuccess />} />
+          <Route path="blogs/:id" element={<BlogDetails />} />
 
         </Route>
 
