@@ -126,6 +126,7 @@ const UserRoutes = () => {
 
           <Route path="/cancel-success" element={<CancelSuccess />} />
           <Route path="blogs/:id" element={<BlogDetails />} />
+          
 
         </Route>
 

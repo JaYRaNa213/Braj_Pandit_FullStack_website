@@ -6,16 +6,41 @@ import { uploadOnCloudinary } from '../utils/cloudinary.js';
 // ✅ Get all blogs (User) with search and limit
 export const getAllBlogs = async (req, res) => {
   try {
-    const search = req.query.search || '';
-    const blogs = await Blog.find({
-      title: { $regex: search, $options: 'i' }
-    }).limit(10);
+    const search = req.query.search || "";
+    const category = req.query.category || "";
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
 
-    res.status(200).json({ success: true, data: blogs });
+    const query = {
+      title: { $regex: search, $options: "i" },
+    };
+
+    if (category) {
+      query.category = category;
+    }
+
+    const skip = (page - 1) * limit;
+
+    const blogs = await Blog.find(query)
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    const total = await Blog.countDocuments(query);
+
+    return res.status(200).json({
+      data: blogs,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    });
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Error fetching blogs', error: error.message });
+    return res.status(500).json({ message: "Something went wrong", error });
   }
 };
+
+
 
 // ✅ Get a single blog by ID
 export const getBlogById = async (req, res) => {
