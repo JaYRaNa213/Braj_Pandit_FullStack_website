@@ -103,6 +103,8 @@ import BlogDetails from "../pages/user/BlogDetails";
 
 import PanditDetails from "../pages/user/PanditDetails";
 
+import AllPandits from '../pages/user/AllPandits';
+
 const UserRoutes = () => {
   return (
     <Routes>
@@ -129,6 +131,9 @@ const UserRoutes = () => {
           <Route path="/cancel-success" element={<CancelSuccess />} />
           <Route path="blogs/:id" element={<BlogDetails />} />
           <Route path="pandits/:id" element={<PanditDetails />} />
+          <Route path="pandits" element={<AllPandits />} />
+          
+
           
 
         </Route>

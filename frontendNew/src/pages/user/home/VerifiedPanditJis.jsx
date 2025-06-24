@@ -1,3 +1,6 @@
+//src/pages/user/home/verifiedPanditjis.jsx
+
+
 import React, { useEffect, useState } from "react";
 import { getAllPandits } from "../../../services/user/panditService";
 import { Link } from "react-router-dom";

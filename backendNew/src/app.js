@@ -109,9 +109,8 @@ app.use('/api/payments', paymentRoutes);
 app.use('/api/emails', emailRoutes);
 app.use('/api/test', testRoutes);
 
+app.use('/api/admin/pandits', adminPanditRoutes);
 app.use('/api/user/pandits', userPanditRoutes);
-app.use('/api/admin/pandits', verifyToken, adminPanditRoutes);
-
 
 
 app.use('/uploads', express.static(path.join(process.cwd(), 'src/public/images/uploads')));

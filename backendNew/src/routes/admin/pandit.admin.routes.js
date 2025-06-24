@@ -1,4 +1,3 @@
-// backend/src/routes/admin/pandit.admin.routes.js
 import express from 'express';
 import {
   addPandit,
@@ -7,13 +6,15 @@ import {
   getPanditById,
   getAdminAllPandits,
 } from '../../controllers/pandit.controller.js';
+import { verifyToken, authorizeRoles } from '../../middleware/auth.middleware.js';
 
 const router = express.Router();
 
-router.post('/', addPandit);
-router.get('/', getAdminAllPandits);
-router.get('/:id', getPanditById);
-router.patch('/:id/status', updatePanditStatus);
-router.delete('/:id', deletePandit);
+// 👇 Add proper middlewares
+router.post('/', verifyToken, authorizeRoles('admin'), addPandit);
+router.get('/', verifyToken, authorizeRoles('admin'), getAdminAllPandits);
+router.get('/:id', verifyToken, authorizeRoles('admin'), getPanditById);
+router.patch('/:id/status', verifyToken, authorizeRoles('admin'), updatePanditStatus);
+router.delete('/:id', verifyToken, authorizeRoles('admin'), deletePandit);
 
 export default router;
