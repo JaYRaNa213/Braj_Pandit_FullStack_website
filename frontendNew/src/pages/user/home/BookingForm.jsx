@@ -1,3 +1,5 @@
+//src/pages/user/home/BookingForm.jsx
+
 import React from "react";
 
 const BookingForm = () => {

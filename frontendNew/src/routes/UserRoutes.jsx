@@ -101,6 +101,8 @@ import CancelSuccess from "../pages/user/CancelSuccess";
 
 import BlogDetails from "../pages/user/BlogDetails";
 
+import PanditDetails from "../pages/user/PanditDetails";
+
 const UserRoutes = () => {
   return (
     <Routes>
@@ -126,6 +128,7 @@ const UserRoutes = () => {
 
           <Route path="/cancel-success" element={<CancelSuccess />} />
           <Route path="blogs/:id" element={<BlogDetails />} />
+          <Route path="pandits/:id" element={<PanditDetails />} />
           
 
         </Route>

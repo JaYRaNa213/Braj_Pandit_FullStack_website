@@ -37,6 +37,9 @@ import adminRoutes from './routes/admin/admin.routes.js';
 import userOrderRoutes from "./routes/user/order.routes.js";
 import adminOrderRoutes from "./routes/admin/order.routes.js";
 
+import adminPanditRoutes from './routes/admin/pandit.admin.routes.js';
+import userPanditRoutes from './routes/user/pandit.routes.js';
+
 
 import dashboardRoutes from './routes/admin/dashboard.routes.js';
 
@@ -71,7 +74,6 @@ app.use('/api/auth', authRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/admin/bookings', verifyToken, adminBookingRoutes); // ✅ FIXED
 
-app.use("/api/admin", adminRoutes); // this adds `/admin` prefix
 
 
 // ✅ Admin Routes (PROTECTED)
@@ -99,13 +101,16 @@ app.use('/api/admin/orders', adminOrderRoutes);
 
 app.use('/api/admin/dashboard', adminDashboardRoutes);
 app.use('/api/user', userRoutes); // ✅ Enables /api/user/dashboard/summary
-app.use('/api/admin', verifyToken, adminRoutes); // ✅ Admin Dashboard
+// app.use('/api/admin', verifyToken, adminRoutes); // ✅ Admin Dashboard
 
 // app.use('/api/admin', dashboardRoutes);
 
 app.use('/api/payments', paymentRoutes);
 app.use('/api/emails', emailRoutes);
 app.use('/api/test', testRoutes);
+
+app.use('/api/user/pandits', userPanditRoutes);
+app.use('/api/admin/pandits', verifyToken, adminPanditRoutes);
 
 
 

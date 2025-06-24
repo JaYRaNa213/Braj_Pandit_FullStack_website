@@ -9,6 +9,7 @@
 ├── package.json
 ├── postcss.config.js
 ├── public
+│   ├── default-product.png
 │   ├── images
 │   │   ├── articals
 │   │   │   ├── 1.jpg
@@ -35,7 +36,6 @@
 │   │   │   └── pandit4.jpg
 │   │   ├── pank.jpg
 │   │   ├── Premanand-Ji-Maharaj.jpg
-│   │   ├── premMandir.jpg
 │   │   ├── products
 │   │   │   ├── diwaliPujan.jpg
 │   │   │   ├── gita.jpg
@@ -80,7 +80,8 @@
 │   │   ├── appLabels.js
 │   │   └── userRoles.js
 │   ├── context
-│   │   └── AuthContext.jsx
+│   │   ├── AuthContext.jsx
+│   │   └── CartContext.jsx
 │   ├── hooks
 │   │   ├── useAuth.js
 │   │   └── useCart.js
@@ -95,9 +96,11 @@
 │   │   │   ├── AddBlogPost.jsx
 │   │   │   ├── AddLiveVideo.jsx
 │   │   │   ├── AddProduct.jsx
+│   │   │   ├── AdminAddPandit.jsx
 │   │   │   ├── AdminDashboard.jsx
 │   │   │   ├── EditBlogPost.jsx
 │   │   │   ├── ManageOrders.jsx
+│   │   │   ├── ManagePandits.jsx
 │   │   │   ├── ManageProducts.jsx
 │   │   │   ├── ManagePujaBookings.jsx
 │   │   │   ├── ManagesBlogs.jsx
@@ -112,7 +115,9 @@
 │   │       ├── Blog.jsx
 │   │       ├── BlogDetails.jsx
 │   │       ├── Booking.jsx
+│   │       ├── CancelSuccess.jsx
 │   │       ├── Cart.jsx
+│   │       ├── CartPage.jsx
 │   │       ├── Checkout.jsx
 │   │       ├── home
 │   │       │   ├── Articles.jsx
@@ -125,14 +130,13 @@
 │   │       │   ├── PujaServices.jsx
 │   │       │   ├── VerifiedPanditJis.jsx
 │   │       │   └── ViewMoreBtn.jsx
-│   │       ├── Home.jsx
 │   │       ├── MyOrders.jsx
 │   │       ├── OrderDetails.jsx
+│   │       ├── PanditDetails.jsx
 │   │       ├── ProductDetails.jsx
 │   │       ├── Products.jsx
 │   │       ├── PujaBooking.jsx
-│   │       ├── Register.jsx
-│   │       ├── userDashboard.jsx
+│   │       ├── UserDashboard.jsx
 │   │       └── UserProfile.jsx
 │   ├── routes
 │   │   ├── AdminRoutes.jsx
@@ -142,12 +146,15 @@
 │   ├── services
 │   │   ├── admin
 │   │   │   ├── adminService.js
-│   │   │   └── blogService.js
+│   │   │   ├── blogService.js
+│   │   │   └── panditService.js
 │   │   ├── api.js
 │   │   ├── axios.js
+│   │   ├── cartService.js
 │   │   ├── orderService.js
 │   │   └── user
 │   │       ├── blogService.js
+│   │       ├── panditService.js
 │   │       └── userService.js
 │   ├── types
 │   │   └── user.d.ts

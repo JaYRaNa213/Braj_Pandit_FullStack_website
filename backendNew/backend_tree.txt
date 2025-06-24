@@ -48,6 +48,7 @@
 │   │   ├── cart.model.js
 │   │   ├── comment.model.js
 │   │   ├── order.model.js
+│   │   ├── pandit.model.js
 │   │   ├── payment.model.js
 │   │   ├── product.model.js
 │   │   └── user.model.js
@@ -58,7 +59,7 @@
 │   │   │   ├── booking.routes.js
 │   │   │   ├── dashboard.routes.js
 │   │   │   ├── order.routes.js
-│   │   │   ├── pandit.routes.js
+│   │   │   ├── pandit.admin.routes.js
 │   │   │   └── product.routes.js
 │   │   ├── index.routes.js
 │   │   ├── test.routes.js
@@ -70,6 +71,7 @@
 │   │       ├── comment.routes.js
 │   │       ├── email.routes.js
 │   │       ├── order.routes.js
+│   │       ├── pandit.routes.js
 │   │       ├── payment.routes.js
 │   │       ├── product.routes.js
 │   │       └── user.routes.js

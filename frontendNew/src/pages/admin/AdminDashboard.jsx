@@ -1,7 +1,5 @@
-// src/pages/admin/AdminDashboard.jsx
-
 import React, { useEffect, useState } from "react";
-import OrderStatusChart from '@/components/OrderStatusChart';
+import OrderStatusChart from "@/components/OrderStatusChart";
 import { Link } from "react-router-dom";
 import {
   LayoutDashboard,
@@ -14,8 +12,11 @@ import {
   PackageSearch,
   User,
   ClipboardList,
+  BookOpenCheck,
 } from "lucide-react";
+
 import { getAdminDashboardSummary } from "../../services/admin/adminService";
+
 import {
   LineChart,
   Line,
@@ -28,76 +29,26 @@ import {
 
 // 🔗 Admin Navigation Links
 const adminLinks = [
-  {
-    label: "Manage Blogs",
-    icon: <FileText className="w-5 h-5 text-[#4A1C1C]" />,
-    path: "/admin/manage-blogs",
-  },
-  {
-    label: "Manage Products",
-    icon: <ShoppingCart className="w-5 h-5 text-[#4A1C1C]" />,
-    path: "/admin/manage-products",
-  },
-  {
-    label: "Manage Puja Bookings",
-    icon: <CalendarCheck className="w-5 h-5 text-[#4A1C1C]" />,
-    path: "/admin/manage-bookings", // ✅ FIXED
-  },
-  {
-    label: "Manage Users",
-    icon: <Users className="w-5 h-5 text-[#4A1C1C]" />,
-    path: "/admin/users",
-  },
-  {
-    label: "All Orders",
-    icon: <LayoutDashboard className="w-5 h-5 text-[#4A1C1C]" />,
-    path: "/admin/orders",
-  },
-  {
-    label: "Add Blog",
-    icon: <Plus className="w-5 h-5 text-[#4A1C1C]" />,
-    path: "/admin/add-blog",
-  },
-  {
-    label: "Add Product",
-    icon: <Plus className="w-5 h-5 text-[#4A1C1C]" />,
-    path: "/admin/add-product",
-  },
-  {
-    label: "Logout",
-    icon: <LogOut className="w-5 h-5 text-red-600" />,
-    path: "/logout",
-  },
+  { label: "Manage Blogs", icon: <FileText className="w-5 h-5 text-[#4A1C1C]" />, path: "/admin/manage-blogs" },
+  { label: "Manage Products", icon: <ShoppingCart className="w-5 h-5 text-[#4A1C1C]" />, path: "/admin/manage-products" },
+  { label: "Manage Puja Bookings", icon: <CalendarCheck className="w-5 h-5 text-[#4A1C1C]" />, path: "/admin/manage-bookings" },
+  { label: "Manage Users", icon: <Users className="w-5 h-5 text-[#4A1C1C]" />, path: "/admin/users" },
+  { label: "All Orders", icon: <LayoutDashboard className="w-5 h-5 text-[#4A1C1C]" />, path: "/admin/orders" },
+  { label: "Add Blog", icon: <Plus className="w-5 h-5 text-[#4A1C1C]" />, path: "/admin/add-blog" },
+  { label: "Add Product", icon: <Plus className="w-5 h-5 text-[#4A1C1C]" />, path: "/admin/add-product" },
+  { label: "Add Pandit", icon: <Plus className="w-5 h-5 text-[#4A1C1C]" />, path: "/admin/add-pandit" },
+  { label: "Manage Pandits", icon: <BookOpenCheck className="w-5 h-5 text-[#4A1C1C]" />, path: "/admin/manage-pandits" },
+  { label: "Logout", icon: <LogOut className="w-5 h-5 text-red-600" />, path: "/logout" },
 ];
 
-
-// 📊 Summary Statistic Card Configuration
+// 📊 Stat Cards
 const statCardsConfig = [
-  {
-    label: "Total Users",
-    key: "totalUsers",
-    icon: <User className="text-blue-600 w-6 h-6" />,
-  },
-  {
-    label: "Total Bookings",
-    key: "totalBookings",
-    icon: <CalendarCheck className="text-indigo-600 w-6 h-6" />,
-  },
-  {
-    label: "Total Blogs",
-    key: "totalBlogs",
-    icon: <FileText className="text-green-600 w-6 h-6" />,
-  },
-  {
-    label: "Total Products",
-    key: "totalProducts",
-    icon: <PackageSearch className="text-yellow-600 w-6 h-6" />,
-  },
-  {
-    label: "Total Orders",
-    key: "totalOrders",
-    icon: <ClipboardList className="text-pink-600 w-6 h-6" />,
-  },
+  { label: "Total Users", key: "totalUsers", icon: <User className="text-blue-600 w-6 h-6" /> },
+  { label: "Total Bookings", key: "totalBookings", icon: <CalendarCheck className="text-indigo-600 w-6 h-6" /> },
+  { label: "Total Blogs", key: "totalBlogs", icon: <FileText className="text-green-600 w-6 h-6" /> },
+  { label: "Total Products", key: "totalProducts", icon: <PackageSearch className="text-yellow-600 w-6 h-6" /> },
+  { label: "Total Orders", key: "totalOrders", icon: <ClipboardList className="text-pink-600 w-6 h-6" /> },
+  { label: "Total Pandits", key: "totalPandits", icon: <BookOpenCheck className="text-orange-600 w-6 h-6" /> }, // ✅ Added
 ];
 
 const AdminDashboard = () => {
@@ -107,13 +58,11 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchSummary = async () => {
       try {
-        
         const res = await getAdminDashboardSummary();
-const summaryData = res.data.data || res.data; // fallback for both cases
-setSummary(summaryData);
+        const summaryData = res.data.data || res.data;
+        setSummary(summaryData);
       } catch (error) {
         console.error("Failed to load dashboard summary:", error);
-        
         setSummary({
           totals: {
             totalUsers: 0,
@@ -121,6 +70,7 @@ setSummary(summaryData);
             totalProducts: 0,
             totalBookings: 0,
             totalOrders: 0,
+            totalPandits: 0,
           },
           chart: {
             bookingChart: [],
@@ -132,9 +82,6 @@ setSummary(summaryData);
     };
     fetchSummary();
   }, []);
-
-  const cardStyle =
-    "flex items-center space-x-4 bg-white p-4 rounded-xl shadow hover:shadow-md transition duration-300 border-l-4 border-[#4A1C1C]";
 
   const totals = summary?.totals || {};
   const chartData = summary?.chart?.bookingChart || [];
@@ -154,8 +101,8 @@ setSummary(summaryData);
           Admin Dashboard
         </h1>
 
-        {/* 📦 Stat Summary Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-10">
+        {/* Stat Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 mb-10">
           {statCardsConfig.map((card) => (
             <div
               key={card.label}
@@ -172,49 +119,49 @@ setSummary(summaryData);
           ))}
         </div>
 
-{/* 📈 Booking & Order Charts */}
-<div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-  {/* 📈 Booking Chart */}
-  {chartData.length > 0 ? (
-    <div className="bg-white rounded-xl shadow p-6">
-      <h2 className="text-xl font-semibold mb-4 text-[#4A1C1C]">
-        Weekly Booking Overview
-      </h2>
-      <ResponsiveContainer width="100%" height={300}>
-        <LineChart data={chartData}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" />
-          <YAxis allowDecimals={false} />
-          <Tooltip />
-          <Line
-            type="monotone"
-            dataKey="count"
-            stroke="#4A1C1C"
-            strokeWidth={3}
-            dot={{ r: 4 }}
-          />
-        </LineChart>
-      </ResponsiveContainer>
-    </div>
-  ) : (
-    <div className="bg-white rounded-xl shadow p-6 text-center text-gray-500">
-      No booking data available.
-    </div>
-  )}
+        {/* Charts */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+          {/* Booking Chart */}
+          {chartData.length > 0 ? (
+            <div className="bg-white rounded-xl shadow p-6">
+              <h2 className="text-xl font-semibold mb-4 text-[#4A1C1C]">
+                Weekly Booking Overview
+              </h2>
+              <ResponsiveContainer width="100%" height={300}>
+                <LineChart data={chartData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="date" />
+                  <YAxis allowDecimals={false} />
+                  <Tooltip />
+                  <Line
+                    type="monotone"
+                    dataKey="count"
+                    stroke="#4A1C1C"
+                    strokeWidth={3}
+                    dot={{ r: 4 }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          ) : (
+            <div className="bg-white rounded-xl shadow p-6 text-center text-gray-500">
+              No booking data available.
+            </div>
+          )}
 
-  {/* 📦 Order Status Chart (newly added) */}
-  <div className="bg-white rounded-xl shadow p-6">
-    <h2 className="text-xl font-semibold mb-4 text-[#4A1C1C]">
-      Order Status Summary
-    </h2>
-    <OrderStatusChart data={summary?.totals} />
-  </div>
-</div>
+          {/* Order Status Chart */}
+          <div className="bg-white rounded-xl shadow p-6">
+            <h2 className="text-xl font-semibold mb-4 text-[#4A1C1C]">
+              Order Status Summary
+            </h2>
+            <OrderStatusChart data={totals} />
+          </div>
+        </div>
 
-        {/* 🔗 Admin Action Links */}
+        {/* Action Links */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {adminLinks.map((link) => (
-            <Link to={link.path} key={link.label} className={cardStyle}>
+            <Link to={link.path} key={link.label} className="flex items-center space-x-4 bg-white p-4 rounded-xl shadow hover:shadow-md transition duration-300 border-l-4 border-[#4A1C1C]">
               {link.icon}
               <span className="text-lg font-medium text-[#4A1C1C]">
                 {link.label}

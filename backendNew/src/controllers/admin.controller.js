@@ -68,12 +68,13 @@ export const getPujaBookings = async (req, res) => {
 
 export const getUserAdminDashboardSummary = async (req, res) => {
   try {
-    const [totalUsers, totalBookings, totalProducts, totalOrders, totalBlogs] = await Promise.all([
+    const [totalUsers, totalBookings, totalProducts, totalOrders, totalBlogs,totalPandits] = await Promise.all([
       User.countDocuments(),
       Booking.countDocuments(),
       Product.countDocuments(),
       Order.countDocuments(),
       Blog.countDocuments(),
+      Pandit.countDocuments(),
     ]);
 
     res.status(200).json({
@@ -85,6 +86,7 @@ export const getUserAdminDashboardSummary = async (req, res) => {
         totalProducts,
         totalOrders,
         totalBlogs,
+        totalPandits,
       },
     });
   } catch (error) {
