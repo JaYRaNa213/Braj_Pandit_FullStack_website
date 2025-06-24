@@ -19,7 +19,7 @@ const ManagePandits = () => {
     try {
       setLoading(true);
       const res = await getAdminAllPandits();
-      setPandits(res.data?.data || []);
+      setPandits(res.data || []);
     } catch (err) {
       toast.error("Error loading pandits");
     } finally {

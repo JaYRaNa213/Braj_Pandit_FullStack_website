@@ -1,6 +1,3 @@
-//src/pages/user/home/verifiedPanditjis.jsx
-
-
 import React, { useEffect, useState } from "react";
 import { getAllPandits } from "../../../services/user/panditService";
 import { Link } from "react-router-dom";
@@ -30,8 +27,9 @@ const VerifiedPanditJis = () => {
 
   return (
     <section className="bg-white px-4 md:px-16 py-16">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8 items-start">
-        <div className="md:w-1/2 space-y-6">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+        {/* Left Side: Title + Description */}
+        <div className="space-y-6">
           <h2 className="text-4xl font-bold text-[#4A1C1C]">
             Our <span className="text-red-600">Verified</span> PanditJi
           </h2>
@@ -46,28 +44,35 @@ const VerifiedPanditJis = () => {
           </Link>
         </div>
 
-        <div className="md:w-1/2 grid grid-cols-4 gap-2">
-          {pandits.map((pandit) => (
-            <Link
-              key={pandit._id}
-              to={`/pandits/${pandit._id}`}
-              className="bg-[#F9F3F1] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition w-[140px]"
-            >
-              <img
-                src={pandit.imageUrl}
-                alt={pandit.name}
-                className="w-full h-[120px] object-cover"
-              />
-              <div className="p-2 text-[#4A1C1C]">
-                <h3 className="text-sm font-semibold">{pandit.name}</h3>
-                <p className="text-xs">{pandit.expertise}</p>
-                <div className="text-[10px] flex justify-between mt-1 text-gray-700">
-                  <span>{pandit.experience}</span>
-                  <span>{pandit.location}</span>
-                </div>
-              </div>
-            </Link>
-          ))}
+        {/* Right Side: Pandit Cards */}
+        <div className="w-full">
+          {pandits.length === 0 ? (
+            <p className="text-gray-500 text-sm">No verified Pandits available.</p>
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 justify-end">
+              {pandits.map((pandit) => (
+                <Link
+                  key={pandit._id}
+                  to={`/pandits/${pandit._id}`}
+                  className="bg-[#F9F3F1] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition w-full"
+                >
+                  <img
+                    src={pandit.imageUrl}
+                    alt={pandit.name}
+                    className="w-full h-[120px] object-cover"
+                  />
+                  <div className="p-2 text-[#4A1C1C]">
+                    <h3 className="text-sm font-semibold">{pandit.name}</h3>
+                    <p className="text-xs">{pandit.expertise}</p>
+                    <div className="text-[10px] flex justify-between mt-1 text-gray-700">
+                      <span>{pandit.experience}</span>
+                      <span>{pandit.location}</span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>

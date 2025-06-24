@@ -13,6 +13,10 @@ const AdminLayout = () => {
           <Link to="/admin/manage-blogs" className="block hover:underline">Manage Blogs</Link>
           <Link to="/admin/manage-products" className="block hover:underline">Manage Products</Link>
           <Link to="/admin/puja/bookings" className="block hover:underline">Manage Puja Bookings</Link>
+          {/* Add these inside the <nav> in AdminLayout.jsx */}
+<Link to="/admin/add-pandit" className="block hover:underline">Add Pandit</Link>
+<Link to="/admin/manage-pandits" className="block hover:underline">Manage Pandits</Link>
+
         </nav>
       </aside>
 
