@@ -10,7 +10,9 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="bg-[#4A1C1C] p-4 text-white flex justify-between items-center">
+      {/* Top Navigation Bar */}
+      <nav className="bg-[#4A1C1C] p-4 text-white flex justify-between items-center shadow-md">
+        {/* Logo Section */}
         <div className="flex items-center space-x-4">
           <img src="/images/pank.jpg" alt="Logo" className="h-14 w-10 object-contain" />
           <Link to="/" className="text-xl font-bold">
@@ -18,6 +20,7 @@ export default function Navbar() {
           </Link>
         </div>
 
+        {/* Navigation Links */}
         <div className="space-x-6 flex items-center">
           <Link to="/" className="hover:underline">
             Home
@@ -29,7 +32,7 @@ export default function Navbar() {
             Products
           </Link>
           <Link to="/booking" className="hover:underline">
-            Booking
+            Puja Booking
           </Link>
 
           {user ? (
@@ -45,6 +48,7 @@ export default function Navbar() {
               )}
               <button
                 onClick={logout}
+                title="Logout"
                 className="bg-red-500 px-3 py-1 rounded hover:bg-red-600"
               >
                 Logout
@@ -63,7 +67,7 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* 🛒 Floating Cart Icon */}
+      {/* Floating Cart Icon */}
       <div className="fixed bottom-5 right-5 z-50">
         <Link to="/cart" className="relative group">
           <div className="bg-yellow-500 hover:bg-yellow-600 text-white p-4 rounded-full shadow-lg transition-transform duration-300 transform group-hover:scale-110">
