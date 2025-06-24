@@ -3,6 +3,7 @@ import Booking from '../models/booking.model.js';
 import Product from '../models/product.model.js';
 import Order from '../models/order.model.js';
 import Blog from '../models/blog.model.js';
+import Pandit from '../models/pandit.model.js';
 import asyncHandler from '../utils/asyncHandler.js';
 import ApiResponse from '../utils/ApiResponse.js';
 import dayjs from 'dayjs';
@@ -17,12 +18,15 @@ export const getAdminDashboardSummary = asyncHandler(async (req, res) => {
     sevenDaysAgo.setDate(today.getDate() - 6);
 
     // 📊 Total counts
-    const [totalUsers, totalBookings, totalBlogs, totalProducts, totalOrders] = await Promise.all([
+    const [totalUsers, totalBookings, totalProducts, totalOrders, totalBlogs, totalPandits, approvedPandits, pendingPandits] = await Promise.all([
       User.countDocuments(),
       Booking.countDocuments(),
-      Blog.countDocuments(),
       Product.countDocuments(),
       Order.countDocuments(),
+      Blog.countDocuments(),
+      Pandit.countDocuments(),
+      Pandit.countDocuments({ status: 'approved' }),
+      Pandit.countDocuments({ status: 'pending' }),
     ]);
 
     // 📊 Order status breakdown
@@ -86,6 +90,9 @@ export const getAdminDashboardSummary = asyncHandler(async (req, res) => {
             pendingOrders,
             confirmedOrders,
             cancelledOrders,
+            totalPandits,
+            approvedPandits,
+            pendingPandits,
           },
           chart: {
             bookingChart,
