@@ -36,7 +36,7 @@ const Home = () => {
       <div ref={servicesRef}>
         <PujaServices />
       </div>
-      <ViewMoreBtn />
+      
 
       <div ref={bookingRef}>
         <BookingForm />

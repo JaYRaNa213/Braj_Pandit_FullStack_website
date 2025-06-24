@@ -53,6 +53,7 @@ import userRoutes from './routes/user/user.routes.js';
 
 import callBookingRoutes from "./routes/user/callBooking.routes.js";
 
+import liveRoutes from "./routes/user/live.routes.js";
 
 
 
@@ -118,6 +119,11 @@ app.use('/api/user/pandits', userPanditRoutes);
 
 
 app.use("/api/user/callBookings", callBookingRoutes);
+
+
+
+app.use("/api/user/live-bhajans", liveRoutes);
+
 
 
 app.use('/uploads', express.static(path.join(process.cwd(), 'src/public/images/uploads')));

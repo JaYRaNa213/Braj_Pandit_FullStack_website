@@ -1,6 +1,5 @@
 // src/services/api.js
-import axiosInstance from "./axios"; // ✅ CORRECT: use your configured axios instance
-
+import axiosInstance from "./axios";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:7000/api/";
 
@@ -8,69 +7,47 @@ const api = axiosInstance.create({
   baseURL: API_BASE_URL,
 });
 
-// Attach token automatically if exists
+// ✅ Attach token automatically
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
 
+// =================== AUTH ===================
 export const getUser = () => api.get("/auth/user");
-export const login = (credentials) => {
-  return api.post("/auth/login", credentials);
-};
-export const register = (userData) => {
-  return api.post("/auth/register", userData);
-};
-// ✅ BLOG
-export const getBlogs = () => axiosInstance.get("/blogs");
-export const getBlogById = (id) => axiosInstance.get(`/blogs/${id}`);
-export const createBlog = (blogData) => axiosInstance.post("/blogs", blogData);
-export const updateBlog = (id, blogData) => axiosInstance.put(`/blogs/${id}`, blogData);
-export const deleteBlog = (id) => axiosInstance.delete(`/blogs/${id}`);
+export const login = (credentials) => api.post("/auth/login", credentials);
+export const register = (userData) => api.post("/auth/register", userData);
 
+// =================== BLOGS ===================
+export const getBlogs = () => api.get("/blogs");
+export const getBlogById = (id) => api.get(`/blogs/${id}`);
+export const createBlog = (blogData) => api.post("/blogs", blogData);
+export const updateBlog = (id, blogData) => api.put(`/blogs/${id}`, blogData);
+export const deleteBlog = (id) => api.delete(`/blogs/${id}`);
 
-// ✅ COMMENTS
-export const getComments = (blogId) => axiosInstance.get(`/blogs/${blogId}/comments`);
+// =================== COMMENTS ===================
+export const getComments = (blogId) => api.get(`/blogs/${blogId}/comments`);
 
-// ✅ PRODUCTS
+// =================== PRODUCTS ===================
+// USER (public)
+export const getProducts = () => api.get("/products");
 
-// USER: Get all products (public)
-export const getProducts = () => {
-  return axiosInstance.get("/products"); // hits http://localhost:7000/api/products
-};
-
-// ADMIN: Get all products (admin)
-export const getAdminProducts = () => axiosInstance.get("/admin/products");
-
-// ADMIN: Delete product
-export const deleteProduct = (id) => axiosInstance.delete(`/admin/products/${id}`);
-
-// ADMIN: Add product (expects FormData for image upload)
+// ADMIN
+export const getAllAdminProducts = () => api.get("/admin/products");
+export const deleteProduct = (id) => api.delete(`/admin/products/${id}`);
 export const addProduct = (formData) =>
-  axiosInstance.post("/admin/products", formData, {
+  api.post("/admin/products", formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
-
-  // ADMIN: Update product (expects FormData for image upload)
 export const updateProduct = (id, formData) =>
-  axiosInstance.put(`/admin/products/${id}`, formData, {
+  api.put(`/admin/products/${id}`, formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
 
+// =================== BOOKINGS ===================
+export const bookPuja = (bookingData) => api.post("/bookings", bookingData);
+export const getPujaBookings = () => api.get("/bookings");
 
-
-
-// ✅ BOOKINGS
-export const bookPuja = (bookingData) => {
-  const token = localStorage.getItem("accessToken");
-  return api.post("/bookings", bookingData, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-};
-
-export const getPujaBookings = () => axiosInstance.get("/bookings");
-
-export default axiosInstance;
+// =================== EXPORT DEFAULT ===================
+export default api;

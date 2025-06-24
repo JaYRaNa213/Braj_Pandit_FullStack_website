@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "../../../services/axios"; // ✅ Make sure this path matches your project
+import axiosInstance from "../../../services/axios"; // ✅ Make sure this path matches your project
 import { toast } from "react-toastify";
 
 const BookingForm = () => {
@@ -24,7 +24,7 @@ const BookingForm = () => {
     };
 
     try {
-      await axios.post("/user/callBookings", formData);
+      await axiosInstance.post("/user/callBookings", formData);
       toast.success("📨 Booking sent successfully. We'll contact you shortly.");
       e.target.reset();
       setSelectedService("");
@@ -36,7 +36,7 @@ const BookingForm = () => {
 
   return (
     <section className="w-full max-w-4xl mb-16 mx-auto bg-[#4A1C1C] text-white rounded-lg shadow-lg p-8">
-      <h2 className="text-3xl font-semibold mb-6 text-center">BOOK NOW - ONLINE PANDIT</h2>
+      <h2 className="text-3xl font-semibold mb-6 text-center">Other  Travel Food & Stay Services</h2>
       <form className="space-y-4" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name" className="block mb-1 font-medium">

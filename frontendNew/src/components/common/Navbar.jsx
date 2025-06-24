@@ -1,5 +1,5 @@
-// src/components/common/Navbar.jsx
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
+import { Link as ScrollLink } from "react-scroll";
 import { useAuth } from "../../context/AuthContext";
 import { useCart } from "../../hooks/useCart";
 import { FaShoppingCart } from "react-icons/fa";
@@ -10,66 +10,51 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Top Navigation Bar */}
       <nav className="bg-[#4A1C1C] p-4 text-white flex justify-between items-center shadow-md">
-        {/* Logo Section */}
         <div className="flex items-center space-x-4">
           <img src="/images/pank.jpg" alt="Logo" className="h-14 w-10 object-contain" />
-          <Link to="/" className="text-xl font-bold">
+          <RouterLink to="/" className="text-xl font-bold">
             Mero Vrindavan !
-          </Link>
+          </RouterLink>
         </div>
 
-        {/* Navigation Links */}
         <div className="space-x-6 flex items-center">
-          <Link to="/" className="hover:underline">
-            Home
-          </Link>
-          <Link to="/blogs" className="hover:underline">
-            Blogs
-          </Link>
-          <Link to="/products" className="hover:underline">
-            Products
-          </Link>
-          <Link to="/booking" className="hover:underline">
+          <RouterLink to="/" className="hover:underline">Home</RouterLink>
+          <RouterLink to="/blogs" className="hover:underline">Blogs</RouterLink>
+          <RouterLink to="/products" className="hover:underline">Products</RouterLink>
+
+          <ScrollLink
+            to="pujaServicesSection"
+            smooth={true}
+            duration={800}
+            offset={-70}
+            className="cursor-pointer hover:underline"
+          >
             Puja Booking
-          </Link>
+          </ScrollLink>
 
           {user ? (
             <>
               {user.role === "admin" ? (
-                <Link to="/admin" className="hover:underline">
-                  Admin Dashboard
-                </Link>
+                <RouterLink to="/admin" className="hover:underline">Admin Dashboard</RouterLink>
               ) : (
-                <Link to="/profile" className="hover:underline">
-                  Profile
-                </Link>
+                <RouterLink to="/profile" className="hover:underline">Profile</RouterLink>
               )}
-              <button
-                onClick={logout}
-                title="Logout"
-                className="bg-red-500 px-3 py-1 rounded hover:bg-red-600"
-              >
+              <button onClick={logout} title="Logout" className="bg-red-500 px-3 py-1 rounded hover:bg-red-600">
                 Logout
               </button>
             </>
           ) : (
             <>
-              <Link to="/login" className="hover:underline">
-                Login
-              </Link>
-              <Link to="/register" className="hover:underline">
-                Register
-              </Link>
+              <RouterLink to="/login" className="hover:underline">Login</RouterLink>
+              <RouterLink to="/register" className="hover:underline">Register</RouterLink>
             </>
           )}
         </div>
       </nav>
 
-      {/* Floating Cart Icon */}
       <div className="fixed bottom-5 right-5 z-50">
-        <Link to="/cart" className="relative group">
+        <RouterLink to="/cart" className="relative group">
           <div className="bg-yellow-500 hover:bg-yellow-600 text-white p-4 rounded-full shadow-lg transition-transform duration-300 transform group-hover:scale-110">
             <FaShoppingCart size={24} />
           </div>
@@ -78,7 +63,7 @@ export default function Navbar() {
               {cartItems.length}
             </span>
           )}
-        </Link>
+        </RouterLink>
       </div>
     </>
   );
