@@ -101,7 +101,7 @@ app.use('/api/admin/orders', adminOrderRoutes);
 
 app.use('/api/admin/dashboard', adminDashboardRoutes);
 app.use('/api/user', userRoutes); // ✅ Enables /api/user/dashboard/summary
-// app.use('/api/admin', verifyToken, adminRoutes); // ✅ Admin Dashboard
+app.use('/api/admin', verifyToken, adminRoutes); // ✅ Admin Dashboard
 
 // app.use('/api/admin', dashboardRoutes);
 
