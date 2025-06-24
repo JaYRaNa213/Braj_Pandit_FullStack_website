@@ -50,7 +50,11 @@ import { verifyToken } from './middleware/auth.middleware.js'; // ✅ Corrected 
 
 import adminDashboardRoutes from './routes/admin/dashboard.routes.js';
 import userRoutes from './routes/user/user.routes.js';
-;
+
+import callBookingRoutes from "./routes/user/callBooking.routes.js";
+
+
+
 
 // ✅ App Initialization
 const app = express();
@@ -111,6 +115,9 @@ app.use('/api/test', testRoutes);
 
 app.use('/api/admin/pandits', adminPanditRoutes);
 app.use('/api/user/pandits', userPanditRoutes);
+
+
+app.use("/api/user/callBookings", callBookingRoutes);
 
 
 app.use('/uploads', express.static(path.join(process.cwd(), 'src/public/images/uploads')));

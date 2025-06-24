@@ -22,6 +22,7 @@ const HeroSection = ({ onBookPanditClick, onSeeServicesClick }) => {
 
   return (
     <section className="relative h-[90vh] overflow-hidden bg-black">
+      {/* Background Image Carousel */}
       {heroImages.map((img, index) => (
         <div
           key={index}
@@ -34,28 +35,33 @@ const HeroSection = ({ onBookPanditClick, onSeeServicesClick }) => {
         </div>
       ))}
 
+      {/* Foreground Text Content */}
       <div className="relative z-30 text-center text-white flex items-center justify-center h-full px-4">
-        <div className="max-w-3xl">
-          <h5 className="text-lg font-medium mb-2">Welcome to BrajPandit</h5>
-          <h1 className="text-5xl font-bold mb-4">
-            Your <span className="text-red-600">Trusted</span> Platform for Sacred{" "}
+        <div className="max-w-3xl animate-fade-in-up">
+          <h5 className="text-lg font-medium mb-2 tracking-wider uppercase text-yellow-300">
+            Welcome to BrajPandit
+          </h5>
+          <h1 className="text-5xl font-bold mb-4 leading-snug">
+            Your <span className="text-red-500">Trusted</span> Platform for Sacred{" "}
             <span className="text-yellow-400">Hindu Ceremonies</span>
           </h1>
-          <p className="mb-6 text-lg">
-            We provide highly qualified and experienced Panditjee for all communities like Gujarati, Rajasthani, Marathi, Sindhi, Bihari, Bengali, and Panjabi.
+          <p className="mb-8 text-lg text-gray-200">
+            We provide highly qualified and experienced Panditjis for all communities —
+            Gujarati, Rajasthani, Marathi, Sindhi, Bihari, Bengali, and Punjabi.
           </p>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-            <button
-              onClick={onBookPanditClick}
-              className="bg-red-500 hover:bg-red-700 text-white py-2 px-6 rounded-full text-lg transition duration-300"
-            >
-              BOOK PANDIT
-            </button>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
             <button
               onClick={onSeeServicesClick}
-              className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-8 rounded-full text-lg transition duration-300"
+              className="bg-red-600 hover:bg-red-700 text-white py-3 px-8 rounded-full text-lg font-semibold shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105"
             >
-              See All Pooja Services
+              Puja Booking
+            </button>
+            <button
+              onClick={onBookPanditClick}
+              className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-8 rounded-full text-lg font-semibold shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+            >
+              Travel, Food & Stay
             </button>
           </div>
         </div>

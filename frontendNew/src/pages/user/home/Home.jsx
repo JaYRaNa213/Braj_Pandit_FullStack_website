@@ -42,8 +42,8 @@ const Home = () => {
         <BookingForm />
       </div>
 
-      {/* <Articles /> */}
-      <ViewMoreBtn />
+      
+      
       <BlogSection />
       
       <VerifiedPanditJis />
