@@ -1,17 +1,6 @@
-// export default function Booking() {
-//   return (
-//     <div className="p-6">
-//       <h2 className="text-xl font-bold">Book a Pooja or Pandit</h2>
-//       <p>Booking functionality will be added here.</p>
-//     </div>
-//   );
-// }
-
-
-
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import axiosInstance from "../../services/axios";
-
-import { useState } from "react";
 import { bookPuja } from "../../services/api";
 
 export default function Booking() {
@@ -20,18 +9,77 @@ export default function Booking() {
     email: "",
     service: "",
     date: "",
-    time:"",
-    pandit:""
+    time: "",
+    pandit: "",
   });
+
+  const [pandits, setPandits] = useState([]);
+  const [showCustomService, setShowCustomService] = useState(false);
+  const location = useLocation();
+
+  const commonPujas = [
+    "Diwali Pooja",
+    "Griha Pravesh",
+    "Marriage Ceremony",
+    "Bhagwat Katha",
+    "Satyanarayan Pooja",
+    "Office Pooja",
+    "Mundan Sanskar",
+    "Navgraha Shanti",
+    "Shraddha Karma",
+    "Rudrabhishek",
+    "Annaprashan",
+  ];
+
+  useEffect(() => {
+    window.scrollTo(0, 0); // ✅ Scroll to top on load
+
+    const fetchPandits = async () => {
+      try {
+        const res = await axiosInstance.get("/user/pandits");
+        const approved = res.data?.data?.filter(
+          (p) => p.status?.toLowerCase() === "approved"
+        ) || [];
+        setPandits(approved);
+      } catch (err) {
+        console.error("Failed to fetch pandits:", err);
+      }
+    };
+
+    fetchPandits();
+
+    const params = new URLSearchParams(location.search);
+    const serviceFromQuery = params.get("service");
+    const panditFromQuery = params.get("pandit");
+
+    setFormData((prev) => ({
+      ...prev,
+      service: serviceFromQuery || "",
+      pandit: panditFromQuery || "",
+    }));
+
+    if (serviceFromQuery && !commonPujas.includes(serviceFromQuery)) {
+      setShowCustomService(true);
+    }
+  }, [location]);
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
+  const handleServiceSelect = (e) => {
+    const selected = e.target.value;
+    if (selected === "Other") {
+      setShowCustomService(true);
+      setFormData({ ...formData, service: "" });
+    } else {
+      setShowCustomService(false);
+      setFormData({ ...formData, service: selected });
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // const res = await axiosInstance.post("/booking/puja",formData);
-      // await axios.post("/auth/register", form); 
       const res = await bookPuja(formData);
       alert("Booking successful: " + res.data.message);
     } catch (err) {
@@ -41,8 +89,8 @@ export default function Booking() {
   };
 
   return (
-    <div className="p-6 max-w-md mx-auto">
-      <h2 className="text-xl font-bold mb-4">Book a Puja</h2>
+    <div className="p-6 max-w-md mx-auto min-h-screen">
+      <h2 className="text-2xl font-bold mb-6 text-center text-red-700">Book a Puja</h2>
       <form className="space-y-4" onSubmit={handleSubmit}>
         <input
           type="text"
@@ -52,6 +100,7 @@ export default function Booking() {
           className="w-full p-2 border rounded"
           onChange={handleChange}
         />
+
         <input
           type="email"
           name="email"
@@ -61,25 +110,51 @@ export default function Booking() {
           onChange={handleChange}
         />
 
-
-        <input
-          type="text"
+        {/* Puja Dropdown + Custom Option */}
+        <select
           name="service"
-          placeholder="Service (e.g., Griha Pravesh)"
-          required
           className="w-full p-2 border rounded"
-          onChange={handleChange}
-        />
+          value={commonPujas.includes(formData.service) ? formData.service : "Other"}
+          onChange={handleServiceSelect}
+          required
+        >
+          <option value="">-- Select Puja --</option>
+          {commonPujas.map((puja, i) => (
+            <option key={i} value={puja}>
+              {puja}
+            </option>
+          ))}
+          <option value="Other">Other</option>
+        </select>
 
-        <input
-          type="text"
+        {/* Custom Service Input */}
+        {showCustomService && (
+          <input
+            type="text"
+            name="service"
+            placeholder="Enter custom puja/service"
+            required
+            className="w-full p-2 border rounded"
+            value={formData.service}
+            onChange={handleChange}
+          />
+        )}
+
+        {/* Pandit Dropdown */}
+        <select
           name="pandit"
-          placeholder="Pandit Jee name"
           required
           className="w-full p-2 border rounded"
+          value={formData.pandit}
           onChange={handleChange}
-        />
-
+        >
+          <option value="">-- Select Pandit --</option>
+          {pandits.map((p) => (
+            <option key={p._id} value={p.name}>
+              {p.name} ({p.expertise}) - {p.location}
+            </option>
+          ))}
+        </select>
 
         <input
           type="date"
@@ -88,6 +163,7 @@ export default function Booking() {
           className="w-full p-2 border rounded"
           onChange={handleChange}
         />
+
         <input
           type="time"
           name="time"
@@ -95,9 +171,10 @@ export default function Booking() {
           className="w-full p-2 border rounded"
           onChange={handleChange}
         />
+
         <button
           type="submit"
-          className="bg-purple-600 text-white px-4 py-2 rounded"
+          className="w-full bg-purple-700 text-white py-2 rounded hover:bg-purple-800 transition"
         >
           Book Now
         </button>

@@ -105,6 +105,8 @@ import PanditDetails from "../pages/user/PanditDetails";
 
 import AllPandits from '../pages/user/AllPandits';
 
+import AllPujaServices from '../pages/user/AllPujaServices';
+
 const UserRoutes = () => {
   return (
     <Routes>
@@ -132,6 +134,10 @@ const UserRoutes = () => {
           <Route path="blogs/:id" element={<BlogDetails />} />
           <Route path="pandits/:id" element={<PanditDetails />} />
           <Route path="pandits" element={<AllPandits />} />
+
+
+          <Route path="/all-puja-services" element={<AllPujaServices />} />
+
           
 
           
