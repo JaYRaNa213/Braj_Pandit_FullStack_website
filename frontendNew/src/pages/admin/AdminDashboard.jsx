@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useAuth } from "../../context/AuthContext";
+import { useNavigate, Link } from "react-router-dom";
+import { getAdminDashboardSummary } from "../../services/admin/adminService";
 import OrderStatusChart from "@/components/OrderStatusChart";
-import { Link } from "react-router-dom";
+
 import {
   LayoutDashboard,
   FileText,
@@ -8,14 +11,12 @@ import {
   CalendarCheck,
   Users,
   Plus,
-  LogOut,
   PackageSearch,
   User,
   ClipboardList,
   BookOpenCheck,
+  LogOut,
 } from "lucide-react";
-
-import { getAdminDashboardSummary } from "../../services/admin/adminService";
 
 import {
   LineChart,
@@ -27,7 +28,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-// 🔗 Admin Navigation Links
+// 🔗 Admin Navigation Links (excluding logout)
 const adminLinks = [
   { label: "Manage Blogs", icon: <FileText className="w-5 h-5 text-[#4A1C1C]" />, path: "/admin/manage-blogs" },
   { label: "Manage Products", icon: <ShoppingCart className="w-5 h-5 text-[#4A1C1C]" />, path: "/admin/manage-products" },
@@ -38,22 +39,23 @@ const adminLinks = [
   { label: "Add Product", icon: <Plus className="w-5 h-5 text-[#4A1C1C]" />, path: "/admin/add-product" },
   { label: "Add Pandit", icon: <Plus className="w-5 h-5 text-[#4A1C1C]" />, path: "/admin/add-pandit" },
   { label: "Manage Pandits", icon: <BookOpenCheck className="w-5 h-5 text-[#4A1C1C]" />, path: "/admin/manage-pandits" },
-  { label: "Logout", icon: <LogOut className="w-5 h-5 text-red-600" />, path: "/logout" },
 ];
 
-// 📊 Stat Cards
+// 📊 Stat Cards Config
 const statCardsConfig = [
   { label: "Total Users", key: "totalUsers", icon: <User className="text-blue-600 w-6 h-6" /> },
   { label: "Total Bookings", key: "totalBookings", icon: <CalendarCheck className="text-indigo-600 w-6 h-6" /> },
   { label: "Total Blogs", key: "totalBlogs", icon: <FileText className="text-green-600 w-6 h-6" /> },
   { label: "Total Products", key: "totalProducts", icon: <PackageSearch className="text-yellow-600 w-6 h-6" /> },
   { label: "Total Orders", key: "totalOrders", icon: <ClipboardList className="text-pink-600 w-6 h-6" /> },
-  { label: "Total Pandits", key: "totalPandits", icon: <BookOpenCheck className="text-orange-600 w-6 h-6" /> }, // ✅ Added
+  { label: "Total Pandits", key: "totalPandits", icon: <BookOpenCheck className="text-orange-600 w-6 h-6" /> },
 ];
 
 const AdminDashboard = () => {
   const [summary, setSummary] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { logout } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchSummary = async () => {
@@ -161,13 +163,31 @@ const AdminDashboard = () => {
         {/* Action Links */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {adminLinks.map((link) => (
-            <Link to={link.path} key={link.label} className="flex items-center space-x-4 bg-white p-4 rounded-xl shadow hover:shadow-md transition duration-300 border-l-4 border-[#4A1C1C]">
+            <Link
+              to={link.path}
+              key={link.label}
+              className="flex items-center space-x-4 bg-white p-4 rounded-xl shadow hover:shadow-md transition duration-300 border-l-4 border-[#4A1C1C]"
+            >
               {link.icon}
               <span className="text-lg font-medium text-[#4A1C1C]">
                 {link.label}
               </span>
             </Link>
           ))}
+        </div>
+
+        {/* Logout Button */}
+        <div className="mt-8 flex justify-center">
+          <button
+            onClick={() => {
+              logout();
+              navigate("/");
+            }}
+            className="flex items-center gap-2 text-red-600 hover:text-red-800 font-medium border border-red-600 hover:border-red-800 px-4 py-2 rounded transition"
+          >
+            <LogOut className="w-5 h-5" />
+            Logout
+          </button>
         </div>
       </div>
     </div>
