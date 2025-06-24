@@ -10,7 +10,12 @@ const VerifiedPanditJis = () => {
     const fetchPandits = async () => {
       try {
         const res = await getAllPandits();
-        const verified = res?.data?.data?.filter((p) => p.status === "approved");
+        
+        // ✅ Fix: Adjusted data access
+        const verified = res?.data?.filter(
+          (p) => p.status?.toLowerCase() === "approved"
+        );
+
         setPandits(verified?.slice(0, 8) || []);
       } catch (err) {
         console.error("Error fetching pandits", err);
@@ -18,6 +23,7 @@ const VerifiedPanditJis = () => {
         setLoading(false);
       }
     };
+
     fetchPandits();
   }, []);
 
@@ -28,7 +34,7 @@ const VerifiedPanditJis = () => {
   return (
     <section className="bg-white px-4 md:px-16 py-16">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-        {/* Left Side: Title + Description */}
+        {/* Left Side */}
         <div className="space-y-6">
           <h2 className="text-4xl font-bold text-[#4A1C1C]">
             Our <span className="text-red-600">Verified</span> PanditJi
@@ -44,17 +50,19 @@ const VerifiedPanditJis = () => {
           </Link>
         </div>
 
-        {/* Right Side: Pandit Cards */}
+        {/* Right Side */}
         <div className="w-full">
           {pandits.length === 0 ? (
-            <p className="text-gray-500 text-sm">No verified Pandits available.</p>
+            <p className="text-gray-500 text-sm">
+              No verified Pandits available.
+            </p>
           ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 justify-end">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
               {pandits.map((pandit) => (
                 <Link
                   key={pandit._id}
                   to={`/pandits/${pandit._id}`}
-                  className="bg-[#F9F3F1] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition w-full"
+                  className="bg-[#F9F3F1] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition"
                 >
                   <img
                     src={pandit.imageUrl}
