@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { getAllBlogs } from "../../../services/user/blogService";
 import { Link } from "react-router-dom";
 
@@ -9,10 +9,8 @@ const BlogSection = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [sortBy, setSortBy] = useState("latest");
   const [category, setCategory] = useState("");
-  
 
   const blogsPerPage = 4;
-  const sectionRef = useRef(null);
 
   useEffect(() => {
     fetchBlogs(1, true); // Reset blogs on sort/filter change
@@ -37,10 +35,6 @@ const BlogSection = () => {
 
       setTotalPages(Math.ceil((res?.total || 0) / blogsPerPage));
       setPage(pageNum);
-
-      if (sectionRef.current) {
-        sectionRef.current.scrollIntoView({ behavior: "smooth" });
-      }
     } catch (err) {
       console.error("Error fetching blogs", err);
     } finally {
@@ -62,7 +56,7 @@ const BlogSection = () => {
   };
 
   return (
-    <section className="w-full max-w-6xl mb-16 px-4 mx-auto" ref={sectionRef}>
+    <section className="w-full max-w-6xl mb-16 px-4 mx-auto">
       {/* Filters */}
       <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
         <h2 className="text-4xl font-bold text-red-700">Our Blogs</h2>
@@ -164,12 +158,11 @@ const BlogSection = () => {
 
       {/* View More */}
       <Link
-  to="/blogs"
-  className="bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700 text-lg font-semibold inline-block"
->
-  View More →
-</Link>
-
+        to="/blogs"
+        className="mt-10 bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700 text-lg font-semibold inline-block"
+      >
+        View More →
+      </Link>
 
       {/* No Blogs */}
       {!loading && blogs.length === 0 && (
