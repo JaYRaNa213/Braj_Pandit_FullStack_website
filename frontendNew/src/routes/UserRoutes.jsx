@@ -107,6 +107,8 @@ import AllPandits from '../pages/user/AllPandits';
 
 import AllPujaServices from '../pages/user/AllPujaServices';
 
+import LivePlayer from "../pages/user/LivePlayer";
+
 const UserRoutes = () => {
   return (
     <Routes>
@@ -117,6 +119,7 @@ const UserRoutes = () => {
         <Route path="products/:id" element={<ProductDetails />} />
         <Route path="blogs" element={<Blog />} />
         <Route path="contact" element={<Contact />} />
+        <Route path="/live/:id" element={<LivePlayer />} />
 
         {/* ✅ Protected Pages */}
         <Route element={<ProtectedRoute roles={["user", "admin"]} />}>
@@ -137,6 +140,8 @@ const UserRoutes = () => {
 
 
           <Route path="/all-puja-services" element={<AllPujaServices />} />
+
+          
 
           
 
