@@ -10,8 +10,8 @@ import { Link } from "react-router-dom";
 
 const apiKeys = [
   "AIzaSyCRmqbUt3mjCJuGvGXvfCoz789qNpMEa0Q",
-  "AIzaSyCjU0wbYl_UnHl4EoF7izLW3IDgQrflREE",
-  "AIzaSyBVKDBwODBMjdAu-UV0cHPuOJuXrfoFKYs",
+  // "AIzaSyCjU0wbYl_UnHl4EoF7izLW3IDgQrflREE",
+  // "AIzaSyBVKDBwODBMjdAu-UV0cHPuOJuXrfoFKYs",
 ];
 
 const fixedBhajans = [
@@ -115,7 +115,7 @@ const LiveBhajan = () => {
           <p className="text-lg text-gray-600">Loading bhajans...</p>
         ) : quotaExceeded ? (
           <p className="text-yellow-600 mb-4 font-medium">
-            ⚠️ YouTube API quota exceeded. Showing recorded content.
+            
           </p>
         ) : null}
 

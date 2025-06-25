@@ -1,18 +1,42 @@
+// src/pages/AllPujaServices.jsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
+
+const pujaDescriptions = {
+  "Diwali Pooja":
+    "Diwali is the festival of Laxmi, the Goddess of prosperity and wealth. People perform special puja to invite Her into their homes. Invite prosperity by booking a traditional Laxmi-Ganesh Puja.",
+  "Navgraha Shanti":
+    "Navgraha Shanti is performed to appease nine celestial bodies (Navagrahas). It brings peace, prosperity, and harmony by reducing planetary doshas.",
+  "Griha Pravesh":
+    "Griha Pravesh is a sacred ritual performed before entering a new home. It brings happiness, prosperity, and blessings into your household.",
+  "Office Pooja":
+    "Office Opening Pooja ensures a positive and fresh start in your new office or workplace. It invites success and prosperity in your business venture.",
+  "Marriage Ceremony":
+    "Marriages are sacred Vedic rituals symbolizing the union of two souls. Book a traditional ceremony for lifelong harmony and blessings.",
+  "Mundan Sanskar":
+    "Mundan Sanskar is the first haircut ceremony of a child, believed to promote mental and spiritual development while removing negative energies.",
+  "Annaprashan":
+    "Annaprashan marks the child’s first solid food intake. It is performed with prayers for the child’s health, growth, and well-being.",
+  "Bhagwat Katha":
+    "Shrimad Bhagwat Katha narrates Lord Krishna’s divine pastimes. Listening to it purifies the soul and brings spiritual upliftment.",
+  "Satyanarayan Pooja":
+    "Satyanarayan Pooja is a ritual to seek blessings for prosperity and fulfillment of wishes. It involves reading the Katha and offering prayers.",
+  "Shraddha Karma":
+    "Shraddha Karma is performed to honor ancestors. It brings peace to departed souls and ensures blessings for the living family.",
+  "Rudrabhishek":
+    "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
+};
 
 const groupedServices = {
   "✨ Festivals": [
     {
       img: "diwali.jpg",
       title: "Diwali Pooja",
-      desc: "Perform Laxmi-Ganesh Puja for wealth and prosperity during Diwali.",
       rating: 5,
     },
     {
       img: "navgraha.jpg",
       title: "Navgraha Shanti",
-      desc: "Pacify planetary doshas and promote harmony in life.",
       rating: 4,
     },
   ],
@@ -20,13 +44,11 @@ const groupedServices = {
     {
       img: "griha.jpg",
       title: "Griha Pravesh",
-      desc: "Auspicious puja for entering a new home.",
       rating: 5,
     },
     {
       img: "office.jpg",
       title: "Office Pooja",
-      desc: "Begin your office journey with divine blessings.",
       rating: 4,
     },
   ],
@@ -34,19 +56,16 @@ const groupedServices = {
     {
       img: "marriage.jpg",
       title: "Marriage Ceremony",
-      desc: "Sacred Vedic rituals to bless your wedding.",
       rating: 5,
     },
     {
       img: "mundan.jpg",
       title: "Mundan Sanskar",
-      desc: "Child's first hair removal ceremony.",
       rating: 4,
     },
     {
       img: "annaprashan.jpg",
       title: "Annaprashan",
-      desc: "Celebration of a baby’s first solid food.",
       rating: 4,
     },
   ],
@@ -54,13 +73,11 @@ const groupedServices = {
     {
       img: "bhagwat.jpg",
       title: "Bhagwat Katha",
-      desc: "Narration of divine pastimes of Lord Krishna.",
       rating: 5,
     },
     {
       img: "satyanarayan.jpg",
       title: "Satyanarayan Pooja",
-      desc: "Ritual for peace, harmony, and abundance.",
       rating: 4,
     },
   ],
@@ -68,13 +85,11 @@ const groupedServices = {
     {
       img: "shraddha.jpg",
       title: "Shraddha Karma",
-      desc: "Pind daan and rituals to honor ancestors.",
       rating: 4,
     },
     {
       img: "rudrabhishek.jpg",
       title: "Rudrabhishek",
-      desc: "Powerful puja to please Lord Shiva and remove negativity.",
       rating: 5,
     },
   ],
@@ -84,7 +99,7 @@ const AllPujaServices = () => {
   const navigate = useNavigate();
 
   const handleBooking = (serviceTitle) => {
-    navigate(`/booking?service=${encodeURIComponent(serviceTitle)}&pandit=Vrinda%20Pandit`);
+    navigate(`/puja-details?service=${encodeURIComponent(serviceTitle)}`);
   };
 
   return (
@@ -95,9 +110,7 @@ const AllPujaServices = () => {
 
       {Object.entries(groupedServices).map(([category, services]) => (
         <div key={category} className="mb-12">
-          <h2 className="text-2xl font-semibold text-red-700 mb-4">
-            {category}
-          </h2>
+          <h2 className="text-2xl font-semibold text-red-700 mb-4">{category}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {services.map((service, idx) => (
               <div
@@ -112,7 +125,9 @@ const AllPujaServices = () => {
                 <h3 className="mt-3 font-bold text-lg text-[#4A1C1C]">
                   {service.title}
                 </h3>
-                <p className="text-sm text-gray-600 mt-1">{service.desc}</p>
+                <p className="text-sm text-gray-600 mt-1">
+                  {pujaDescriptions[service.title] || "Sacred puja by experienced pandits."}
+                </p>
                 <div className="mt-2 text-yellow-500 text-sm">
                   {Array(service.rating).fill("⭐️").join(" ")}
                 </div>

@@ -11,6 +11,7 @@ export default function Booking() {
     date: "",
     time: "",
     pandit: "",
+    address: "",
   });
 
   const [pandits, setPandits] = useState([]);
@@ -171,6 +172,16 @@ export default function Booking() {
           className="w-full p-2 border rounded"
           onChange={handleChange}
         />
+
+        <input
+  type="text"
+  name="address"
+  placeholder="Address"
+  required
+  className="w-full p-2 border rounded"
+  onChange={handleChange}
+/>
+
 
         <button
           type="submit"

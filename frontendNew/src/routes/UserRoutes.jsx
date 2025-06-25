@@ -109,6 +109,9 @@ import AllPujaServices from '../pages/user/AllPujaServices';
 
 import LivePlayer from "../pages/user/LivePlayer";
 
+import PujaDetails from "../pages/user/PujaDetails";
+// import Booking from "../pages/Booking";
+
 const UserRoutes = () => {
   return (
     <Routes>
@@ -137,6 +140,8 @@ const UserRoutes = () => {
           <Route path="blogs/:id" element={<BlogDetails />} />
           <Route path="pandits/:id" element={<PanditDetails />} />
           <Route path="pandits" element={<AllPandits />} />
+          <Route path="/puja-details" element={<PujaDetails />} />
+
 
 
           <Route path="/all-puja-services" element={<AllPujaServices />} />
