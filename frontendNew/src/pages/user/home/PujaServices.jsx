@@ -1,6 +1,7 @@
+// src/components/PujaServices.jsx
 import React from "react";
-import { Element } from "react-scroll";
 import { useNavigate } from "react-router-dom";
+import { Element } from "react-scroll";
 
 const pujaServices = [
   {
@@ -70,8 +71,13 @@ const PujaServices = () => {
 
   const handleBooking = (serviceTitle) => {
     const encodedService = encodeURIComponent(serviceTitle);
-    const encodedPandit = encodeURIComponent("Vrinda Pandit"); // or dynamic later
+    const encodedPandit = encodeURIComponent("Vrinda Pandit");
     navigate(`/booking?service=${encodedService}&pandit=${encodedPandit}`);
+  };
+
+  const handleViewMore = () => {
+    window.scrollTo({ top: 0, behavior: "instant" }); // ✅ Reset scroll
+    navigate("/all-puja-services");
   };
 
   return (
@@ -111,7 +117,7 @@ const PujaServices = () => {
         {/* View More Button */}
         <div className="text-center mt-6">
           <button
-            onClick={() => navigate("/all-puja-services")}
+            onClick={handleViewMore}
             className="bg-transparent border-2 border-red-600 text-red-600 px-6 py-2 rounded-full hover:bg-red-600 hover:text-white transition"
           >
             View More Puja Services
