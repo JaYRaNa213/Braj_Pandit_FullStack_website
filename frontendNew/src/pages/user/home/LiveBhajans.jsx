@@ -1,9 +1,17 @@
+
+  // "AIzaSyCRmqbUt3mjCJuGvGXvfCoz789qNpMEa0Q",
+  // "AIzaSyCjU0wbYl_UnHl4EoF7izLW3IDgQrflREE",
+  // "AIzaSyBVKDBwODBMjdAu-UV0cHPuOJuXrfoFKYs",
+
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
 const apiKeys = [
   "AIzaSyCRmqbUt3mjCJuGvGXvfCoz789qNpMEa0Q",
+  "AIzaSyCjU0wbYl_UnHl4EoF7izLW3IDgQrflREE",
+  "AIzaSyBVKDBwODBMjdAu-UV0cHPuOJuXrfoFKYs",
 ];
 
 const fixedBhajans = [
@@ -12,7 +20,7 @@ const fixedBhajans = [
     title: "Shree Ram Jai Ram Jai Jai Ram",
     description: "A calming bhajan invoking the divine name of Lord Ram.",
     image: "https://res.cloudinary.com/djtq2eywl/image/upload/v1750851970/radha-raman-ji-murthi_gzfglc.jpg",
-    defaultVideo: "sq-1yTTP5xM", // Do not embed unless live
+    defaultVideo: "sq-1yTTP5xM",
   },
   {
     id: "UChWrtLawgh2gkx5b5xqk6Jg",
@@ -80,7 +88,7 @@ const LiveBhajan = () => {
           results.push({
             ...bhajan,
             isLive: false,
-            videoId: "recorded",
+            videoId: bhajan.defaultVideo,
           });
         }
 
@@ -107,7 +115,7 @@ const LiveBhajan = () => {
           <p className="text-lg text-gray-600">Loading bhajans...</p>
         ) : quotaExceeded ? (
           <p className="text-yellow-600 mb-4 font-medium">
-            ⚠️ YouTube API limit reached. Showing recorded cards only.
+            ⚠️ YouTube API quota exceeded. Showing recorded content.
           </p>
         ) : null}
 
@@ -119,18 +127,25 @@ const LiveBhajan = () => {
               className="block group transition-transform hover:scale-[1.01]"
             >
               <div className="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition overflow-hidden border border-gray-200 flex flex-col h-full">
-                <div className="relative">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-56 object-cover"
-                  />
-
+                <div className="relative w-full h-56">
+                  {item.isLive ? (
+                    <iframe
+                      src={`https://www.youtube.com/embed/${item.videoId}?autoplay=1&mute=1`}
+                      className="w-full h-full"
+                      allow="autoplay; encrypted-media"
+                      allowFullScreen
+                      title={item.title}
+                    />
+                  ) : (
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover"
+                    />
+                  )}
                   <div
                     className={`absolute top-3 right-3 px-3 py-1 rounded-full text-sm font-semibold flex items-center gap-2 shadow ${
-                      item.isLive
-                        ? "bg-red-600 text-white"
-                        : "bg-gray-200 text-gray-600"
+                      item.isLive ? "bg-red-600 text-white" : "bg-gray-200 text-gray-600"
                     }`}
                   >
                     <span className="text-xs">{item.isLive ? "🔴" : "⏳"}</span>
