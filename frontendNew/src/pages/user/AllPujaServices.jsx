@@ -35,7 +35,7 @@ const groupedServices = {
       rating: 5,
     },
     {
-      img: "navgraha.jpg",
+      img: "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917528/IMG20250619193402_cafibp.jpg",
       title: "Navgraha Shanti",
       rating: 4,
     },
