@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 const heroImages = [
   "/images/shiv2.jpg",
   "/images/Premanand-Ji-Maharaj.jpg",
-  "/images/premMandir.jpg",
+  "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917528/IMG20250619193402_cafibp.jpg",
   "/images/bihariG.jpg",
   "/images/yamuna.jpg",
 ];
