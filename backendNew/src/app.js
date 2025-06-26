@@ -78,14 +78,13 @@ const allowedOrigins = [
 // ✅ Use CORS middleware with options
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("CORS not allowed from this origin"));
-      }
-    },
+    origin: [
+      "https://brajpandit.vercel.app",
+      "http://localhost:5173"
+    ],
     credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
