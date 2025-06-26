@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getAllBlogs } from "../../../services/user/blogService";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const BlogSection = () => {
   const [blogs, setBlogs] = useState([]);
@@ -13,7 +14,7 @@ const BlogSection = () => {
   const blogsPerPage = 4;
 
   useEffect(() => {
-    fetchBlogs(1, true); // Reset blogs on sort/filter change
+    fetchBlogs(1, true);
   }, [sortBy, category]);
 
   const fetchBlogs = async (pageNum, reset = false) => {
@@ -43,11 +44,7 @@ const BlogSection = () => {
   };
 
   const handlePageChange = (num) => {
-    fetchBlogs(num, true); // Replace blogs
-  };
-
-  const handleViewMore = () => {
-    fetchBlogs(page + 1); // Append next blogs
+    fetchBlogs(num, true);
   };
 
   const isLatest = (date) => {
@@ -55,16 +52,19 @@ const BlogSection = () => {
     return daysDiff < 10;
   };
 
+  const getReadingTime = (content = "") =>
+    Math.ceil(content.split(" ").length / 200);
+
   return (
-    <section className="w-full max-w-6xl mb-16 px-4 mx-auto">
+    <section className="w-full max-w-6xl mb-16 px-4 mx-auto bg-orange-100 py-10 rounded-xl">
       {/* Filters */}
-      <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
-        <h2 className="text-4xl font-bold text-red-700">Our Blogs</h2>
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-8 gap-4">
+        <h2 className="text-4xl font-bold text-orange-700">Our Blogs</h2>
         <div className="flex gap-3 items-center">
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="p-2 border rounded text-sm"
+            className="px-4 py-2 rounded-lg border border-orange-300 bg-white text-sm text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400 hover:border-orange-400 transition-all duration-200"
           >
             <option value="">All Categories</option>
             <option value="Festivals">Festivals</option>
@@ -72,10 +72,11 @@ const BlogSection = () => {
             <option value="Culture">Culture</option>
             <option value="Devotion">Devotion</option>
           </select>
+
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="p-2 border rounded text-sm"
+            className="px-4 py-2 rounded-lg border border-orange-300 bg-white text-sm text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400 hover:border-orange-400 transition-all duration-200"
           >
             <option value="latest">Latest First</option>
             <option value="oldest">Oldest First</option>
@@ -97,16 +98,21 @@ const BlogSection = () => {
                 <div className="h-3 bg-gray-300 w-1/3"></div>
               </div>
             ))
-          : blogs.map((blog) => (
-              <div
+          : blogs.map((blog, i) => (
+              <motion.div
                 key={blog._id}
-                className="bg-white rounded-xl shadow-md p-4 hover:shadow-lg transition cursor-pointer"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: i * 0.1 }}
+                className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all transform hover:scale-[1.02] p-4 cursor-pointer"
               >
-                <img
-                  src={blog.imageUrl}
-                  alt={blog.title}
-                  className="rounded-lg w-full h-40 object-cover"
-                />
+                <div className="overflow-hidden rounded-lg">
+                  <img
+                    src={blog.imageUrl}
+                    alt={blog.title}
+                    className="w-full h-40 object-cover transition-transform duration-300 hover:scale-105"
+                  />
+                </div>
                 <div className="flex items-center justify-between mt-3">
                   <h3 className="text-lg font-semibold text-gray-900 line-clamp-1">
                     {blog.title}
@@ -121,34 +127,42 @@ const BlogSection = () => {
                   By {blog.author || "Admin"} •{" "}
                   {new Date(blog.createdAt).toLocaleDateString()}
                 </p>
-                <p className="text-gray-700 mt-2 mb-4 line-clamp-3">
+                <p className="text-gray-700 mt-2 mb-2 line-clamp-3">
                   {blog.content.replace(/<[^>]+>/g, "").slice(0, 100)}...
                 </p>
+                <div className="flex flex-wrap gap-1 mb-2">
+                  <span className="bg-orange-200 text-orange-800 px-2 py-0.5 rounded text-xs">
+                    #{blog.category || "General"}
+                  </span>
+                  <span className="text-gray-500 text-xs ml-auto">
+                    {getReadingTime(blog.content)} min read
+                  </span>
+                </div>
                 <div className="flex justify-between items-center text-sm text-gray-600">
                   <span>{blog.views || 0} Views</span>
                   <Link
                     to={`/blogs/${blog._id}`}
-                    className="text-red-600 font-semibold hover:underline"
+                    className="text-orange-700 font-semibold hover:underline"
                   >
                     Read More →
                   </Link>
                 </div>
-              </div>
+              </motion.div>
             ))}
       </div>
 
-      {/* Pagination Numbers */}
+      {/* Pagination */}
       {!loading && totalPages > 1 && (
         <div className="mt-10 flex justify-center gap-2 flex-wrap">
           {Array.from({ length: totalPages }).map((_, idx) => (
             <button
               key={idx}
               onClick={() => handlePageChange(idx + 1)}
-              className={`px-3 py-1 rounded ${
+              className={`px-3 py-1 rounded text-sm font-medium ${
                 page === idx + 1
-                  ? "bg-red-600 text-white"
-                  : "bg-gray-200 text-gray-800 hover:bg-gray-300"
-              }`}
+                  ? "bg-orange-600 text-white"
+                  : "bg-gray-200 text-gray-800 hover:bg-orange-200"
+              } transition duration-200`}
             >
               {idx + 1}
             </button>
@@ -156,10 +170,10 @@ const BlogSection = () => {
         </div>
       )}
 
-      {/* View More */}
+      {/* View More Button */}
       <Link
         to="/blogs"
-        className="mt-10 bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700 text-lg font-semibold inline-block"
+        className="mt-10 bg-orange-600 text-white px-6 py-2 rounded hover:bg-orange-700 text-lg font-semibold inline-block transition-all duration-300"
       >
         View More →
       </Link>

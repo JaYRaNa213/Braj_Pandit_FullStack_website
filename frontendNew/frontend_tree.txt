@@ -11,15 +11,19 @@
 ├── public
 │   ├── default-product.png
 │   ├── images
+│   │   ├── 61jhlrAeBgL._UF350,350_QL80_.jpg
 │   │   ├── articals
 │   │   │   ├── 1.jpg
 │   │   │   ├── 2.jpg
 │   │   │   └── 3.jpg
+│   │   ├── BGhindu-ceremony-puja.jpg
+│   │   ├── bgImage.jpg
 │   │   ├── bhagwat.jpg
 │   │   ├── bihariG.jpg
 │   │   ├── bussiness.jpg
 │   │   ├── chaitra-navratri.jpg
 │   │   ├── diwali.jpg
+│   │   ├── diya.jpg
 │   │   ├── images.jpg
 │   │   ├── live
 │   │   │   ├── anirudh.jpg
@@ -66,7 +70,8 @@
 │   │   ├── common
 │   │   │   ├── Footer.jsx
 │   │   │   ├── Loader.jsx
-│   │   │   └── Navbar.jsx
+│   │   │   ├── Navbar.jsx
+│   │   │   └── ScrollToTop.jsx
 │   │   ├── OrderCard.jsx
 │   │   ├── OrderStatusChart.jsx
 │   │   ├── shared
@@ -82,6 +87,8 @@
 │   ├── context
 │   │   ├── AuthContext.jsx
 │   │   └── CartContext.jsx
+│   ├── data
+│   │   └── famousPlaces.json
 │   ├── hooks
 │   │   ├── useAuth.js
 │   │   └── useCart.js
@@ -112,6 +119,9 @@
 │   │   ├── Contact.jsx
 │   │   ├── NotFound.jsx
 │   │   └── user
+│   │       ├── AllFamousPlaces.jsx
+│   │       ├── AllPandits.jsx
+│   │       ├── AllPujaServices.jsx
 │   │       ├── Blog.jsx
 │   │       ├── BlogDetails.jsx
 │   │       ├── Booking.jsx
@@ -119,10 +129,11 @@
 │   │       ├── Cart.jsx
 │   │       ├── CartPage.jsx
 │   │       ├── Checkout.jsx
+│   │       ├── FamousCard.jsx
 │   │       ├── home
-│   │       │   ├── Articles.jsx
 │   │       │   ├── BlogSection.jsx
 │   │       │   ├── BookingForm.jsx
+│   │       │   ├── FamousPlacesSection.jsx
 │   │       │   ├── HeroSection.jsx
 │   │       │   ├── Home.jsx
 │   │       │   ├── HomeProducts.jsx
@@ -130,12 +141,14 @@
 │   │       │   ├── PujaServices.jsx
 │   │       │   ├── VerifiedPanditJis.jsx
 │   │       │   └── ViewMoreBtn.jsx
+│   │       ├── LivePlayer.jsx
 │   │       ├── MyOrders.jsx
 │   │       ├── OrderDetails.jsx
 │   │       ├── PanditDetails.jsx
 │   │       ├── ProductDetails.jsx
 │   │       ├── Products.jsx
 │   │       ├── PujaBooking.jsx
+│   │       ├── PujaDetails.jsx
 │   │       ├── UserDashboard.jsx
 │   │       └── UserProfile.jsx
 │   ├── routes
@@ -151,6 +164,7 @@
 │   │   ├── api.js
 │   │   ├── axios.js
 │   │   ├── cartService.js
+│   │   ├── liveBhajanService.js
 │   │   ├── orderService.js
 │   │   └── user
 │   │       ├── blogService.js

@@ -1,10 +1,30 @@
-import React, { useState } from "react";
-import axiosInstance from "../../../services/axios"; // ✅ Make sure this path matches your project
+import React, { useContext, useEffect, useState } from "react";
+import axiosInstance from "../../../services/axios";
 import { toast } from "react-toastify";
+import { motion } from "framer-motion";
+import { AuthContext } from "../../../context/AuthContext";
 
 const BookingForm = () => {
+  const { user } = useContext(AuthContext);
   const [selectedService, setSelectedService] = useState("");
   const [customService, setCustomService] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const [formValues, setFormValues] = useState({
+    name: "",
+    email: "",
+    phone: "",
+  });
+
+  useEffect(() => {
+    if (user) {
+      setFormValues({
+        name: user.name || "",
+        email: user.email || "",
+        phone: user.phone || "",
+      });
+    }
+  }, [user]);
 
   const handleServiceChange = (e) => {
     const value = e.target.value;
@@ -12,13 +32,17 @@ const BookingForm = () => {
     if (value !== "Other") setCustomService("");
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues((prev) => ({ ...prev, [name]: value }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const formData = {
-      name: e.target.name.value,
-      email: e.target.email.value,
-      phone: e.target.phone.value,
+      ...formValues,
       service: selectedService === "Other" ? customService : selectedService,
       message: e.target.message.value,
     };
@@ -26,70 +50,94 @@ const BookingForm = () => {
     try {
       await axiosInstance.post("/user/callBookings", formData);
       toast.success("📨 Booking sent successfully. We'll contact you shortly.");
+      setFormValues({ name: "", email: "", phone: "" });
       e.target.reset();
       setSelectedService("");
       setCustomService("");
     } catch (error) {
       toast.error("❌ Failed to send booking. Try again later.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <section className="w-full max-w-4xl mb-16 mx-auto bg-[#4A1C1C] text-white rounded-lg shadow-lg p-8">
-      <h2 className="text-3xl font-semibold mb-6 text-center">Other  Travel Food & Stay Services</h2>
-      <form className="space-y-4" onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name" className="block mb-1 font-medium">
-            Your Name<span className="text-red-400">*</span>
+    <motion.section
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7 }}
+      className="relative w-full max-w-3xl mx-auto mt-16 mb-24 p-8 bg-white/30 backdrop-blur-md rounded-3xl border border-red-200 shadow-xl overflow-hidden"
+      style={{
+        background:
+          "linear-gradient(to bottom right, #fff6f6, #ffecec, #fffafa)",
+      }}
+    >
+      <h2 className="text-4xl font-bold text-center mb-8 text-red-700">
+        Other Travel, Food & Stay Services
+      </h2>
+      <form className="space-y-6" onSubmit={handleSubmit}>
+        {/* NAME */}
+        <div className="relative">
+          <label htmlFor="name" className="block text-sm font-semibold text-red-600 mb-1">
+            Your Name *
           </label>
           <input
             type="text"
-            id="name"
             name="name"
             required
-            className="w-full px-4 py-2 rounded bg-white text-black"
+            value={formValues.name}
+            onChange={handleChange}
+            placeholder="Enter your name"
+            className="w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-red-400 bg-white text-gray-900"
           />
         </div>
 
-        <div>
-          <label htmlFor="email" className="block mb-1 font-medium">
-            Email Address<span className="text-red-400">*</span>
+        {/* EMAIL */}
+        <div className="relative">
+          <label htmlFor="email" className="block text-sm font-semibold text-red-600 mb-1">
+            Email Address *
           </label>
           <input
             type="email"
-            id="email"
             name="email"
             required
-            className="w-full px-4 py-2 rounded bg-white text-black"
+            value={formValues.email}
+            onChange={handleChange}
+            placeholder="Enter your email"
+            className="w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-red-400 bg-white text-gray-900"
           />
         </div>
 
-        <div>
-          <label htmlFor="phone" className="block mb-1 font-medium">
-            Phone Number<span className="text-red-400">*</span>
+        {/* PHONE */}
+        <div className="relative">
+          <label htmlFor="phone" className="block text-sm font-semibold text-red-600 mb-1">
+            Phone Number *
           </label>
           <input
             type="tel"
-            id="phone"
             name="phone"
             required
-            className="w-full px-4 py-2 rounded bg-white text-black"
+            value={formValues.phone}
+            onChange={handleChange}
+            placeholder="Your active phone number"
+            className="w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-red-400 bg-white text-gray-900"
           />
         </div>
 
+        {/* SERVICE TYPE */}
         <div>
-          <label htmlFor="service" className="block mb-1 font-medium">
-            Type of Service<span className="text-red-400">*</span>
+          <label htmlFor="service" className="block text-sm font-semibold text-red-600 mb-1">
+            Type of Service *
           </label>
           <select
             id="service"
             name="service"
+            required
             value={selectedService}
             onChange={handleServiceChange}
-            required
-            className="w-full px-4 py-2 rounded bg-white text-black"
+            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-400 bg-white text-gray-800"
           >
-            <option value="">--Please choose an option--</option>
+            <option value="">-- Please choose an option --</option>
             <option value="Room/Hotel Booking Help">Room/Hotel Booking Help</option>
             <option value="VIP Banke Bihari Ji Darshan">VIP Banke Bihari Ji Darshan</option>
             <option value="Need a Vehicle">Need a Vehicle</option>
@@ -100,45 +148,69 @@ const BookingForm = () => {
           </select>
         </div>
 
+        {/* CUSTOM SERVICE IF OTHER */}
         {selectedService === "Other" && (
           <div>
-            <label htmlFor="customService" className="block mb-1 font-medium">
-              Please Specify Your Service<span className="text-red-400">*</span>
+            <label htmlFor="customService" className="block text-sm font-semibold text-red-600 mb-1">
+              Please Specify Your Service *
             </label>
             <input
               type="text"
-              id="customService"
               name="customService"
+              required
               value={customService}
               onChange={(e) => setCustomService(e.target.value)}
-              required
-              className="w-full px-4 py-2 rounded bg-white text-black"
               placeholder="Describe your requirement"
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-red-400 bg-white text-gray-800"
             />
           </div>
         )}
 
+        {/* MESSAGE */}
         <div>
-          <label htmlFor="message" className="block mb-1 font-medium">
+          <label htmlFor="message" className="block text-sm font-semibold text-red-600 mb-1">
             Your Message
           </label>
           <textarea
-            id="message"
             name="message"
             rows="4"
-            className="w-full px-4 py-2 rounded bg-white text-black"
-            placeholder="Additional details or instructions..."
-          />
+            placeholder="Any additional instructions or details..."
+            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-400 bg-white text-gray-800"
+          ></textarea>
         </div>
 
+        {/* SUBMIT */}
         <button
           type="submit"
-          className="w-full py-3 bg-red-600 text-white rounded hover:bg-red-700 font-semibold tracking-wide"
+          disabled={loading}
+          className="w-full py-3 bg-red-600 text-white rounded-lg font-semibold hover:bg-red-700 transition-all duration-300 flex items-center justify-center text-lg tracking-wide shadow-md hover:scale-105"
         >
-          SUBMIT NOW
+          {loading ? (
+            <svg
+              className="animate-spin h-5 w-5 mr-2 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              ></circle>
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+              ></path>
+            </svg>
+          ) : null}
+          {loading ? "Submitting..." : "SUBMIT NOW"}
         </button>
       </form>
-    </section>
+    </motion.section>
   );
 };
 

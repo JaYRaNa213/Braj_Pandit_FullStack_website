@@ -110,7 +110,9 @@ import AllPujaServices from '../pages/user/AllPujaServices';
 import LivePlayer from "../pages/user/LivePlayer";
 
 import PujaDetails from "../pages/user/PujaDetails";
-// import Booking from "../pages/Booking";
+
+import AllFamousPlaces from "../pages/user/AllFamousPlaces";
+
 
 const UserRoutes = () => {
   return (
@@ -123,6 +125,8 @@ const UserRoutes = () => {
         <Route path="blogs" element={<Blog />} />
         <Route path="contact" element={<Contact />} />
         <Route path="/live/:id" element={<LivePlayer />} />
+        
+        <Route path="/famous-places" element={<AllFamousPlaces />} />
 
         {/* ✅ Protected Pages */}
         <Route element={<ProtectedRoute roles={["user", "admin"]} />}>

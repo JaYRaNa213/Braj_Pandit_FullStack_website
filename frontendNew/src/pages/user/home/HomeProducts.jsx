@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useCart } from "../../../context/CartContext";
 import { getProducts } from "../../../services/api";
 import { toast } from "react-toastify";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 const HomeProducts = () => {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ const HomeProducts = () => {
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [favorites, setFavorites] = useState({});
 
   const handleBuyNow = (product) => {
     navigate("/checkout", { state: { product } });
@@ -22,6 +24,13 @@ const HomeProducts = () => {
       quantity: 1,
     });
     toast.success("Added to cart!");
+  };
+
+  const toggleFavorite = (productId) => {
+    setFavorites((prev) => ({
+      ...prev,
+      [productId]: !prev[productId],
+    }));
   };
 
   useEffect(() => {
@@ -41,7 +50,7 @@ const HomeProducts = () => {
       .finally(() => setLoading(false));
   }, []);
 
-  const featuredProducts = products.slice(0, 8); // ✅ Show only first 8
+  const featuredProducts = products.slice(0, 8);
 
   return (
     <section className="py-16 bg-gradient-to-b from-red-50 via-yellow-50 to-white">
@@ -59,31 +68,45 @@ const HomeProducts = () => {
             {featuredProducts.map((product) => (
               <div
                 key={product._id}
-                className="bg-white rounded-xl shadow-md hover:shadow-2xl transition overflow-hidden"
+                className="bg-[#fff8e1] border border-yellow-100 hover:border-yellow-300 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden relative"
               >
+                {/* Wishlist Icon */}
+                <button
+                  onClick={() => toggleFavorite(product._id)}
+                  className="absolute top-3 right-3 text-red-500 text-xl hover:scale-110 transition"
+                >
+                  {favorites[product._id] ? <FaHeart /> : <FaRegHeart />}
+                </button>
+
+                {/* Product Image */}
                 <img
                   src={product.imageUrl || "/default-product.png"}
                   alt={product.name}
-                  className="w-full h-56 object-cover"
+                  className="w-full h-56 object-cover transition-transform duration-300 hover:scale-105"
                 />
+
+                {/* Details */}
                 <div className="p-4">
-                  <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
-                  <p className="text-gray-600 mb-2 line-clamp-2">
+                  <h3 className="text-xl font-semibold mb-2 text-red-800">
+                    {product.name}
+                  </h3>
+                  <p className="text-gray-700 mb-2 line-clamp-2">
                     {product.description}
                   </p>
                   <p className="text-lg font-bold text-red-500 mb-4">
                     ₹{product.price}
                   </p>
+
                   <div className="flex gap-2">
                     <button
                       onClick={() => handleAddToCart(product)}
-                      className="flex-1 bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded-lg"
+                      className="flex-1 bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded-lg transition"
                     >
                       Add to Cart
                     </button>
                     <button
                       onClick={() => handleBuyNow(product)}
-                      className="flex-1 bg-red-500 hover:bg-red-600 text-black py-2 px-4 rounded-lg"
+                      className="flex-1 bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg transition"
                     >
                       Buy Now
                     </button>
@@ -94,7 +117,7 @@ const HomeProducts = () => {
           </div>
         )}
 
-        {/* View More Button (only if more than 8 products exist) */}
+        {/* View More Button */}
         {products.length > 8 && (
           <div className="text-center mt-12">
             <Link
