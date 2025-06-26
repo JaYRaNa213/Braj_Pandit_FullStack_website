@@ -1,31 +1,39 @@
 // src/pages/AddLiveVideo.jsx
 import React, { useState } from "react";
+import axiosInstance from "../services/axios";
 
 const AddLiveVideo = () => {
   const [videoLink, setVideoLink] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:7000/api/videos", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ link: videoLink }),
-    })
-      .then((res) => res.json())
-      .then((data) => alert("Live video added"))
-      .catch((err) => console.error("Error:", err));
+    try {
+      await axiosInstance.post("/videos", { link: videoLink });
+      alert("Live video added successfully");
+      setVideoLink(""); // clear input
+    } catch (err) {
+      console.error("Error adding video:", err);
+      alert("Failed to add live video");
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="space-y-4 max-w-md mx-auto p-4">
       <input
         type="text"
         placeholder="Live Video Link"
         value={videoLink}
         onChange={(e) => setVideoLink(e.target.value)}
+        className="w-full border rounded p-2"
+        required
       />
-      <button type="submit">Add Video Link</button>
+      <button
+        type="submit"
+        className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded"
+      >
+        Add Video Link
+      </button>
     </form>
   );
 };

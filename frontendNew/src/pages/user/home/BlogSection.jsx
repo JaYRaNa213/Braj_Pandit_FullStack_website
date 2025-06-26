@@ -56,7 +56,7 @@ const BlogSection = () => {
     Math.ceil(content.split(" ").length / 200);
 
   return (
-    <section className="w-full max-w-6xl mb-16 px-4 mx-auto bg-orange-100 py-10 rounded-xl">
+    <section id="blogs" className="w-full max-w-6xl mb-16 px-4 mx-auto bg-orange-100 py-10 rounded-xl">
       {/* Filters */}
       <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-8 gap-4">
         <h2 className="text-4xl font-bold text-orange-700">Our Blogs</h2>

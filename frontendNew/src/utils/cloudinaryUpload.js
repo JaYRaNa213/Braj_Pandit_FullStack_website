@@ -1,8 +1,10 @@
+import { BACKEND_URL } from "../utils/config"; // adjust if path is different
+
 export const cloudinaryUpload = async (file) => {
   const formData = new FormData();
   formData.append("file", file);
 
-  const res = await fetch("http://localhost:7000/api/user/upload", {
+  const res = await fetch(`${BACKEND_URL}/user/upload`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -16,5 +18,5 @@ export const cloudinaryUpload = async (file) => {
     throw new Error(data.message || "Upload failed");
   }
 
-  return data.data.url; // ⬅️ returns secure Cloudinary URL
+  return data.data.url;
 };

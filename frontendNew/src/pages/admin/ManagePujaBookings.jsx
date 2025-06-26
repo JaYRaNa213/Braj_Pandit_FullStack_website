@@ -4,6 +4,8 @@ import {
   deletePujaBooking,
 } from "../../services/admin/adminService";
 
+import { BACKEND_URL } from "../../utils/config";
+
 const ManagePujaBookings = () => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -46,7 +48,7 @@ const ManagePujaBookings = () => {
   const handleConfirm = async (id) => {
     try {
       const res = await fetch(
-        `http://localhost:7000/api/admin/puja/bookings/${id}/status`,
+        `${BACKEND_URL}/admin/puja/bookings/${id}/status`,
         {
           method: "PUT",
           headers: {

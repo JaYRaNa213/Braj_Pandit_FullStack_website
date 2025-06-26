@@ -53,7 +53,10 @@ const HomeProducts = () => {
   const featuredProducts = products.slice(0, 8);
 
   return (
-    <section className="py-16 bg-gradient-to-b from-red-50 via-yellow-50 to-white">
+    <section
+      id="products"
+      className="py-16 bg-gradient-to-b from-red-50 via-yellow-50 to-white"
+    >
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-bold text-center text-red-600 mb-12">
           Featured Religious <span className="text-yellow-600">Products</span>
@@ -118,7 +121,7 @@ const HomeProducts = () => {
         )}
 
         {/* View More Button */}
-        {products.length > 8 && (
+        {products.length > 0 && (
           <div className="text-center mt-12">
             <Link
               to="/products"

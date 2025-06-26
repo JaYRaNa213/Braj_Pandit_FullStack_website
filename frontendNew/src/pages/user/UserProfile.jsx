@@ -1,5 +1,4 @@
 // src/pages/user/UserProfile.jsx
-
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import {
@@ -9,6 +8,7 @@ import {
   History,
   Package,
 } from "lucide-react";
+import { BACKEND_URL } from "../../utils/config";
 
 const ActivityCard = ({ icon, label, count, link }) => (
   <Link to={link}>
@@ -37,9 +37,7 @@ const UserProfile = () => {
 
   const navigate = useNavigate();
 
-  const handleImageChange = (e) => {
-    setImage(e.target.files[0]);
-  };
+  const handleImageChange = (e) => setImage(e.target.files[0]);
 
   const handleUpload = async () => {
     if (!image) return alert("Please select an image.");
@@ -48,7 +46,7 @@ const UserProfile = () => {
     formData.append("file", image);
 
     try {
-      const res = await fetch("http://localhost:7000/api/user/upload-image", {
+      const res = await fetch(`${BACKEND_URL}/user/upload-image`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -79,7 +77,7 @@ const UserProfile = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:7000/api/user/profile", {
+      const response = await fetch(`${BACKEND_URL}/user/profile`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -102,7 +100,7 @@ const UserProfile = () => {
 
   const fetchProfile = async () => {
     try {
-      const res = await fetch("http://localhost:7000/api/user/profile", {
+      const res = await fetch(`${BACKEND_URL}/user/profile`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

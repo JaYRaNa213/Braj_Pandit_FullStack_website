@@ -61,7 +61,7 @@ const VerifiedPanditJis = () => {
   const topPanditName = pandits[0]?.name;
 
   return (
-    <section className="bg-white px-4 md:px-16 py-16">
+    <section id="verifiedPandits" className="bg-white px-4 md:px-16 py-16">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
         {/* Left Section */}
         <div className="space-y-6">

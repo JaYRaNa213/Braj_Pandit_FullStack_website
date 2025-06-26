@@ -3,13 +3,14 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { BACKEND_URL } from "../../utils/config";
 
 const UserDashboard = () => {
   const { user, logout } = useAuth();
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:7000/api/bookings/my", {
+    fetch(`${BACKEND_URL}/bookings/my`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
