@@ -9,7 +9,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 const apiKeys = [
-  "AIzaSyCRmqbUt3mjCJuGvGXvfCoz789qNpMEa0Q",
+  // "AIzaSyCRmqbUt3mjCJuGvGXvfCoz789qNpMEa0Q",
   // "AIzaSyCjU0wbYl_UnHl4EoF7izLW3IDgQrflREE",
   // "AIzaSyBVKDBwODBMjdAu-UV0cHPuOJuXrfoFKYs",
 ];

@@ -1,5 +1,7 @@
+// src/pages/auth/Register.jsx
+
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "../../services/axios";
 import { toast } from "react-toastify";
 
@@ -8,8 +10,7 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleChange = (e) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const validateForm = () => {
     const { name, email, password } = form;
@@ -37,7 +38,6 @@ export default function Register() {
       toast.success("Registered successfully!");
       navigate("/login");
     } catch (err) {
-      console.error("Register error:", err.response?.data || err.message);
       toast.error("Failed to register. Try again.");
     } finally {
       setLoading(false);
@@ -45,71 +45,61 @@ export default function Register() {
   };
 
   return (
-    <div className="flex min-h-screen">
-      {/* Left Section */}
-      <div className="w-1/2 flex flex-col items-center justify-center bg-[#4A1C1C] text-white px-10">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold mb-4">Join Us</h1>
-          <p className="mb-6">
-            Subscribe to BrajPandit platform to access Puja Services, Blogs, and more.
-          </p>
-          <button className="bg-white text-[#4A1C1C] px-5 py-2 rounded-full font-medium hover:bg-[#f2d3d3] transition">
-            About Us
-          </button>
-        </div>
+    <div className="min-h-screen flex flex-col md:flex-row">
+      {/* Left Image Section */}
+      <div className="md:w-1/2 w-full h-[300px] md:h-screen relative overflow-hidden">
+        <img
+          src="https://res.cloudinary.com/djtq2eywl/image/upload/v1750917528/IMG20250619193402_cafibp.jpg"
+          alt="Join Us"
+          className="w-full h-full object-cover rounded-br-[100px]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-black/50 to-transparent rounded-br-[100px]" />
       </div>
 
-      {/* Right Section (Form Card) */}
-      <div className="w-1/2 flex items-center justify-center bg-gray-100">
-        <div className="bg-white rounded-l-[50px] shadow-xl p-10 w-full max-w-md">
-          <h2 className="text-2xl font-bold text-center text-[#4A1C1C] mb-6">
-            Register Here
+      {/* Right Form Section */}
+      <div className="md:w-1/2 w-full flex items-center justify-center bg-gray-100 px-6 py-12">
+        <div className="bg-white rounded-xl shadow-lg p-10 w-full max-w-md border border-gray-200">
+          <h2 className="text-3xl font-bold text-center text-[#4A1C1C] mb-6">
+            Create Your Account
           </h2>
           <form onSubmit={handleSubmit} className="space-y-5">
-            <div>
-              <input
-                type="text"
-                name="name"
-                placeholder="Full Name"
-                value={form.name}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#4A1C1C]"
-              />
-            </div>
-            <div>
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={form.email}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#4A1C1C]"
-              />
-            </div>
-            <div>
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={form.password}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#4A1C1C]"
-              />
-            </div>
-            <div className="text-right">
-              <button
-                type="submit"
-                className="bg-[#4A1C1C] text-white px-6 py-2 rounded-full hover:bg-[#351111] transition"
-              >
-                {loading ? "Registering..." : "Register"}
-              </button>
-            </div>
+            <input
+              type="text"
+              name="name"
+              placeholder="Full Name"
+              value={form.name}
+              onChange={handleChange}
+              className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={form.email}
+              onChange={handleChange}
+              className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={form.password}
+              onChange={handleChange}
+              className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            />
+            <button
+              type="submit"
+              className="w-full bg-yellow-600 hover:bg-yellow-700 text-white font-semibold py-3 rounded-md transition duration-300"
+              disabled={loading}
+            >
+              {loading ? "Registering..." : "Register"}
+            </button>
           </form>
           <p className="text-sm text-center text-gray-600 mt-6">
             Already have an account?{" "}
-            <a href="/login" className="text-[#4A1C1C] underline">
+            <Link to="/login" className="text-yellow-700 hover:underline font-medium">
               Login here
-            </a>
+            </Link>
           </p>
         </div>
       </div>

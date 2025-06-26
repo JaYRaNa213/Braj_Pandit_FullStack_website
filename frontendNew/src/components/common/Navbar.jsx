@@ -25,7 +25,7 @@ export default function Navbar() {
       duration: 1000,
       delay: 0,
       smooth: "easeInOutQuart",
-      offset: -80, // Adjust if you have fixed navbar
+      offset: -80,
     });
   };
 
@@ -39,7 +39,8 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="bg-[#4A1C1C] p-4 text-white flex justify-between items-center shadow-md">
+      {/* Sticky Navbar */}
+      <nav className="sticky top-0 z-50 bg-[#4A1C1C] p-4 text-white flex justify-between items-center shadow-md backdrop-blur bg-opacity-95">
         <div className="flex items-center space-x-4">
           <img
             src="/images/pank.jpg"
