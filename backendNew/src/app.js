@@ -67,7 +67,7 @@ app.use(cookieParser());
 app.use(morgan('dev'));
 
 // const allowedOrigins = process.env.CORS_ORIGIN?.split(',') || [];
-import cors from "cors";
+
 
 // ✅ Define allowed domains
 const allowedOrigins = [
