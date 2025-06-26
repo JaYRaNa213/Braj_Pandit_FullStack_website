@@ -42,7 +42,7 @@ const groupedServices = {
   ],
   "🏠 Household Rituals": [
     {
-      img: "griha.jpg",
+      img: "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917528/IMG20250619193402_cafibp.jpg",
       title: "Griha Pravesh",
       rating: 5,
     },

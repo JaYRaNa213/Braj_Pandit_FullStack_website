@@ -34,7 +34,7 @@ export default function PujaDetails() {
       },
 
     "GRAHA PRAVESH": {
-      image: "/images/griha-pravesh.jpg",
+      image: "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917528/IMG20250619193402_cafibp.jpg",
       desc: "Griha Pravesh is a sacred Hindu ritual performed before entering a new home. It is believed to bring prosperity, happiness, and peace to the household. The pooja involves invoking deities and seeking their blessings for a harmonious living environment. Book a Griha Pravesh pooja with our experienced pandits to ensure a blessed start in your new home.", 
     },
     "SATYANARAYAN POOJA": { 
