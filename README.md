@@ -5,7 +5,7 @@ This repository contains the full-stack implementation of a **Religious Website*
 
 ## 🌟 **Features**
 
-1. 📚 **Selling Religious Books**
+1. 📚 **Selling Religious Products**
 2. 🔥 **Pandit Booking System**
 3. 🙏 **Online Pooja Completion**
 4. 🚰️ **Mathura Blogs & Religious Blogs**
