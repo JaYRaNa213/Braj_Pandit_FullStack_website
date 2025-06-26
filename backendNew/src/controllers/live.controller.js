@@ -57,7 +57,7 @@ export const getLiveVideos = async (req, res) => {
         title: "Waiting for Live Bhajan",
         description: "Stay tuned for upcoming bhajans.",
         channelTitle: "Vrinda Channel",
-        thumbnail: "/images/bg-bhajan.jpg",
+        thumbnail: "/images/https://res.cloudinary.com/djtq2eywl/image/upload/v1750917551/IMG20250620125049_gkug9w.jpg",
         isLive: false
       });
     }
