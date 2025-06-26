@@ -11,7 +11,7 @@ module.exports = {
   JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN || "7d",
 
   // ✅ Server base URL (used in emails, redirects, etc.)
-  BASE_URL: process.env.BASE_URL || "http://localhost:7000",
+  // BASE_URL: process.env.BASE_URL || "http://localhost:700",
 
   // ✅ Optional Payment API key
   PAYMENT_API_KEY: process.env.PAYMENT_API_KEY || "your_payment_api_key",
