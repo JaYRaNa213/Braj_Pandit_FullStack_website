@@ -67,21 +67,27 @@ app.use(cookieParser());
 app.use(morgan('dev'));
 
 // const allowedOrigins = process.env.CORS_ORIGIN?.split(',') || [];
+import cors from "cors";
+
+// ✅ Define allowed domains
 const allowedOrigins = [
-  'https://brajpandit.vercel.app',
-  'http://localhost:5173'
+  "https://brajpandit.vercel.app",
+  "http://localhost:5173"
 ];
 
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true,
-}));
+// ✅ Use CORS middleware with options
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("CORS not allowed from this origin"));
+      }
+    },
+    credentials: true,
+  })
+);
 
 
 
