@@ -4,7 +4,7 @@ require("dotenv").config();
 // Export environment variables for global access
 module.exports = {
   // ✅ App port
-  PORT: process.env.PORT || 7000,
+  // PORT: process.env.PORT || 7000,
 
   // ✅ JWT settings
   JWT_SECRET: process.env.JWT_SECRET || "your_jwt_secret_key",
