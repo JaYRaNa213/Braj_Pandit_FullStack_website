@@ -68,7 +68,7 @@ app.use(morgan('dev'));
 
 // const allowedOrigins = process.env.CORS_ORIGIN?.split(',') || [];
 const allowedOrigins = [
-  'https://merovrindavana.vercel.app',
+  'https://brajpandit.vercel.app',
   'http://localhost:5173'
 ];
 
