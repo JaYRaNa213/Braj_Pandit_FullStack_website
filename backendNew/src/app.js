@@ -66,10 +66,16 @@ app.use(express.urlencoded({ extended: true, limit: '16kb' }));
 app.use(cookieParser());
 app.use(morgan('dev'));
 
-const allowedOrigins = process.env.CORS_ORIGIN?.split(',') || [];
+// const allowedOrigins = process.env.CORS_ORIGIN?.split(',') || [];
+
+const allowedOrigins = [
+  'https://merovrindavana.vercel.app',
+  'http://localhost:5173'
+];
 
 app.use(cors({
   origin: function (origin, callback) {
+    // Allow requests with no origin (e.g., curl, postman)
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
@@ -78,6 +84,7 @@ app.use(cors({
   },
   credentials: true,
 }));
+
 
 
 
