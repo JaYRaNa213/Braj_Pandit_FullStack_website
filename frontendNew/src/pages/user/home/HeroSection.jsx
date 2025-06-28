@@ -4,11 +4,12 @@
 import React, { useEffect, useState } from "react";
 
 const heroImages = [
-  "/images/shiv2.jpg",
-  "/images/Premanand-Ji-Maharaj.jpg",
   "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917528/IMG20250619193402_cafibp.jpg",
-  "/images/bihariG.jpg",
-  "/images/yamuna.jpg",
+  "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917524/IMG20250619193232_zilsdz.jpg",
+  "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917524/IMG20250619193232_zilsdz.jpg",
+  "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917528/IMG20250619193402_cafibp.jpg",
+  
+  "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852044/Premanand-Ji-Maharaj_yb93dt.jpg",
 ];
 
 const HeroSection = ({ onBookPanditClick, onSeeServicesClick }) => {
@@ -26,17 +27,38 @@ const HeroSection = ({ onBookPanditClick, onSeeServicesClick }) => {
   return (
     <section className="relative h-[90vh] overflow-hidden bg-black">
       {/* Background Image Carousel */}
-      {heroImages.map((img, index) => (
-        <div
-          key={index}
-          className={`absolute inset-0 bg-cover bg-[center_top_15%] transition-opacity duration-1000 ease-in-out ${
-            index === currentImageIndex ? "opacity-100 z-20" : "opacity-0 z-10"
-          }`}
-          style={{ backgroundImage: `url(${img})` }}
+      {heroImages.map((src, index) => {
+  const isVideo = src.endsWith(".mp4");
+
+  return (
+    <div
+      key={index}
+      className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+        index === currentImageIndex ? "opacity-100 z-20" : "opacity-0 z-10"
+      }`}
+    >
+      {isVideo ? (
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="w-full h-full object-cover"
         >
-          <div className="absolute inset-0 bg-black opacity-50"></div>
-        </div>
-      ))}
+          <source src={src} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      ) : (
+        <div
+          className="absolute inset-0 bg-cover bg-[center_top_15%]"
+          style={{ backgroundImage: `url(${src})` }}
+        ></div>
+      )}
+      <div className="absolute inset-0 bg-black opacity-50"></div>
+    </div>
+  );
+})}
+
 
       {/* Foreground Text Content */}
       <div className="relative z-30 text-center text-white flex items-center justify-center h-full px-4">
