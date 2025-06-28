@@ -1,5 +1,4 @@
 // 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
-// If you theft this code, you will be punished or may face legal action by the owner.
 
 import React, { useEffect, useState } from "react";
 import { getAllBlogs } from "../../../services/user/blogService";
@@ -59,7 +58,7 @@ const BlogSection = () => {
     Math.ceil(content.split(" ").length / 200);
 
   return (
-    <section id="blogs" className="w-full max-w-6xl mb-16 px-4 mx-auto bg-orange-100 py-10 rounded-xl">
+    <section className="w-full max-w-6xl mb-16 px-4 mx-auto bg-orange-100 py-10 rounded-xl">
       {/* Filters */}
       <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-8 gap-4">
         <h2 className="text-4xl font-bold text-orange-700">Our Blogs</h2>
@@ -67,7 +66,7 @@ const BlogSection = () => {
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="px-4 py-2 rounded-lg border border-orange-300 bg-white text-sm text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400 hover:border-orange-400 transition-all duration-200"
+            className="px-4 py-2 rounded-lg border border-orange-300 bg-white text-sm text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400 hover:border-orange-400 transition-all"
           >
             <option value="">All Categories</option>
             <option value="Festivals">Festivals</option>
@@ -79,7 +78,7 @@ const BlogSection = () => {
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="px-4 py-2 rounded-lg border border-orange-300 bg-white text-sm text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400 hover:border-orange-400 transition-all duration-200"
+            className="px-4 py-2 rounded-lg border border-orange-300 bg-white text-sm text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400 hover:border-orange-400 transition-all"
           >
             <option value="latest">Latest First</option>
             <option value="oldest">Oldest First</option>
@@ -107,48 +106,51 @@ const BlogSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: i * 0.1 }}
-                className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all transform hover:scale-[1.02] p-4 cursor-pointer"
+                className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all transform hover:scale-[1.02] flex flex-col overflow-hidden"
               >
-                <div className="overflow-hidden rounded-lg">
+                <div className="w-full h-40 overflow-hidden">
                   <img
                     src={blog.imageUrl}
                     alt={blog.title}
-                    className="w-full h-40 object-cover transition-transform duration-300 hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                   />
                 </div>
-                <div className="flex items-center justify-between mt-3">
-                  <h3 className="text-lg font-semibold text-gray-900 line-clamp-1">
-                    {blog.title}
-                  </h3>
-                  {isLatest(blog.createdAt) && (
-                    <span className="bg-yellow-200 text-yellow-800 text-xs font-semibold px-2 py-1 rounded">
-                      Latest
+
+                <div className="p-4 flex flex-col flex-1">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-lg font-semibold text-gray-900 line-clamp-1">
+                      {blog.title}
+                    </h3>
+                    {isLatest(blog.createdAt) && (
+                      <span className="bg-yellow-200 text-yellow-800 text-xs font-semibold px-2 py-1 rounded">
+                        Latest
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-gray-500 text-sm mt-1">
+                    By {blog.author || "Admin"} •{" "}
+                    {new Date(blog.createdAt).toLocaleDateString()}
+                  </p>
+                  <p className="text-gray-700 mt-2 mb-2 text-sm line-clamp-3">
+                    {blog.content.replace(/<[^>]+>/g, "").slice(0, 100)}...
+                  </p>
+                  <div className="flex flex-wrap gap-1 mb-2 text-xs">
+                    <span className="bg-orange-200 text-orange-800 px-2 py-0.5 rounded">
+                      #{blog.category || "General"}
                     </span>
-                  )}
-                </div>
-                <p className="text-gray-500 text-sm mt-1">
-                  By {blog.author || "Admin"} •{" "}
-                  {new Date(blog.createdAt).toLocaleDateString()}
-                </p>
-                <p className="text-gray-700 mt-2 mb-2 line-clamp-3">
-                  {blog.content.replace(/<[^>]+>/g, "").slice(0, 100)}...
-                </p>
-                <div className="flex flex-wrap gap-1 mb-2">
-                  <span className="bg-orange-200 text-orange-800 px-2 py-0.5 rounded text-xs">
-                    #{blog.category || "General"}
-                  </span>
-                  <span className="text-gray-500 text-xs ml-auto">
-                    {getReadingTime(blog.content)} min read
-                  </span>
-                </div>
-                <div className="flex justify-between items-center text-sm text-gray-600">
-                  <span>{blog.views || 0} Views</span>
-                  <Link
-                    to={`/blogs/${blog._id}`}
-                    className="text-orange-700 font-semibold hover:underline"
-                  >
-                    Read More →
-                  </Link>
+                    <span className="text-gray-500 ml-auto">
+                      {getReadingTime(blog.content)} min read
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center text-sm text-gray-600 mt-auto">
+                    <span>{blog.views || 0} Views</span>
+                    <Link
+                      to={`/blogs/${blog._id}`}
+                      className="text-orange-700 font-semibold hover:underline"
+                    >
+                      Read More →
+                    </Link>
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -173,13 +175,15 @@ const BlogSection = () => {
         </div>
       )}
 
-      {/* View More Button */}
-      <Link
-        to="/blogs"
-        className="mt-10 bg-orange-600 text-white px-6 py-2 rounded hover:bg-orange-700 text-lg font-semibold inline-block transition-all duration-300"
-      >
-        View More →
-      </Link>
+      {/* View More */}
+      <div className="flex justify-center mt-8">
+        <Link
+          to="/blogs"
+          className="bg-orange-600 text-white px-6 py-2 rounded hover:bg-orange-700 text-lg font-semibold transition"
+        >
+          View More →
+        </Link>
+      </div>
 
       {/* No Blogs */}
       {!loading && blogs.length === 0 && (

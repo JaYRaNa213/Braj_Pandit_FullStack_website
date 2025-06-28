@@ -1,17 +1,14 @@
 // 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
-// If you theft this code, you will be punished or may face legal action by the owner.
 
 import React, { useEffect, useState } from "react";
 import { getAllPandits } from "../../../services/user/panditService";
 import { Link, useNavigate } from "react-router-dom";
 
-// Get rating from localStorage
 const getRating = (name) => {
   const count = parseInt(localStorage.getItem(`clicks_${name}`)) || 0;
   return Math.min((count / 10).toFixed(1), 5);
 };
 
-// Increment rating tracker on click
 const incrementClick = (name) => {
   const key = `clicks_${name}`;
   const prev = parseInt(localStorage.getItem(key)) || 0;
@@ -66,7 +63,7 @@ const VerifiedPanditJis = () => {
   return (
     <section id="verifiedPandits" className="bg-white px-4 md:px-16 py-16">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-        {/* Left Section */}
+        {/* Left Side */}
         <div className="space-y-6">
           <h2 className="text-4xl font-bold text-[#4A1C1C]">
             Our <span className="text-red-600">Top-Rated</span> PanditJi
@@ -82,7 +79,7 @@ const VerifiedPanditJis = () => {
           </Link>
         </div>
 
-        {/* Right Section */}
+        {/* Right Side - Pandit Cards */}
         <div className="w-full">
           {pandits.length === 0 ? (
             <p className="text-gray-500 text-sm">No verified Pandits available.</p>
@@ -91,31 +88,40 @@ const VerifiedPanditJis = () => {
               {pandits.map((pandit) => (
                 <div
                   key={pandit._id}
-                  className="relative bg-[#F9F3F1] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition"
+                  className="relative bg-[#F9F3F1] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col h-full"
                 >
+                  {/* Tag */}
                   {pandit.name === topPanditName && (
                     <span className="absolute top-2 left-2 bg-red-600 text-white text-[10px] px-2 py-1 rounded-full font-semibold shadow">
                       🔥 Most Booked
                     </span>
                   )}
+
+                  {/* Image */}
                   <img
                     src={pandit.imageUrl}
                     alt={pandit.name}
                     className="w-full h-[120px] object-cover"
                   />
-                  <div className="p-2 text-[#4A1C1C]">
-                    <h3 className="text-sm font-semibold">{pandit.name}</h3>
-                    <p className="text-xs">{pandit.expertise}</p>
-                    <div className="text-[10px] flex justify-between mt-1 text-gray-700">
-                      <span>{pandit.experience}</span>
-                      <span>{pandit.location}</span>
+
+                  {/* Card Content */}
+                  <div className="p-2 text-[#4A1C1C] flex flex-col flex-1">
+                    <div>
+                      <h3 className="text-sm font-semibold">{pandit.name}</h3>
+                      <p className="text-xs">{pandit.expertise}</p>
+                      <div className="text-[10px] flex justify-between mt-1 text-gray-700">
+                        <span>{pandit.experience}</span>
+                        <span>{pandit.location}</span>
+                      </div>
+                      <p className="text-[11px] mt-1 text-yellow-600 font-semibold">
+                        ⭐ {pandit.rating}/5 Rating
+                      </p>
                     </div>
-                    <p className="text-[11px] mt-1 text-yellow-600 font-semibold">
-                      ⭐ {pandit.rating}/5 Rating
-                    </p>
+
+                    {/* Button at Bottom */}
                     <button
                       onClick={() => handleBookPandit(pandit.name)}
-                      className="mt-2 bg-blue-600 px-3 py-1.5 text-white rounded hover:bg-blue-700 w-full text-xs font-medium"
+                      className="mt-auto bg-blue-600 px-3 py-1.5 text-white rounded hover:bg-blue-700 w-full text-xs font-medium"
                     >
                       Book Pandit
                     </button>
