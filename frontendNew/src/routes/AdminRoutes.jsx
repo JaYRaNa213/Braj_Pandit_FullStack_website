@@ -38,6 +38,8 @@ const AdminRoutes = () => {
   }
 >
         <Route path="dashboard" element={<AdminDashboard />} />
+        <Route index element={<AdminDashboard />} />
+
         <Route path="add-blog" element={<AddBlogPost />} />
         <Route path="manage-blogs" element={<ManageBlogs />} />
         <Route path="edit-blog/:id" element={<EditBlogPost />} />

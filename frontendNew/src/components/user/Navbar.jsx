@@ -15,9 +15,9 @@ export default function Navbar() {
     <>
       <nav className="bg-[#4A1C1C] p-4 text-white flex justify-between items-center">
         <div className="flex items-center space-x-4">
-          <img src="/images/pank.jpg" alt="Logo" className="h-14 w-10 object-contain" />
+          <img src="/images/premMandir.jpg" alt="Logo" className="h-14 w-10 object-contain" />
           <Link to="/" className="text-xl font-bold">
-            Mero Vrindavan !
+            Braj Pandit
           </Link>
         </div>
 

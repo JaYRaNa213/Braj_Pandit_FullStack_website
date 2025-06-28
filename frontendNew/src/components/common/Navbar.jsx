@@ -50,12 +50,12 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex items-center space-x-2">
             <img
-              src="/images/pank.jpg"
+              src="/images/premMandir.jpg"
               alt="Logo"
               className="h-12 w-9 object-contain"
             />
             <RouterLink to="/" className="text-xl font-bold">
-              Mero Vrindavan!
+              Braj Pandit
             </RouterLink>
           </div>
 
@@ -167,9 +167,13 @@ export default function Navbar() {
             {user ? (
               <>
                 {user.role === "admin" ? (
-                  <RouterLink to="/admin" onClick={() => setMenuOpen(false)}>
-                    Admin Dashboard
-                  </RouterLink>
+
+
+                  <RouterLink to="/admin/dashboard" className="hover:underline">
+  Admin Dashboard
+</RouterLink>
+
+
                 ) : (
                   <RouterLink to="/profile" onClick={() => setMenuOpen(false)}>
                     Profile
