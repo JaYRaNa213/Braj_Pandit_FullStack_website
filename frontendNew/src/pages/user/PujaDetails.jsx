@@ -16,11 +16,11 @@ export default function PujaDetails() {
 
   const serviceDetails = {
     "DIWALI POOJA": {
-      image: "/images/diwali.jpg",
+      image: "https://res.cloudinary.com/djtq2eywl/image/upload/v1751097306/diya_aaymug.webp",
       desc: "Diwali is the festival of Laxmi, the Goddess of prosperity and wealth. It is believed that Goddess Laxmi visits everyone during Diwali and blesses them with wealth. People perform special puja to invite Her into their homes. This Diwali, invite prosperity by booking a traditional Laxmi-Ganesh Puja with experienced pandits.",
     },
     "MARRIAGE CEREMONY": {
-      image: "/images/marriage.jpg",
+      image: "https://res.cloudinary.com/djtq2eywl/image/upload/v1751097306/diya_aaymug.webp",
       desc: "Marriages, according to Hindu beliefs, are made in heaven. Once you are married, the bond is supposed to last for seven lifetimes. It is considered a turning point in an individual’s life as they enter the ‘Garhasthyaashram’. Every single ritual has deep philosophical and spiritual meaning. Ensure an auspicious start to your sacred bond by booking a Vedic marriage ceremony.",
     },
     "BHAGWAT KATHA": {

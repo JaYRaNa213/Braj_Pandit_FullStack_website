@@ -8,22 +8,22 @@ import { motion } from "framer-motion";
 
 const pujaServices = [
   {
-    img: "bhagwat.jpg",
+    img: "https://res.cloudinary.com/djtq2eywl/image/upload/v1751097307/bhagwat_hds0gh.jpg",
     title: "BHAGWAT KATHA",
     desc: "Shrimad Bhagwat is the image of the God and that is why it is worshiped in reverence. By its recitation and...",
   },
   {
-    img: "diwali.jpg",
+    img: "https://res.cloudinary.com/djtq2eywl/image/upload/v1751097306/diya_aaymug.webp",
     title: "DIWALI POOJA",
     desc: "Diwali is the festival of Laxmi, the Goddess of prosperity and wealth. It is believed that Goddess Laxmi visits everyone during Diwali and...",
   },
   {
-    img: "marriage.jpg",
+    img: "https://res.cloudinary.com/djtq2eywl/image/upload/v1751097306/marriage_mr0p6b.jpg",
     title: "MARRIAGE CEREMONY",
     desc: "Marriages, according to Hindu beliefs are made in heaven, and once you are married, the bond is supposed to last for seven lifetimes....",
   },
   {
-    img: "office.jpg",
+    img: "https://res.cloudinary.com/djtq2eywl/image/upload/v1751097306/office_kmeelt.webp",
     title: "OFFICE POOJA",
     desc: "Office Opening Pooja is required before entering into a new office or working place to have a positive and fresh start to get...",
   },

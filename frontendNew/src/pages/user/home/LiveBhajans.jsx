@@ -20,21 +20,21 @@ const apiKeys = [
 const fixedBhajans = [
   {
     id: "UC4R8DWoMoI7CAwX8_LjQHig",
-    title: "Shree Ram Jai Ram Jai Jai Ram",
+    title: "Radha Raman Ji Live Bhajan",
     description: "A calming bhajan invoking the divine name of Lord Ram.",
     image: "https://res.cloudinary.com/djtq2eywl/image/upload/v1750851970/radha-raman-ji-murthi_gzfglc.jpg",
     defaultVideo: "sq-1yTTP5xM",
   },
   {
     id: "UChWrtLawgh2gkx5b5xqk6Jg",
-    title: "Om Namah Shivaya - Rudra Abhishek",
+    title: "Premanand Ji Maharaj Live Bhajan",
     description: "Powerful Shiva chanting with rudra abhishek.",
     image: "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852044/Premanand-Ji-Maharaj_yb93dt.jpg",
     defaultVideo: "4y1LZQsyuSQ",
   },
   {
     id: "UCME1pkoBbdph5FbvJH8YZ2w",
-    title: "Hare Krishna Mahamantra - ISKCON Kirtan",
+    title: "Shree Anirudh Ji Maharaj Live Kirtan",
     description: "Live kirtan from ISKCON temple chanting the maha-mantra.",
     image: "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852055/anirudh_rxh0fi.jpg",
     defaultVideo: "8IhzG0_4zMw",

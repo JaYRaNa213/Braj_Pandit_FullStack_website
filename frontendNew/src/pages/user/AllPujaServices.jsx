@@ -33,7 +33,7 @@ const pujaDescriptions = {
 const groupedServices = {
   "✨ Festivals": [
     {
-      img: "diwali.jpg",
+      img: "/images/premMandir.jpg",
       title: "Diwali Pooja",
       rating: 5,
     },
@@ -50,19 +50,19 @@ const groupedServices = {
       rating: 5,
     },
     {
-      img: "office.jpg",
+      img: "https://res.cloudinary.com/djtq2eywl/image/upload/v1751097306/office_kmeelt.webp",
       title: "Office Pooja",
       rating: 4,
     },
   ],
   "👥 Life Events": [
     {
-      img: "marriage.jpg",
+      img: "https://res.cloudinary.com/djtq2eywl/image/upload/v1751097306/marriage_mr0p6b.jpg",
       title: "Marriage Ceremony",
       rating: 5,
     },
     {
-      img: "mundan.jpg",
+      img: "https://res.cloudinary.com/djtq2eywl/image/upload/v1751097306/office_kmeelt.webp",
       title: "Mundan Sanskar",
       rating: 4,
     },
@@ -74,12 +74,12 @@ const groupedServices = {
   ],
   "🕊️ Spiritual Discourses": [
     {
-      img: "bhagwat.jpg",
+      img: "https://res.cloudinary.com/djtq2eywl/image/upload/v1751094584/bwoccwvzgg9k0wsuam0p.jpg",
       title: "Bhagwat Katha",
       rating: 5,
     },
     {
-      img: "satyanarayan.jpg",
+      img: "https://res.cloudinary.com/djtq2eywl/image/upload/v1751094584/bwoccwvzgg9k0wsuam0p.jpg",
       title: "Satyanarayan Pooja",
       rating: 4,
     },
