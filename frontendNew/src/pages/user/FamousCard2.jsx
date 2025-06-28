@@ -1,34 +1,47 @@
 // 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
-// If you theft this code, you will be punished or may face legal action by the owner.
-
-// src/pages/user/FamousCard2.jsx
 
 import React from "react";
 
-const FamousCard2 = ({ place }) => {
+const FamousCard2 = ({ place, isBack = false }) => {
   return (
-    <div className="bg-white rounded-xl shadow-lg overflow-hidden transition transform hover:scale-105 duration-300">
-      <img
-        src={place.url}
-        alt={place.Name}
-        className="w-full h-40 object-cover"
-      />
-      <div className="p-4">
-        <h3 className="text-lg font-semibold text-orange-700 mb-2">{place.Name}</h3>
-        <p className="text-sm text-gray-600 line-clamp-3">{place.description}</p>
-        <div className="mt-3 text-sm text-gray-500">
-          <p><strong>Summer:</strong> {place.summer}</p>
-          <p><strong>Winter:</strong> {place.winter}</p>
+    <div className="w-full h-full">
+      {isBack ? (
+        <div className="bg-orange-100 rounded-xl shadow-inner flex items-center justify-center h-full text-orange-700 font-semibold text-lg backface-hidden">
+          🔄 दर्शन के लिए घूमें
         </div>
-        <a
-          href={place.location}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block mt-3 text-orange-600 font-semibold hover:underline text-sm"
-        >
-          📍 View on Map
-        </a>
-      </div>
+      ) : (
+        <div className="bg-white rounded-xl shadow-xl overflow-hidden border border-orange-200 hover:shadow-2xl transition duration-300 h-full backface-hidden">
+          <img
+            src={place.url}
+            alt={place.Name}
+            className="w-full h-40 object-cover"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = "https://via.placeholder.com/300x160?text=No+Image";
+            }}
+          />
+          <div className="p-4 text-center">
+            <h3 className="text-lg font-bold text-orange-700 mb-1">
+              {place.Name}
+            </h3>
+            <p className="text-sm text-gray-600 line-clamp-3 mb-2">
+              {place.description || "No description available."}
+            </p>
+            <div className="text-xs text-gray-500 space-y-1">
+              <p><strong>Summer:</strong> {place.summer || "N/A"}</p>
+              <p><strong>Winter:</strong> {place.winter || "N/A"}</p>
+            </div>
+            <a
+              href={place.location || "#"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block mt-3 text-orange-600 font-semibold hover:underline text-sm"
+            >
+              📍 View on Map
+            </a>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

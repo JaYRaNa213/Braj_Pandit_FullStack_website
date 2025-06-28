@@ -1,5 +1,4 @@
 // 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
-// If you theft this code, you will be punished or may face legal action by the owner.
 
 import React, { useEffect, useState } from "react";
 import famousPlacesData from "../../data/famousPlaces.json";
@@ -18,8 +17,24 @@ const AllFamousPlaces = () => {
       }
     };
 
+    const checkInitialScroll = () => {
+      if (document.body.scrollHeight <= window.innerHeight) {
+        setVisibleCount((prev) => Math.min(prev + 3, allPlaces.length));
+      }
+    };
+
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    // Trigger on mount
+    checkInitialScroll();
+
+    const resizeObserver = new ResizeObserver(checkInitialScroll);
+    resizeObserver.observe(document.body);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      resizeObserver.disconnect();
+    };
   }, [allPlaces.length]);
 
   return (
@@ -37,6 +52,7 @@ const AllFamousPlaces = () => {
               <FamousCard place={place} />
             </div>
           ))}
+
           {visibleCount < allPlaces.length && (
             <p className="text-center text-gray-500 mt-4 animate-pulse">
               Scroll to load more...

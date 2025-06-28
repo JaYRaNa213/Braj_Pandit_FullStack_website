@@ -12,7 +12,7 @@
     },
     {
       "Name": "Radha Rani Mandir (Barsana)",
-      "url": "/images/barsana-temple.jpg",
+      "url": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917568/IMG20250620095101_nlu4rx.jpg",
       "description": "The Radha Barsana Temple is a Hindu temple in Barsana, India. It is dedicated to Radha, the consort of Krishna, and is one of the most important pilgrimage sites for devotees of Radha and Krishna.",
       "winter": "6:00am to 12:15pm, 4:00pm to 9:00pm",
       "location": "https://maps.app.goo.gl/2b7d8f8d6b1c7f2a9",
@@ -40,6 +40,18 @@
       "log": 77.658137
     },
     {
+      "Name": "Char Dham Mandir",
+      "url": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917536/IMG20250620122242_p9tc6v.jpg",
+      "description": "Char Dham Mandir is a Hindu temple located in Vrindavan, India. It is dedicated to the four sacred pilgrimage sites of Yamunotri, Gangotri, Kedarnath, and Badrinath.",
+      "summer": "9:00am to 1:00pm, 4:30pm to 8:00pm",
+      "winter": "4:30am to 12:00pm, 4:30pm to 8:15pm",
+      "location": "https://www.google.com/maps/place/Sri+Sri+Krishna+Balaram+Mandir+(ISKCON+Vrindavan)",
+      "lat": 27.569389,
+      "log": 77.658137
+
+      
+    },
+    {
       "Name": "Rang Ji Mandir Vrindavan",
       "url": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Rangji_temple_%28Vrindavan%29.jpg",
       "description": "Shri Ranganath is the form of Lord Vishnu. The literal meaning of 'Ranganath' is 'lord of the gathering place'. This temple is dedicated to him and built in South Indian style.",
@@ -61,7 +73,7 @@
     },
     {
       "Name": "Radha Raman Mandir",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Radha_Raman_Temple.jpg/640px-Radha_Raman_Temple.jpg",
+      "url": "https://shrimathuraji.com/wp-content/uploads/2024/04/shri-radharaman-ji-2.jpg",
       "description": "The Radha Raman Temple is one of the oldest in Vrindavan, established by Gopala Bhatta Goswami in 1542 CE. It houses a self-manifested deity of Radha Raman (Krishna).",
       "summer": "5:30am to 12:00pm, 4:00pm to 9:00pm",
       "winter": "6:00am to 12:15pm, 4:00pm to 9:00pm",
@@ -71,7 +83,7 @@
     },
     {
       "Name": "Radha Vallabh Mandir",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Radha_Vallabh_Temple.jpg/640px-Radha_Vallabh_Temple.jpg",
+      "url": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/10/84/2c/2d/sri-radhavallabh-vrindavan.jpg?w=1200&h=-1&s=1",
       "description": "Radha Vallabh Temple, one of the oldest in Vrindavan, is dedicated to Radha and Krishna. Established by the Vallabha sect in the 16th century, it's a key pilgrimage site.",
       "summer": "5:30am to 12:00pm, 4:00pm to 9:00pm",
       "winter": "6:00am to 12:15pm, 4:00pm to 9:00pm",
@@ -81,7 +93,7 @@
     },
     {
       "Name": "Nidhivan Mandir",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Nidhivan_Temple.jpg/640px-Nidhivan_Temple.jpg",
+      "url": "https://c8.alamy.com/comp/2RR718J/trees-inside-nidhivan-it-is-one-of-the-most-holy-mysterious-and-sacred-place-for-hindu-people-in-the-holy-city-of-vrindavan-2RR718J.jpg",
       "description": "Nidhivan is a sacred grove associated with divine pastimes of Krishna with Radha and gopis. It's considered spiritually potent and mysterious by devotees.",
       "summer": "5:30am to 12:00pm, 4:00pm to 9:00pm",
       "winter": "6:00am to 12:15pm, 4:00pm to 9:00pm",
@@ -91,7 +103,7 @@
     },
     {
       "Name": "Radha Gopinath Mandir",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Radha_Gopinath_Temple.jpg/640px-Radha_Gopinath_Temple.jpg",
+      "url": "https://live.staticflickr.com/206/486870747_569a7c1b0f_b.jpg",
       "description": "Radha Gopinath Temple is one of the seven ancient temples in Vrindavan, established by Gaudiya Vaishnavas. It houses deities of Radha and Gopinath (Krishna).",
       "summer": "5:30am to 12:00pm, 4:00pm to 9:00pm",
       "winter": "6:00am to 12:15pm, 4:00pm to 9:00pm",
@@ -101,7 +113,7 @@
     },
     {
       "Name": "Radha Madan Mohan Mandir",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Radha_Madan_Mohan_Temple.jpg/640px-Radha_Madan_Mohan_Temple.jpg",
+      "url": "https://www.tourmyindia.com/states/uttarpradesh/images/sri-radha-madan-mohan-temple-vrindavan.jpg",
       "description": "This temple is the oldest in Vrindavan and associated with Sanatana Goswami. It houses the deity of Madan Mohan, another form of Krishna.",
       "summer": "5:30am to 12:00pm, 4:00pm to 9:00pm",
       "winter": "6:00am to 12:15pm, 4:00pm to 9:00pm",

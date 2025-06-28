@@ -132,7 +132,7 @@ const HomeProducts = () => {
         )}
 
         {/* View More Button */}
-        {products.length > 10 && (
+        {products.length > 5 && (
           <div className="text-center mt-12">
             <Link
               to="/products"
