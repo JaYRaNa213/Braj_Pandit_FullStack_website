@@ -53,7 +53,7 @@ const HomeProducts = () => {
       .finally(() => setLoading(false));
   }, []);
 
-  const featuredProducts = products.slice(0, 8);
+  const featuredProducts = products.slice(0, 10); // Only 10 for 2 rows of 5
 
   return (
     <section
@@ -70,7 +70,7 @@ const HomeProducts = () => {
         ) : featuredProducts.length === 0 ? (
           <p className="text-center text-red-500">No products found.</p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
             {featuredProducts.map((product) => (
               <div
                 key={product._id}
@@ -79,7 +79,7 @@ const HomeProducts = () => {
                 {/* Wishlist Icon */}
                 <button
                   onClick={() => toggleFavorite(product._id)}
-                  className="absolute top-3 right-3 text-red-500 text-xl hover:scale-110 transition"
+                  className="absolute top-2 right-2 text-red-500 text-lg hover:scale-110 transition"
                 >
                   {favorites[product._id] ? <FaHeart /> : <FaRegHeart />}
                 </button>
@@ -88,31 +88,31 @@ const HomeProducts = () => {
                 <img
                   src={product.imageUrl || "/default-product.png"}
                   alt={product.name}
-                  className="w-full h-56 object-cover transition-transform duration-300 hover:scale-105"
+                  className="w-full h-40 object-cover transition-transform duration-300 hover:scale-105"
                 />
 
                 {/* Details */}
-                <div className="p-4">
-                  <h3 className="text-xl font-semibold mb-2 text-red-800">
+                <div className="p-3">
+                  <h3 className="text-md font-semibold mb-1 text-red-800 line-clamp-1">
                     {product.name}
                   </h3>
-                  <p className="text-gray-700 mb-2 line-clamp-2">
+                  <p className="text-gray-700 text-sm mb-1 line-clamp-2">
                     {product.description}
                   </p>
-                  <p className="text-lg font-bold text-red-500 mb-4">
+                  <p className="text-md font-bold text-red-500 mb-3">
                     ₹{product.price}
                   </p>
 
-                  <div className="flex gap-2">
+                  <div className="flex flex-col gap-2">
                     <button
                       onClick={() => handleAddToCart(product)}
-                      className="flex-1 bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded-lg transition"
+                      className="bg-yellow-500 hover:bg-yellow-600 text-white text-sm py-1 rounded transition"
                     >
                       Add to Cart
                     </button>
                     <button
                       onClick={() => handleBuyNow(product)}
-                      className="flex-1 bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg transition"
+                      className="bg-red-500 hover:bg-red-600 text-white text-sm py-1 rounded transition"
                     >
                       Buy Now
                     </button>
@@ -124,7 +124,7 @@ const HomeProducts = () => {
         )}
 
         {/* View More Button */}
-        {products.length > 0 && (
+        {products.length > 10 && (
           <div className="text-center mt-12">
             <Link
               to="/products"
