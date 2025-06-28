@@ -14,7 +14,6 @@
     "@tailwindcss/line-clamp": "^0.4.4",
     "aos": "^2.3.4",
     "axios": "^1.9.0",
-    "cors": "^2.8.5",
     "framer-motion": "^12.19.1",
     "jwt-decode": "^4.0.0",
     "lucide-react": "^0.514.0",
@@ -42,11 +41,8 @@
     "tailwindcss": "^3.4.1",
     "tailwindcss-animate": "^1.0.7",
     "tailwindcss-cli": "^0.1.2",
-    "vite": "^6.3.5"
+    "vite": "^6.0.0"
     
-  },
-  "engines": {
-  "node": "18.x"
-}
+  }
 
 }

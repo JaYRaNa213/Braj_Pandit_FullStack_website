@@ -2,7 +2,7 @@
 // If you theft this code, you will be punished or may face legal action by the owner.
 
 import React, { useEffect, useState } from "react";
-import { getAllBlogs, deleteBlog } from "../../services/admin/blogService";
+import { getBlogs, deleteBlog } from "../../services/admin/blogService";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -11,7 +11,7 @@ const ManageBlogs = () => {
 
   const fetchBlogs = async () => {
     try {
-      const res = await getAllBlogs();
+      const res = await getBlogs();
       setBlogs(res.data);
     } catch (err) {
       toast.error("Failed to fetch blogs");

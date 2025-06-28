@@ -49,8 +49,8 @@ export const deleteBlog = async (id) => {
 /**
  * Get all blogs (for admin panel listing)
  */
-export const getAllBlogs = async () => {
-  const response = await axiosInstance.get('/admin/blogs', {
+export const getBlogs = async () => {
+  const response = await axiosInstance.get('/admin/blogs?limit=1000', {
     withCredentials: true,
   });
   return response.data;

@@ -9,7 +9,7 @@ import ProtectedRoute from "./ProtectedRoute";
 // Admin Pages
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import AddBlogPost from "../pages/admin/AddBlogPost";
-import ManageBlogs from "../pages/admin/ManagesBlogs";
+import ManageBlogs from "../pages/admin/ManageBlogs";
 import EditBlogPost from "../pages/admin/EditBlogPost";
 import ManageProducts from "../pages/admin/ManageProducts";
 import AddProduct from "../pages/admin/AddProduct";

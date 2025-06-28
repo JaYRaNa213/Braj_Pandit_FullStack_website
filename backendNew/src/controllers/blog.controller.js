@@ -12,7 +12,7 @@ export const getAllBlogs = async (req, res) => {
     const search = req.query.search || "";
     const category = req.query.category || "";
     const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
+    const limit = parseInt(req.query.limit) || 1000;
 
     const query = {
       title: { $regex: search, $options: "i" },
