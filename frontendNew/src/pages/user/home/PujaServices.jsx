@@ -77,9 +77,9 @@ const PujaServices = () => {
                 className="flex flex-col md:flex-row bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200 hover:shadow-xl transition"
               >
                 <img
-                  src={`/images/${service.img}`}
-                  alt={service.title}
-                  className="w-full md:w-1/2 h-64 object-cover"
+                  src={service.img}
+  alt={service.title}
+  className="w-full md:w-1/2 h-64 object-cover"
                 />
                 <div className="p-6 flex flex-col justify-between md:w-1/2">
                   <div>

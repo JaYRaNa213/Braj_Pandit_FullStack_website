@@ -33,7 +33,7 @@ const pujaDescriptions = {
 const groupedServices = {
   "✨ Festivals": [
     {
-      img: "/images/premMandir.jpg",
+      img: "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917528/IMG20250619193402_cafibp.jpg",
       title: "Diwali Pooja",
       rating: 5,
     },
@@ -67,7 +67,7 @@ const groupedServices = {
       rating: 4,
     },
     {
-      img: "annaprashan.jpg",
+      img: "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917528/IMG20250619193402_cafibp.jpg",
       title: "Annaprashan",
       rating: 4,
     },
@@ -86,12 +86,12 @@ const groupedServices = {
   ],
   "🙏 Ancestral & Remedial": [
     {
-      img: "shraddha.jpg",
+      img: "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917528/IMG20250619193402_cafibp.jpg",
       title: "Shraddha Karma",
       rating: 4,
     },
     {
-      img: "rudrabhishek.jpg",
+      img: "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917528/IMG20250619193402_cafibp.jpg",
       title: "Rudrabhishek",
       rating: 5,
     },
@@ -121,7 +121,7 @@ const AllPujaServices = () => {
                 className="bg-white border rounded-lg p-4 shadow hover:shadow-md transition"
               >
                 <img
-                  src={`/images/${service.img}`}
+                  src={service.img}
                   alt={service.title}
                   className="w-full h-32 object-cover rounded"
                 />

@@ -24,7 +24,7 @@ export default function PujaDetails() {
       desc: "Marriages, according to Hindu beliefs, are made in heaven. Once you are married, the bond is supposed to last for seven lifetimes. It is considered a turning point in an individual’s life as they enter the ‘Garhasthyaashram’. Every single ritual has deep philosophical and spiritual meaning. Ensure an auspicious start to your sacred bond by booking a Vedic marriage ceremony.",
     },
     "BHAGWAT KATHA": {
-      image: "/images/bhagwat.jpg",
+      image: "https://res.cloudinary.com/djtq2eywl/image/upload/v1751097306/diya_aaymug.webp",
       desc: "Shrimad Bhagwat is the image of God and is worshiped in reverence. By its recitation and listening, one can attain peace, prosperity, and happiness. It is believed that listening to Bhagwat Katha purifies the mind and soul. Book a Bhagwat Katha with our experienced pandits to experience divine blessings.",
     },
     "SHIVA POOJA": {
@@ -32,7 +32,7 @@ export default function PujaDetails() {
       desc: "Shiva is the supreme deity of Hinduism. He is worshipped in many forms, including Shiva, Shakti, and Parvati. The Shiva pooja is a ritual that involves worshipping Shiva and his consort Parvati. It is believed that Shiva is the source of all creation and destruction. Book a Shiva pooja with our experienced pandits to experience divine blessings and spiritual upliftment.",
     },
     "OFFICE POOJA": {
-      image: "/images/office.jpg",
+      image: "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917528/IMG20250619193402_cafibp.jpg",
       desc: "Office Opening Pooja is required before entering into a new office or working place to have a positive and fresh start. It is believed that performing this pooja brings prosperity, success, and peace to the workplace. Book an Office Opening Pooja with our experienced pandits to ensure a prosperous beginning for your business.",    
       },
 
@@ -41,27 +41,27 @@ export default function PujaDetails() {
       desc: "Griha Pravesh is a sacred Hindu ritual performed before entering a new home. It is believed to bring prosperity, happiness, and peace to the household. The pooja involves invoking deities and seeking their blessings for a harmonious living environment. Book a Griha Pravesh pooja with our experienced pandits to ensure a blessed start in your new home.", 
     },
     "SATYANARAYAN POOJA": { 
-      image: "/images/satyanarayan.jpg",
+      image: "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917528/IMG20250619193402_cafibp.jpg",
       desc: "Satyanarayan Pooja is a sacred Hindu ritual dedicated to Lord  Vishnu. It is performed to seek blessings for prosperity, happiness, and success in life. The pooja involves reading the Satyanarayan Katha and offering prayers to Lord Vishnu. It is believed that performing this pooja brings peace and fulfillment of desires. Book a Satyanarayan Pooja with our experienced pandits to experience divine blessings.",
     },
     "MUNDAN SANSKAR": { 
-      image: "/images/mundan.jpg",
+      image: "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917528/IMG20250619193402_cafibp.jpg",
       desc: "Mundan Sanskar, also known as Chudakarana, is a Hindu ritual performed to mark the first haircut of a child. It is believed to purify the child and bring good luck. The ritual involves chanting mantras and offering prayers to deities. Book a Mundan Sanskar with our experienced pandits to ensure a blessed and auspicious beginning for your child's life.",
     },
     "NAVGRAHA SHANTI": {
-      image: "/images/navgraha.jpg",
+      image: "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917528/IMG20250619193402_cafibp.jpg",
       desc: "Navgraha Shanti is a Hindu ritual performed to appease the nine celestial bodies (Navagrahas) that influence human life. It is believed that performing this pooja brings peace, prosperity, and success. The ritual involves chanting mantras and offering prayers to the Navagrahas. Book a Navgraha Shanti pooja with our experienced pandits to ensure a harmonious and prosperous life.",   
     },
     "SHRADDHA KARMA": {  
-      image: "/images/shraddha-karma.jpg",
+      image: "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917528/IMG20250619193402_cafibp.jpg",
       desc: "Shraddha Karma is a Hindu ritual performed to honor and pay respects to  deceased ancestors. It is believed that performing this pooja helps in the liberation of the souls of ancestors and brings peace to their spirits. The ritual involves offering food, water, and prayers to the ancestors. Book a Shraddha Karma with our experienced pandits to ensure blessings for your family and peace for the departed souls.", 
     },
     "RUDRABHISHEK": {
-      image: "/images/rudrabhishek.jpg",
+      image: "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917528/IMG20250619193402_cafibp.jpg",
       desc: "Rudrabhishek is a sacred Hindu ritual performed to worship Lord Shiva. It involves bathing the Shiva Linga with holy substances like milk, honey, and ghee while chanting Vedic mantras. This pooja is believed to remove obstacles, bring prosperity, and bestow blessings of health and happiness. Book a Rudrabhishek with our experienced pandits to experience divine blessings and spiritual upliftment.",
     },
     "ANNAPRASHAN": {
-      image: "/images/annaprasan.jpg",
+      image: "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917528/IMG20250619193402_cafibp.jpg",
       desc: "Annaprashan, also known as the first rice-eating ceremony, is a Hindu ritual performed to mark the first time a child eats solid food. It is believed to bless the child with good health and prosperity. The ritual involves offering prayers and performing a small pooja. Book an Annaprashan ceremony with our experienced pandits to ensure a blessed and auspicious beginning for your child's journey into solid food.",
     },  
   
@@ -86,6 +86,7 @@ export default function PujaDetails() {
             src={pujaData.image}
             alt={pujaData.title}
             className="w-full h-64 md:h-full object-cover"
+            onError={(e) => (e.target.src = "/fallback.jpg")} 
           />
           <div className="absolute bottom-0 left-0 w-full bg-red-700 text-white text-center py-3 flex flex-col gap-2 items-center">
             <a
