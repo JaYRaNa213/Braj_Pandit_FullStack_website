@@ -43,5 +43,10 @@
     "tailwindcss-animate": "^1.0.7",
     "tailwindcss-cli": "^0.1.2",
     "vite": "^6.3.5"
-  }
+    
+  },
+  "engines": {
+  "node": "18.x"
+}
+
 }
