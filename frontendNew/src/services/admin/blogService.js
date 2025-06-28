@@ -26,9 +26,11 @@ export const createBlog = async (formData) => {
  * @param {FormData} formData - Must include updated fields (image optional)
  */
 export const updateBlog = async (id, formData) => {
+  const token = localStorage.getItem('accessToken');
   const response = await axiosInstance.put(`/admin/blogs/${id}`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${token}`, // ✅ Needed for auth middleware
     },
     withCredentials: true,
   });

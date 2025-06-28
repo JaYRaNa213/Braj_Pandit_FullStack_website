@@ -127,6 +127,9 @@ const AddBlogPost = () => {
           <option value="Festival">Festival</option>
           <option value="Aarti">Aarti</option>
           <option value="Religious Books">Religious Books</option>
+          <option value="Places">Places</option>
+          <option value="Mandir">Mandir</option>
+          <option value="Other Religious Blogs">Other Religious Blogs</option>
         </select>
 
         <input

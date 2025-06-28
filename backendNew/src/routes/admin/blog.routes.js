@@ -6,7 +6,8 @@ import {
   addBlog,
   getAllBlogs,
   updateBlog,
-  deleteBlog
+  deleteBlog,
+  getBlogById, // ✅ add this import if needed
 } from '../../controllers/blog.controller.js';
 
 import { authMiddleware } from '../../middleware/auth.middleware.js';
@@ -26,6 +27,8 @@ router.post(
 
 // ✅ Admin get all blogs
 router.get('/', authMiddleware, authorizeRoles('admin'), getAllBlogs);
+// ✅ Add this route after the getAllBlogs route
+router.get('/:id', authMiddleware, authorizeRoles('admin'), getBlogById);
 
 // ✅ Admin update blog with image (optional)
 router.put(

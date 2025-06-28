@@ -106,6 +106,9 @@ const EditBlogPost = () => {
           <option value="Festival">Festival</option>
           <option value="Aarti">Aarti</option>
           <option value="Religious Books">Religious Books</option>
+          <option value="Places">Places</option>
+          <option value="Mandir">Mandir</option>
+          <option value="Other Religious Blogs">Other Religious Blogs</option>
         </select>
 
         <input
@@ -118,7 +121,11 @@ const EditBlogPost = () => {
         {imagePreview && (
           <div className="mt-2">
             <p className="text-sm text-gray-600">Image Preview:</p>
-            <img src={imagePreview} alt="Preview" className="w-full max-h-64 object-cover rounded shadow" />
+            <img
+              src={imagePreview}
+              alt="Preview"
+              className="w-full max-h-64 object-cover rounded shadow"
+            />
           </div>
         )}
 

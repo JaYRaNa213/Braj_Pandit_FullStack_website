@@ -10,7 +10,16 @@ const blogSchema = new mongoose.Schema({
   tags: { type: [String], default: [] },
   category: {
     type: String,
-    enum: ['Puja', 'Festival', 'Aarti', 'Religious Books'],
+    enum: [
+      'Puja',
+      'Festival',
+      'Aarti',
+      'Religious Books',
+      'Places',
+      'Mandir',
+      'Other Religious Blogs'
+    ],
+    
     required: true,
     default: 'Puja'
   },
