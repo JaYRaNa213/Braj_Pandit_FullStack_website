@@ -1,3 +1,6 @@
+// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+// If you theft this code, you will be punished or may face legal action by the owner.
+
 // src/pages/user/UserProfile.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";

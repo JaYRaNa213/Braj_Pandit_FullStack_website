@@ -1,3 +1,9 @@
+// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+// If you theft this code, you will be punished or may face legal action by the owner.
+
+// 🔐 Code developed by Jay Rana © 2025. Not for reuse or redistribution
+
+
 // Use import statements instead of require
 import fs from 'fs';
 import path from 'path';
@@ -14,7 +20,6 @@ const IGNORE_FOLDERS = ['node_modules', '.git', '.next', 'dist', '.cache', '.ide
 // File to save tree output
 const OUTPUT_FILE = './frontend_tree.txt';
 
-// Initialize content for writing
 let treeOutput = '📂 Religious Website Frontend Tree Structure\n\n';
 
 // Function to generate directory tree recursively
