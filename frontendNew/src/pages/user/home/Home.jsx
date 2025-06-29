@@ -3,6 +3,9 @@
 
 import React, { useRef } from "react";
 
+
+import { Element } from "react-scroll";
+
 import HeroSection from "./HeroSection";
 import LiveBhajans from "./LiveBhajans";
 import HomeProducts from "./HomeProducts";
@@ -45,10 +48,12 @@ const Home = () => {
 
       <FamousPlaces />
 
-      <BlogSection />
+      {/* ✅ This makes react-scroll work */}
+      <Element name="blogSection">
+        <BlogSection />
+      </Element>
 
       <VerifiedPanditJis />
-      {/* <Footer /> */}
     </div>
   );
 };

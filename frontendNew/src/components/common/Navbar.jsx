@@ -1,15 +1,11 @@
 // 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
-// If you theft this code, you will be punished or may face legal action by the owner.
 
 import {
   Link as RouterLink,
   useLocation,
   useNavigate,
 } from "react-router-dom";
-import {
-  Link as ScrollLink,
-  scroller,
-} from "react-scroll";
+import { Link as ScrollLink, scroller } from "react-scroll";
 import { useAuth } from "../../context/AuthContext";
 import { useCart } from "../../hooks/useCart";
 import { FaShoppingCart, FaBars, FaTimes } from "react-icons/fa";
@@ -21,26 +17,36 @@ export default function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const isHome = location.pathname === "/";
 
-  const smoothScrollToSection = (sectionId) => {
-    scroller.scrollTo(sectionId, {
-      duration: 1000,
-      delay: 0,
-      smooth: "easeInOutQuart",
-      offset: -80,
-    });
+  const handleNavClick = (sectionId, route) => {
+    if (isHome) {
+      scroller.scrollTo(sectionId, {
+        duration: 1000,
+        delay: 0,
+        smooth: "easeInOutQuart",
+        offset: -80,
+      });
+    } else {
+      navigate(`/${route}`);
+    }
     setMenuOpen(false);
   };
 
-  const handleNavClick = (sectionId, route) => {
+  const handleBlogsClick = () => {
     if (isHome) {
-      smoothScrollToSection(sectionId);
+      scroller.scrollTo("blogSection", {
+        duration: 1000,
+        delay: 0,
+        smooth: "easeInOutQuart",
+        offset: -80,
+      });
     } else {
-      navigate(`/${route}`);
-      setMenuOpen(false);
+      navigate("/blogs");
     }
+    setMenuOpen(false);
   };
 
   return (
@@ -67,15 +73,49 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex space-x-6 items-center">
+          <div className="hidden md:flex space-x-6 items-center relative">
             <RouterLink to="/" className="hover:underline">
               Home
             </RouterLink>
 
-            <span
-              className="cursor-pointer hover:underline"
-              onClick={() => handleNavClick("blogs", "blogs")}
+            {/* Services Dropdown */}
+            <div
+              className="relative group"
+              onMouseEnter={() => setDropdownOpen(true)}
+              onMouseLeave={() => setDropdownOpen(false)}
             >
+              <span className="cursor-pointer hover:underline">Services ▾</span>
+              {dropdownOpen && (
+                <div className="absolute bg-white text-[#4A1C1C] rounded shadow-lg top-full left-0 mt-2 w-48 z-50">
+                  <RouterLink
+                    to="/services/katha"
+                    className="block px-4 py-2 hover:bg-orange-100"
+                  >
+                    📜 Katha
+                  </RouterLink>
+                  <RouterLink
+                    to="/services/puja"
+                    className="block px-4 py-2 hover:bg-orange-100"
+                  >
+                    🕉️ Puja
+                  </RouterLink>
+                  <RouterLink
+                    to="/services/bhajan"
+                    className="block px-4 py-2 hover:bg-orange-100"
+                  >
+                    🎵 Bhajan/Kirtan
+                  </RouterLink>
+                  <RouterLink
+                    to="/services/tour"
+                    className="block px-4 py-2 hover:bg-orange-100"
+                  >
+                    🚌 Tour & Darshan
+                  </RouterLink>
+                </div>
+              )}
+            </div>
+
+            <span className="cursor-pointer hover:underline" onClick={handleBlogsClick}>
               Blogs
             </span>
 
@@ -105,7 +145,7 @@ export default function Navbar() {
             {user ? (
               <>
                 {user.role === "admin" ? (
-                  <RouterLink to="/admin" className="hover:underline">
+                  <RouterLink to="/admin/dashboard" className="hover:underline">
                     Admin Dashboard
                   </RouterLink>
                 ) : (
@@ -140,13 +180,50 @@ export default function Navbar() {
               Home
             </RouterLink>
 
-            <span onClick={() => handleNavClick("blogs", "blogs")}>
-              Blogs
-            </span>
+            <details className="w-full">
+              <summary className="cursor-pointer">Services</summary>
+              <div className="ml-4 mt-2 space-y-1">
+                <RouterLink to="/services/katha" onClick={() => setMenuOpen(false)}>
+                  📜 Katha
+                </RouterLink>
+                <RouterLink to="/services/puja" onClick={() => setMenuOpen(false)}>
+                  🕉️ Puja
+                </RouterLink>
+                <RouterLink to="/services/bhajan" onClick={() => setMenuOpen(false)}>
+                  🎵 Bhajan/Kirtan
+                </RouterLink>
+                <RouterLink to="/services/tour" onClick={() => setMenuOpen(false)}>
+                  🚌 Tour & Darshan
+                </RouterLink>
+                <RouterLink to="/services/tour" onClick={() => setMenuOpen(false)}>
+                  🚌 Tour & Darshan
+                </RouterLink>
+                <RouterLink to="/services/tour" onClick={() => setMenuOpen(false)}>
+                  🚌 Tour & Darshan
+                </RouterLink>
+                <RouterLink to="/services/tour" onClick={() => setMenuOpen(false)}>
+                  🚌 Tour & Darshan
+                </RouterLink>
+                <RouterLink to="/services/tour" onClick={() => setMenuOpen(false)}>
+                  🚌 Tour & Darshan
+                </RouterLink>
+                <RouterLink to="/services/tour" onClick={() => setMenuOpen(false)}>
+                  🚌 Tour & Darshan
+                </RouterLink>
+                <RouterLink to="/services/tour" onClick={() => setMenuOpen(false)}>
+                  🚌 Tour & Darshan
+                </RouterLink>
+                <RouterLink to="/services/tour" onClick={() => setMenuOpen(false)}>
+                  🚌 Tour & Darshan
+                </RouterLink>
+                <RouterLink to="/services/tour" onClick={() => setMenuOpen(false)}>
+                  🚌 Tour & Darshan
+                </RouterLink>
+              </div>
+            </details>
 
-            <span onClick={() => handleNavClick("products", "products")}>
-              Products
-            </span>
+            <span onClick={handleBlogsClick}>Blogs</span>
+            <span onClick={() => handleNavClick("products", "products")}>Products</span>
 
             {isHome ? (
               <ScrollLink
@@ -167,13 +244,9 @@ export default function Navbar() {
             {user ? (
               <>
                 {user.role === "admin" ? (
-
-
-                  <RouterLink to="/admin/dashboard" className="hover:underline">
-  Admin Dashboard
-</RouterLink>
-
-
+                  <RouterLink to="/admin/dashboard" onClick={() => setMenuOpen(false)}>
+                    Admin Dashboard
+                  </RouterLink>
                 ) : (
                   <RouterLink to="/profile" onClick={() => setMenuOpen(false)}>
                     Profile
