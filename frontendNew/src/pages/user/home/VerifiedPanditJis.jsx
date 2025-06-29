@@ -1,3 +1,4 @@
+
 // 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 
 import React, { useEffect, useState } from "react";
@@ -99,14 +100,14 @@ const VerifiedPanditJis = () => {
                   key={pandit._id}
                   className="bg-white rounded-xl overflow-hidden shadow hover:shadow-xl transition duration-300 border border-gray-200 flex flex-col"
                 >
-                  {/* Image */}
+                  {/* Image Fix: Taller + object cover */}
                   <img
                     src={pandit.imageUrl}
                     alt={pandit.name}
-                    className="w-full w-full h-32 object-cover rounded-t-xl"
+                    className="w-full h-40 object-cover rounded-t-xl"
                   />
 
-                  {/* Content */}
+                  {/* Card Content */}
                   <div className="bg-orange-200 p-4 flex flex-col justify-between flex-1 text-[#4A1C1C]">
                     <div>
                       <h3 className="text-[15px] font-semibold truncate">
@@ -116,7 +117,7 @@ const VerifiedPanditJis = () => {
                         {pandit.expertise}
                       </p>
 
-                      {/* Rating Format */}
+                      {/* Rating Section */}
                       <div className="flex flex-col items-end mt-3">
                         <span className="text-[11px] text-gray-700 font-medium mb-0.5">
                           {pandit.rating}
