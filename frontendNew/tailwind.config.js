@@ -2,6 +2,7 @@
 
 import forms from '@tailwindcss/forms';
 import scrollbar from 'tailwind-scrollbar';
+import aspectRatio from '@tailwindcss/aspect-ratio'; // ✅ Add this line
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -22,6 +23,7 @@ export default {
   plugins: [
     forms,
     scrollbar,
+    aspectRatio, // ✅ Add aspect-ratio plugin here
 
     // 🧩 Custom utilities for scrollbar, 3D transforms, perspective, backface visibility
     function ({ addUtilities }) {

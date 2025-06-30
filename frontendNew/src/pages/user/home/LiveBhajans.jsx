@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getLiveHome } from "../../../services/user/live.Services";
+import axios from "axios";
 
 const LiveBhajan = () => {
   const [bhajans, setBhajans] = useState([]);
@@ -14,10 +15,38 @@ const LiveBhajan = () => {
     try {
       setLoading(true);
       const res = await getLiveHome();
-      setBhajans(res.data);
+      const data = Array.isArray(res?.data) ? res.data : [];
+
+      const enriched = await Promise.all(
+        data.map(async (item) => {
+          let channelName = item.title;
+          let channelAvatar = "";
+
+          try {
+            const ytRes = await axios.get(
+              `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${item.videoId}&format=json`
+            );
+            channelName = ytRes.data.author_name;
+            channelAvatar = `https://ui-avatars.com/api/?name=${channelName}&background=random`;
+          } catch {
+            channelAvatar = `https://ui-avatars.com/api/?name=${channelName || "B"}&background=random`;
+          }
+
+          return {
+            ...item,
+            channelName,
+            channelAvatar,
+            views: Math.floor(Math.random() * 9000 + 1000), // simulated
+            hoursAgo: Math.floor(Math.random() * 24 + 1), // simulated
+          };
+        })
+      );
+
+      setBhajans(enriched);
       setError(null);
     } catch (err) {
       setError("Failed to load bhajans. Showing fallback content.");
+      setBhajans([]);
     } finally {
       setLoading(false);
     }
@@ -42,56 +71,75 @@ const LiveBhajan = () => {
         {error && (
           <p className="text-yellow-600 font-medium mb-4">⚠️ {error}</p>
         )}
-
         {!loading && bhajans.length === 0 && !error && (
           <p className="text-gray-500">No bhajans available at the moment.</p>
         )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {bhajans.map((item, i) => (
-            <Link
-              key={i}
-              to={`/live/${item.videoId}`}
-              className="block group transition-transform hover:scale-[1.01]"
-            >
-              <div className="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition overflow-hidden border border-gray-200 flex flex-col h-full">
-                <div className="relative w-full h-56">
-                  {item.isLive ? (
-                    <iframe
-                      src={`https://www.youtube.com/embed/${item.videoId}?autoplay=1&mute=1`}
-                      className="w-full h-full"
-                      allow="autoplay; encrypted-media"
-                      allowFullScreen
-                      title={item.title}
-                    />
-                  ) : (
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="w-full h-full object-cover"
-                    />
-                  )}
-                  <div
-                    className={`absolute top-3 right-3 px-3 py-1 rounded-full text-sm font-semibold flex items-center gap-2 shadow ${
-                      item.isLive ? "bg-red-600 text-white" : "bg-gray-200 text-gray-600"
-                    }`}
-                  >
-                    <span className="text-xs">{item.isLive ? "🔴" : "⏳"}</span>
-                    {item.isLive ? "LIVE" : "Not Live"}
+          {bhajans.map((item, i) => {
+            const thumbnail = `https://img.youtube.com/vi/${item.videoId}/hqdefault.jpg`;
+
+            return (
+              <Link
+                key={i}
+                to={`/live/${item.videoId}`}
+                className="block group transition-transform hover:scale-[1.01]"
+              >
+                <div className="bg-white rounded-2xl shadow-xl hover:shadow-2xl overflow-hidden border border-gray-200 flex flex-col h-full">
+                  <div className="relative w-full h-56 overflow-hidden">
+                    {item.isLive ? (
+                      <iframe
+                        src={`https://www.youtube.com/embed/${item.videoId}?autoplay=1&mute=1`}
+                        className="w-full h-full"
+                        allow="autoplay; encrypted-media"
+                        allowFullScreen
+                        title={item.title}
+                      />
+                    ) : (
+                      <img
+                        src={thumbnail}
+                        alt={item.title}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                    )}
+                    <div
+                      className={`absolute top-3 right-3 px-3 py-1 rounded-full text-sm font-semibold flex items-center gap-2 shadow ${
+                        item.isLive
+                          ? "bg-red-600 text-white"
+                          : "bg-gray-200 text-gray-600"
+                      }`}
+                    >
+                      <span className="text-xs">{item.isLive ? "🔴" : "⏳"}</span>
+                      {item.isLive ? "LIVE" : "Not Live"}
+                    </div>
+                  </div>
+
+                  <div className="p-4 text-left flex-1">
+                    <h3 className="text-lg font-semibold text-[#4A1C1C] mb-2 line-clamp-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-gray-700 line-clamp-2">
+                      {item.description?.slice(0, 100) || "Spiritual Bhajan Stream"}
+                    </p>
+
+                    <div className="flex items-center gap-3 mt-4">
+                      <img
+                        src={item.channelAvatar}
+                        alt="channel-avatar"
+                        className="w-8 h-8 rounded-full object-cover"
+                      />
+                      <div className="text-sm text-gray-700">{item.channelName}</div>
+                    </div>
+
+                    <div className="text-xs text-gray-500 mt-1">
+                      {item.views.toLocaleString()} views • {item.hoursAgo} hours ago
+                    </div>
                   </div>
                 </div>
-
-                <div className="p-5 text-left flex-1">
-                  <h3 className="text-lg md:text-xl font-semibold text-[#4A1C1C] mb-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-gray-700">
-                    {item.description?.slice(0, 100)}...
-                  </p>
-                </div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            );
+          })}
         </div>
 
         <div className="mt-10">
