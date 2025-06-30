@@ -1,10 +1,9 @@
 // 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution
-// src/pages/PujaDetails.jsx
 
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { FaWhatsapp, FaPhoneAlt } from "react-icons/fa";
-import { pujaServices } from "../../data/pujaServices"; // ✅ use deduplicated version
+import pujaServicesData from "../../data/pujaServices.json";
 
 export default function PujaDetails() {
   const location = useLocation();
@@ -16,7 +15,7 @@ export default function PujaDetails() {
 
   useEffect(() => {
     const cleanService = decodeURIComponent(service || "").trim().toLowerCase();
-    const match = pujaServices.find(
+    const match = pujaServicesData.find(
       (item) => item.title.toLowerCase() === cleanService
     );
     setPujaData(match || null);
@@ -27,7 +26,7 @@ export default function PujaDetails() {
       <div className="p-6 text-center text-red-600 min-h-screen flex flex-col justify-center items-center">
         <h2 className="text-xl font-semibold">🚫 Invalid Puja Selected</h2>
         <button
-          onClick={() => navigate("/services")}
+          onClick={() => navigate("/all-puja-services")}
           className="mt-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
         >
           Go Back to All Services
@@ -39,7 +38,6 @@ export default function PujaDetails() {
   return (
     <div className="max-w-6xl mx-auto p-4 md:p-8 min-h-screen">
       <div className="flex flex-col md:flex-row gap-8 bg-red-50 rounded-xl shadow-md overflow-hidden">
-        {/* Left: Image & Contact */}
         <div className="md:w-1/2 relative">
           <img
             src={pujaData.img}
@@ -65,7 +63,6 @@ export default function PujaDetails() {
           </div>
         </div>
 
-        {/* Right: Details */}
         <div className="md:w-1/2 p-6 flex flex-col justify-between">
           <div>
             <h2 className="text-3xl font-bold text-red-700 mb-4">{pujaData.title}</h2>
@@ -88,7 +85,7 @@ export default function PujaDetails() {
             </button>
             <button
               className="bg-gray-300 text-gray-700 px-6 py-2 rounded hover:bg-gray-400"
-              onClick={() => navigate("/services")}
+              onClick={() => navigate("/all-puja-services")}
             >
               ← Back to All Services
             </button>
