@@ -13,7 +13,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="bg-[#4A1C1C] p-4 text-white flex justify-between items-center">
+      <nav className="bg-[#4A1C1C] p-4 text-white flex justify-between items-center dark:bg-gray-900 dark:text-white">
         <div className="flex items-center space-x-4">
           <img src="/images/premMandir.jpg" alt="Logo" className="h-14 w-10 object-contain" />
           <Link to="/" className="text-xl font-bold">

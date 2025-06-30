@@ -1,7 +1,5 @@
 // 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
-// If you theft this code, you will be punished or may face legal action by the owner.
 
-// src/pages/user/CartPage.jsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
@@ -21,13 +19,13 @@ const CartPage = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10 bg-[#fdf7e3] min-h-screen">
-      <h2 className="text-3xl font-bold text-center text-red-700 mb-8 flex items-center justify-center gap-2">
+    <div className="max-w-6xl mx-auto px-4 py-10 min-h-screen bg-[#fdf7e3] dark:bg-gray-900 text-black dark:text-white">
+      <h2 className="text-3xl font-bold text-center text-red-700 dark:text-yellow-300 mb-8 flex items-center justify-center gap-2">
         <FaShoppingCart /> Your Cart
       </h2>
 
       {cartItems.length === 0 ? (
-        <p className="text-center text-lg text-gray-600">
+        <p className="text-center text-lg text-gray-600 dark:text-gray-400">
           Your cart is empty. Go add some divine products!
         </p>
       ) : (
@@ -38,7 +36,7 @@ const CartPage = () => {
               return (
                 <div
                   key={product._id}
-                  className="flex items-center gap-4 bg-white p-4 rounded-xl shadow-md"
+                  className="flex items-center gap-4 bg-white dark:bg-gray-800 p-4 rounded-xl shadow-md"
                 >
                   <img
                     src={product.imageUrl || "/default-product.png"}
@@ -47,14 +45,16 @@ const CartPage = () => {
                   />
                   <div className="flex-1">
                     <h3 className="text-xl font-medium">{product.name}</h3>
-                    <p className="text-gray-600">₹{product.price.toFixed(2)}</p>
+                    <p className="text-gray-600 dark:text-gray-400">
+                      ₹{product.price.toFixed(2)}
+                    </p>
                     <div className="flex items-center gap-2 mt-2">
                       <button
                         onClick={() =>
                           updateQuantity(product._id, item.quantity - 1)
                         }
                         disabled={item.quantity <= 1}
-                        className="px-2 py-1 bg-yellow-300 rounded hover:bg-yellow-400"
+                        className="px-2 py-1 bg-yellow-300 rounded hover:bg-yellow-400 dark:text-black"
                       >
                         <FaMinus />
                       </button>
@@ -65,7 +65,7 @@ const CartPage = () => {
                         onClick={() =>
                           updateQuantity(product._id, item.quantity + 1)
                         }
-                        className="px-2 py-1 bg-yellow-300 rounded hover:bg-yellow-400"
+                        className="px-2 py-1 bg-yellow-300 rounded hover:bg-yellow-400 dark:text-black"
                       >
                         <FaPlus />
                       </button>
@@ -84,7 +84,7 @@ const CartPage = () => {
 
           {/* Total and Checkout */}
           <div className="text-right mt-10">
-            <p className="text-xl font-bold text-green-700">
+            <p className="text-xl font-bold text-green-700 dark:text-green-300">
               Total: ₹{total.toFixed(2)}
             </p>
             <button

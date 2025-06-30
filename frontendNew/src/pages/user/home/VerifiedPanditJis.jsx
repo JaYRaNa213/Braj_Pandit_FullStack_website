@@ -1,4 +1,3 @@
-
 // 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 
 import React, { useEffect, useState } from "react";
@@ -25,10 +24,18 @@ const renderStars = (rating) => {
   const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
 
   return (
-    <div className="flex items-center text-yellow-500 text-sm gap-[2px]">
-      {Array(fullStars).fill().map((_, i) => <span key={`full-${i}`}>★</span>)}
+    <div className="flex items-center text-yellow-400 text-sm gap-[2px]">
+      {Array(fullStars)
+        .fill()
+        .map((_, i) => (
+          <span key={`full-${i}`}>★</span>
+        ))}
       {halfStar && <span>☆</span>}
-      {Array(emptyStars).fill().map((_, i) => <span key={`empty-${i}`}>☆</span>)}
+      {Array(emptyStars)
+        .fill()
+        .map((_, i) => (
+          <span key={`empty-${i}`}>☆</span>
+        ))}
     </div>
   );
 };
@@ -42,7 +49,9 @@ const VerifiedPanditJis = () => {
     const fetchPandits = async () => {
       try {
         const res = await getAllPandits();
-        const verified = res?.data?.filter((p) => p.status?.toLowerCase() === "approved");
+        const verified = res?.data?.filter(
+          (p) => p.status?.toLowerCase() === "approved"
+        );
 
         const withRatings = (verified || []).map((p) => ({
           ...p,
@@ -63,25 +72,29 @@ const VerifiedPanditJis = () => {
 
   const handleBookPandit = (panditName) => {
     incrementClick(panditName);
-    navigate(`/booking?pandit=${encodeURIComponent(panditName)}&service=${encodeURIComponent("Bhagwat Katha")}`);
+    navigate(
+      `/booking?pandit=${encodeURIComponent(panditName)}&service=${encodeURIComponent(
+        "Bhagwat Katha"
+      )}`
+    );
   };
 
   if (loading) return <div className="p-6 text-center">Loading Pandits...</div>;
 
   return (
-    <section id="verifiedPandits" className="bg-white px-4 md:px-8 py-16">
+    <section id="verifiedPandits" className="bg-white dark:bg-gray-900 px-4 md:px-8 py-16">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
         {/* Left Info */}
         <div className="space-y-8">
-          <h2 className="text-4xl font-bold text-[#4A1C1C]">
-            Our <span className="text-red-600">Top-Rated</span> PanditJi
+          <h2 className="text-4xl font-bold text-[#4A1C1C] dark:text-yellow-200">
+            Our <span className="text-red-600 dark:text-red-400">Top-Rated</span> PanditJi
           </h2>
-          <p className="text-gray-700 text-lg">
+          <p className="text-gray-700 dark:text-gray-300 text-lg">
             Book highly knowledgeable Vedic Pandits and Purohits, well-versed in
             Sanskrit mantras, Hindu scriptures, and astrology.
           </p>
           <Link to="/pandits">
-            <button className="mt-4 bg-transparent border-2 border-[#4A1C1C] text-[#4A1C1C] font-semibold px-6 py-2 rounded-full hover:bg-[#4A1C1C] hover:text-white transition">
+            <button className="mt-4 bg-transparent border-2 border-[#4A1C1C] dark:border-yellow-300 text-[#4A1C1C] dark:text-yellow-300 font-semibold px-6 py-2 rounded-full hover:bg-[#4A1C1C] dark:hover:bg-yellow-400 hover:text-white dark:hover:text-black transition">
               See All PanditJis
             </button>
           </Link>
@@ -90,7 +103,7 @@ const VerifiedPanditJis = () => {
         {/* Pandit Cards */}
         <div className="w-full">
           {pandits.length === 0 ? (
-            <p className="text-gray-500 text-sm">
+            <p className="text-gray-500 dark:text-gray-400 text-sm">
               No verified Pandits available.
             </p>
           ) : (
@@ -98,7 +111,7 @@ const VerifiedPanditJis = () => {
               {pandits.map((pandit) => (
                 <div
                   key={pandit._id}
-                  className="bg-white rounded-xl overflow-hidden shadow hover:shadow-xl transition duration-300 border border-gray-200 flex flex-col"
+                  className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow hover:shadow-xl transition duration-300 border border-gray-200 dark:border-gray-600 flex flex-col"
                 >
                   {/* Image Fix: Taller + object cover */}
                   <img
@@ -108,21 +121,19 @@ const VerifiedPanditJis = () => {
                   />
 
                   {/* Card Content */}
-                  <div className="bg-orange-200 p-4 flex flex-col justify-between flex-1 text-[#4A1C1C]">
+                  <div className="bg-orange-200 dark:bg-gray-700 p-4 flex flex-col justify-between flex-1 text-[#4A1C1C] dark:text-yellow-100">
                     <div>
-                      <h3 className="text-[15px] font-semibold truncate">
-                        {pandit.name}
-                      </h3>
-                      <p className="text-xs text-gray-600">
+                      <h3 className="text-[15px] font-semibold truncate">{pandit.name}</h3>
+                      <p className="text-xs text-gray-600 dark:text-gray-300">
                         {pandit.expertise}
                       </p>
 
                       {/* Rating Section */}
                       <div className="flex flex-col items-end mt-3">
-                        <span className="text-[11px] text-gray-700 font-medium mb-0.5">
+                        <span className="text-[11px] text-gray-700 dark:text-gray-300 font-medium mb-0.5">
                           {pandit.rating}
                         </span>
-                        <div className="flex justify-between w-full items-center text-[12px] text-gray-600">
+                        <div className="flex justify-between w-full items-center text-[12px] text-gray-600 dark:text-gray-300">
                           <span>{pandit.experience} years exp</span>
                           {renderStars(pandit.rating)}
                         </div>
@@ -132,7 +143,7 @@ const VerifiedPanditJis = () => {
                     {/* Book Button */}
                     <button
                       onClick={() => handleBookPandit(pandit.name)}
-                      className="mt-4 bg-red-600 text-white px-3 py-1 text-xs rounded hover:bg-orange-700 font-medium"
+                      className="mt-4 bg-red-600 hover:bg-orange-700 text-white px-3 py-1 text-xs rounded font-medium transition"
                     >
                       Book Pandit
                     </button>

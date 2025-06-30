@@ -1,7 +1,5 @@
 // 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
-// If you theft this code, you will be punished or may face legal action by the owner.
 
-// src/pages/user/Checkout.jsx
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { placeOrder } from '../../services/orderService';
@@ -98,7 +96,7 @@ const Checkout = () => {
       if (res.success) {
         toast.success('✅ Order placed!');
         localStorage.removeItem('cart');
-        clearCart(); // 🔥 clear context cart
+        clearCart();
         navigate('/my-orders');
       } else {
         toast.error(res.message || '❌ Order failed.');
@@ -110,25 +108,27 @@ const Checkout = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-6 py-10 bg-gradient-to-tr from-white to-gray-100 rounded-2xl shadow-xl mt-10">
-      <h2 className="text-3xl font-bold text-center text-red-700 mb-6 flex items-center justify-center gap-2">
+    <div className="max-w-5xl mx-auto px-6 py-10 bg-gradient-to-tr from-white to-gray-100 dark:from-gray-900 dark:to-gray-800 rounded-2xl shadow-xl mt-10 text-black dark:text-white">
+      <h2 className="text-3xl font-bold text-center text-red-700 dark:text-yellow-300 mb-6 flex items-center justify-center gap-2">
         <FaShoppingBag className="text-2xl" /> Checkout
       </h2>
 
       {items.length === 0 ? (
-        <p className="text-center text-lg text-red-500 font-semibold">
+        <p className="text-center text-lg text-red-500 dark:text-red-300 font-semibold">
           No products to checkout.
         </p>
       ) : (
         <div className="grid md:grid-cols-2 gap-10">
           {/* Left - Order Summary */}
           <div>
-            <h3 className="text-xl font-semibold mb-4 border-b pb-2">🛒 Your Items</h3>
+            <h3 className="text-xl font-semibold mb-4 border-b pb-2 border-gray-300 dark:border-gray-600">
+              🛒 Your Items
+            </h3>
             <div className="space-y-4">
               {items.map((item, index) => (
                 <div
                   key={index}
-                  className="flex items-center gap-4 p-4 border bg-white rounded-xl shadow-sm"
+                  className="flex items-center gap-4 p-4 border bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-600 rounded-xl shadow-sm"
                 >
                   <img
                     src={item.imageUrl}
@@ -137,44 +137,57 @@ const Checkout = () => {
                   />
                   <div className="flex-1">
                     <h4 className="text-md font-medium">{item.name}</h4>
-                    <p className="text-gray-600">
+                    <p className="text-gray-600 dark:text-gray-300">
                       ₹{Number(item.price).toFixed(2)} × {item.quantity}
                     </p>
                   </div>
                 </div>
               ))}
             </div>
-            <div className="text-right mt-4 text-xl font-bold text-green-700">
+            <div className="text-right mt-4 text-xl font-bold text-green-700 dark:text-green-300">
               Total: ₹
               {items
-                .reduce((acc, item) => acc + (Number(item.price) || 0) * (item.quantity || 1), 0)
+                .reduce(
+                  (acc, item) => acc + (Number(item.price) || 0) * (item.quantity || 1),
+                  0
+                )
                 .toFixed(2)}
             </div>
           </div>
 
           {/* Right - Shipping & Payment */}
           <form onSubmit={handleSubmit} className="space-y-5">
-            <h3 className="text-xl font-semibold mb-2 border-b pb-2">📦 Shipping Details</h3>
+            <h3 className="text-xl font-semibold mb-2 border-b pb-2 border-gray-300 dark:border-gray-600">
+              📦 Shipping Details
+            </h3>
             {Object.entries(shipping).map(([key, value]) => (
               <div key={key}>
-                <label className="block text-sm font-medium text-gray-600 capitalize mb-1">{key}</label>
+                <label
+                  htmlFor={key}
+                  className="block text-sm font-medium text-gray-600 dark:text-gray-300 capitalize mb-1"
+                >
+                  {key}
+                </label>
                 <input
+                  id={key}
                   name={key}
                   required
                   value={value}
                   onChange={handleChange}
                   placeholder={`Enter your ${key}`}
-                  className="w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-red-500 focus:outline-none"
+                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm bg-white dark:bg-gray-800 focus:ring-2 focus:ring-red-500 focus:outline-none"
                 />
               </div>
             ))}
 
             <div>
-              <label className="block text-sm font-medium text-gray-600 mb-1">💳 Payment Method</label>
+              <label className="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">
+                💳 Payment Method
+              </label>
               <select
                 value={paymentMethod}
                 onChange={(e) => setPaymentMethod(e.target.value)}
-                className="w-full p-3 border rounded-lg bg-white shadow-sm focus:ring-2 focus:ring-red-500"
+                className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 shadow-sm focus:ring-2 focus:ring-red-500 focus:outline-none"
               >
                 <option value="cod">Cash on Delivery</option>
                 <option value="online">Online Payment</option>

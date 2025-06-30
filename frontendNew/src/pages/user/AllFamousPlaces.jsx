@@ -24,8 +24,6 @@ const AllFamousPlaces = () => {
     };
 
     window.addEventListener("scroll", handleScroll);
-
-    // Trigger on mount
     checkInitialScroll();
 
     const resizeObserver = new ResizeObserver(checkInitialScroll);
@@ -38,11 +36,12 @@ const AllFamousPlaces = () => {
   }, [allPlaces.length]);
 
   return (
-    <section className="py-16 px-4 bg-[#FFF8E1] min-h-screen">
+    <section className="py-16 px-4 bg-[#FFF8E1] dark:bg-gray-900 min-h-screen transition-colors duration-300">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold text-center text-orange-600 mb-12">
+        <h1 className="text-4xl font-bold text-center text-orange-600 dark:text-yellow-400 mb-12">
           All Famous Places in Mathura
         </h1>
+
         <div className="space-y-10">
           {allPlaces.slice(0, visibleCount).map((place, index) => (
             <div
@@ -54,7 +53,7 @@ const AllFamousPlaces = () => {
           ))}
 
           {visibleCount < allPlaces.length && (
-            <p className="text-center text-gray-500 mt-4 animate-pulse">
+            <p className="text-center text-gray-500 dark:text-gray-400 mt-4 animate-pulse">
               Scroll to load more...
             </p>
           )}

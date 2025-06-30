@@ -1,3 +1,4 @@
+
 import { useState, useRef, useEffect } from "react";
 import { FaComments, FaTimes } from "react-icons/fa";
 
@@ -37,7 +38,7 @@ export default function ChatBot() {
   return (
     <div className="fixed bottom-7 right-5 z-50">
       {open ? (
-        <div className="w-80 h-96 bg-white shadow-xl rounded-lg flex flex-col">
+        <div className="w-80 h-96 bg-white dark:bg-gray-800 shadow-xl rounded-lg flex flex-col">
           {/* Header */}
           <div className="bg-red-600 text-white px-4 py-2 flex justify-between items-center rounded-t-lg">
             <span>Chat with Pandit Assistant</span>
@@ -47,7 +48,7 @@ export default function ChatBot() {
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-3 space-y-2 bg-gray-100">
+          <div className="flex-1 overflow-y-auto p-3 space-y-2 bg-gray-100 dark:bg-gray-700">
             {messages.map((msg, i) => (
               <div
                 key={i}
@@ -59,7 +60,7 @@ export default function ChatBot() {
                   className={`px-3 py-2 rounded-lg text-sm ${
                     msg.from === "user"
                       ? "bg-red-500 text-white"
-                      : "bg-white border text-gray-700"
+                      : "bg-white dark:bg-gray-600 border text-gray-700 dark:text-white"
                   }`}
                 >
                   {msg.text}
@@ -70,12 +71,12 @@ export default function ChatBot() {
           </div>
 
           {/* Input */}
-          <div className="p-2 border-t flex gap-2">
+          <div className="p-2 border-t border-gray-200 dark:border-gray-600 flex gap-2">
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              className="flex-1 px-2 py-1 border rounded text-sm"
+              className="flex-1 px-2 py-1 border rounded text-sm dark:bg-gray-700 dark:text-white dark:border-gray-500"
               placeholder="Type your message..."
               onKeyDown={(e) => e.key === "Enter" && handleSend()}
             />

@@ -32,16 +32,13 @@ const Products = () => {
       });
   }, []);
 
-  // 🧠 Filter + Sort + Search Logic
   useEffect(() => {
     let temp = [...products];
 
-    // Category filter
     if (selectedCategory !== "All") {
       temp = temp.filter((p) => p.category === selectedCategory);
     }
 
-    // Search
     if (searchTerm) {
       const term = searchTerm.toLowerCase();
       temp = temp.filter(
@@ -51,7 +48,6 @@ const Products = () => {
       );
     }
 
-    // Sort
     if (sortBy === "priceLowHigh") {
       temp.sort((a, b) => a.price - b.price);
     } else if (sortBy === "priceHighLow") {
@@ -71,27 +67,24 @@ const Products = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-red-50 to-white py-10 px-4 md:px-10">
-      <h2 className="text-4xl font-bold text-center mb-6 text-red-700 drop-shadow-md">
-        🛍️ Our Divine <span className="text-yellow-600">Products</span>
+    <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-red-50 to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-10 px-4 md:px-10">
+      <h2 className="text-4xl font-bold text-center mb-6 text-red-700 dark:text-red-400 drop-shadow-md">
+        🛍️ Our Divine <span className="text-yellow-600 dark:text-yellow-300">Products</span>
       </h2>
 
-      {/* 🔍 Search + Filter + Sort */}
       <div className="max-w-6xl mx-auto mb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {/* Search */}
         <div className="relative">
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search divine products..."
-            className="w-full py-3 pl-12 pr-4 rounded-full shadow-md border border-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 bg-white"
+            className="w-full py-3 pl-12 pr-4 rounded-full shadow-md border border-yellow-300 dark:border-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-500 dark:bg-gray-800 dark:text-white"
           />
           <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-yellow-500 text-lg" />
 
-          {/* 🧠 Autosuggest Dropdown */}
           {searchTerm && (
-            <ul className="absolute bg-white border mt-2 w-full max-h-48 overflow-y-auto rounded-lg shadow-md z-10">
+            <ul className="absolute bg-white dark:bg-gray-700 border mt-2 w-full max-h-48 overflow-y-auto rounded-lg shadow-md z-10">
               {products
                 .filter((p) =>
                   p.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -101,7 +94,7 @@ const Products = () => {
                   <li
                     key={p._id}
                     onClick={() => setSearchTerm(p.name)}
-                    className="px-4 py-2 hover:bg-yellow-100 cursor-pointer text-sm"
+                    className="px-4 py-2 hover:bg-yellow-100 dark:hover:bg-yellow-900 cursor-pointer text-sm"
                   >
                     {p.name}
                   </li>
@@ -110,9 +103,8 @@ const Products = () => {
           )}
         </div>
 
-        {/* Category Filter */}
         <select
-          className="py-3 px-4 rounded-full border border-yellow-300 shadow-md bg-white text-sm"
+          className="py-3 px-4 rounded-full border border-yellow-300 dark:border-yellow-500 shadow-md bg-white dark:bg-gray-800 dark:text-white text-sm"
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
         >
@@ -123,9 +115,8 @@ const Products = () => {
           ))}
         </select>
 
-        {/* Sort */}
         <select
-          className="py-3 px-4 rounded-full border border-yellow-300 shadow-md bg-white text-sm"
+          className="py-3 px-4 rounded-full border border-yellow-300 dark:border-yellow-500 shadow-md bg-white dark:bg-gray-800 dark:text-white text-sm"
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value)}
         >
@@ -135,9 +126,8 @@ const Products = () => {
         </select>
       </div>
 
-      {/* Product Grid */}
       {filteredProducts.length === 0 ? (
-        <p className="text-center text-red-600 text-lg mt-6">
+        <p className="text-center text-red-600 dark:text-red-400 text-lg mt-6">
           No matching products found.
         </p>
       ) : (
@@ -145,33 +135,30 @@ const Products = () => {
           {filteredProducts.map((product) => (
             <div
               key={product._id}
-              className="bg-white border border-yellow-300 rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between overflow-hidden text-sm"
+              className="bg-white dark:bg-gray-800 border border-yellow-300 dark:border-yellow-500 rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between overflow-hidden text-sm"
             >
-              {/* Image */}
               <img
                 src={product.imageUrl || "/default-product.png"}
                 alt={product.name}
                 className="w-full h-36 object-cover"
               />
 
-              {/* Content */}
               <div className="flex flex-col justify-between p-3 flex-grow">
                 <div>
                   <Link to={`/products/${product._id}`}>
-                    <h3 className="text-base font-semibold text-red-800 mb-1 hover:underline line-clamp-1">
+                    <h3 className="text-base font-semibold text-red-800 dark:text-red-300 mb-1 hover:underline line-clamp-1">
                       {product.name}
                     </h3>
                   </Link>
-                  <p className="text-gray-700 text-xs mb-1 line-clamp-2">
+                  <p className="text-gray-700 dark:text-gray-300 text-xs mb-1 line-clamp-2">
                     {product.description}
                   </p>
-                  <p className="text-base font-bold text-yellow-700">
+                  <p className="text-base font-bold text-yellow-700 dark:text-yellow-400">
                     ₹{product.price}
                   </p>
                 </div>
               </div>
 
-              {/* Buttons */}
               <div className="px-3 pb-3 flex flex-col gap-2 mt-auto">
                 <button
                   onClick={() => handleAddToCart(product)}

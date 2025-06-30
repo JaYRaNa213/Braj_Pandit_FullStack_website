@@ -1,7 +1,5 @@
 // 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
-// If you theft this code, you will be punished or may face legal action by the owner.
 
-// src/pages/user/Cart.jsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../hooks/useCart";
@@ -17,22 +15,22 @@ const Cart = () => {
 
   const handleCheckout = () => {
     if (!cartItems.length) return;
-    navigate("/checkout"); // state not needed, Checkout handles cart
+    navigate("/checkout");
   };
 
   return (
-    <div className="max-w-4xl mx-auto py-10 px-4">
+    <div className="max-w-4xl mx-auto py-10 px-4 text-black dark:text-white">
       <h1 className="text-3xl font-bold mb-6">🛒 Your Cart</h1>
 
       {cartItems.length === 0 ? (
-        <p className="text-gray-600">Your cart is empty.</p>
+        <p className="text-gray-600 dark:text-gray-400">Your cart is empty.</p>
       ) : (
         <>
           <div className="space-y-6">
             {cartItems.map((item, idx) => (
               <div
                 key={idx}
-                className="flex items-center justify-between border-b py-4"
+                className="flex items-center justify-between border-b border-gray-300 dark:border-gray-700 py-4"
               >
                 <div className="flex items-center gap-4">
                   <img
@@ -42,7 +40,7 @@ const Cart = () => {
                   />
                   <div>
                     <h3 className="text-lg font-semibold">{item.name}</h3>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
                       ₹{item.price} × {item.quantity || 1}
                     </p>
                   </div>
@@ -57,7 +55,7 @@ const Cart = () => {
             ))}
           </div>
 
-          <div className="mt-8 border-t pt-6 flex justify-between items-center">
+          <div className="mt-8 border-t border-gray-300 dark:border-gray-700 pt-6 flex justify-between items-center">
             <h2 className="text-xl font-bold">Total: ₹{total}</h2>
             <button
               onClick={handleCheckout}

@@ -1,24 +1,97 @@
+/* Flip Container */
 .card-flip {
+  transition: transform 0.8s ease;
+  transform-style: preserve-3d;
   position: relative;
   width: 100%;
   height: 100%;
-  transform-style: preserve-3d;
-  transition: transform 0.8s;
+  perspective: 1000px;
 }
 
+/* Shared Face Styles */
 .card-face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  backface-visibility: hidden;
-  border-radius: 0.75rem;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: background 0.4s, color 0.4s;
 }
 
+/* Front Face */
 .card-front {
-  transform: rotateY(0deg);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: saturate(180%);
+  -webkit-backdrop-filter: saturate(180%);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  z-index: 2;
 }
 
+/* Back Face */
 .card-back {
   transform: rotateY(180deg);
+  background: rgba(255, 237, 213, 0.3); /* Light orange tint */
+  backdrop-filter: saturate(150%);
+  -webkit-backdrop-filter: saturate(150%);
+  box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 1;
+}
+
+/* Image Styling */
+.card-front img {
+  transition: transform 0.3s ease;
+  border-radius: 10px;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* Hover Zoom */
+.card-front:hover img {
+  transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card-face {
+    font-size: 0.875rem;
+    padding: 0.75rem;
+  }
+
+  .card-front img {
+    height: 130px;
+  }
+}
+
+@media (min-width: 769px) {
+  .card-face {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+
+  .card-front img {
+    height: 150px;
+  }
+}
+
+/* 🌙 Dark Mode Support */
+.dark .card-front {
+  background: rgba(33, 33, 33, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 16px rgba(255, 255, 255, 0.05);
+}
+
+.dark .card-back {
+  background: rgba(255, 183, 111, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #f5f5f5;
+  box-shadow: inset 0 4px 10px rgba(255, 255, 255, 0.05);
 }

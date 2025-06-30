@@ -7,7 +7,7 @@ import { FaFacebookF, FaInstagram, FaPinterestP, FaYoutube } from "react-icons/f
 
 export default function Footer() {
   return (
-    <footer className="bg-[#4A1C1C] text-white py-10 px-6 mt-16 shadow-inner">
+    <footer className="bg-[#4A1C1C] dark:bg-gray-900 text-white py-10 px-6 mt-16 shadow-inner">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
         {/* Contact Info */}
         <div>
@@ -20,13 +20,13 @@ export default function Footer() {
             Uttar Pradesh, India
           </address>
           <p className="mt-2">
-            Email:{" "}
+            Email: {" "}
             <a href="mailto:info@merovrindavan.in" className="text-blue-400 hover:underline">
               info@merovrindavan.in
             </a>
           </p>
           <p>
-            Phone:{" "}
+            Phone: {" "}
             <a href="tel:+918979923233" className="text-blue-400 hover:underline">
               +91 8979923233
             </a>

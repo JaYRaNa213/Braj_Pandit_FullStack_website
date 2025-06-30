@@ -20,6 +20,7 @@
 │   ├── assets
 │   │   └── react.svg
 │   ├── components
+│   │   ├── ChatBot.jsx
 │   │   ├── common
 │   │   │   ├── Footer.jsx
 │   │   │   ├── Loader.jsx
@@ -29,6 +30,7 @@
 │   │   ├── OrderStatusChart.jsx
 │   │   ├── shared
 │   │   │   └── Button.jsx
+│   │   ├── ThemeToggle.jsx
 │   │   └── user
 │   │       ├── Footer.jsx
 │   │       ├── Layout.jsx
@@ -43,7 +45,9 @@
 │   │   └── CartContext.jsx
 │   ├── data
 │   │   ├── bhajan.js
-│   │   └── famousPlaces.json
+│   │   ├── famousPlaces.json
+│   │   ├── pujaServices.js
+│   │   └── pujaServices.json
 │   ├── hooks
 │   │   ├── useAuth.js
 │   │   └── useCart.js

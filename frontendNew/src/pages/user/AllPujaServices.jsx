@@ -4,6 +4,15 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import pujaServicesData from "../../data/pujaServices.json";
 
+// ⭐ Dynamically render star ratings
+const renderStars = (rating = 4) => {
+  return [...Array(5)].map((_, i) => (
+    <span key={i} className={i < rating ? "text-yellow-500" : "text-gray-300"}>
+      ★
+    </span>
+  ));
+};
+
 const AllPujaServices = () => {
   const navigate = useNavigate();
   const [groupedServices, setGroupedServices] = useState({});
@@ -23,36 +32,43 @@ const AllPujaServices = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
-      <h1 className="text-4xl font-bold text-center text-[#4A1C1C] mb-10">
+      <h1 className="text-4xl font-bold text-center text-[#4A1C1C] dark:text-yellow-400 mb-10">
         🕊️ All Puja Services
       </h1>
 
       {Object.entries(groupedServices).map(([category, services]) => (
         <div key={category} className="mb-12">
-          <h2 className="text-2xl font-semibold text-red-700 mb-4">{category}</h2>
+          <h2 className="text-2xl font-semibold text-red-700 dark:text-yellow-300 mb-4">
+            {category}
+          </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {services.map((service, idx) => (
               <div
                 key={idx}
-                className="bg-white border rounded-xl p-4 shadow hover:shadow-lg transition duration-300"
+                className="bg-white dark:bg-[#1e1e1e] border border-gray-200 dark:border-gray-700 rounded-xl p-4 shadow hover:shadow-lg transition duration-300 flex flex-col"
               >
                 <img
-                  src={service.img}
+                  src={service.img || "/default-puja.jpg"}
                   alt={service.title}
-                  className="w-full h-36 object-cover rounded"
+                  className="w-full h-36 object-cover rounded-md"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "/default-puja.jpg";
+                  }}
                 />
-                <h3 className="mt-3 font-bold text-lg text-[#4A1C1C]">
+
+                <h3 className="mt-3 font-bold text-lg text-[#4A1C1C] dark:text-white">
                   {service.title}
                 </h3>
-                <p className="text-sm text-gray-600 mt-1 line-clamp-3">
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 line-clamp-3">
                   {service.description}
                 </p>
-                <div className="mt-2 text-yellow-500 text-sm">
-                  {"⭐️".repeat(service.rating)}
-                </div>
+
+                <div className="mt-2 text-sm">{renderStars(service.rating)}</div>
+
                 <button
                   onClick={() => handleBooking(service.title)}
-                  className="mt-3 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"
+                  className="mt-auto bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition w-full font-semibold text-sm"
                 >
                   Book Puja
                 </button>

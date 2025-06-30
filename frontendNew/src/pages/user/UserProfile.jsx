@@ -1,7 +1,5 @@
 // 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
-// If you theft this code, you will be punished or may face legal action by the owner.
 
-// src/pages/user/UserProfile.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import {
@@ -15,11 +13,11 @@ import { BACKEND_URL } from "../../utils/config";
 
 const ActivityCard = ({ icon, label, count, link }) => (
   <Link to={link}>
-    <div className="bg-white shadow-md p-4 rounded-xl border-l-4 border-[#C0402B] flex items-center space-x-4 hover:shadow-lg transition-all">
+    <div className="bg-white dark:bg-zinc-800 shadow-md p-5 rounded-xl border-l-4 border-[#C0402B] flex items-center space-x-4 hover:shadow-lg transition-all hover:scale-[1.02] duration-200">
       <div className="bg-[#C0402B] text-white p-3 rounded-full">{icon}</div>
       <div>
-        <h3 className="text-lg font-semibold text-gray-800">{label}</h3>
-        <p className="text-sm text-gray-500">{count} items</p>
+        <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">{label}</h3>
+        <p className="text-sm text-gray-600 dark:text-gray-400">{count} items</p>
       </div>
     </div>
   </Link>
@@ -32,11 +30,7 @@ const UserProfile = () => {
   const [uploadedUrl, setUploadedUrl] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [activity, setActivity] = useState({
-    bookings: 0,
-    orders: 0,
-    cart: 0,
-  });
+  const [activity, setActivity] = useState({ bookings: 0, orders: 0, cart: 0 });
 
   const navigate = useNavigate();
 
@@ -73,11 +67,7 @@ const UserProfile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const userProfileData = {
-      name,
-      email,
-      profileImage: uploadedUrl,
-    };
+    const userProfileData = { name, email, profileImage: uploadedUrl };
 
     try {
       const response = await fetch(`${BACKEND_URL}/user/profile`, {
@@ -104,7 +94,6 @@ const UserProfile = () => {
   const fetchProfile = async () => {
     try {
       const res = await fetch(`${BACKEND_URL}/user/profile`, {
-        method: "GET",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -134,18 +123,15 @@ const UserProfile = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/login");
-    } else {
-      fetchProfile();
-    }
+    if (!token) navigate("/login");
+    else fetchProfile();
     // eslint-disable-next-line
   }, []);
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
-        <p className="text-lg font-semibold text-[#C0402B]">Loading profile...</p>
+      <div className="min-h-screen flex items-center justify-center bg-white dark:bg-black">
+        <p className="text-lg font-semibold text-[#C0402B] dark:text-red-400">Loading profile...</p>
       </div>
     );
   }
@@ -159,9 +145,11 @@ const UserProfile = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-50 to-red-50 p-6">
-      <div className="max-w-6xl mx-auto bg-white shadow-2xl rounded-xl p-8">
-        <h1 className="text-4xl font-bold text-[#C0402B] mb-6">My Profile</h1>
+    <div className="min-h-screen bg-gradient-to-br from-yellow-50 to-red-50 dark:from-zinc-900 dark:to-zinc-800 p-6">
+      <div className="max-w-6xl mx-auto bg-white dark:bg-zinc-900 shadow-2xl rounded-xl p-8">
+        <h1 className="text-4xl font-bold text-[#C0402B] dark:text-red-400 mb-6 text-center sm:text-left">
+          👤 My Profile
+        </h1>
 
         {/* Profile Info */}
         <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-10">
@@ -169,9 +157,9 @@ const UserProfile = () => {
             <img
               src={uploadedUrl || "/default-avatar.png"}
               alt="Profile"
-              className="w-full h-full rounded-full object-cover border-4 border-[#C0402B]"
+              className="w-full h-full rounded-full object-cover border-4 border-[#C0402B] shadow-lg"
             />
-            <label className="absolute bottom-2 right-2 bg-white p-2 rounded-full shadow cursor-pointer">
+            <label className="absolute bottom-2 right-2 bg-white dark:bg-zinc-700 p-2 rounded-full shadow cursor-pointer">
               <Camera className="w-5 h-5 text-[#C0402B]" />
               <input type="file" onChange={handleImageChange} hidden />
             </label>
@@ -179,21 +167,21 @@ const UserProfile = () => {
 
           <form onSubmit={handleSubmit} className="flex-1 space-y-4 w-full">
             <div>
-              <label className="block text-sm font-medium text-gray-700">Full Name</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Full Name</label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 shadow-sm focus:ring-red-500 focus:border-red-500"
+                className="mt-1 w-full border border-gray-300 dark:border-zinc-600 rounded-md px-3 py-2 bg-white dark:bg-zinc-800 text-gray-900 dark:text-white shadow-sm"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Email Address</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Email Address</label>
               <input
                 type="email"
                 value={email}
                 readOnly
-                className="mt-1 w-full bg-gray-100 border border-gray-300 rounded-md px-3 py-2 shadow-sm"
+                className="mt-1 w-full bg-gray-100 dark:bg-zinc-700 text-gray-800 dark:text-gray-300 border border-gray-300 dark:border-zinc-600 rounded-md px-3 py-2 shadow-sm"
               />
             </div>
             <div className="flex gap-4 mt-3">

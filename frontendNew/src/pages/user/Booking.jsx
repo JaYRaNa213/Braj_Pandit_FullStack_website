@@ -1,17 +1,18 @@
 // 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import axiosInstance from "../../services/axios";
-import { bookPuja } from "../../services/api";
 import { motion } from "framer-motion";
-import Loader from "../../components/common/Loader";
-const pujaImg = "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917528/default-puja_fallback.jpg";
-
+import { bookPuja } from "../../services/api";
+import axiosInstance from "../../services/axios";
 import pujaServicesData from "../../data/pujaServices.json";
+import Loader from "../../components/common/Loader";
+
+const defaultImg = "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917528/default-puja_fallback.jpg";
 
 export default function Booking() {
   const location = useLocation();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -22,7 +23,7 @@ export default function Booking() {
     address: "",
   });
 
-  const [pujaImage, setPujaImage] = useState(pujaImg);
+  const [pujaImage, setPujaImage] = useState(defaultImg);
   const [pujaDescription, setPujaDescription] = useState("");
   const [loading, setLoading] = useState(false);
   const [pandits, setPandits] = useState([]);
@@ -33,75 +34,58 @@ export default function Booking() {
   useEffect(() => {
     window.scrollTo(0, 0);
     const params = new URLSearchParams(location.search);
-    const serviceFromQuery = decodeURIComponent(params.get("service") || "");
-    const panditFromQuery = decodeURIComponent(params.get("pandit") || "");
+    const service = decodeURIComponent(params.get("service") || "");
+    const pandit = decodeURIComponent(params.get("pandit") || "");
 
-    setFormData((prev) => ({
-      ...prev,
-      service: serviceFromQuery,
-      pandit: panditFromQuery,
-    }));
+    setFormData((prev) => ({ ...prev, service, pandit }));
 
-    if (serviceFromQuery && !commonPujas.includes(serviceFromQuery)) {
+    if (service && !commonPujas.includes(service)) {
       setShowCustomService(true);
     }
 
-    const cleanedService = serviceFromQuery.toLowerCase().trim();
-    let matched = pujaServicesData.find(
-      (puja) => puja.title.toLowerCase().trim() === cleanedService
+    const matched = pujaServicesData.find((p) =>
+      p.title.toLowerCase().trim() === service.toLowerCase().trim()
     );
 
-    if (!matched) {
-      matched = pujaServicesData.find(
-        (puja) =>
-          cleanedService.includes(puja.title.toLowerCase().trim()) ||
-          puja.title.toLowerCase().includes(cleanedService)
-      );
-    }
-
-    if (matched) {
-      setPujaImage(matched.img);
-      setPujaDescription(matched.description);
-    } else {
-      setPujaImage(pujaImg);
-      setPujaDescription("A sacred ceremony to invoke divine blessings and remove obstacles.");
-    }
+    setPujaImage(matched?.img || defaultImg);
+    setPujaDescription(
+      matched?.description || "A sacred ceremony to invoke divine blessings and remove obstacles."
+    );
 
     const fetchPandits = async () => {
       try {
         const res = await axiosInstance.get("/user/pandits");
-        const approvedPandits =
-          res.data?.data?.filter((p) => p.status?.toLowerCase() === "approved") || [];
-        setPandits(approvedPandits);
+        const approved = res.data?.data?.filter((p) => p.status?.toLowerCase() === "approved") || [];
+        setPandits(approved);
       } catch (err) {
-        console.error("Error fetching pandits:", err);
+        console.error("Failed to fetch pandits", err);
       }
     };
 
     fetchPandits();
   }, [location]);
 
-  const handleChange = (e) =>
+  const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleServiceSelect = (e) => {
     const selected = e.target.value;
 
     if (selected === "Other") {
       setShowCustomService(true);
-      setFormData({ ...formData, service: "" });
-      setPujaDescription("Please specify your custom puja or ceremony.");
-      setPujaImage(pujaImg);
+      setFormData((prev) => ({ ...prev, service: "" }));
+      setPujaImage(defaultImg);
+      setPujaDescription("Please describe your custom puja or requirement.");
     } else {
       setShowCustomService(false);
-      setFormData({ ...formData, service: selected });
+      setFormData((prev) => ({ ...prev, service: selected }));
 
-      const matched = pujaServicesData.find(
-        (puja) => puja.title === selected
+      const match = pujaServicesData.find((p) => p.title === selected);
+      setPujaImage(match?.img || defaultImg);
+      setPujaDescription(
+        match?.description || "A sacred ceremony to invoke divine blessings and remove obstacles."
       );
-
-      setPujaDescription(matched?.description || "A sacred ceremony to invoke divine blessings.");
-      setPujaImage(matched?.img || pujaImg);
     }
   };
 
@@ -110,7 +94,7 @@ export default function Booking() {
     setLoading(true);
     try {
       const res = await bookPuja(formData);
-      alert("Booking successful: " + res.data.message);
+      alert("🎉 Booking Confirmed: " + res.data.message);
       setFormData({
         name: "",
         email: "",
@@ -121,8 +105,8 @@ export default function Booking() {
         address: "",
       });
     } catch (err) {
-      alert("Booking failed. Please try again.");
       console.error(err);
+      alert("❌ Booking failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -130,31 +114,31 @@ export default function Booking() {
 
   return (
     <motion.div
-      className="min-h-screen bg-gradient-to-br from-red-50 via-white to-purple-50 flex items-center justify-center px-4 py-10"
+      className="min-h-screen bg-gradient-to-br from-red-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-black px-4 py-10 flex justify-center items-center"
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
     >
-      <div className="w-full max-w-7xl bg-white shadow-2xl rounded-2xl grid grid-cols-1 md:grid-cols-2 overflow-hidden">
-        {/* Left Side - Puja Details */}
-        <div className="p-6 md:p-10 bg-purple-100 border-r border-purple-300 flex flex-col justify-center">
+      <div className="w-full max-w-7xl bg-white dark:bg-gray-900 text-black dark:text-white shadow-2xl rounded-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
+        {/* Left - Puja Image & Info */}
+        <div className="p-6 md:p-10 bg-purple-100 dark:bg-purple-900 border-r border-purple-300 dark:border-purple-700 flex flex-col justify-center">
           <img
             src={pujaImage}
-            alt="Puja"
-            onError={(e) => (e.target.src = pujaImg)}
+            alt={formData.service}
+            onError={(e) => (e.target.src = defaultImg)}
             className="rounded-xl mb-6 shadow-lg w-full h-64 object-cover"
           />
-          <h2 className="text-3xl font-bold text-purple-800 mb-4">
+          <h2 className="text-3xl font-bold text-purple-800 dark:text-yellow-300 mb-4">
             {formData.service || "Your Puja"}
           </h2>
-          <p className="text-gray-700 text-lg leading-relaxed">
+          <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
             {pujaDescription}
           </p>
         </div>
 
-        {/* Right Side - Booking Form */}
+        {/* Right - Booking Form */}
         <div className="p-6 md:p-10">
-          <h2 className="text-3xl font-bold text-center text-red-700 mb-6">
+          <h2 className="text-3xl font-bold text-center text-red-700 dark:text-yellow-400 mb-6">
             📿 Book a Puja
           </h2>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -164,7 +148,7 @@ export default function Booking() {
               value={formData.name}
               onChange={handleChange}
               placeholder="Your Full Name"
-              className="w-full p-3 border border-gray-300 rounded"
+              className="w-full p-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 rounded"
               required
             />
 
@@ -174,7 +158,7 @@ export default function Booking() {
               value={formData.email}
               onChange={handleChange}
               placeholder="Your Email"
-              className="w-full p-3 border border-gray-300 rounded"
+              className="w-full p-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 rounded"
               required
             />
 
@@ -182,7 +166,7 @@ export default function Booking() {
               name="service"
               value={commonPujas.includes(formData.service) ? formData.service : "Other"}
               onChange={handleServiceSelect}
-              className="w-full p-3 border border-gray-300 rounded"
+              className="w-full p-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 rounded"
               required
             >
               <option value="">-- Select a Puja Service --</option>
@@ -199,7 +183,7 @@ export default function Booking() {
                 value={formData.service}
                 onChange={handleChange}
                 placeholder="Enter custom puja/service"
-                className="w-full p-3 border border-gray-300 rounded"
+                className="w-full p-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 rounded"
                 required
               />
             )}
@@ -208,15 +192,19 @@ export default function Booking() {
               name="pandit"
               value={formData.pandit}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded"
+              className="w-full p-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 rounded"
               required
             >
               <option value="">-- Select Pandit --</option>
-              {pandits.map((p) => (
-                <option key={p._id} value={p.name}>
-                  {p.name} ({p.expertise}) - {p.location}
-                </option>
-              ))}
+              {pandits.length > 0 ? (
+                pandits.map((p) => (
+                  <option key={p._id} value={p.name}>
+                    {p.name} ({p.expertise}) - {p.location}
+                  </option>
+                ))
+              ) : (
+                <option disabled>No approved pandits available</option>
+              )}
             </select>
 
             <div className="flex gap-4">
@@ -225,7 +213,7 @@ export default function Booking() {
                 name="date"
                 value={formData.date}
                 onChange={handleChange}
-                className="w-1/2 p-3 border border-gray-300 rounded"
+                className="w-1/2 p-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 rounded"
                 required
               />
               <input
@@ -233,7 +221,7 @@ export default function Booking() {
                 name="time"
                 value={formData.time}
                 onChange={handleChange}
-                className="w-1/2 p-3 border border-gray-300 rounded"
+                className="w-1/2 p-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 rounded"
                 required
               />
             </div>
@@ -244,7 +232,7 @@ export default function Booking() {
               onChange={handleChange}
               rows={3}
               placeholder="Full Address for the Puja"
-              className="w-full p-3 border border-gray-300 rounded"
+              className="w-full p-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 rounded"
               required
             ></textarea>
 
