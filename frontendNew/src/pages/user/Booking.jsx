@@ -163,6 +163,7 @@ export default function Booking() {
         <input
           type="date"
           name="date"
+          placeholder="Date of Puja"
           required
           className="w-full p-2 border rounded"
           onChange={handleChange}
@@ -171,6 +172,7 @@ export default function Booking() {
         <input
           type="time"
           name="time"
+          placeholder="Time of Puja"
           required
           className="w-full p-2 border rounded"
           onChange={handleChange}
