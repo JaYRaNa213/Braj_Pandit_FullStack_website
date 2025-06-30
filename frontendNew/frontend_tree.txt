@@ -62,6 +62,7 @@
 │   │   │   ├── AdminDashboard.jsx
 │   │   │   ├── EditBlogPost.jsx
 │   │   │   ├── ManageBlogs.jsx
+│   │   │   ├── ManageLiveBhajans.jsx
 │   │   │   ├── ManageOrders.jsx
 │   │   │   ├── ManagePandits.jsx
 │   │   │   ├── ManageProducts.jsx
@@ -119,11 +120,11 @@
 │   │   ├── admin
 │   │   │   ├── adminService.js
 │   │   │   ├── blogService.js
+│   │   │   ├── liveBhajanService.js
 │   │   │   └── panditService.js
 │   │   ├── api.js
 │   │   ├── axios.js
 │   │   ├── cartService.js
-│   │   ├── liveBhajanService.js
 │   │   ├── orderService.js
 │   │   └── user
 │   │       ├── blogService.js
@@ -135,8 +136,7 @@
 │   └── utils
 │       ├── cloudinaryUpload.js
 │       ├── config.js
-│       ├── helpers.js
-│       └── youtubeHelper.js
+│       └── helpers.js
 ├── tailwind.config.js
 ├── tree.js
 ├── uploads
