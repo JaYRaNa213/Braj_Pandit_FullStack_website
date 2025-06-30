@@ -1,23 +1,10 @@
-// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
-// If you theft this code, you will be punished or may face legal action by the owner.
-
-// //src/routes/user/live.routes.js
-
-// import express from "express";
-// import { getLiveVideos } from "../../controllers/live.controller.js";
-// const router = express.Router();
-
-// router.get("/", getLiveVideos);
-
-// export default router;
-
-
-
+// =====================================
+// 3. routes/user/live.routes.js
+// =====================================
 import express from "express";
-import { getLiveVideos } from "../../controllers/live.controller.js";
+import { getLiveHome, getLiveAll } from "../../controllers/live.Controller.js";
 
 const router = express.Router();
-
-router.get("/", getLiveVideos);
-
+router.get("/home", getLiveHome);   // /api/live/home
+router.get("/all", getLiveAll);     // /api/live/all
 export default router;

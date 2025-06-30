@@ -57,6 +57,7 @@ import userRoutes from './routes/user/user.routes.js';
 import callBookingRoutes from "./routes/user/callBooking.routes.js";
 
 import liveRoutes from "./routes/user/live.routes.js";
+import adminLiveRoutes from "./routes/admin/live.routes.js";
 
 
 
@@ -147,11 +148,17 @@ app.use("/api/user/callBookings", callBookingRoutes);
 
 
 
-app.use("/api/user/live-bhajans", liveRoutes);
+// app.use("/api/user/live-bhajans", liveRoutes);
+
+app.use("/api/live", liveRoutes);
+app.use("/api/admin/live", adminLiveRoutes);
 
 
 
 app.use('/uploads', express.static(path.join(process.cwd(), 'src/public/images/uploads')));
+
+
+
 
 // ✅ Health Route
 app.get('/', (req, res) => {
