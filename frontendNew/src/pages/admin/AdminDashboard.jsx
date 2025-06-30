@@ -1,5 +1,4 @@
 // 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
-// If you theft this code, you will be punished or may face legal action by the owner.
 
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
@@ -19,6 +18,7 @@ import {
   ClipboardList,
   BookOpenCheck,
   LogOut,
+  Video,
 } from "lucide-react";
 
 import {
@@ -159,8 +159,8 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        {/* Action Links */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {/* Admin Quick Action Links */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-10">
           {adminLinks.map((link) => (
             <Link
               to={link.path}
@@ -173,6 +173,28 @@ const AdminDashboard = () => {
               </span>
             </Link>
           ))}
+
+          {/* Add Live Channel */}
+          <Link
+            to="/admin/add-live-bhajan"
+            className="flex items-center gap-4 bg-white p-5 rounded-xl shadow-lg hover:shadow-xl hover:bg-[#f7f2ec] border-l-4 border-[#4A1C1C] transition duration-300"
+          >
+            <Plus className="w-5 h-5 text-[#4A1C1C]" />
+            <span className="text-lg font-semibold text-[#4A1C1C]">
+              Add Live Channel
+            </span>
+          </Link>
+
+          {/* Manage Live Bhajans */}
+          <Link
+            to="/admin/manage-live-bhajans"
+            className="flex items-center gap-4 bg-white p-5 rounded-xl shadow-lg hover:shadow-xl hover:bg-[#f7f2ec] border-l-4 border-[#4A1C1C] transition duration-300"
+          >
+            <Video className="w-5 h-5 text-[#4A1C1C]" />
+            <span className="text-lg font-semibold text-[#4A1C1C]">
+              Manage Live Bhajans
+            </span>
+          </Link>
         </div>
 
         {/* Logout */}

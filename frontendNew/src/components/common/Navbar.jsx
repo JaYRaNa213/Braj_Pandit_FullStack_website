@@ -10,6 +10,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useCart } from "../../hooks/useCart";
 import { FaShoppingCart, FaBars, FaTimes } from "react-icons/fa";
 import { useState } from "react";
+import { pujaServices } from "../../pages/user/AllPujaServices";
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -20,6 +21,7 @@ export default function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const isHome = location.pathname === "/";
+  const hideCartIcon = ["/login", "/register"].includes(location.pathname);
 
   const handleNavClick = (sectionId, route) => {
     if (isHome) {
@@ -52,31 +54,22 @@ export default function Navbar() {
   return (
     <>
       <nav className="sticky top-0 z-50 bg-[#4A1C1C] text-white shadow-md backdrop-blur bg-opacity-95">
-        <div className="flex items-center justify-between px-4 py-3 md:px-8">
+        <div className="flex items-center justify-between px-4 py-2 md:px-6">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center gap-4">
             <img
               src="/images/premMandir.jpg"
               alt="Logo"
-              className="h-12 w-9 object-contain"
+              className="h-10 w-8 object-contain"
             />
-            <RouterLink to="/" className="text-xl font-bold">
+            <RouterLink to="/" className="text-lg font-bold">
               Braj Pandit
             </RouterLink>
           </div>
 
-          {/* Hamburger Icon */}
-          <div className="md:hidden">
-            <button onClick={() => setMenuOpen(!menuOpen)}>
-              {menuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
-            </button>
-          </div>
-
-          {/* Desktop Menu */}
-          <div className="hidden md:flex space-x-6 items-center relative">
-            <RouterLink to="/" className="hover:underline">
-              Home
-            </RouterLink>
+          {/* Desktop Nav Links */}
+          <div className="hidden md:flex items-center gap-8 text-sm">
+            <RouterLink to="/" className="hover:underline">Home</RouterLink>
 
             {/* Services Dropdown */}
             <div
@@ -86,30 +79,24 @@ export default function Navbar() {
             >
               <span className="cursor-pointer hover:underline">Services ▾</span>
               {dropdownOpen && (
-                <div className="absolute bg-white text-[#4A1C1C] rounded shadow-lg top-full left-0 mt-2 w-48 z-50">
+                <div className="absolute bg-white text-[#4A1C1C] rounded shadow top-full left-0 mt-2 p-2 z-50 
+                  max-h-64 overflow-y-auto 
+                  grid grid-rows-7 auto-cols-max grid-flow-col gap-2 text-sm whitespace-nowrap"
+                >
+                  {pujaServices.map((service, i) => (
+                    <RouterLink
+                      key={i}
+                      to={`/puja-details?service=${encodeURIComponent(service.title)}`}
+                      className="hover:underline px-2 py-1"
+                    >
+                      {service.title}
+                    </RouterLink>
+                  ))}
                   <RouterLink
-                    to="/services/katha"
-                    className="block px-4 py-2 hover:bg-orange-100"
+                    to="/services"
+                    className="font-semibold text-sm hover:underline mt-2 col-span-full"
                   >
-                    📜 Katha
-                  </RouterLink>
-                  <RouterLink
-                    to="/services/puja"
-                    className="block px-4 py-2 hover:bg-orange-100"
-                  >
-                    🕉️ Puja
-                  </RouterLink>
-                  <RouterLink
-                    to="/services/bhajan"
-                    className="block px-4 py-2 hover:bg-orange-100"
-                  >
-                    🎵 Bhajan/Kirtan
-                  </RouterLink>
-                  <RouterLink
-                    to="/services/tour"
-                    className="block px-4 py-2 hover:bg-orange-100"
-                  >
-                    🚌 Tour & Darshan
+                    🔍 See All Services
                   </RouterLink>
                 </div>
               )}
@@ -119,10 +106,7 @@ export default function Navbar() {
               Blogs
             </span>
 
-            <span
-              className="cursor-pointer hover:underline"
-              onClick={() => handleNavClick("products", "products")}
-            >
+            <span className="cursor-pointer hover:underline" onClick={() => handleNavClick("products", "products")}>
               Products
             </span>
 
@@ -142,6 +126,13 @@ export default function Navbar() {
               </RouterLink>
             )}
 
+            <RouterLink to="/about" className="hover:underline">
+              About Us
+            </RouterLink>
+          </div>
+
+          {/* Right Auth Section */}
+          <div className="hidden md:flex gap-6 items-center text-sm">
             {user ? (
               <>
                 {user.role === "admin" ? (
@@ -155,69 +146,51 @@ export default function Navbar() {
                 )}
                 <button
                   onClick={logout}
-                  className="bg-red-500 px-3 py-1 rounded hover:bg-red-600"
+                  className="bg-red-500 px-3 py-1 rounded hover:bg-red-600 text-white text-sm"
                 >
                   Logout
                 </button>
               </>
             ) : (
               <>
-                <RouterLink to="/login" className="hover:underline">
-                  Login
-                </RouterLink>
-                <RouterLink to="/register" className="hover:underline">
-                  Register
-                </RouterLink>
+                <RouterLink to="/login" className="hover:underline">Login</RouterLink>
+                <RouterLink to="/register" className="hover:underline">Register</RouterLink>
               </>
             )}
+          </div>
+
+          {/* Hamburger Icon */}
+          <div className="md:hidden">
+            <button onClick={() => setMenuOpen(!menuOpen)}>
+              {menuOpen ? <FaTimes size={22} /> : <FaBars size={22} />}
+            </button>
           </div>
         </div>
 
         {/* Mobile Menu */}
         {menuOpen && (
-          <div className="flex flex-col items-start px-6 pb-4 md:hidden space-y-3 bg-[#4A1C1C] text-white">
-            <RouterLink to="/" onClick={() => setMenuOpen(false)}>
-              Home
-            </RouterLink>
+          <div className="flex flex-col items-start px-6 pb-4 md:hidden space-y-3 bg-[#4A1C1C] text-white text-sm">
+            <RouterLink to="/" onClick={() => setMenuOpen(false)}>Home</RouterLink>
 
             <details className="w-full">
               <summary className="cursor-pointer">Services</summary>
-              <div className="ml-4 mt-2 space-y-1">
-                <RouterLink to="/services/katha" onClick={() => setMenuOpen(false)}>
-                  📜 Katha
-                </RouterLink>
-                <RouterLink to="/services/puja" onClick={() => setMenuOpen(false)}>
-                  🕉️ Puja
-                </RouterLink>
-                <RouterLink to="/services/bhajan" onClick={() => setMenuOpen(false)}>
-                  🎵 Bhajan/Kirtan
-                </RouterLink>
-                <RouterLink to="/services/tour" onClick={() => setMenuOpen(false)}>
-                  🚌 Tour & Darshan
-                </RouterLink>
-                <RouterLink to="/services/tour" onClick={() => setMenuOpen(false)}>
-                  🚌 Tour & Darshan
-                </RouterLink>
-                <RouterLink to="/services/tour" onClick={() => setMenuOpen(false)}>
-                  🚌 Tour & Darshan
-                </RouterLink>
-                <RouterLink to="/services/tour" onClick={() => setMenuOpen(false)}>
-                  🚌 Tour & Darshan
-                </RouterLink>
-                <RouterLink to="/services/tour" onClick={() => setMenuOpen(false)}>
-                  🚌 Tour & Darshan
-                </RouterLink>
-                <RouterLink to="/services/tour" onClick={() => setMenuOpen(false)}>
-                  🚌 Tour & Darshan
-                </RouterLink>
-                <RouterLink to="/services/tour" onClick={() => setMenuOpen(false)}>
-                  🚌 Tour & Darshan
-                </RouterLink>
-                <RouterLink to="/services/tour" onClick={() => setMenuOpen(false)}>
-                  🚌 Tour & Darshan
-                </RouterLink>
-                <RouterLink to="/services/tour" onClick={() => setMenuOpen(false)}>
-                  🚌 Tour & Darshan
+              <div className="ml-6 mt-2 space-y-1 max-h-72 overflow-y-auto">
+                {pujaServices.map((service, i) => (
+                  <RouterLink
+                    key={i}
+                    to={`/puja-details?service=${encodeURIComponent(service.title)}`}
+                    onClick={() => setMenuOpen(false)}
+                    className="hover:underline block"
+                  >
+                    {service.title}
+                  </RouterLink>
+                ))}
+                <RouterLink
+                  to="/services"
+                  onClick={() => setMenuOpen(false)}
+                  className="mt-2 font-semibold hover:underline block"
+                >
+                  🔍 See All Services
                 </RouterLink>
               </div>
             </details>
@@ -236,9 +209,14 @@ export default function Navbar() {
                 Book Pandit
               </ScrollLink>
             ) : (
-              <RouterLink to="/booking" onClick={() => setMenuOpen(false)}>
-                Book Pandit
-              </RouterLink>
+              <>
+                <RouterLink to="/booking" onClick={() => setMenuOpen(false)}>
+                  Book Pandit
+                </RouterLink>
+                <RouterLink to="/about" onClick={() => setMenuOpen(false)}>
+                  About Us
+                </RouterLink>
+              </>
             )}
 
             {user ? (
@@ -264,12 +242,8 @@ export default function Navbar() {
               </>
             ) : (
               <>
-                <RouterLink to="/login" onClick={() => setMenuOpen(false)}>
-                  Login
-                </RouterLink>
-                <RouterLink to="/register" onClick={() => setMenuOpen(false)}>
-                  Register
-                </RouterLink>
+                <RouterLink to="/login" onClick={() => setMenuOpen(false)}>Login</RouterLink>
+                <RouterLink to="/register" onClick={() => setMenuOpen(false)}>Register</RouterLink>
               </>
             )}
           </div>
@@ -277,18 +251,20 @@ export default function Navbar() {
       </nav>
 
       {/* Floating Cart Icon */}
-      <div className="fixed bottom-5 right-5 z-50">
-        <RouterLink to="/cart" className="relative group">
-          <div className="bg-yellow-500 hover:bg-yellow-600 text-white p-4 rounded-full shadow-lg transition-transform duration-300 transform group-hover:scale-110">
-            <FaShoppingCart size={24} />
-          </div>
-          {cartItems.length > 0 && (
-            <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-full shadow">
-              {cartItems.length}
-            </span>
-          )}
-        </RouterLink>
-      </div>
+      {!hideCartIcon && (
+        <div className="fixed bottom-5 right-5 z-50">
+          <RouterLink to="/cart" className="relative group">
+            <div className="bg-yellow-500 hover:bg-yellow-600 text-white p-4 rounded-full shadow-lg transition-transform duration-300 transform group-hover:scale-110">
+              <FaShoppingCart size={22} />
+            </div>
+            {cartItems.length > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-full shadow">
+                {cartItems.length}
+              </span>
+            )}
+          </RouterLink>
+        </div>
+      )}
     </>
   );
 }

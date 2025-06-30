@@ -24,6 +24,9 @@ import OrderDetailsAdmin from '../pages/admin/OrderDetailsAdmin';
 import AdminAddPandit from "../pages/admin/AdminAddPandit";
 import ManagePandits from "../pages/admin/ManagePandits";
 
+import ManageLiveBhajans from "../pages/admin/ManageLiveBhajans";
+
+
 
 
 // import PujaBookings from "../pages/user/PujaBookings";
@@ -57,6 +60,12 @@ const AdminRoutes = () => {
 
         <Route path="add-pandit" element={<AdminAddPandit />} />
 <Route path="manage-pandits" element={<ManagePandits />} />
+
+<Route path="manage-live-bhajans" element={<ManageLiveBhajans />} />
+
+
+
+
 
 
 

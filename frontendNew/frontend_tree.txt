@@ -11,58 +11,8 @@
 ├── postcss.config.js
 ├── public
 │   └── images
-│       ├── 61jhlrAeBgL._UF350,350_QL80_.jpg
-│       ├── articals
-│       │   ├── 1.jpg
-│       │   ├── 2.jpg
-│       │   └── 3.jpg
-│       ├── bg-bhajan.jpg
-│       ├── bhagwat.jpg
-│       ├── bihariG.jpg
-│       ├── bussiness.jpg
-│       ├── chaitra-navratri.jpg
-│       ├── default-product.png
-│       ├── diwali.jpg
-│       ├── diya.jpg
-│       ├── griha.jpg
-│       ├── images.jpg
-│       ├── live
-│       │   ├── anirudh.jpg
-│       │   ├── Premanand-Ji-Maharaj.jpg
-│       │   └── radha-raman-ji-murthi.jpeg
-│       ├── mahashivaratri.jpg
-│       ├── marriage.jpg
-│       ├── money.jpg
-│       ├── office.jpg
-│       ├── pandits
-│       │   ├── pandit1.jpg
-│       │   ├── pandit2.jpg
-│       │   ├── pandit3.jpg
-│       │   └── pandit4.jpg
-│       ├── pank.jpg
-│       ├── Premanand-Ji-Maharaj.jpg
-│       ├── premMandir.jpg
-│       ├── products
-│       │   ├── diwaliPujan.jpg
-│       │   ├── gita.jpg
-│       │   ├── jhula.jpg
-│       │   ├── k2.jpg
-│       │   ├── laddu.jpg
-│       │   ├── premImage.jpg
-│       │   ├── rK.jpg
-│       │   ├── tulashi.jpg
-│       │   └── vstra.jpg
-│       ├── rudraksha.jpg
-│       ├── Santan-Prapti-Puja-Shri-Banke-Bihari-Ji-Temple-Vrindavan.jpg
-│       ├── shiv.jpg
-│       ├── shiv1.jpg
-│       ├── shiv2.jpg
-│       ├── study.jpg
-│       ├── tantra.png
-│       ├── vite.svg
-│       ├── wealth.png
-│       ├── yamuna.jpg
-│       └── zodiac.png
+│       ├── barsana-temple.jpg
+│       └── premMandir.jpg
 ├── README.md
 ├── src
 │   ├── App.css
@@ -92,6 +42,7 @@
 │   │   ├── AuthContext.jsx
 │   │   └── CartContext.jsx
 │   ├── data
+│   │   ├── bhajan.js
 │   │   └── famousPlaces.json
 │   ├── hooks
 │   │   ├── useAuth.js
@@ -110,11 +61,11 @@
 │   │   │   ├── AdminAddPandit.jsx
 │   │   │   ├── AdminDashboard.jsx
 │   │   │   ├── EditBlogPost.jsx
+│   │   │   ├── ManageBlogs.jsx
 │   │   │   ├── ManageOrders.jsx
 │   │   │   ├── ManagePandits.jsx
 │   │   │   ├── ManageProducts.jsx
 │   │   │   ├── ManagePujaBookings.jsx
-│   │   │   ├── ManagesBlogs.jsx
 │   │   │   ├── OrderDetailsAdmin.jsx
 │   │   │   └── UserList.jsx
 │   │   ├── auth
@@ -123,7 +74,9 @@
 │   │   ├── Contact.jsx
 │   │   ├── NotFound.jsx
 │   │   └── user
+│   │       ├── About.jsx
 │   │       ├── AllFamousPlaces.jsx
+│   │       ├── AllLiveBhajans.jsx
 │   │       ├── AllPandits.jsx
 │   │       ├── AllPujaServices.jsx
 │   │       ├── Blog.jsx
@@ -138,6 +91,7 @@
 │   │       ├── home
 │   │       │   ├── BlogSection.jsx
 │   │       │   ├── BookingForm.jsx
+│   │       │   ├── carousel.css
 │   │       │   ├── FamousPlacesSection.jsx
 │   │       │   ├── HeroSection.jsx
 │   │       │   ├── Home.jsx
@@ -173,6 +127,7 @@
 │   │   ├── orderService.js
 │   │   └── user
 │   │       ├── blogService.js
+│   │       ├── live.Services.js
 │   │       ├── panditService.js
 │   │       └── userService.js
 │   ├── types
@@ -180,7 +135,8 @@
 │   └── utils
 │       ├── cloudinaryUpload.js
 │       ├── config.js
-│       └── helpers.js
+│       ├── helpers.js
+│       └── youtubeHelper.js
 ├── tailwind.config.js
 ├── tree.js
 ├── uploads
@@ -190,4 +146,5 @@
 │   ├── diwali.jpg
 │   ├── images.jpg
 │   └── mahashivaratri.jpg
+├── vercel.json
 └── vite.config.js

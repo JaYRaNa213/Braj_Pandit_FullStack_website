@@ -115,6 +115,9 @@ import LivePlayer from "../pages/user/LivePlayer";
 import PujaDetails from "../pages/user/PujaDetails";
 
 import AllFamousPlaces from "../pages/user/AllFamousPlaces";
+import About from "../pages/user/About";
+
+import AllLiveBhajans from "../pages/user/AllLiveBhajans";
 
 
 const UserRoutes = () => {
@@ -122,6 +125,7 @@ const UserRoutes = () => {
     <Routes>
       <Route element={<UserLayout />}>
         {/* ✅ Public Pages (relative paths) */}
+        <Route path="/about" element={<About />} />
         <Route path="" element={<Home />} />
         <Route path="products" element={<Products />} />
         <Route path="products/:id" element={<ProductDetails />} />
@@ -130,6 +134,7 @@ const UserRoutes = () => {
         <Route path="/live/:id" element={<LivePlayer />} />
         
         <Route path="/famous-places" element={<AllFamousPlaces />} />
+        <Route path="/live-bhajans" element={<AllLiveBhajans />} />
 
         {/* ✅ Protected Pages */}
         <Route element={<ProtectedRoute roles={["user", "admin"]} />}>
@@ -148,10 +153,15 @@ const UserRoutes = () => {
           <Route path="pandits/:id" element={<PanditDetails />} />
           <Route path="pandits" element={<AllPandits />} />
           <Route path="/puja-details" element={<PujaDetails />} />
+          <Route path="/live-bhajans" element={<AllLiveBhajans />} />
+
 
 
 
           <Route path="/all-puja-services" element={<AllPujaServices />} />
+
+          <Route path="/live/:id" element={<LivePlayer />} />
+
 
           
 

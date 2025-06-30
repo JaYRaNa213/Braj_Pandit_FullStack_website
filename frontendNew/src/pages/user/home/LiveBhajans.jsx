@@ -1,126 +1,51 @@
 // 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
-// If you theft this code, you will be punished or may face legal action by the owner.
-
-
-  // "AIzaSyCRmqbUt3mjCJuGvGXvfCoz789qNpMEa0Q",
-  // "AIzaSyCjU0wbYl_UnHl4EoF7izLW3IDgQrflREE",
-  // "AIzaSyBVKDBwODBMjdAu-UV0cHPuOJuXrfoFKYs",
-
 
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
-
-const apiKeys = [
-  "AIzaSyCRmqbUt3mjCJuGvGXvfCoz789qNpMEa0Q",
-  "AIzaSyCjU0wbYl_UnHl4EoF7izLW3IDgQrflREE",
-  "AIzaSyBVKDBwODBMjdAu-UV0cHPuOJuXrfoFKYs",
-];
-
-const fixedBhajans = [
-  {
-    id: "UC4R8DWoMoI7CAwX8_LjQHig",
-    title: "Radha Raman Ji Live Bhajan",
-    description: "A calming bhajan invoking the divine name of Lord Ram.",
-    image: "https://res.cloudinary.com/djtq2eywl/image/upload/v1750851970/radha-raman-ji-murthi_gzfglc.jpg",
-    defaultVideo: "sq-1yTTP5xM",
-  },
-  {
-    id: "UChWrtLawgh2gkx5b5xqk6Jg",
-    title: "Premanand Ji Maharaj Live Bhajan",
-    description: "Powerful Shiva chanting with rudra abhishek.",
-    image: "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852044/Premanand-Ji-Maharaj_yb93dt.jpg",
-    defaultVideo: "4y1LZQsyuSQ",
-  },
-  {
-    id: "UCME1pkoBbdph5FbvJH8YZ2w",
-    title: "Shree Anirudh Ji Maharaj Live Kirtan",
-    description: "Live kirtan from ISKCON temple chanting the maha-mantra.",
-    image: "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852055/anirudh_rxh0fi.jpg",
-    defaultVideo: "8IhzG0_4zMw",
-  },
-];
-
-const fetchWithKeyRotation = async (channelId) => {
-  for (let key of apiKeys) {
-    try {
-      const res = await axios.get("https://www.googleapis.com/youtube/v3/search", {
-        params: {
-          part: "snippet",
-          channelId,
-          eventType: "live",
-          type: "video",
-          key,
-        },
-      });
-      if (res.data.items.length > 0) {
-        return {
-          success: true,
-          videoId: res.data.items[0].id.videoId,
-        };
-      }
-    } catch (err) {
-      if (err.response?.status === 403) {
-        console.warn("⚠️ API quota exceeded for key:", key);
-        continue;
-      }
-    }
-  }
-  return { success: false, error: "All keys exhausted or invalid" };
-};
+import { Link, useNavigate } from "react-router-dom";
+import { getLiveHome } from "../../../services/user/live.Services";
 
 const LiveBhajan = () => {
   const [bhajans, setBhajans] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [quotaExceeded, setQuotaExceeded] = useState(false);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  const fetchTopBhajans = async () => {
+    try {
+      setLoading(true);
+      const res = await getLiveHome();
+      setBhajans(res.data);
+      setError(null);
+    } catch (err) {
+      setError("Failed to load bhajans. Showing fallback content.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchAll = async () => {
-      setLoading(true);
-      const results = [];
-
-      for (const bhajan of fixedBhajans) {
-        const res = await fetchWithKeyRotation(bhajan.id);
-        if (res.success) {
-          results.push({
-            ...bhajan,
-            isLive: true,
-            videoId: res.videoId,
-          });
-        } else {
-          results.push({
-            ...bhajan,
-            isLive: false,
-            videoId: bhajan.defaultVideo,
-          });
-        }
-
-        if (res.error) setQuotaExceeded(true);
-      }
-
-      setBhajans(results);
-      setLoading(false);
-    };
-
-    fetchAll();
-    const interval = setInterval(fetchAll, 5 * 60 * 1000);
+    fetchTopBhajans();
+    const interval = setInterval(fetchTopBhajans, 5 * 60 * 1000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <section className="py-16 bg-gradient-to-b from-white via-red-50 to-white">
+    <section className="py-16 bg-gradient-to-b from-white via-yellow-50 to-white">
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-4xl font-bold text-red-600 mb-12">
-          Live Bhajan & Kirtan
+          Live Darshan & Kirtan
         </h2>
 
-        {loading ? (
-          <p className="text-lg text-gray-600">Loading bhajans...</p>
-        ) : quotaExceeded ? (
-          <p className="text-yellow-600 mb-4 font-medium">
-            
-          </p>
-        ) : null}
+        {loading && (
+          <p className="text-lg text-gray-600 animate-pulse">Loading bhajans...</p>
+        )}
+        {error && (
+          <p className="text-yellow-600 font-medium mb-4">⚠️ {error}</p>
+        )}
+
+        {!loading && bhajans.length === 0 && !error && (
+          <p className="text-gray-500">No bhajans available at the moment.</p>
+        )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {bhajans.map((item, i) => (
@@ -167,6 +92,15 @@ const LiveBhajan = () => {
               </div>
             </Link>
           ))}
+        </div>
+
+        <div className="mt-10">
+          <button
+            onClick={() => navigate("/live-bhajans")}
+            className="bg-red-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-red-700 transition"
+          >
+            View More Bhajans
+          </button>
         </div>
       </div>
     </section>

@@ -1,10 +1,11 @@
-// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
-// If you theft this code, you will be punished or may face legal action by the owner.
+// 🔐 Developed by Jay Rana © 2025
+import axios from "axios";
 
-import axios from 'axios';
+const backendURL =
+  import.meta.env.VITE_BACKEND_URL || "http://localhost:7000/api";
 
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_URL,
+  baseURL: backendURL,
   withCredentials: true,
 });
 

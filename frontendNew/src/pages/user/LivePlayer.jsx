@@ -1,16 +1,22 @@
 // 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
-// If you theft this code, you will be punished or may face legal action by the owner.
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 const LivePlayer = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [title, setTitle] = useState("Live Bhajan Stream");
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+    if (id && id !== "recorded") {
+      fetch(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${id}&format=json`)
+        .then((res) => res.json())
+        .then((data) => setTitle(data.title))
+        .catch(() => setTitle("Live Bhajan Stream"));
+    }
+  }, [id]);
 
   const isValidId = id !== "recorded";
 
@@ -23,7 +29,7 @@ const LivePlayer = () => {
             className="w-full h-full rounded-lg shadow-2xl"
             allow="autoplay; encrypted-media"
             allowFullScreen
-            title="Live Bhajan Stream"
+            title={title}
           />
         ) : (
           <div className="bg-white p-8 rounded-xl text-center shadow-xl w-full h-full flex flex-col items-center justify-center">
@@ -34,10 +40,10 @@ const LivePlayer = () => {
               The selected bhajan is not currently streaming live. Please try again later or explore other live bhajans.
             </p>
             <button
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/live-bhajans")}
               className="px-6 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition"
             >
-              🔙 Back to Home
+              🔙 Back to Bhajans
             </button>
           </div>
         )}
