@@ -11,7 +11,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useCart } from "../../hooks/useCart";
 import { FaShoppingCart, FaBars, FaTimes } from "react-icons/fa";
 import { useState } from "react";
-import { pujaServices } from "../../data/pujaServices";
+import pujaServices from "../../data/pujaServices.json";
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -52,13 +52,12 @@ export default function Navbar() {
     setMenuOpen(false);
   };
 
-  // Group services into chunks of 8
-  const chunkedServices = pujaServices.reduce((acc, curr, i) => {
-    const chunkIndex = Math.floor(i / 8);
-    if (!acc[chunkIndex]) acc[chunkIndex] = [];
-    acc[chunkIndex].push(curr);
+  const groupedServices = pujaServices.reduce((acc, service) => {
+    const category = service.category || "General";
+    if (!acc[category]) acc[category] = [];
+    acc[category].push(service);
     return acc;
-  }, []);
+  }, {});
 
   return (
     <nav className="sticky top-0 z-50 bg-[#4A1C1C] text-white shadow-md backdrop-blur bg-opacity-95 dark:bg-[#1F1B1B] dark:text-white">
@@ -74,7 +73,7 @@ export default function Navbar() {
         </RouterLink>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8 text-sm ml-10">
+        <div className="hidden md:flex items-center gap-6 text-sm ml-10">
           <RouterLink to="/" className="hover:underline">Home</RouterLink>
 
           {/* Services Dropdown */}
@@ -86,37 +85,38 @@ export default function Navbar() {
             <span className="cursor-pointer hover:underline">Services ▾</span>
             {dropdownOpen && (
               <div
-                className="absolute top-full left-0 mt-2 bg-white text-[#4A1C1C] dark:bg-gray-800 dark:text-white rounded shadow-lg z-50 p-3 max-w-5xl"
+                className="absolute top-full left-0 mt-2 bg-white text-[#4A1C1C] dark:bg-gray-800 dark:text-white rounded shadow-lg z-50 p-3 max-w-6xl"
+                style={{ maxHeight: "500px", overflowY: "auto" }}
               >
-                <div
-                  className={`grid gap-4`}
-                  style={{
-                    gridTemplateColumns: `repeat(${chunkedServices.length}, minmax(150px, 1fr))`,
-                    maxHeight: "400px",
-                    overflowY: "auto",
-                  }}
-                >
-                  {chunkedServices.map((group, colIdx) => (
-                    <div key={colIdx} className="flex flex-col space-y-1 text-sm">
-                      {group.map((service, i) => (
-                        <RouterLink
-                          key={i}
-                          to={`/puja-details?service=${encodeURIComponent(service.title)}`}
-                          className="hover:underline px-1 py-0.5 truncate"
-                        >
-                          {service.title}
-                        </RouterLink>
-                      ))}
+                <div className="grid grid-flow-col auto-cols-max gap-0 text-sm text-nowrap">
+                  {Object.entries(groupedServices).map(([category, items], idx) => (
+                    <div key={idx} className="min-w-[160px]">
+                      <h4 className="font-semibold mb-2 text-[13px] text-orange-800 dark:text-yellow-300 uppercase">
+                        {category}
+                      </h4>
+                      <ul className="space-y-1">
+                        {items.slice(0, 8).map((service, i) => (
+                          <li key={i}>
+                            <RouterLink
+                              to={`/puja-details?service=${encodeURIComponent(service.title)}`}
+                              className="block hover:underline text-[13px] truncate"
+                            >
+                              {service.title}
+                            </RouterLink>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   ))}
-                </div>
-                <div className="pt-3 text-center">
-                  <RouterLink
-                    to="/services"
-                    className="text-sm font-semibold hover:underline text-orange-700 dark:text-orange-300"
-                  >
-                    🔍 See All Services
-                  </RouterLink>
+
+                  <div className="min-w-[160px] mt-6">
+                    <RouterLink
+                      to="/all-puja-services"
+                      className="block text-[13px] font-semibold hover:underline text-blue-600 dark:text-orange-300"
+                    >
+                      🔍 See All Services
+                    </RouterLink>
+                  </div>
                 </div>
               </div>
             )}
@@ -147,7 +147,7 @@ export default function Navbar() {
           <RouterLink to="/about" className="hover:underline">About Us</RouterLink>
         </div>
 
-        {/* Right: Cart + Auth */}
+        {/* Right Side */}
         <div className="hidden md:flex gap-6 items-center text-sm ml-auto">
           {!hideCartIcon && (
             <RouterLink to="/cart" className="relative group" aria-label="Shopping Cart">
@@ -212,7 +212,7 @@ export default function Navbar() {
                 </RouterLink>
               ))}
               <RouterLink
-                to="/services"
+                to="/all-puja-services"
                 onClick={() => setMenuOpen(false)}
                 className="mt-2 font-semibold hover:underline block"
               >
