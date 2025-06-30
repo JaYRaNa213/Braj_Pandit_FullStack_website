@@ -174,16 +174,7 @@ const AdminDashboard = () => {
             </Link>
           ))}
 
-          {/* Add Live Channel */}
-          <Link
-            to="/admin/add-live-bhajan"
-            className="flex items-center gap-4 bg-white p-5 rounded-xl shadow-lg hover:shadow-xl hover:bg-[#f7f2ec] border-l-4 border-[#4A1C1C] transition duration-300"
-          >
-            <Plus className="w-5 h-5 text-[#4A1C1C]" />
-            <span className="text-lg font-semibold text-[#4A1C1C]">
-              Add Live Channel
-            </span>
-          </Link>
+          
 
           {/* Manage Live Bhajans */}
           <Link
@@ -192,7 +183,7 @@ const AdminDashboard = () => {
           >
             <Video className="w-5 h-5 text-[#4A1C1C]" />
             <span className="text-lg font-semibold text-[#4A1C1C]">
-              Manage Live Bhajans
+              Add & Manage Live Darshan's
             </span>
           </Link>
         </div>

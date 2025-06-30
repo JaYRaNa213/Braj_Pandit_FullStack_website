@@ -1,36 +1,20 @@
 // 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 // If you theft this code, you will be punished or may face legal action by the owner.
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Element } from "react-scroll";
 import { motion } from "framer-motion";
-
-const pujaServices = [
-  {
-    img: "https://res.cloudinary.com/djtq2eywl/image/upload/v1751097307/bhagwat_hds0gh.jpg",
-    title: "BHAGWAT KATHA",
-    desc: "Shrimad Bhagwat is the image of the God and that is why it is worshiped in reverence. By its recitation and...",
-  },
-  {
-    img: "https://res.cloudinary.com/djtq2eywl/image/upload/v1751097306/diya_aaymug.webp",
-    title: "DIWALI POOJA",
-    desc: "Diwali is the festival of Laxmi, the Goddess of prosperity and wealth. It is believed that Goddess Laxmi visits everyone during Diwali and...",
-  },
-  {
-    img: "https://res.cloudinary.com/djtq2eywl/image/upload/v1751097306/marriage_mr0p6b.jpg",
-    title: "MARRIAGE CEREMONY",
-    desc: "Marriages, according to Hindu beliefs are made in heaven, and once you are married, the bond is supposed to last for seven lifetimes....",
-  },
-  {
-    img: "https://res.cloudinary.com/djtq2eywl/image/upload/v1751097306/office_kmeelt.webp",
-    title: "OFFICE POOJA",
-    desc: "Office Opening Pooja is required before entering into a new office or working place to have a positive and fresh start to get...",
-  },
-];
+import pujaData from "../../../data/pujaServices.json"; // ✅ import JSON data
 
 const PujaServices = () => {
   const navigate = useNavigate();
+  const [services, setServices] = useState([]);
+
+  useEffect(() => {
+    // Load only the first 4 services
+    setServices(pujaData.slice(0, 4));
+  }, []);
 
   const handleBooking = (serviceTitle) => {
     const encodedService = encodeURIComponent(serviceTitle);
@@ -51,7 +35,6 @@ const PujaServices = () => {
             "url('https://res.cloudinary.com/djtq2eywl/image/upload/v1750869706/bgImage_v2ebyx.jpg')",
         }}
       >
-        {/* Gradient + Blur Overlay */}
         <div
           className="absolute inset-0 z-10 backdrop-blur-sm"
           style={{
@@ -59,15 +42,13 @@ const PujaServices = () => {
               "linear-gradient(to bottom right, rgba(255,255,255,0.85), rgba(255,255,255,0.65))",
           }}
         />
-
-        {/* Content */}
         <div className="relative z-20 max-w-7xl mx-auto px-4 py-16">
           <h2 className="text-4xl font-bold text-center text-red-700 mb-10">
             Pooja Services
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {pujaServices.map((service, idx) => (
+            {services.map((service, idx) => (
               <motion.div
                 key={idx}
                 initial={{ opacity: 0, y: 50 }}
@@ -78,8 +59,8 @@ const PujaServices = () => {
               >
                 <img
                   src={service.img}
-  alt={service.title}
-  className="w-full md:w-1/2 h-64 object-cover"
+                  alt={service.title}
+                  className="w-full md:w-1/2 h-64 object-cover"
                 />
                 <div className="p-6 flex flex-col justify-between md:w-1/2">
                   <div>
@@ -103,7 +84,6 @@ const PujaServices = () => {
             ))}
           </div>
 
-          {/* View More Button */}
           <div className="text-center mt-10">
             <button
               onClick={handleViewMore}

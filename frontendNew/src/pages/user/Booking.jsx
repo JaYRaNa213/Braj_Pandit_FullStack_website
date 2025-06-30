@@ -1,5 +1,4 @@
 // 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
-// If you theft this code, you will be punished or may face legal action by the owner.
 
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
@@ -7,9 +6,12 @@ import axiosInstance from "../../services/axios";
 import { bookPuja } from "../../services/api";
 import { motion } from "framer-motion";
 import Loader from "../../components/common/Loader";
-import pujaImg from "../../assets/puja-generic.jpg"; // 🔄 Optional image for puja banner
+const pujaImg = "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917528/default-puja_fallback.jpg";
+
+import pujaServicesData from "../../data/pujaServices.json";
 
 export default function Booking() {
+  const location = useLocation();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -19,76 +21,64 @@ export default function Booking() {
     pandit: "",
     address: "",
   });
+
+  const [pujaImage, setPujaImage] = useState(pujaImg);
+  const [pujaDescription, setPujaDescription] = useState("");
+  const [loading, setLoading] = useState(false);
   const [pandits, setPandits] = useState([]);
   const [showCustomService, setShowCustomService] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const location = useLocation();
 
-  const [pujaDescription, setPujaDescription] = useState("");
-
-  const commonPujas = [
-    "Diwali Pooja",
-    "Griha Pravesh",
-    "Marriage Ceremony",
-    "Bhagwat Katha",
-    "Satyanarayan Pooja",
-    "Office Pooja",
-    "Mundan Sanskar",
-    "Navgraha Shanti",
-    "Shraddha Karma",
-    "Rudrabhishek",
-    "Annaprashan",
-  ];
-
-  const pujaInfo = {
-    "Diwali Pooja": "Performed to invite prosperity and blessings from Goddess Lakshmi and Lord Ganesha during the festival of lights.",
-    "Griha Pravesh": "Conducted before entering a new home to bring positive energy and remove negative influences.",
-    "Marriage Ceremony": "Traditional Hindu wedding rituals invoking blessings for a harmonious married life.",
-    "Bhagwat Katha": "Spiritual discourse of Lord Krishna’s divine pastimes for peace and devotion.",
-    "Satyanarayan Pooja": "A sacred ritual to seek blessings from Lord Vishnu for success and prosperity.",
-    "Office Pooja": "Puja for inaugurating a new office or workspace to invoke success and positive energy.",
-    "Mundan Sanskar": "Ceremony of a child's first haircut for purification and good health.",
-    "Navgraha Shanti": "Done to nullify the negative effects of the nine planets.",
-    "Shraddha Karma": "Rituals performed to honor and provide peace to departed ancestors.",
-    "Rudrabhishek": "Powerful pooja dedicated to Lord Shiva, offering peace and removal of obstacles.",
-    "Annaprashan": "First solid feeding ceremony of a baby with prayers for health and nourishment.",
-  };
+  const commonPujas = pujaServicesData.map((puja) => puja.title);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-
-    const fetchPandits = async () => {
-      try {
-        const res = await axiosInstance.get("/user/pandits");
-        const approved = res.data?.data?.filter(
-          (p) => p.status?.toLowerCase() === "approved"
-        ) || [];
-        setPandits(approved);
-      } catch (err) {
-        console.error("Failed to fetch pandits:", err);
-      }
-    };
-
-    fetchPandits();
-
     const params = new URLSearchParams(location.search);
-    const serviceFromQuery = params.get("service");
-    const panditFromQuery = params.get("pandit");
+    const serviceFromQuery = decodeURIComponent(params.get("service") || "");
+    const panditFromQuery = decodeURIComponent(params.get("pandit") || "");
 
     setFormData((prev) => ({
       ...prev,
-      service: serviceFromQuery || "",
-      pandit: panditFromQuery || "",
+      service: serviceFromQuery,
+      pandit: panditFromQuery,
     }));
 
     if (serviceFromQuery && !commonPujas.includes(serviceFromQuery)) {
       setShowCustomService(true);
     }
 
-    if (serviceFromQuery) {
-      setPujaDescription(pujaInfo[serviceFromQuery] || "A sacred ceremony to invoke divine blessings and remove obstacles.");
+    const cleanedService = serviceFromQuery.toLowerCase().trim();
+    let matched = pujaServicesData.find(
+      (puja) => puja.title.toLowerCase().trim() === cleanedService
+    );
+
+    if (!matched) {
+      matched = pujaServicesData.find(
+        (puja) =>
+          cleanedService.includes(puja.title.toLowerCase().trim()) ||
+          puja.title.toLowerCase().includes(cleanedService)
+      );
     }
 
+    if (matched) {
+      setPujaImage(matched.img);
+      setPujaDescription(matched.description);
+    } else {
+      setPujaImage(pujaImg);
+      setPujaDescription("A sacred ceremony to invoke divine blessings and remove obstacles.");
+    }
+
+    const fetchPandits = async () => {
+      try {
+        const res = await axiosInstance.get("/user/pandits");
+        const approvedPandits =
+          res.data?.data?.filter((p) => p.status?.toLowerCase() === "approved") || [];
+        setPandits(approvedPandits);
+      } catch (err) {
+        console.error("Error fetching pandits:", err);
+      }
+    };
+
+    fetchPandits();
   }, [location]);
 
   const handleChange = (e) =>
@@ -96,14 +86,22 @@ export default function Booking() {
 
   const handleServiceSelect = (e) => {
     const selected = e.target.value;
+
     if (selected === "Other") {
       setShowCustomService(true);
       setFormData({ ...formData, service: "" });
       setPujaDescription("Please specify your custom puja or ceremony.");
+      setPujaImage(pujaImg);
     } else {
       setShowCustomService(false);
       setFormData({ ...formData, service: selected });
-      setPujaDescription(pujaInfo[selected]);
+
+      const matched = pujaServicesData.find(
+        (puja) => puja.title === selected
+      );
+
+      setPujaDescription(matched?.description || "A sacred ceremony to invoke divine blessings.");
+      setPujaImage(matched?.img || pujaImg);
     }
   };
 
@@ -123,7 +121,7 @@ export default function Booking() {
         address: "",
       });
     } catch (err) {
-      alert("Failed to book. Please try again.");
+      alert("Booking failed. Please try again.");
       console.error(err);
     } finally {
       setLoading(false);
@@ -138,10 +136,14 @@ export default function Booking() {
       transition={{ duration: 0.6 }}
     >
       <div className="w-full max-w-7xl bg-white shadow-2xl rounded-2xl grid grid-cols-1 md:grid-cols-2 overflow-hidden">
-        
-        {/* Left Side - Puja Description */}
+        {/* Left Side - Puja Details */}
         <div className="p-6 md:p-10 bg-purple-100 border-r border-purple-300 flex flex-col justify-center">
-          <img src={pujaImg} alt="Puja Banner" className="rounded-xl mb-6 shadow-lg" />
+          <img
+            src={pujaImage}
+            alt="Puja"
+            onError={(e) => (e.target.src = pujaImg)}
+            className="rounded-xl mb-6 shadow-lg w-full h-64 object-cover"
+          />
           <h2 className="text-3xl font-bold text-purple-800 mb-4">
             {formData.service || "Your Puja"}
           </h2>
@@ -162,7 +164,7 @@ export default function Booking() {
               value={formData.name}
               onChange={handleChange}
               placeholder="Your Full Name"
-              className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-600"
+              className="w-full p-3 border border-gray-300 rounded"
               required
             />
 
@@ -172,7 +174,7 @@ export default function Booking() {
               value={formData.email}
               onChange={handleChange}
               placeholder="Your Email"
-              className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-600"
+              className="w-full p-3 border border-gray-300 rounded"
               required
             />
 
@@ -180,7 +182,7 @@ export default function Booking() {
               name="service"
               value={commonPujas.includes(formData.service) ? formData.service : "Other"}
               onChange={handleServiceSelect}
-              className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-600"
+              className="w-full p-3 border border-gray-300 rounded"
               required
             >
               <option value="">-- Select a Puja Service --</option>
@@ -197,7 +199,7 @@ export default function Booking() {
                 value={formData.service}
                 onChange={handleChange}
                 placeholder="Enter custom puja/service"
-                className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-600"
+                className="w-full p-3 border border-gray-300 rounded"
                 required
               />
             )}
@@ -206,7 +208,7 @@ export default function Booking() {
               name="pandit"
               value={formData.pandit}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-600"
+              className="w-full p-3 border border-gray-300 rounded"
               required
             >
               <option value="">-- Select Pandit --</option>
@@ -223,7 +225,7 @@ export default function Booking() {
                 name="date"
                 value={formData.date}
                 onChange={handleChange}
-                className="w-1/2 p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-600"
+                className="w-1/2 p-3 border border-gray-300 rounded"
                 required
               />
               <input
@@ -231,7 +233,7 @@ export default function Booking() {
                 name="time"
                 value={formData.time}
                 onChange={handleChange}
-                className="w-1/2 p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-600"
+                className="w-1/2 p-3 border border-gray-300 rounded"
                 required
               />
             </div>
@@ -242,14 +244,14 @@ export default function Booking() {
               onChange={handleChange}
               rows={3}
               placeholder="Full Address for the Puja"
-              className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-600"
+              className="w-full p-3 border border-gray-300 rounded"
               required
             ></textarea>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-purple-700 hover:bg-purple-800 text-white py-3 rounded transition font-semibold tracking-wide"
+              className="w-full bg-purple-700 hover:bg-purple-800 text-white py-3 rounded font-semibold tracking-wide"
             >
               {loading ? <Loader small /> : "📿 Confirm Puja Booking"}
             </button>

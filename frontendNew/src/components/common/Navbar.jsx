@@ -10,7 +10,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useCart } from "../../hooks/useCart";
 import { FaShoppingCart, FaBars, FaTimes } from "react-icons/fa";
 import { useState } from "react";
-import { pujaServices } from "../../pages/user/AllPujaServices";
+import { pujaServices } from "../../data/pujaServices"; // ✅ Updated import
 
 export default function Navbar() {
   const { user, logout } = useAuth();
