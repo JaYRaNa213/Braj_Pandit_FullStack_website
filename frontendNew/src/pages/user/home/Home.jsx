@@ -15,6 +15,7 @@ import BookingForm from "./BookingForm";
 import FamousPlaces from "./FamousPlacesSection";
 import BlogSection from "./BlogSection";
 import VerifiedPanditJis from "./VerifiedPanditJis";
+import ChatBot from "../../../components/ChatBot";
 import Footer from "../../../components/common/Footer";
 
 const Home = () => {
@@ -47,6 +48,7 @@ const Home = () => {
       </div>
 
       <FamousPlaces />
+      <ChatBot />
 
       {/* ✅ This makes react-scroll work */}
       <Element name="blogSection">

@@ -54,7 +54,7 @@ export default function Navbar() {
   return (
     <>
       <nav className="sticky top-0 z-50 bg-[#4A1C1C] text-white shadow-md backdrop-blur bg-opacity-95">
-        <div className="flex items-center justify-between px-4 py-2 md:px-6">
+        <div className="flex items-center px-4 py-2 md:px-6">
           {/* Logo */}
           <div className="flex items-center gap-4">
             <img
@@ -68,10 +68,9 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Nav Links */}
-          <div className="hidden md:flex items-center gap-8 text-sm">
+          <div className="hidden md:flex items-center gap-10 text-sm ml-10">
             <RouterLink to="/" className="hover:underline">Home</RouterLink>
 
-            {/* Services Dropdown */}
             <div
               className="relative group"
               onMouseEnter={() => setDropdownOpen(true)}
@@ -131,8 +130,21 @@ export default function Navbar() {
             </RouterLink>
           </div>
 
-          {/* Right Auth Section */}
-          <div className="hidden md:flex gap-6 items-center text-sm">
+          {/* Right Auth + Cart Section */}
+          <div className="hidden md:flex gap-6 items-center text-sm ml-auto">
+            {!hideCartIcon && (
+              <RouterLink to="/cart" className="relative group">
+                <div className="bg-yellow-500 hover:bg-yellow-600 text-white p-2 rounded-full shadow transition-transform transform group-hover:scale-110">
+                  <FaShoppingCart size={20} />
+                </div>
+                {cartItems.length > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold px-1.5 py-0.5 rounded-full shadow">
+                    {cartItems.length}
+                  </span>
+                )}
+              </RouterLink>
+            )}
+
             {user ? (
               <>
                 {user.role === "admin" ? (
@@ -146,7 +158,7 @@ export default function Navbar() {
                 )}
                 <button
                   onClick={logout}
-                  className="bg-red-500 px-3 py-1 rounded hover:bg-red-600 text-white text-sm"
+                  className="bg-red-500 px-3 py-1 rounded hover:bg-red-600 text-white"
                 >
                   Logout
                 </button>
@@ -159,8 +171,8 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Hamburger Icon */}
-          <div className="md:hidden">
+          {/* Hamburger Icon (Mobile Only) */}
+          <div className="md:hidden ml-auto">
             <button onClick={() => setMenuOpen(!menuOpen)}>
               {menuOpen ? <FaTimes size={22} /> : <FaBars size={22} />}
             </button>
@@ -249,22 +261,6 @@ export default function Navbar() {
           </div>
         )}
       </nav>
-
-      {/* Floating Cart Icon */}
-      {!hideCartIcon && (
-        <div className="fixed bottom-5 right-5 z-50">
-          <RouterLink to="/cart" className="relative group">
-            <div className="bg-yellow-500 hover:bg-yellow-600 text-white p-4 rounded-full shadow-lg transition-transform duration-300 transform group-hover:scale-110">
-              <FaShoppingCart size={22} />
-            </div>
-            {cartItems.length > 0 && (
-              <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-full shadow">
-                {cartItems.length}
-              </span>
-            )}
-          </RouterLink>
-        </div>
-      )}
     </>
   );
 }
