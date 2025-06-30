@@ -8,11 +8,7 @@ import Channel from "../models/Channel.js";
 const CACHE_DIR = path.resolve("cache");
 const CACHE_FILE = path.join(CACHE_DIR, "liveBhajans.json");
 
-const apiKeys = [
-  process.env.YT_KEY1,
-  process.env.YT_KEY2,
-  process.env.YT_KEY3,
-];
+const apiKeys = process.env.YOUTUBE_API_KEY.split(",");
 
 // ✅ Read from cache if available and valid
 const getCache = () => {

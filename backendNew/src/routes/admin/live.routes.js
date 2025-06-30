@@ -5,7 +5,7 @@ import {
   addChannels,
   getChannels,
   deleteChannel
-} from "../../controllers/live.Controller.js";
+} from "../../controllers/live.controller.js";
 
 import { verifyToken, isAdmin } from "../../middleware/auth.middleware.js";
 

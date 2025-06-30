@@ -2,7 +2,7 @@
 // 3. routes/user/live.routes.js
 // =====================================
 import express from "express";
-import { getLiveHome, getLiveAll } from "../../controllers/live.Controller.js";
+import { getLiveHome, getLiveAll } from "../../controllers/live.controller.js";
 
 const router = express.Router();
 router.get("/home", getLiveHome);   // /api/live/home
