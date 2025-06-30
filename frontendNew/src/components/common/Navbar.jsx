@@ -67,7 +67,7 @@ export default function Navbar() {
           <img
             src="/images/premMandir.jpg"
             alt="Prem Mandir Logo"
-            className="h-10 w-8 object-contain rounded-md"
+            className="h-18 w-8 object-contain rounded-full shadow-md dark:shadow-gray-900"
           />
           <span className="text-lg font-bold">Braj Pandit</span>
         </RouterLink>
