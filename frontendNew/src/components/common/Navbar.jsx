@@ -52,24 +52,26 @@ export default function Navbar() {
     setMenuOpen(false);
   };
 
+  // Group services into chunks of 8
+  const chunkedServices = pujaServices.reduce((acc, curr, i) => {
+    const chunkIndex = Math.floor(i / 8);
+    if (!acc[chunkIndex]) acc[chunkIndex] = [];
+    acc[chunkIndex].push(curr);
+    return acc;
+  }, []);
+
   return (
-    <nav
-      role="navigation"
-      className="sticky top-0 z-50 bg-[#4A1C1C] text-white shadow-md backdrop-blur bg-opacity-95 dark:bg-[#1F1B1B] dark:text-white"
-      aria-label="Main Navigation"
-    >
+    <nav className="sticky top-0 z-50 bg-[#4A1C1C] text-white shadow-md backdrop-blur bg-opacity-95 dark:bg-[#1F1B1B] dark:text-white">
       <div className="flex items-center px-4 py-2 md:px-6">
         {/* Logo */}
-        <div className="flex items-center gap-4">
-          <RouterLink to="/" aria-label="Braj Pandit Home" className="flex items-center">
-            <img
-              src="/images/premMandir.jpg"
-              alt="Prem Mandir Logo"
-              className="h-10 w-8 object-contain rounded-md"
-            />
-            <span className="ml-2 text-lg font-bold">Braj Pandit</span>
-          </RouterLink>
-        </div>
+        <RouterLink to="/" aria-label="Braj Pandit Home" className="flex items-center gap-2">
+          <img
+            src="/images/premMandir.jpg"
+            alt="Prem Mandir Logo"
+            className="h-10 w-8 object-contain rounded-md"
+          />
+          <span className="text-lg font-bold">Braj Pandit</span>
+        </RouterLink>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-8 text-sm ml-10">
@@ -83,23 +85,39 @@ export default function Navbar() {
           >
             <span className="cursor-pointer hover:underline">Services ▾</span>
             {dropdownOpen && (
-              <div className="absolute bg-white dark:bg-gray-800 dark:text-white text-[#4A1C1C] rounded shadow top-full left-0 mt-2 p-2 z-50
-              max-h-64 overflow-y-auto grid grid-cols-2 gap-2 text-sm whitespace-nowrap">
-                {pujaServices.map((service, i) => (
-                  <RouterLink
-                    key={i}
-                    to={`/puja-details?service=${encodeURIComponent(service.title)}`}
-                    className="hover:underline px-2 py-1"
-                  >
-                    {service.title}
-                  </RouterLink>
-                ))}
-                <RouterLink
-                  to="/services"
-                  className="font-semibold text-sm hover:underline col-span-full mt-2"
+              <div
+                className="absolute top-full left-0 mt-2 bg-white text-[#4A1C1C] dark:bg-gray-800 dark:text-white rounded shadow-lg z-50 p-3 max-w-5xl"
+              >
+                <div
+                  className={`grid gap-4`}
+                  style={{
+                    gridTemplateColumns: `repeat(${chunkedServices.length}, minmax(150px, 1fr))`,
+                    maxHeight: "400px",
+                    overflowY: "auto",
+                  }}
                 >
-                  🔍 See All Services
-                </RouterLink>
+                  {chunkedServices.map((group, colIdx) => (
+                    <div key={colIdx} className="flex flex-col space-y-1 text-sm">
+                      {group.map((service, i) => (
+                        <RouterLink
+                          key={i}
+                          to={`/puja-details?service=${encodeURIComponent(service.title)}`}
+                          className="hover:underline px-1 py-0.5 truncate"
+                        >
+                          {service.title}
+                        </RouterLink>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+                <div className="pt-3 text-center">
+                  <RouterLink
+                    to="/services"
+                    className="text-sm font-semibold hover:underline text-orange-700 dark:text-orange-300"
+                  >
+                    🔍 See All Services
+                  </RouterLink>
+                </div>
               </div>
             )}
           </div>
@@ -123,17 +141,13 @@ export default function Navbar() {
               Book Pandit
             </ScrollLink>
           ) : (
-            <RouterLink to="/booking" className="hover:underline">
-              Book Pandit
-            </RouterLink>
+            <RouterLink to="/booking" className="hover:underline">Book Pandit</RouterLink>
           )}
 
-          <RouterLink to="/about" className="hover:underline">
-            About Us
-          </RouterLink>
+          <RouterLink to="/about" className="hover:underline">About Us</RouterLink>
         </div>
 
-        {/* Right - Auth + Cart */}
+        {/* Right: Cart + Auth */}
         <div className="hidden md:flex gap-6 items-center text-sm ml-auto">
           {!hideCartIcon && (
             <RouterLink to="/cart" className="relative group" aria-label="Shopping Cart">
@@ -184,7 +198,7 @@ export default function Navbar() {
         <div className="flex flex-col items-start px-6 pb-4 md:hidden space-y-3 bg-[#4A1C1C] text-white text-sm dark:bg-[#1F1B1B] dark:text-white">
           <RouterLink to="/" onClick={() => setMenuOpen(false)}>Home</RouterLink>
 
-          <details className="w-full [&[open]>summary]:font-semibold [&[open]>summary]:underline">
+          <details className="w-full">
             <summary className="cursor-pointer">Services</summary>
             <div className="ml-4 mt-2 space-y-1 max-h-72 overflow-y-auto">
               {pujaServices.map((service, i) => (
