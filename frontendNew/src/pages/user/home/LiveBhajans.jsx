@@ -111,7 +111,7 @@ const LiveBhajan = () => {
           </span>
         </div>
 
-        <div className="flex p-4 gap-3 items-start">
+        <div className="flex p-3 sm:p-4 gap-3 items-start">
           <img
             src={item.channelAvatar}
             alt="avatar"
@@ -135,7 +135,7 @@ const LiveBhajan = () => {
 
   return (
     <section className="py-16 bg-gradient-to-b from-white via-yellow-50 to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 w-full">
-      <div className="px-4 sm:px-6 lg:px-12">
+      <div className="px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto">
         <h2 className="text-3xl sm:text-4xl font-bold text-center text-red-600 dark:text-red-400 mb-10">
           Live Darshan & Kirtan
         </h2>
@@ -157,10 +157,10 @@ const LiveBhajan = () => {
         )}
 
         {/* 📱 Mobile - Horizontal Scroll */}
-        <div className="block lg:hidden overflow-x-auto scroll-smooth hide-scrollbar live-scroll w-full">
-          <div className="flex gap-4 px-1">
+        <div className="lg:hidden overflow-x-auto live-scroll hide-scrollbar -mx-2 px-2 pb-4">
+          <div className="flex gap-4">
             {bhajans.map((item, i) => (
-              <div key={i} className="w-[250px] flex-shrink-0">
+              <div key={i} className="min-w-[260px] flex-shrink-0">
                 <BhajanCard item={item} />
               </div>
             ))}
@@ -168,10 +168,8 @@ const LiveBhajan = () => {
         </div>
 
         {/* 🖥️ Desktop - Grid View */}
-        <div
-          className={`hidden lg:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-6 mt-6`}
-        >
-          {bhajans.slice(0, 4).map((item, i) => (
+        <div className="hidden lg:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 mt-6">
+          {bhajans.slice(0, 8).map((item, i) => (
             <BhajanCard key={i} item={item} />
           ))}
         </div>
