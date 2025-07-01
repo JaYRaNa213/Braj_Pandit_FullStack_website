@@ -1,63 +1,6 @@
-
-
 {
-  "date": "2025-06-30",
+  "date": "2025-07-01",
   "data": [
-    {
-      "_id": "68620188cbad3e1ae2dd8662",
-      "channelId": "UC4R8DWoMoI7CAwX8_LjQHig",
-      "title": "ISKCON Vrindavan",
-      "defaultVideo": "sq-1yTTP5xM",
-      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750851970/radha-raman-ji-murthi_gzfglc.jpg",
-      "description": "Radha Raman Ji Live Bhajan",
-      "__v": 0,
-      "videoId": "sq-1yTTP5xM",
-      "isLive": false
-    },
-    {
-      "_id": "68620188cbad3e1ae2dd8663",
-      "channelId": "UCAA6IsLVfbHrP1I_lzxv09Q",
-      "title": "Desire Tree",
-      "defaultVideo": "4y1LZQsyuSQ",
-      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852044/Premanand-Ji-Maharaj_yb93dt.jpg",
-      "description": "Premanand Ji Maharaj",
-      "__v": 0,
-      "videoId": "4y1LZQsyuSQ",
-      "isLive": false
-    },
-    {
-      "_id": "68620188cbad3e1ae2dd8664",
-      "channelId": "UChMnnF7UolzyVhnIgmBZBUA",
-      "title": "Bhakti Sadhana",
-      "defaultVideo": "C-lEOBuR8Wg",
-      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852100/bhakti_sadhana.jpg",
-      "description": "Morning Sadhana Bhajan",
-      "__v": 0,
-      "videoId": "C-lEOBuR8Wg",
-      "isLive": false
-    },
-    {
-      "_id": "68620188cbad3e1ae2dd8665",
-      "channelId": "UCgGK7lAcF-dpMjA_OO7FGzA",
-      "title": "Vrindavan TV",
-      "defaultVideo": "1a2b3c4d5e",
-      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852123/vrindavan_tv.jpg",
-      "description": "Live Kirtan from Vrindavan",
-      "__v": 0,
-      "videoId": "1a2b3c4d5e",
-      "isLive": false
-    },
-    {
-      "_id": "68620188cbad3e1ae2dd8666",
-      "channelId": "UCrE4rRgtnyWg1rxGaP7yVhQ",
-      "title": "Vrinda Channel",
-      "defaultVideo": "8IhzG0_4zMw",
-      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852055/anirudh_rxh0fi.jpg",
-      "description": "Evening Aarti Live",
-      "__v": 0,
-      "videoId": "8IhzG0_4zMw",
-      "isLive": false
-    },
     {
       "_id": "68620188cbad3e1ae2dd8667",
       "channelId": "UCFA-gDtL7dI6HcJG59kALyg",
@@ -70,14 +13,58 @@
       "isLive": false
     },
     {
-      "_id": "68620188cbad3e1ae2dd8668",
-      "channelId": "UCUxco3YDT6lwougoLKzmsLQ",
-      "title": "Shiv Shakti Films",
-      "defaultVideo": "ShivaAbhi234",
-      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852150/shiv_shakti.jpg",
-      "description": "Shiv Bhakti Darshan",
+      "_id": "68620188cbad3e1ae2dd866b",
+      "channelId": "UCwZOGDj9L2HjHBO5sDFkSXA",
+      "title": "Hanuman Bhakti Sagar",
+      "defaultVideo": "hanumanLive456",
+      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852200/hanuman_bhakti.jpg",
+      "description": "Hanuman Bhajan",
       "__v": 0,
-      "videoId": "ShivaAbhi234",
+      "videoId": "hanumanLive456",
+      "isLive": false
+    },
+    {
+      "_id": "68620188cbad3e1ae2dd866d",
+      "channelId": "UCzr6Q5v4dVx5pBtb3pdaT0g",
+      "title": "Shri Banke Bihari Mandir",
+      "defaultVideo": "banke123",
+      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852240/banke_bihari.jpg",
+      "description": "Banke Bihari Darshan",
+      "__v": 0,
+      "videoId": "banke123",
+      "isLive": false
+    },
+    {
+      "_id": "68620188cbad3e1ae2dd8671",
+      "channelId": "UC_zdYvBbyFqCMzJr5Y8DRAw",
+      "title": "Jai Shri Radhe",
+      "defaultVideo": "radhe101",
+      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852320/jai_radhe.jpg",
+      "description": "Radha Krishna Bhajan",
+      "__v": 0,
+      "videoId": "radhe101",
+      "isLive": false
+    },
+    {
+      "_id": "68620188cbad3e1ae2dd8677",
+      "channelId": "UCYV7e6v3twPRMRYCP-x8r4w",
+      "title": "Bhole Baba Bhakt",
+      "defaultVideo": "bholeBhakt",
+      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852440/bhole_bhakt.jpg",
+      "description": "Shiv Bhajan",
+      "__v": 0,
+      "videoId": "bholeBhakt",
+      "isLive": false
+    },
+    {
+      "_id": "68620188cbad3e1ae2dd867a",
+      "channelId": "UC19upbg9DzJ_BQvGVGjU1ag",
+      "title": "Badrinath Kedarnath",
+      "defaultVideo": "badrikedar",
+      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852500/badrinath.jpg",
+      "description": "Live Darshan",
+      "__v": 0,
+      "videoId": "badrikedar",
       "isLive": false
     },
     {
@@ -103,83 +90,6 @@
       "isLive": false
     },
     {
-      "_id": "68620188cbad3e1ae2dd866b",
-      "channelId": "UCwZOGDj9L2HjHBO5sDFkSXA",
-      "title": "Hanuman Bhakti Sagar",
-      "defaultVideo": "hanumanLive456",
-      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852200/hanuman_bhakti.jpg",
-      "description": "Hanuman Bhajan",
-      "__v": 0,
-      "videoId": "hanumanLive456",
-      "isLive": false
-    },
-    {
-      "_id": "68620188cbad3e1ae2dd866c",
-      "channelId": "UCbbPKvdOncdcmQ40U8shInQ",
-      "title": "Bihari Ji Maharaj",
-      "defaultVideo": "bihari001",
-      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852220/bihari_maharaj.jpg",
-      "description": "Live from Vrindavan",
-      "__v": 0,
-      "videoId": "bihari001",
-      "isLive": false
-    },
-    {
-      "_id": "68620188cbad3e1ae2dd866d",
-      "channelId": "UCzr6Q5v4dVx5pBtb3pdaT0g",
-      "title": "Shri Banke Bihari Mandir",
-      "defaultVideo": "banke123",
-      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852240/banke_bihari.jpg",
-      "description": "Banke Bihari Darshan",
-      "__v": 0,
-      "videoId": "banke123",
-      "isLive": false
-    },
-    {
-      "_id": "68620188cbad3e1ae2dd866e",
-      "channelId": "UCdqR8L5y0OH8ZXX6McxSv4Q",
-      "title": "Kedarnath Mandir Official",
-      "defaultVideo": "kedarOfficial",
-      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852260/kedar_official.jpg",
-      "description": "Live Kedarnath Bhajan",
-      "__v": 0,
-      "videoId": "kedarOfficial",
-      "isLive": false
-    },
-    {
-      "_id": "68620188cbad3e1ae2dd866f",
-      "channelId": "UCkNKN-kEHeDMMfejPbcNcbg",
-      "title": "Shree Krishna Bhakti",
-      "defaultVideo": "krishna789",
-      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852280/krishna_bhakti.jpg",
-      "description": "Bhagavad Bhajan",
-      "__v": 0,
-      "videoId": "krishna789",
-      "isLive": false
-    },
-    {
-      "_id": "68620188cbad3e1ae2dd8670",
-      "channelId": "UCgE3exSfiML2AKOaU7UEPmw",
-      "title": "Anand Vrindavan Dham",
-      "defaultVideo": "vrind123",
-      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852300/anand_vrindavan.jpg",
-      "description": "Morning Bhajan",
-      "__v": 0,
-      "videoId": "vrind123",
-      "isLive": false
-    },
-    {
-      "_id": "68620188cbad3e1ae2dd8671",
-      "channelId": "UC_zdYvBbyFqCMzJr5Y8DRAw",
-      "title": "Jai Shri Radhe",
-      "defaultVideo": "radhe101",
-      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852320/jai_radhe.jpg",
-      "description": "Radha Krishna Bhajan",
-      "__v": 0,
-      "videoId": "radhe101",
-      "isLive": false
-    },
-    {
       "_id": "68620188cbad3e1ae2dd8672",
       "channelId": "UCGINuJJ4-X7y7UMzDnRU59Q",
       "title": "Hari Bhakti",
@@ -202,28 +112,6 @@
       "isLive": false
     },
     {
-      "_id": "68620188cbad3e1ae2dd8674",
-      "channelId": "UCezBQBRyiYA1YqMIVG2IgNg",
-      "title": "Rudra Abhishek Live",
-      "defaultVideo": "rudraAbhi",
-      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852380/rudra_abhishek.jpg",
-      "description": "Rudra Abhishek",
-      "__v": 0,
-      "videoId": "rudraAbhi",
-      "isLive": false
-    },
-    {
-      "_id": "68620188cbad3e1ae2dd8675",
-      "channelId": "UC0-FR1s4Ew2vPtd-3V0DjNg",
-      "title": "Vishnu Sahasranamam",
-      "defaultVideo": "vishnuLive",
-      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852400/vishnu.jpg",
-      "description": "Sahasranamam Chanting",
-      "__v": 0,
-      "videoId": "vishnuLive",
-      "isLive": false
-    },
-    {
       "_id": "68620188cbad3e1ae2dd8676",
       "channelId": "UCgr6vY6DL8B2_7ULeFqkHrw",
       "title": "Shri Krishna Leela",
@@ -235,50 +123,6 @@
       "isLive": false
     },
     {
-      "_id": "68620188cbad3e1ae2dd8677",
-      "channelId": "UCYV7e6v3twPRMRYCP-x8r4w",
-      "title": "Bhole Baba Bhakt",
-      "defaultVideo": "bholeBhakt",
-      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852440/bhole_bhakt.jpg",
-      "description": "Shiv Bhajan",
-      "__v": 0,
-      "videoId": "bholeBhakt",
-      "isLive": false
-    },
-    {
-      "_id": "68620188cbad3e1ae2dd8678",
-      "channelId": "UCfi3fxE-C-n0P7aJmGcmKiw",
-      "title": "Mahadev Bhakti Ras",
-      "defaultVideo": "mahadevLive",
-      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852460/mahadev_ras.jpg",
-      "description": "Mahadev Live Kirtan",
-      "__v": 0,
-      "videoId": "mahadevLive",
-      "isLive": false
-    },
-    {
-      "_id": "68620188cbad3e1ae2dd8679",
-      "channelId": "UC5SyRZWE0NGB9snBQp6HZyQ",
-      "title": "Ram Bhajan Mandli",
-      "defaultVideo": "ramMandli",
-      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852480/ram_bhajan.jpg",
-      "description": "Ram Bhajan",
-      "__v": 0,
-      "videoId": "ramMandli",
-      "isLive": false
-    },
-    {
-      "_id": "68620188cbad3e1ae2dd867a",
-      "channelId": "UC19upbg9DzJ_BQvGVGjU1ag",
-      "title": "Badrinath Kedarnath",
-      "defaultVideo": "badrikedar",
-      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852500/badrinath.jpg",
-      "description": "Live Darshan",
-      "__v": 0,
-      "videoId": "badrikedar",
-      "isLive": false
-    },
-    {
       "_id": "68620188cbad3e1ae2dd867b",
       "channelId": "UC74Xz0s_PoSnOZ4A5eRmvnw",
       "title": "Hanuman Chalisa TV",
@@ -287,6 +131,50 @@
       "description": "Chalisa Bhakti",
       "__v": 0,
       "videoId": "hanumanChalisa",
+      "isLive": false
+    },
+    {
+      "_id": "68620188cbad3e1ae2dd867e",
+      "channelId": "UCmj7MDRYVb7Ig8RpzkPbY6Q",
+      "title": "Vrindavan Mahima",
+      "defaultVideo": "vrindaMahima",
+      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852580/vrindavan_mahima.jpg",
+      "description": "Mahima Kirtan",
+      "__v": 0,
+      "videoId": "vrindaMahima",
+      "isLive": false
+    },
+    {
+      "_id": "68620188cbad3e1ae2dd8662",
+      "channelId": "UC4R8DWoMoI7CAwX8_LjQHig",
+      "title": "ISKCON Vrindavan",
+      "defaultVideo": "sq-1yTTP5xM",
+      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750851970/radha-raman-ji-murthi_gzfglc.jpg",
+      "description": "Radha Raman Ji Live Bhajan",
+      "__v": 0,
+      "videoId": "sq-1yTTP5xM",
+      "isLive": false
+    },
+    {
+      "_id": "68620188cbad3e1ae2dd866c",
+      "channelId": "UCbbPKvdOncdcmQ40U8shInQ",
+      "title": "Bihari Ji Maharaj",
+      "defaultVideo": "bihari001",
+      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852220/bihari_maharaj.jpg",
+      "description": "Live from Vrindavan",
+      "__v": 0,
+      "videoId": "bihari001",
+      "isLive": false
+    },
+    {
+      "_id": "68620188cbad3e1ae2dd866e",
+      "channelId": "UCdqR8L5y0OH8ZXX6McxSv4Q",
+      "title": "Kedarnath Mandir Official",
+      "defaultVideo": "kedarOfficial",
+      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852260/kedar_official.jpg",
+      "description": "Live Kedarnath Bhajan",
+      "__v": 0,
+      "videoId": "kedarOfficial",
       "isLive": false
     },
     {
@@ -312,14 +200,47 @@
       "isLive": false
     },
     {
-      "_id": "68620188cbad3e1ae2dd867e",
-      "channelId": "UCmj7MDRYVb7Ig8RpzkPbY6Q",
-      "title": "Vrindavan Mahima",
-      "defaultVideo": "vrindaMahima",
-      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852580/vrindavan_mahima.jpg",
-      "description": "Mahima Kirtan",
+      "_id": "68620188cbad3e1ae2dd8664",
+      "channelId": "UChMnnF7UolzyVhnIgmBZBUA",
+      "title": "Bhakti Sadhana",
+      "defaultVideo": "C-lEOBuR8Wg",
+      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852100/bhakti_sadhana.jpg",
+      "description": "Morning Sadhana Bhajan",
       "__v": 0,
-      "videoId": "vrindaMahima",
+      "videoId": "C-lEOBuR8Wg",
+      "isLive": false
+    },
+    {
+      "_id": "68620188cbad3e1ae2dd8666",
+      "channelId": "UCrE4rRgtnyWg1rxGaP7yVhQ",
+      "title": "Vrinda Channel",
+      "defaultVideo": "8IhzG0_4zMw",
+      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852055/anirudh_rxh0fi.jpg",
+      "description": "Evening Aarti Live",
+      "__v": 0,
+      "videoId": "8IhzG0_4zMw",
+      "isLive": false
+    },
+    {
+      "_id": "68620188cbad3e1ae2dd8668",
+      "channelId": "UCUxco3YDT6lwougoLKzmsLQ",
+      "title": "Shiv Shakti Films",
+      "defaultVideo": "ShivaAbhi234",
+      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852150/shiv_shakti.jpg",
+      "description": "Shiv Bhakti Darshan",
+      "__v": 0,
+      "videoId": "ShivaAbhi234",
+      "isLive": false
+    },
+    {
+      "_id": "68620188cbad3e1ae2dd8680",
+      "channelId": "UCYaBdB1ybvE5J4r8HTAX7Ag",
+      "title": "Divya Bhakti Bhajan",
+      "defaultVideo": "divyaBhajan",
+      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852620/divya_bhakti.jpg",
+      "description": "Divine Bhajan Channel",
+      "__v": 0,
+      "videoId": "divyaBhajan",
       "isLive": false
     },
     {
@@ -334,14 +255,124 @@
       "isLive": false
     },
     {
-      "_id": "68620188cbad3e1ae2dd8680",
-      "channelId": "UCYaBdB1ybvE5J4r8HTAX7Ag",
-      "title": "Divya Bhakti Bhajan",
-      "defaultVideo": "divyaBhajan",
-      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852620/divya_bhakti.jpg",
-      "description": "Divine Bhajan Channel",
+      "_id": "68620188cbad3e1ae2dd8663",
+      "channelId": "UCAA6IsLVfbHrP1I_lzxv09Q",
+      "title": "Desire Tree",
+      "defaultVideo": "4y1LZQsyuSQ",
+      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852044/Premanand-Ji-Maharaj_yb93dt.jpg",
+      "description": "Premanand Ji Maharaj",
       "__v": 0,
-      "videoId": "divyaBhajan",
+      "videoId": "Gijd7ScdvXQ",
+      "isLive": true
+    },
+    {
+      "_id": "68620188cbad3e1ae2dd8678",
+      "channelId": "UCfi3fxE-C-n0P7aJmGcmKiw",
+      "title": "Mahadev Bhakti Ras",
+      "defaultVideo": "mahadevLive",
+      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852460/mahadev_ras.jpg",
+      "description": "Mahadev Live Kirtan",
+      "__v": 0,
+      "videoId": "mahadevLive",
+      "isLive": false
+    },
+    {
+      "_id": "68620188cbad3e1ae2dd8665",
+      "channelId": "UCgGK7lAcF-dpMjA_OO7FGzA",
+      "title": "Vrindavan TV",
+      "defaultVideo": "1a2b3c4d5e",
+      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852123/vrindavan_tv.jpg",
+      "description": "Live Kirtan from Vrindavan",
+      "__v": 0,
+      "videoId": "1a2b3c4d5e",
+      "isLive": false
+    },
+    {
+      "_id": "68620188cbad3e1ae2dd866f",
+      "channelId": "UCkNKN-kEHeDMMfejPbcNcbg",
+      "title": "Shree Krishna Bhakti",
+      "defaultVideo": "krishna789",
+      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852280/krishna_bhakti.jpg",
+      "description": "Bhagavad Bhajan",
+      "__v": 0,
+      "videoId": "krishna789",
+      "isLive": false
+    },
+    {
+      "_id": "68620188cbad3e1ae2dd8670",
+      "channelId": "UCgE3exSfiML2AKOaU7UEPmw",
+      "title": "Anand Vrindavan Dham",
+      "defaultVideo": "vrind123",
+      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852300/anand_vrindavan.jpg",
+      "description": "Morning Bhajan",
+      "__v": 0,
+      "videoId": "vrind123",
+      "isLive": false
+    },
+    {
+      "_id": "68620188cbad3e1ae2dd8674",
+      "channelId": "UCezBQBRyiYA1YqMIVG2IgNg",
+      "title": "Rudra Abhishek Live",
+      "defaultVideo": "rudraAbhi",
+      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852380/rudra_abhishek.jpg",
+      "description": "Rudra Abhishek",
+      "__v": 0,
+      "videoId": "rudraAbhi",
+      "isLive": false
+    },
+    {
+      "_id": "68620188cbad3e1ae2dd8675",
+      "channelId": "UC0-FR1s4Ew2vPtd-3V0DjNg",
+      "title": "Vishnu Sahasranamam",
+      "defaultVideo": "vishnuLive",
+      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852400/vishnu.jpg",
+      "description": "Sahasranamam Chanting",
+      "__v": 0,
+      "videoId": "vishnuLive",
+      "isLive": false
+    },
+    {
+      "_id": "68620188cbad3e1ae2dd8679",
+      "channelId": "UC5SyRZWE0NGB9snBQp6HZyQ",
+      "title": "Ram Bhajan Mandli",
+      "defaultVideo": "ramMandli",
+      "image": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750852480/ram_bhajan.jpg",
+      "description": "Ram Bhajan",
+      "__v": 0,
+      "videoId": "ramMandli",
+      "isLive": false
+    },
+    {
+      "_id": "6862087968b764a30a90d355",
+      "channelId": "UCabc123...",
+      "title": "ISKCON Vrindavan",
+      "description": "Radha Raman Ji Bhajans",
+      "defaultVideo": "XyZ123abc",
+      "image": "https://link-to-image.jpg",
+      "__v": 0,
+      "videoId": "XyZ123abc",
+      "isLive": false
+    },
+    {
+      "_id": "686225a03fe2dede1f675997",
+      "channelId": "UCdef45...",
+      "title": "Banke Bihari Mandir",
+      "description": "Banke Bihari Ji Daily Darshan",
+      "defaultVideo": "xyz456def",
+      "image": "https://link-to-image.jpg",
+      "__v": 0,
+      "videoId": "xyz456def",
+      "isLive": false
+    },
+    {
+      "_id": "686225a03fe2dede1f675996",
+      "channelId": "UCabc12...",
+      "title": "ISKCON Vrindavan",
+      "description": "Radha Raman Ji Bhajans",
+      "defaultVideo": "XyZ123abc",
+      "image": "https://link-to-image.jpg",
+      "__v": 0,
+      "videoId": "XyZ123abc",
       "isLive": false
     }
   ]

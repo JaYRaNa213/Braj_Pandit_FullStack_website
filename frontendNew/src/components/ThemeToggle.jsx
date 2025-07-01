@@ -19,10 +19,14 @@ const ThemeToggle = () => {
   return (
     <button
       onClick={() => setIsDarkMode((prev) => !prev)}
-      className="fixed top-20 right-6 z-[99] flex items-center gap-2 bg-yellow-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-yellow-500 transition-all duration-300 text-sm"
-      aria-label="Toggle Dark Mode"
+      className={`fixed top-20 right-4 z-[99] flex items-center gap-2 px-4 py-2 rounded-full shadow-lg transition-all duration-300 text-sm
+        ${isDarkMode
+          ? "bg-black text-white hover:bg-gray-800"
+          : "bg-white text-black hover:bg-gray-100"}
+        sm:right-6 sm:px-5 sm:py-2`}
+      aria-label="Toggle Theme"
     >
-      {isDarkMode ? "🌙 Dark Mode" : "☀️ Light Mode"}
+      {isDarkMode ? "🌑 Dark Mode" : "🌞 Light Mode"}
     </button>
   );
 };

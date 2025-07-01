@@ -61,7 +61,7 @@ export default function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 bg-[#4A1C1C] text-white shadow-md backdrop-blur bg-opacity-95 dark:bg-[#1F1B1B] dark:text-white">
-      <div className="flex items-center px-4 py-2 md:px-6">
+      <div className="flex items-center px-6 py-4 md:px-6">
         {/* Logo */}
         <RouterLink to="/" aria-label="Braj Pandit Home" className="flex items-center gap-2">
           <img
@@ -76,51 +76,55 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-6 text-sm ml-10">
           <RouterLink to="/" className="hover:underline">Home</RouterLink>
 
-          {/* Services Dropdown */}
-          <div
-            className="relative group"
-            onMouseEnter={() => setDropdownOpen(true)}
-            onMouseLeave={() => setDropdownOpen(false)}
-          >
-            <span className="cursor-pointer hover:underline">Services ▾</span>
-            {dropdownOpen && (
-              <div
-                className="absolute top-full left-0 mt-2 bg-white text-[#4A1C1C] dark:bg-gray-800 dark:text-white rounded shadow-lg z-50 p-3 max-w-6xl"
-                style={{ maxHeight: "500px", overflowY: "auto" }}
-              >
-                <div className="grid grid-flow-col auto-cols-max gap-0 text-sm text-nowrap">
-                  {Object.entries(groupedServices).map(([category, items], idx) => (
-                    <div key={idx} className="min-w-[160px]">
-                      <h4 className="font-semibold mb-2 text-[13px] text-orange-800 dark:text-yellow-300 uppercase">
-                        {category}
-                      </h4>
-                      <ul className="space-y-1">
-                        {items.slice(0, 8).map((service, i) => (
-                          <li key={i}>
-                            <RouterLink
-                              to={`/puja-details?service=${encodeURIComponent(service.title)}`}
-                              className="block hover:underline text-[13px] truncate"
-                            >
-                              {service.title}
-                            </RouterLink>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-
-                  <div className="min-w-[160px] mt-6">
-                    <RouterLink
-                      to="/all-puja-services"
-                      className="block text-[13px] font-semibold hover:underline text-blue-600 dark:text-orange-300"
-                    >
-                      🔍 See All Services
-                    </RouterLink>
-                  </div>
-                </div>
-              </div>
-            )}
+          {/* Services Dropdown (No Grouping, Auto Columns of 8 items) */}
+<div
+  className="relative group"
+  onMouseEnter={() => setDropdownOpen(true)}
+  onMouseLeave={() => setDropdownOpen(false)}
+>
+  <span className="cursor-pointer hover:underline">Services ▾</span>
+  {dropdownOpen && (
+    <div
+      className="absolute bg-white dark:bg-gray-800 dark:text-white text-[#4A1C1C] rounded shadow top-full left-0 mt-2 p-4 z-50"
+      style={{ minWidth: "300px", maxHeight: "500px", overflowY: "auto" }}
+    >
+      <div className="grid grid-flow-col auto-cols-max gap-3 text-sm text-nowrap">
+        {pujaServices.reduce((columns, service, i) => {
+          const colIndex = Math.floor(i / 8);
+          if (!columns[colIndex]) columns[colIndex] = [];
+          columns[colIndex].push(service);
+          return columns;
+        }, []).map((column, colIdx) => (
+          <div key={colIdx} className="min-w-[160px]">
+            <ul className="space-y-1">
+              {column.map((service, i) => (
+                <li key={i}>
+                  <RouterLink
+                    to={`/puja-details?service=${encodeURIComponent(service.title)}`}
+                    className="block hover:underline text-[13px] truncate"
+                  >
+                    {service.title}
+                  </RouterLink>
+                </li>
+              ))}
+            </ul>
           </div>
+        ))}
+
+        {/* Final Column: See All Services */}
+        <div className="min-w-[160px] mt-6">
+          <RouterLink
+            to="/all-puja-services"
+            className="block text-[13px] font-semibold hover:underline text-blue-600 dark:text-orange-300"
+          >
+            🔍 See All Services
+          </RouterLink>
+        </div>
+      </div>
+    </div>
+  )}
+</div>
+
 
           <span className="cursor-pointer hover:underline" onClick={handleBlogsClick}>
             Blogs
