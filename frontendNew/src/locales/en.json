@@ -1,0 +1,18 @@
+
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "all_services": "See All Services",
+    "blogs": "Blogs",
+    "products": "Products",
+    "book_pandit": "Book Pandit",
+    "about": "About Us",
+    "profile": "Profile",
+    "settings": "Settings",
+    "admin_dashboard": "Admin Dashboard",
+    "logout": "Logout",
+    "login": "Login",
+    "register": "Register"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "nav": {
+    "home": "होम",
+    "services": "सेवाएं",
+    "all_services": "सभी सेवाएं देखें",
+    "blogs": "ब्लॉग्स",
+    "products": "उत्पाद",
+    "book_pandit": "पंडित बुक करें",
+    "about": "हमारे बारे में",
+    "profile": "प्रोफ़ाइल",
+    "settings": "सेटिंग्स",
+    "admin_dashboard": "एडमिन डैशबोर्ड",
+    "logout": "लॉगआउट",
+    "login": "लॉगिन",
+    "register": "रजिस्टर"
+  }
+}

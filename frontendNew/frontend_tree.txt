@@ -12,6 +12,8 @@
 ├── public
 │   └── images
 │       ├── barsana-temple.jpg
+│       ├── indian-man-women-wearing-traditional-260nw-2202247825.webp
+│       ├── pooja-service.jpg
 │       └── premMandir.jpg
 ├── README.md
 ├── src
@@ -51,11 +53,15 @@
 │   ├── hooks
 │   │   ├── useAuth.js
 │   │   └── useCart.js
+│   ├── i18n.js
 │   ├── index.css
 │   ├── layouts
 │   │   ├── AdminLayout.jsx
 │   │   ├── MainLayout.jsx
 │   │   └── UserLayout.jsx
+│   ├── locales
+│   │   ├── en.json
+│   │   └── hi.json
 │   ├── main.jsx
 │   ├── pages
 │   │   ├── admin
