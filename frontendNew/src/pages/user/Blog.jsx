@@ -27,7 +27,7 @@ const Blog = () => {
   }, [search]);
 
   return (
-    <div className="p-6 max-w-6xl mx-auto dark:bg-gray-950 dark:text-white min-h-screen transition-colors duration-300">
+    <div className="px-4 sm:px-6 lg:px-8 py-6 dark:bg-gray-950 dark:text-white min-h-screen transition-colors duration-300">
       <h2 className="text-3xl font-bold mb-6 text-red-700 dark:text-yellow-400">
         📰 Latest Blog Posts
       </h2>
@@ -45,25 +45,27 @@ const Blog = () => {
           Loading blogs...
         </p>
       ) : blogs.length > 0 ? (
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {blogs.map((blog) => (
             <Link
               key={blog._id}
               to={`/blogs/${blog._id}`}
-              className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-md hover:shadow-xl transition-all overflow-hidden flex flex-col"
+              className="flex flex-col h-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-md hover:shadow-xl transition-all overflow-hidden"
             >
-              <img
-                src={blog.imageUrl}
-                alt={blog.title}
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src =
-                    "https://via.placeholder.com/400x250?text=No+Image";
-                }}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-4 flex flex-col gap-2">
-                <h3 className="font-bold text-lg line-clamp-1 text-red-700 dark:text-yellow-400">
+              <div className="aspect-video w-full overflow-hidden">
+                <img
+                  src={blog.imageUrl}
+                  alt={blog.title}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src =
+                      "https://via.placeholder.com/400x250?text=No+Image";
+                  }}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="p-4 flex flex-col gap-1 flex-1">
+                <h3 className="font-bold text-lg text-red-700 dark:text-yellow-400 line-clamp-1">
                   {blog.title}
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">

@@ -30,11 +30,7 @@ const BlogSection = () => {
       });
 
       const blogList = res?.data || [];
-      if (reset) {
-        setBlogs(blogList);
-      } else {
-        setBlogs((prev) => [...prev, ...blogList]);
-      }
+      reset ? setBlogs(blogList) : setBlogs((prev) => [...prev, ...blogList]);
 
       setTotalPages(Math.ceil((res?.total || 0) / blogsPerPage));
       setPage(pageNum);
@@ -58,14 +54,14 @@ const BlogSection = () => {
     Math.ceil(content.split(" ").length / 200);
 
   return (
-    <section className="w-full min-h-screen px-4 py-12 bg-orange-100 dark:bg-gray-900 transition-colors duration-300">
-      <div className="w-full max-w-[1440px] mx-auto">
+    <section className="w-full min-h-screen px-4 sm:px-6 lg:px-8 py-12 bg-orange-100 dark:bg-gray-900 transition-colors duration-300 overflow-x-hidden">
+      <div className="w-full max-w-7xl mx-auto">
         {/* Filters */}
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-10 gap-4">
-          <h2 className="text-4xl font-bold text-orange-700 dark:text-yellow-400">
+          <h2 className="text-3xl sm:text-4xl font-bold text-orange-700 dark:text-yellow-400">
             Our Blogs
           </h2>
-          <div className="flex gap-3 items-center">
+          <div className="flex flex-wrap gap-3 items-center">
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
@@ -90,7 +86,7 @@ const BlogSection = () => {
         </div>
 
         {/* Blog Cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {loading && blogs.length === 0
             ? Array.from({ length: 4 }).map((_, i) => (
                 <div
@@ -111,7 +107,7 @@ const BlogSection = () => {
                   transition={{ duration: 0.4, delay: i * 0.1 }}
                   className="bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all transform hover:scale-[1.02] flex flex-col overflow-hidden"
                 >
-                  <div className="w-full h-40 overflow-hidden">
+                  <div className="w-full aspect-video overflow-hidden">
                     <img
                       src={blog.imageUrl}
                       alt={blog.title}
@@ -120,8 +116,8 @@ const BlogSection = () => {
                   </div>
 
                   <div className="p-4 flex flex-col flex-1">
-                    <div className="flex items-center justify-between">
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white line-clamp-1">
+                    <div className="flex items-center justify-between mb-1">
+                      <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white line-clamp-1">
                         {blog.title}
                       </h3>
                       {isLatest(blog.createdAt) && (
@@ -130,7 +126,7 @@ const BlogSection = () => {
                         </span>
                       )}
                     </div>
-                    <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
+                    <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm">
                       By {blog.author || "Admin"} •{" "}
                       {new Date(blog.createdAt).toLocaleDateString()}
                     </p>
@@ -182,7 +178,7 @@ const BlogSection = () => {
         <div className="flex justify-center mt-8">
           <Link
             to="/blogs"
-            className="bg-orange-600 text-white px-6 py-2 rounded hover:bg-orange-700 text-lg font-semibold transition"
+            className="bg-orange-600 text-white px-6 py-2 rounded hover:bg-orange-700 text-base sm:text-lg font-semibold transition"
           >
             View More →
           </Link>
