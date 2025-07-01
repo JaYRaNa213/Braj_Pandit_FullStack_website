@@ -86,12 +86,12 @@ const BlogSection = () => {
         </div>
 
         {/* Blog Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {loading && blogs.length === 0
             ? Array.from({ length: 4 }).map((_, i) => (
                 <div
                   key={i}
-                  className="bg-gray-100 dark:bg-gray-800 animate-pulse rounded-xl p-6 h-80"
+                  className="bg-gray-100 dark:bg-gray-800 animate-pulse rounded-xl p-6 h-80 col-span-1"
                 >
                   <div className="w-full h-40 bg-gray-300 rounded mb-4"></div>
                   <div className="h-4 bg-gray-300 mb-2 w-3/4"></div>
