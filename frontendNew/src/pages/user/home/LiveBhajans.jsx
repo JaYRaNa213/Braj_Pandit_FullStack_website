@@ -60,13 +60,13 @@ const LiveBhajan = () => {
 
   return (
     <section className="py-16 bg-gradient-to-b from-white via-yellow-50 to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-      <div className="container mx-auto px-4 text-center">
-        <h2 className="text-4xl font-bold text-red-600 dark:text-red-400 mb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 className="text-3xl sm:text-4xl font-bold text-red-600 dark:text-red-400 mb-10">
           Live Darshan & Kirtan
         </h2>
 
         {loading && (
-          <p className="text-lg text-gray-600 dark:text-gray-300 animate-pulse">
+          <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 animate-pulse">
             Loading bhajans...
           </p>
         )}
@@ -81,7 +81,7 @@ const LiveBhajan = () => {
           </p>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
           {bhajans.map((item, i) => {
             const thumbnail = `https://img.youtube.com/vi/${item.videoId}/hqdefault.jpg`;
 
@@ -89,60 +89,63 @@ const LiveBhajan = () => {
               <Link
                 key={i}
                 to={`/live/${item.videoId}`}
-                className="block group transition-transform hover:scale-[1.01]"
+                className="group transition-transform hover:scale-[1.01] flex flex-col bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl border border-gray-200 dark:border-gray-600 overflow-hidden"
               >
-                <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl hover:shadow-2xl overflow-hidden border border-gray-200 dark:border-gray-600 flex flex-col h-full">
-                  <div className="relative w-full h-56 overflow-hidden">
-                    {item.isLive ? (
-                      <iframe
-                        src={`https://www.youtube.com/embed/${item.videoId}?autoplay=1&mute=1`}
-                        className="w-full h-full"
-                        allow="autoplay; encrypted-media"
-                        allowFullScreen
-                        title={item.title}
-                      />
-                    ) : (
-                      <img
-                        src={thumbnail}
-                        alt={item.title}
-                        className="w-full h-full object-cover"
-                        loading="lazy"
-                      />
-                    )}
-                    <div
-                      className={`absolute top-3 right-3 px-3 py-1 rounded-full text-sm font-semibold flex items-center gap-2 shadow ${
-                        item.isLive
-                          ? "bg-red-600 text-white"
-                          : "bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300"
-                      }`}
-                    >
-                      <span className="text-xs">{item.isLive ? "🔴" : "⏳"}</span>
-                      {item.isLive ? "LIVE" : "Not Live"}
-                    </div>
+                <div className="relative w-full aspect-video bg-black">
+                  {item.isLive ? (
+                    <iframe
+                      src={`https://www.youtube.com/embed/${item.videoId}?autoplay=1&mute=1`}
+                      className="w-full h-full"
+                      allow="autoplay; encrypted-media"
+                      allowFullScreen
+                      title={item.title}
+                    />
+                  ) : (
+                    <img
+                      src={thumbnail}
+                      alt={item.title}
+                      loading="lazy"
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src =
+                          "https://via.placeholder.com/400x250?text=No+Thumbnail";
+                      }}
+                    />
+                  )}
+                  <div
+                    className={`absolute top-3 right-3 px-3 py-1 rounded-full text-sm font-semibold flex items-center gap-2 shadow ${
+                      item.isLive
+                        ? "bg-red-600 text-white"
+                        : "bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300"
+                    }`}
+                  >
+                    <span className="text-xs">{item.isLive ? "🔴" : "⏳"}</span>
+                    {item.isLive ? "LIVE" : "Not Live"}
+                  </div>
+                </div>
+
+                <div className="p-4 flex-1 text-left">
+                  <h3 className="text-base sm:text-lg font-semibold text-[#4A1C1C] dark:text-yellow-100 mb-2 line-clamp-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-gray-700 dark:text-gray-300 line-clamp-2">
+                    {item.description?.slice(0, 100) || "Spiritual Bhajan Stream"}
+                  </p>
+
+                  <div className="flex items-center gap-3 mt-4">
+                    <img
+                      src={item.channelAvatar}
+                      alt="channel-avatar"
+                      className="w-8 h-8 rounded-full object-cover"
+                    />
+                    <span className="text-sm text-gray-700 dark:text-gray-300">
+                      {item.channelName}
+                    </span>
                   </div>
 
-                  <div className="p-4 text-left flex-1">
-                    <h3 className="text-lg font-semibold text-[#4A1C1C] dark:text-yellow-100 mb-2 line-clamp-2">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm text-gray-700 dark:text-gray-300 line-clamp-2">
-                      {item.description?.slice(0, 100) || "Spiritual Bhajan Stream"}
-                    </p>
-
-                    <div className="flex items-center gap-3 mt-4">
-                      <img
-                        src={item.channelAvatar}
-                        alt="channel-avatar"
-                        className="w-8 h-8 rounded-full object-cover"
-                      />
-                      <div className="text-sm text-gray-700 dark:text-gray-300">
-                        {item.channelName}
-                      </div>
-                    </div>
-
-                    <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                      {item.views.toLocaleString()} views • {item.hoursAgo} hours ago
-                    </div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                    {item.views.toLocaleString()} views • {item.hoursAgo} hours ago
                   </div>
                 </div>
               </Link>
