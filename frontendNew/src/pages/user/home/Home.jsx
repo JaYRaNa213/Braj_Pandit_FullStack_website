@@ -68,11 +68,10 @@ const Home = () => {
       {/* Verified Pandit List */}
       <VerifiedPanditJis />
 
-      {/* Footer */}
       {/* <Footer /> */}
 
       {/* ✅ Toggle Button Floating on Screen */}
-      <ThemeToggle />
+      {/* <ThemeToggle /> */}
     </div>
   );
 };
