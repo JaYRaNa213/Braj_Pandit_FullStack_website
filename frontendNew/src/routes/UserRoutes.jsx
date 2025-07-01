@@ -110,7 +110,6 @@ import AllPandits from '../pages/user/AllPandits';
 
 import AllPujaServices from '../pages/user/AllPujaServices';
 
-import LivePlayer from "../pages/user/LivePlayer";
 
 import PujaDetails from "../pages/user/PujaDetails";
 
@@ -118,6 +117,7 @@ import AllFamousPlaces from "../pages/user/AllFamousPlaces";
 import About from "../pages/user/About";
 
 import AllLiveBhajans from "../pages/user/AllLiveBhajans";
+import LivePlayer from "../pages/user/LivePlayer"; // ✅ adjust path as needed
 
 
 const UserRoutes = () => {
@@ -154,6 +154,7 @@ const UserRoutes = () => {
           <Route path="pandits" element={<AllPandits />} />
           <Route path="/puja-details" element={<PujaDetails />} />
           <Route path="/live-bhajans" element={<AllLiveBhajans />} />
+          <Route path="/live/:id" element={<LivePlayer />} /> 
 
 
 

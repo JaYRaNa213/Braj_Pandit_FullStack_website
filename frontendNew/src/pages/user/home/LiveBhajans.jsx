@@ -11,68 +11,62 @@ const LiveBhajan = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const fetchTopBhajans = async () => {
+  // ⛳ Thumbnail fetcher for non-live cards
+  const getThumbnail = async (channelId, fallbackName) => {
     try {
-      setLoading(true);
-      const res = await getLiveHome();
-      const data = Array.isArray(res?.data) ? res.data : [];
-
-      const enriched = await Promise.all(
-        data.map(async (item) => {
-          let channelName = item.title;
-          let channelAvatar = "";
-
-          try {
-            const ytRes = await axios.get(
-              `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${item.videoId}&format=json`
-            );
-            channelName = ytRes.data.author_name;
-            channelAvatar = `https://ui-avatars.com/api/?name=${channelName}&background=random`;
-          } catch {
-            channelAvatar = `https://ui-avatars.com/api/?name=${channelName || "B"}&background=random`;
-          }
-
-          return {
-            ...item,
-            channelName,
-            channelAvatar,
-            views: Math.floor(Math.random() * 9000 + 1000),
-            hoursAgo: Math.floor(Math.random() * 24 + 1),
-          };
-        })
+      const { data } = await axios.get(
+        `https://www.youtube.com/oembed?url=https://www.youtube.com/channel/${channelId}&format=json`
       );
-
-      const sorted = [...enriched].sort((a, b) => b.isLive - a.isLive);
-      setBhajans(sorted);
-      setError(null);
-    } catch (err) {
-      setError("Failed to load bhajans. Showing fallback content.");
-      setBhajans([]);
-    } finally {
-      setLoading(false);
+      return data?.thumbnail_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(fallbackName)}&background=random`;
+    } catch {
+      return `https://ui-avatars.com/api/?name=${encodeURIComponent(fallbackName)}&background=random`;
     }
   };
 
   useEffect(() => {
-    fetchTopBhajans();
-    const interval = setInterval(fetchTopBhajans, 5 * 60 * 1000);
-    return () => clearInterval(interval);
-  }, []);
+    const fetchBhajans = async () => {
+      try {
+        setLoading(true);
+        const res = await getLiveHome();
+        const raw = Array.isArray(res?.data) ? res.data : [];
 
-  useEffect(() => {
-    const slider = document.querySelector(".live-scroll");
-    if (!slider) return;
-    const handleWheel = (e) => {
-      if (e.deltaY === 0) return;
-      e.preventDefault();
-      slider.scrollLeft += e.deltaY;
+        // Parallel enrich + fallback thumbnails
+        const enriched = await Promise.all(
+          raw.map(async (item) => {
+            const fallbackName = item.title || "Bhajan";
+            const channelAvatar = item.channelAvatar || await getThumbnail(item.channelId, fallbackName);
+            const image = item.isLive
+              ? `https://img.youtube.com/vi/${item.videoId}/hqdefault.jpg`
+              : await getThumbnail(item.channelId, fallbackName);
+
+            return {
+              ...item,
+              views: item.views || `${Math.floor(Math.random() * 900 + 100)}K`,
+              timeAgo: item.timeAgo || `${Math.floor(Math.random() * 10 + 1)} days ago`,
+              channelName: item.channelName || fallbackName,
+              channelAvatar,
+              image,
+            };
+          })
+        );
+
+        setBhajans(enriched);
+        setError(null);
+      } catch (err) {
+        console.error("Failed to load live bhajans:", err.message);
+        setError("Failed to load live bhajans.");
+        setBhajans([]);
+      } finally {
+        setLoading(false);
+      }
     };
-    slider.addEventListener("wheel", handleWheel);
-    return () => slider.removeEventListener("wheel", handleWheel);
+
+    fetchBhajans();
   }, []);
 
   const BhajanCard = ({ item }) => {
-    const thumbnail = `https://img.youtube.com/vi/${item.videoId}/hqdefault.jpg`;
+    const isLive = item.isLive;
+    const thumbnail = item.image;
 
     return (
       <Link
@@ -80,38 +74,27 @@ const LiveBhajan = () => {
         className="group bg-white dark:bg-[#1f1f1f] rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300"
       >
         <div className="relative w-full aspect-video bg-black">
-          {item.isLive ? (
-            <iframe
-              src={`https://www.youtube.com/embed/${item.videoId}?autoplay=1&mute=1`}
-              className="w-full h-full"
-              allow="autoplay; encrypted-media"
-              allowFullScreen
-              title={item.title}
-            />
-          ) : (
-            <img
-              src={thumbnail}
-              alt={item.title}
-              loading="lazy"
-              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-              onError={(e) => {
-                e.target.onerror = null;
-                e.target.src = "https://via.placeholder.com/400x250?text=No+Thumbnail";
-              }}
-            />
-          )}
+          <img
+            src={thumbnail}
+            alt={item.title}
+            className={`w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 ${
+              isLive ? "" : "opacity-80 grayscale"
+            }`}
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = "/offline-bhajan.jpg";
+            }}
+          />
           <span
-            className={`absolute top-2 left-2 text-[11px] font-semibold px-2 py-0.5 rounded-full shadow ${
-              item.isLive
-                ? "bg-red-600 text-white"
-                : "bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300"
+            className={`absolute top-2 left-2 text-xs px-2 py-0.5 rounded-full font-semibold ${
+              isLive ? "bg-red-600 text-white" : "bg-gray-600 text-white"
             }`}
           >
-            {item.isLive ? "🔴 LIVE" : "⏳ Not Live"}
+            {isLive ? "🔴 LIVE" : "⏳ Not Live"}
           </span>
         </div>
 
-        <div className="flex p-3 sm:p-4 gap-3 items-start">
+        <div className="flex p-3 gap-3 items-start">
           <img
             src={item.channelAvatar}
             alt="avatar"
@@ -125,7 +108,7 @@ const LiveBhajan = () => {
               {item.channelName}
             </span>
             <span className="text-xs text-gray-400 dark:text-gray-500">
-              {item.views.toLocaleString()} views • {item.hoursAgo}h ago
+              {item.views} views • {item.timeAgo}
             </span>
           </div>
         </div>
@@ -141,40 +124,27 @@ const LiveBhajan = () => {
         </h2>
 
         {loading && (
-          <p className="text-center text-base sm:text-lg text-gray-600 dark:text-gray-300 animate-pulse">
-            Loading bhajans...
+          <p className="text-center text-gray-500 dark:text-gray-400 animate-pulse">
+            Loading live bhajans...
           </p>
         )}
         {error && (
-          <p className="text-center text-yellow-600 dark:text-yellow-400 font-medium mb-4">
+          <p className="text-center text-yellow-600 dark:text-yellow-400 font-medium">
             ⚠️ {error}
           </p>
         )}
         {!loading && bhajans.length === 0 && !error && (
           <p className="text-center text-gray-500 dark:text-gray-400">
-            No bhajans available at the moment.
+            No live bhajans available at the moment.
           </p>
         )}
 
-        {/* 📱 Mobile - Horizontal Scroll */}
-        <div className="lg:hidden overflow-x-auto live-scroll hide-scrollbar -mx-2 px-2 pb-4">
-          <div className="flex gap-4">
-            {bhajans.map((item, i) => (
-              <div key={i} className="min-w-[260px] flex-shrink-0">
-                <BhajanCard item={item} />
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* 🖥️ Desktop - Grid View */}
-        <div className="hidden lg:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 mt-6">
-          {bhajans.slice(0, 8).map((item, i) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-6 mt-6">
+          {bhajans.map((item, i) => (
             <BhajanCard key={i} item={item} />
           ))}
         </div>
 
-        {/* 🔽 View More Button */}
         <div className="mt-10 text-center">
           <button
             onClick={() => navigate("/live-bhajans")}
