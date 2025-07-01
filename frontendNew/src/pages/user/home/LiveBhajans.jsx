@@ -42,7 +42,8 @@ const LiveBhajan = () => {
         })
       );
 
-      setBhajans(enriched);
+      const sorted = [...enriched].sort((a, b) => b.isLive - a.isLive);
+      setBhajans(sorted);
       setError(null);
     } catch (err) {
       setError("Failed to load bhajans. Showing fallback content.");
@@ -58,103 +59,125 @@ const LiveBhajan = () => {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const slider = document.querySelector(".live-scroll");
+    if (!slider) return;
+    const handleWheel = (e) => {
+      if (e.deltaY === 0) return;
+      e.preventDefault();
+      slider.scrollLeft += e.deltaY;
+    };
+    slider.addEventListener("wheel", handleWheel);
+    return () => slider.removeEventListener("wheel", handleWheel);
+  }, []);
+
+  const BhajanCard = ({ item }) => {
+    const thumbnail = `https://img.youtube.com/vi/${item.videoId}/hqdefault.jpg`;
+
+    return (
+      <Link
+        to={`/live/${item.videoId}`}
+        className="group bg-white dark:bg-[#1f1f1f] rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300"
+      >
+        <div className="relative w-full aspect-video bg-black">
+          {item.isLive ? (
+            <iframe
+              src={`https://www.youtube.com/embed/${item.videoId}?autoplay=1&mute=1`}
+              className="w-full h-full"
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+              title={item.title}
+            />
+          ) : (
+            <img
+              src={thumbnail}
+              alt={item.title}
+              loading="lazy"
+              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "https://via.placeholder.com/400x250?text=No+Thumbnail";
+              }}
+            />
+          )}
+          <span
+            className={`absolute top-2 left-2 text-[11px] font-semibold px-2 py-0.5 rounded-full shadow ${
+              item.isLive
+                ? "bg-red-600 text-white"
+                : "bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300"
+            }`}
+          >
+            {item.isLive ? "🔴 LIVE" : "⏳ Not Live"}
+          </span>
+        </div>
+
+        <div className="flex p-4 gap-3 items-start">
+          <img
+            src={item.channelAvatar}
+            alt="avatar"
+            className="w-10 h-10 rounded-full object-cover"
+          />
+          <div className="flex flex-col text-left">
+            <h3 className="text-sm font-semibold text-gray-800 dark:text-yellow-100 line-clamp-2 leading-snug">
+              {item.title}
+            </h3>
+            <span className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+              {item.channelName}
+            </span>
+            <span className="text-xs text-gray-400 dark:text-gray-500">
+              {item.views.toLocaleString()} views • {item.hoursAgo}h ago
+            </span>
+          </div>
+        </div>
+      </Link>
+    );
+  };
+
   return (
-    <section className="py-16 bg-gradient-to-b from-white via-yellow-50 to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-3xl sm:text-4xl font-bold text-red-600 dark:text-red-400 mb-10">
+    <section className="py-16 bg-gradient-to-b from-white via-yellow-50 to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 w-full">
+      <div className="px-4 sm:px-6 lg:px-12">
+        <h2 className="text-3xl sm:text-4xl font-bold text-center text-red-600 dark:text-red-400 mb-10">
           Live Darshan & Kirtan
         </h2>
 
         {loading && (
-          <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 animate-pulse">
+          <p className="text-center text-base sm:text-lg text-gray-600 dark:text-gray-300 animate-pulse">
             Loading bhajans...
           </p>
         )}
         {error && (
-          <p className="text-yellow-600 dark:text-yellow-400 font-medium mb-4">
+          <p className="text-center text-yellow-600 dark:text-yellow-400 font-medium mb-4">
             ⚠️ {error}
           </p>
         )}
         {!loading && bhajans.length === 0 && !error && (
-          <p className="text-gray-500 dark:text-gray-400">
+          <p className="text-center text-gray-500 dark:text-gray-400">
             No bhajans available at the moment.
           </p>
         )}
 
-        {/* ✅ Perfect Responsive Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-8">
-          {bhajans.map((item, i) => {
-            const thumbnail = `https://img.youtube.com/vi/${item.videoId}/hqdefault.jpg`;
-
-            return (
-              <Link
-                key={i}
-                to={`/live/${item.videoId}`}
-                className="group transition-transform hover:scale-[1.01] flex flex-col bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl border border-gray-200 dark:border-gray-600 overflow-hidden"
-              >
-                <div className="relative w-full aspect-video bg-black">
-                  {item.isLive ? (
-                    <iframe
-                      src={`https://www.youtube.com/embed/${item.videoId}?autoplay=1&mute=1`}
-                      className="w-full h-full"
-                      allow="autoplay; encrypted-media"
-                      allowFullScreen
-                      title={item.title}
-                    />
-                  ) : (
-                    <img
-                      src={thumbnail}
-                      alt={item.title}
-                      loading="lazy"
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src =
-                          "https://via.placeholder.com/400x250?text=No+Thumbnail";
-                      }}
-                    />
-                  )}
-                  <div
-                    className={`absolute top-3 right-3 px-3 py-1 rounded-full text-sm font-semibold flex items-center gap-2 shadow ${
-                      item.isLive
-                        ? "bg-red-600 text-white"
-                        : "bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300"
-                    }`}
-                  >
-                    <span className="text-xs">{item.isLive ? "🔴" : "⏳"}</span>
-                    {item.isLive ? "LIVE" : "Not Live"}
-                  </div>
-                </div>
-
-                <div className="p-4 flex-1 text-left">
-                  <h3 className="text-base sm:text-lg font-semibold text-[#4A1C1C] dark:text-yellow-100 mb-2 line-clamp-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-gray-700 dark:text-gray-300 line-clamp-2">
-                    {item.description?.slice(0, 100) || "Spiritual Bhajan Stream"}
-                  </p>
-
-                  <div className="flex items-center gap-3 mt-4">
-                    <img
-                      src={item.channelAvatar}
-                      alt="channel-avatar"
-                      className="w-8 h-8 rounded-full object-cover"
-                    />
-                    <span className="text-sm text-gray-700 dark:text-gray-300">
-                      {item.channelName}
-                    </span>
-                  </div>
-
-                  <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                    {item.views.toLocaleString()} views • {item.hoursAgo} hours ago
-                  </div>
-                </div>
-              </Link>
-            );
-          })}
+        {/* 📱 Mobile - Horizontal Scroll */}
+        <div className="block lg:hidden overflow-x-auto scroll-smooth hide-scrollbar live-scroll w-full">
+          <div className="flex gap-4 px-1">
+            {bhajans.map((item, i) => (
+              <div key={i} className="w-[250px] flex-shrink-0">
+                <BhajanCard item={item} />
+              </div>
+            ))}
+          </div>
         </div>
 
-        <div className="mt-10">
+        {/* 🖥️ Desktop - Grid View */}
+        <div
+          className={`hidden lg:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-6 mt-6`}
+        >
+          {bhajans.slice(0, 4).map((item, i) => (
+            <BhajanCard key={i} item={item} />
+          ))}
+        </div>
+
+        {/* 🔽 View More Button */}
+        <div className="mt-10 text-center">
           <button
             onClick={() => navigate("/live-bhajans")}
             className="bg-red-600 hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 text-white px-6 py-2 rounded-full font-semibold transition"
