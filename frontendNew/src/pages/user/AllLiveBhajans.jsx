@@ -19,7 +19,7 @@ const AllLiveBhajans = () => {
 
       const enriched = await Promise.all(
         data.map(async (item) => {
-          let fallbackName = item.title || "Bhajan";
+          const fallbackName = item.title || "Bhajan";
           let channelAvatar = item.channelAvatar;
           let thumbnail = item.image;
 
@@ -31,11 +31,10 @@ const AllLiveBhajans = () => {
               ytRes.data?.thumbnail_url ||
               `https://ui-avatars.com/api/?name=${fallbackName}&background=random`;
 
-            if (!item.isLive) {
-              thumbnail = ytRes.data?.thumbnail_url || `https://ui-avatars.com/api/?name=${fallbackName}&background=random`;
-            } else {
-              thumbnail = `https://img.youtube.com/vi/${item.videoId}/hqdefault.jpg`;
-            }
+            thumbnail = item.isLive
+              ? `https://img.youtube.com/vi/${item.videoId}/hqdefault.jpg`
+              : ytRes.data?.thumbnail_url ||
+                `https://ui-avatars.com/api/?name=${fallbackName}&background=random`;
           } catch {
             channelAvatar = `https://ui-avatars.com/api/?name=${fallbackName}&background=random`;
             thumbnail = `https://ui-avatars.com/api/?name=${fallbackName}&background=random`;
@@ -43,10 +42,11 @@ const AllLiveBhajans = () => {
 
           return {
             ...item,
-            views: item.views || Math.floor(Math.random() * 9000 + 1000),
-            hoursAgo: item.hoursAgo || Math.floor(Math.random() * 24 + 1),
+            views: item.views || `${Math.floor(Math.random() * 900 + 100)}K`,
+            timeAgo: item.timeAgo || `${Math.floor(Math.random() * 10 + 1)} days ago`,
+            channelName: item.channelName || fallbackName,
             channelAvatar,
-            thumbnail,
+            image: thumbnail,
           };
         })
       );
@@ -70,6 +70,58 @@ const AllLiveBhajans = () => {
     .filter((b) => b.title?.toLowerCase().includes(search.toLowerCase()))
     .filter((b) => (showOnlyLive ? b.isLive : true));
 
+  const BhajanCard = ({ item }) => {
+    const isLive = item.isLive;
+    const thumbnail = item.image;
+
+    return (
+      <Link
+        to={`/live/${item.videoId}`}
+        className="group bg-white dark:bg-[#1f1f1f] rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300"
+      >
+        <div className="relative w-full aspect-video bg-black">
+          <img
+            src={thumbnail}
+            alt={item.title}
+            className={`w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 ${
+              isLive ? "" : "opacity-80 grayscale"
+            }`}
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = "/offline-bhajan.jpg";
+            }}
+          />
+          <span
+            className={`absolute top-2 left-2 text-xs px-2 py-0.5 rounded-full font-semibold ${
+              isLive ? "bg-red-600 text-white" : "bg-gray-600 text-white"
+            }`}
+          >
+            {isLive ? "🔴 LIVE" : "⏳ Not Live"}
+          </span>
+        </div>
+
+        <div className="flex p-3 gap-3 items-start">
+          <img
+            src={item.channelAvatar}
+            alt="avatar"
+            className="w-10 h-10 rounded-full object-cover"
+          />
+          <div className="flex flex-col text-left">
+            <h3 className="text-sm font-semibold text-gray-800 dark:text-yellow-100 line-clamp-2 leading-snug">
+              {item.title}
+            </h3>
+            <span className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+              {item.channelName}
+            </span>
+            <span className="text-xs text-gray-400 dark:text-gray-500">
+              {item.views} views • {item.timeAgo}
+            </span>
+          </div>
+        </div>
+      </Link>
+    );
+  };
+
   return (
     <div className="py-12 px-4 bg-white dark:bg-gray-900 min-h-screen">
       <div className="max-w-7xl mx-auto">
@@ -77,7 +129,7 @@ const AllLiveBhajans = () => {
           🎥 All Live Bhajans & Darshans
         </h1>
 
-        {/* Search + Toggle */}
+        {/* Search & Filter */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
           <input
             type="text"
@@ -97,7 +149,7 @@ const AllLiveBhajans = () => {
           </label>
         </div>
 
-        {/* State Info */}
+        {/* Loader / Error / Cards */}
         {loading ? (
           <p className="text-lg text-gray-600 dark:text-gray-300 text-center animate-pulse">
             Loading bhajans...
@@ -108,61 +160,10 @@ const AllLiveBhajans = () => {
             {showOnlyLive && " (Live filter applied)"}
           </p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {filteredBhajans.map((item, i) => {
-              if (!item.videoId) return null;
-
-              return (
-                <Link
-                  key={i}
-                  to={`/live/${item.videoId}`}
-                  className="block group"
-                >
-                  <div className="flex flex-col">
-                    <div className="aspect-w-16 aspect-h-9 relative rounded-xl overflow-hidden shadow-sm group-hover:shadow-xl transition">
-                      <img
-                        src={item.thumbnail}
-                        alt={item.title}
-                        className={`w-full h-full object-cover ${
-                          !item.isLive ? "grayscale opacity-80" : ""
-                        } transition-transform group-hover:scale-105`}
-                        loading="lazy"
-                        onError={(e) => {
-                          e.target.onerror = null;
-                          e.target.src =
-                            "https://via.placeholder.com/400x250?text=No+Thumbnail";
-                        }}
-                      />
-                      <div className="absolute top-2 left-2 bg-black bg-opacity-70 text-white text-xs font-semibold px-2 py-1 rounded">
-                        {item.isLive ? "🔴 LIVE" : "⏳ Not Live"}
-                      </div>
-                    </div>
-
-                    <div className="mt-3">
-                      <h3 className="text-sm font-semibold text-gray-800 dark:text-white group-hover:text-red-700 line-clamp-2">
-                        {item.title}
-                      </h3>
-                      <p className="text-xs text-gray-600 dark:text-gray-400 mt-1 line-clamp-2">
-                        {item.description?.slice(0, 100) || "Spiritual Bhajan Stream"}
-                      </p>
-                      <div className="flex items-center gap-2 mt-3">
-                        <img
-                          src={item.channelAvatar}
-                          alt="channel-avatar"
-                          className="w-6 h-6 rounded-full object-cover"
-                        />
-                        <span className="text-xs text-gray-700 dark:text-gray-300">
-                          {item.title || "Bhakti Channel"}
-                        </span>
-                      </div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                        {item.views.toLocaleString()} views • {item.hoursAgo} hours ago
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              );
-            })}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-6">
+            {filteredBhajans.map((item, i) => (
+              <BhajanCard key={i} item={item} />
+            ))}
           </div>
         )}
       </div>
