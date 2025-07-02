@@ -74,7 +74,7 @@ const VerifiedPanditJis = () => {
   };
 
   return (
-    <section className="bg-white dark:bg-gray-900 px-4 md:px-8 py-16">
+    <section id="verifiedPandits" className="bg-white dark:bg-gray-900 px-4 md:px-8 py-16">
       <div className="max-w-7xl mx-auto">
         {loading ? (
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">

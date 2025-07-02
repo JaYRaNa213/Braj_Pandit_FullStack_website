@@ -155,21 +155,27 @@ export default function Navbar() {
           >
             {t("nav.products")}
           </span>
-          {isHome ? (
-            <ScrollLink
-              to="verifiedPandits"
-              smooth="easeInOutQuart"
-              duration={1000}
-              offset={-80}
-              className="cursor-pointer hover:underline"
-            >
-              {t("nav.book_pandit")}
-            </ScrollLink>
-          ) : (
-            <RouterLink to="/booking" className="hover:underline">
-              {t("nav.book_pandit")}
-            </RouterLink>
-          )}
+
+          <span
+  onClick={() => {
+    if (location.pathname === "/") {
+      scroller.scrollTo("verifiedPandits", {
+        duration: 1000,
+        delay: 0,
+        smooth: "easeInOutQuart",
+        offset: -80,
+      });
+    } else {
+      navigate("/booking");
+    }
+    setMenuOpen(false); // Close mobile menu if open
+  }}
+  className="cursor-pointer hover:underline"
+>
+  {t("nav.book_pandit")}
+</span>
+
+
           <RouterLink to="/about" className="hover:underline">
             {t("nav.about")}
           </RouterLink>
@@ -320,9 +326,30 @@ export default function Navbar() {
           <span onClick={() => handleNavClick("products", "products")}>
             Products
           </span>
-          <RouterLink to="/verifiedPandit" onClick={() => setMenuOpen(false)}>
-            Book Pandit
-          </RouterLink>
+
+<span
+  onClick={() => {
+    if (location.pathname === "/") {
+      scroller.scrollTo("verifiedPandits", {
+        duration: 1000,
+        delay: 0,
+        smooth: "easeInOutQuart",
+        offset: -80,
+      });
+    } else {
+      navigate("/booking");
+    }
+    setMenuOpen(false);
+  }}
+  className="cursor-pointer hover:underline block"
+>
+  Book Pandit
+</span>
+
+
+
+          
+
           <RouterLink to="/about" onClick={() => setMenuOpen(false)}>
             About Us
           </RouterLink>
