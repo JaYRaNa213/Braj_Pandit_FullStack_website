@@ -4,16 +4,3 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom base layout tweaks */
-html,
-body {
-  overflow-x: hidden;
-}
-/* Remove horizontal scrollbar */
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.hide-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
