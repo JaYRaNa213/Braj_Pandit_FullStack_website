@@ -105,7 +105,7 @@ const VerifiedPanditJis = () => {
               {pandits.map((pandit) => (
                 <div
                   key={pandit._id}
-                  className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow hover:shadow-xl transition border border-gray-200 dark:border-gray-600 flex flex-col"
+                  className="bg-white dark:bg-gray-800 border-2 border-yellow-400 dark:border-orange-400 rounded-xl shadow-md hover:shadow-xl transition-all transform hover:scale-[1.02] flex flex-col overflow-hidden"
                 >
                   <img
                     src={pandit.imageUrl}

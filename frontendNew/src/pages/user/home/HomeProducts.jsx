@@ -74,6 +74,8 @@ const HomeProducts = () => {
               <div
                 key={product._id}
                 className="bg-white dark:bg-gray-800 border-2 border-yellow-400 dark:border-orange-400 rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between overflow-hidden relative"
+
+
               >
                 <button
                   onClick={() => toggleFavorite(product._id)}

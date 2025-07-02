@@ -105,7 +105,8 @@ const BlogSection = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: i * 0.1 }}
-                  className="bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all transform hover:scale-[1.02] flex flex-col overflow-hidden"
+                  className="bg-white dark:bg-gray-800 border-2 border-yellow-400 dark:border-orange-400 rounded-xl shadow-md hover:shadow-xl transition-all transform hover:scale-[1.02] flex flex-col overflow-hidden"
+
                 >
                   <div className="w-full aspect-video overflow-hidden">
                     <img

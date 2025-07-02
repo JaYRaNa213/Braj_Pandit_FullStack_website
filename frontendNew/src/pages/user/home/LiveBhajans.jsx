@@ -70,9 +70,10 @@ const LiveBhajan = () => {
 
     return (
       <Link
-        to={`/live/${item.videoId}`}
-        className="group bg-white dark:bg-[#1f1f1f] rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300"
-      >
+  to={`/live/${item.videoId}`}
+  className="group bg-white dark:bg-[#1f1f1f] rounded-xl overflow-hidden border-2 border-yellow-400 dark:border-orange-400 hover:shadow-lg transition-all duration-300"
+>
+
         <div className="relative w-full aspect-video bg-black">
           <img
             src={thumbnail}

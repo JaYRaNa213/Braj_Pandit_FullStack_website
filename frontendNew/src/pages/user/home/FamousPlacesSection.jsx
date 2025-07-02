@@ -146,7 +146,7 @@ const FamousPlacesSection = () => {
                     className="w-full h-full card-flip"
                     style={{ transform: `rotateY(${showBack ? 180 : 0}deg)` }}
                   >
-                    <div className="card-face card-front p-2 bg-white dark:bg-gray-900 rounded-lg shadow-lg">
+                    <div className="card-face card-front p-2 bg-white dark:bg-gray-900 rounded-lg shadow-lg border-2 border-yellow-400 dark:border-yellow-300">
                       <div>
                         <img
                           src={place.url}
@@ -168,7 +168,7 @@ const FamousPlacesSection = () => {
                       </button>
                     </div>
 
-                    <div className="card-face card-back p-3 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-lg">
+                    <div className="card-face card-back p-3 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-lg border-2 border-yellow-400 dark:border-yellow-300">
                       <div>
                         <p className="text-sm text-gray-700 dark:text-gray-300 mb-2 font-semibold">
                           {language === "en"

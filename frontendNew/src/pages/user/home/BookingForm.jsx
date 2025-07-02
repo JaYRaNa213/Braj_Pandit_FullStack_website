@@ -68,8 +68,8 @@ const BookingForm = () => {
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="w-full max-w-6xl mx-auto mt-16 mb-24 flex flex-col md:flex-row overflow-hidden rounded-3xl shadow-2xl"
-    >
+      className="w-full max-w-6xl mx-auto mt-16 mb-24 flex flex-col md:flex-row overflow-hidden rounded-3xl shadow-2xl border-2 border-yellow-300 dark:border-orange-400"
+>
       {/* Left Info Section */}
       <div
         className="md:w-1/2 p-8 text-white flex flex-col justify-between"
