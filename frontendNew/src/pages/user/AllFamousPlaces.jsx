@@ -1,10 +1,12 @@
 // 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import famousPlacesData from "../../data/famousPlaces.json";
 import FamousCard from "./FamousCard";
 
 const AllFamousPlaces = () => {
+  const navigate = useNavigate();
   const allPlaces = famousPlacesData.mandirs;
   const [visibleCount, setVisibleCount] = useState(3);
 
@@ -38,6 +40,17 @@ const AllFamousPlaces = () => {
   return (
     <section className="py-16 px-4 bg-[#FFF8E1] dark:bg-gray-900 min-h-screen transition-colors duration-300">
       <div className="max-w-6xl mx-auto">
+
+        {/* ⬅️ Back Button */}
+        <div className="mb-6">
+          <button
+            onClick={() => navigate("/")}
+            className="inline-flex items-center gap-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-white px-4 py-2 rounded-full font-medium shadow transition"
+          >
+            ← Back to Home
+          </button>
+        </div>
+
         <h1 className="text-4xl font-bold text-center text-orange-600 dark:text-yellow-400 mb-12">
           All Famous Places in Mathura
         </h1>

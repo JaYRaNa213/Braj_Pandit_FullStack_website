@@ -1,7 +1,7 @@
 // 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getLiveAll } from "@/services/user/live.Services";
 import axios from "axios";
 
@@ -10,6 +10,7 @@ const AllLiveBhajans = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [showOnlyLive, setShowOnlyLive] = useState(false);
+  const navigate = useNavigate();
 
   const fetchAllBhajans = async () => {
     setLoading(true);
@@ -125,6 +126,17 @@ const AllLiveBhajans = () => {
   return (
     <div className="py-12 px-4 bg-white dark:bg-gray-900 min-h-screen">
       <div className="max-w-7xl mx-auto">
+
+        {/* ⬅️ Back Button */}
+        <div className="mb-6">
+          <button
+            onClick={() => navigate("/")}
+            className="inline-flex items-center gap-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-white px-4 py-2 rounded-full font-medium shadow transition"
+          >
+            ← Back to Home
+          </button>
+        </div>
+
         <h1 className="text-3xl md:text-4xl font-bold text-red-700 dark:text-yellow-400 mb-8 text-center">
           🎥 All Live Bhajans & Darshans
         </h1>

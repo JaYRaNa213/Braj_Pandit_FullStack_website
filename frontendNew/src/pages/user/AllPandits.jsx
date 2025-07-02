@@ -1,5 +1,5 @@
+// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 
-// ✅ AllPandits.jsx
 import React, { useEffect, useState } from "react";
 import { getAllPandits } from "../../services/user/panditService";
 import { useNavigate } from "react-router-dom";
@@ -58,6 +58,16 @@ const AllPandits = () => {
 
   return (
     <section className="bg-white dark:bg-gray-900 px-4 md:px-16 py-10">
+      {/* 🔙 Back Button */}
+      <div className="mb-4">
+        <button
+          onClick={() => navigate("/")}
+          className="inline-flex items-center gap-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-white px-4 py-2 rounded-full font-medium shadow transition"
+        >
+          ← Back to Home
+        </button>
+      </div>
+
       <h2 className="text-3xl font-bold mb-6 text-[#4A1C1C] dark:text-white text-center">
         All <span className="text-red-600">Verified</span> Pandits
       </h2>

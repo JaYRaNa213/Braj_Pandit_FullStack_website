@@ -9,14 +9,14 @@ import { FaShoppingCart, FaBars, FaTimes } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import pujaServices from "../../data/pujaServices.json";
-import { useTranslation } from "react-i18next"; // ✅ i18n support
+import { useTranslation } from "react-i18next";
 
 export default function Navbar() {
   const { user, logout } = useAuth();
   const { cartItems } = useCart();
   const location = useLocation();
   const navigate = useNavigate();
-  const { t, i18n } = useTranslation(); // ✅ use i18n hook
+  const { t, i18n } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [profileDropdown, setProfileDropdown] = useState(false);
@@ -72,9 +72,8 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-[#4A1C1C] text-white shadow-md backdrop-blur bg-opacity-95 dark:bg-[#1F1B1B] dark:text-white">
+    <nav className="sticky top-0 z-50 w-full bg-[#4A1C1C]/95 backdrop-blur text-white shadow dark:bg-[#1F1B1B]/95 dark:text-white">
       <div className="flex items-center px-4 py-3 md:px-6">
-        {/* Logo */}
         <RouterLink to="/" className="flex items-center gap-2">
           <img
             src="/images/premMandir.jpg"
@@ -84,7 +83,6 @@ export default function Navbar() {
           <span className="text-lg font-bold">Braj Pandit</span>
         </RouterLink>
 
-        {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-6 text-sm ml-10">
           <RouterLink to="/" className="hover:underline">
             {t("nav.home")}
@@ -99,15 +97,8 @@ export default function Navbar() {
               {t("nav.services")} ▾
             </span>
             {dropdownOpen && (
-              <div
-                className="absolute bg-white dark:bg-gray-800 dark:text-white text-[#4A1C1C] rounded shadow top-full left-0 mt-2 p-4 z-50"
-                style={{
-                  minWidth: "300px",
-                  maxHeight: "500px",
-                  overflowY: "auto",
-                }}
-              >
-                <div className="grid grid-flow-col auto-cols-max gap-3 text-sm text-nowrap">
+              <div className="absolute bg-white dark:bg-gray-800 dark:text-white text-[#4A1C1C] rounded shadow top-full left-0 mt-2 p-4 z-50 min-w-[300px] max-h-[500px] overflow-y-auto">
+                <div className="grid grid-flow-col auto-cols-max gap-3 text-sm">
                   {pujaServices
                     .reduce((cols, service, i) => {
                       const col = Math.floor(i / 8);
@@ -120,9 +111,7 @@ export default function Navbar() {
                         {group.map((service, i) => (
                           <RouterLink
                             key={i}
-                            to={`/puja-details?service=${encodeURIComponent(
-                              service.title
-                            )}`}
+                            to={`/puja-details?service=${encodeURIComponent(service.title)}`}
                             className="block hover:underline text-[13px] truncate"
                           >
                             {service.title}
@@ -143,16 +132,10 @@ export default function Navbar() {
             )}
           </div>
 
-          <span
-            className="cursor-pointer hover:underline"
-            onClick={handleBlogsClick}
-          >
+          <span className="cursor-pointer hover:underline" onClick={handleBlogsClick}>
             {t("nav.blogs")}
           </span>
-          <span
-            className="cursor-pointer hover:underline"
-            onClick={() => handleNavClick("products", "products")}
-          >
+          <span className="cursor-pointer hover:underline" onClick={() => handleNavClick("products", "products")}>
             {t("nav.products")}
           </span>
           {isHome ? (
@@ -175,9 +158,7 @@ export default function Navbar() {
           </RouterLink>
         </div>
 
-        {/* Right Side: Lang + Cart + Profile */}
         <div className="hidden md:flex items-center gap-4 ml-auto relative">
-          {/* Language Toggle */}
           <button
             onClick={toggleLanguage}
             className="bg-yellow-700 hover:bg-yellow-500 text-black font-semibold px-3 py-1 rounded-full shadow transition"
@@ -227,29 +208,20 @@ export default function Navbar() {
                     <div className="px-4 py-2 font-semibold border-b border-gray-200 dark:border-gray-700">
                       {user.name || "User"}
                     </div>
-                    <RouterLink
-                      to="/profile"
-                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"
-                    >
+                    <RouterLink to="/profile" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">
                       {t("nav.profile")}
                     </RouterLink>
-                    <RouterLink
-                      to="/settings"
-                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"
-                    >
+                    <RouterLink to="/settings" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">
                       {t("nav.settings")}
                     </RouterLink>
                     <button
                       onClick={() => setIsDarkMode(!isDarkMode)}
                       className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"
                     >
-                      {isDarkMode ? "☀️ Light Mode" : "🌑 Dark Mode"}
+                      {isDarkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
                     </button>
                     {user.role === "admin" && (
-                      <RouterLink
-                        to="/admin/dashboard"
-                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"
-                      >
+                      <RouterLink to="/admin/dashboard" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">
                         {t("nav.admin_dashboard")}
                       </RouterLink>
                     )}
@@ -275,16 +247,14 @@ export default function Navbar() {
           )}
         </div>
 
-        {/* Mobile Hamburger */}
         <div className="md:hidden ml-auto">
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Toggle Menu"
-          >
+          <button onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle Menu">
             {menuOpen ? <FaTimes size={22} /> : <FaBars size={22} />}
           </button>
         </div>
       </div>
+
+
 
       {/* Mobile Menu */}
       {menuOpen && (
