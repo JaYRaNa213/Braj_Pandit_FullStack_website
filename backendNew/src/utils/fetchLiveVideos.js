@@ -1,5 +1,6 @@
-// // File: backendNew/src/utils/fetchLiveVideos.js
-const axios = require("axios");
+// File: src/utils/fetchLiveVideos.js
+import axios from "axios";
+import BhajanChannel from "../models/BhajanChannel.js";
 
 const apiKeys = [
   "AIzaSyCRmqbUt3mjCJuGvGXvfCoz789qNpMEa0Q",
@@ -7,18 +8,10 @@ const apiKeys = [
   "AIzaSyBVKDBwODBMjdAu-UV0cHPuOJuXrfoFKYs",
 ];
 
-const channels = [
-  {
-    id: "UC4R8DWoMoI7CAwX8_LjQHig",
-    title: "Radha Raman Ji Live Bhajan",
-    defaultVideo: "sq-1yTTP5xM",
-    image: "https://...",
-    description: "A calming bhajan...",
-  },
-  // Add more here
-];
+export const fetchLiveVideos = async () => {
+  const channels = await BhajanChannel.find();
+  console.log(`📡 Fetched ${channels.length} channels from DB`);
 
-const fetchLiveVideos = async () => {
   const results = [];
 
   for (const channel of channels) {
@@ -27,18 +20,15 @@ const fetchLiveVideos = async () => {
 
     for (const key of apiKeys) {
       try {
-        const res = await axios.get(
-          `https://www.googleapis.com/youtube/v3/search`,
-          {
-            params: {
-              part: "snippet",
-              channelId: channel.id,
-              eventType: "live",
-              type: "video",
-              key,
-            },
-          }
-        );
+        const res = await axios.get("https://www.googleapis.com/youtube/v3/search", {
+          params: {
+            part: "snippet",
+            channelId: channel.channelId,
+            eventType: "live",
+            type: "video",
+            key,
+          },
+        });
 
         if (res.data.items.length > 0) {
           videoId = res.data.items[0].id.videoId;
@@ -46,13 +36,14 @@ const fetchLiveVideos = async () => {
           break;
         }
       } catch (err) {
+        console.warn(`❌ Error for ${channel.title}:`, err?.response?.status || err.message);
         if (err.response?.status === 403) continue;
         break;
       }
     }
 
     results.push({
-      ...channel,
+      ...channel._doc,
       videoId,
       isLive: success,
     });
@@ -60,5 +51,3 @@ const fetchLiveVideos = async () => {
 
   return results;
 };
-
-module.exports = fetchLiveVideos;

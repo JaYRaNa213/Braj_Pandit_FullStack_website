@@ -50,12 +50,11 @@
 │   │   ├── upload.middleware.js
 │   │   └── validate.middleware.js
 │   ├── models
+│   │   ├── BhajanChannel.js
 │   │   ├── blog.model.js
 │   │   ├── booking.model.js
 │   │   ├── cart.model.js
-│   │   ├── Channel.js
 │   │   ├── comment.model.js
-│   │   ├── liveBhajan.model.js
 │   │   ├── order.model.js
 │   │   ├── pandit.model.js
 │   │   ├── payment.model.js
@@ -97,7 +96,8 @@
 │   │   ├── booking.service.js
 │   │   ├── email.service.js
 │   │   ├── payment.service.js
-│   │   └── product.service.js
+│   │   ├── product.service.js
+│   │   └── youtubeService.js
 │   ├── tests
 │   ├── uploads
 │   │   ├── 1749732263619-bhagwat.jpg

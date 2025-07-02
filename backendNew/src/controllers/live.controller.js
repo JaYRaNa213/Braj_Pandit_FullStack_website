@@ -3,7 +3,6 @@
 import axios from "axios";
 import fs from "fs";
 import path from "path";
-
 import BhajanChannel from "../models/BhajanChannel.js";
 
 // 📁 Local cache file to prevent excessive YouTube API hits
@@ -20,7 +19,9 @@ const getCache = () => {
     const content = fs.readFileSync(CACHE_FILE, "utf-8");
     const json = JSON.parse(content);
     const today = new Date().toISOString().slice(0, 10);
-    return json?.date === today ? json.data : null;
+    return json?.date === today && Array.isArray(json.data) && json.data.length > 0
+      ? json.data
+      : null;
   } catch (error) {
     console.error("❌ Error reading cache:", error.message);
     return null;
@@ -46,74 +47,99 @@ const fetchLiveVideos = async () => {
   const channels = await BhajanChannel.find({});
   const results = [];
 
+  if (channels.length === 0) {
+    console.warn("⚠️ No bhajan channels found in DB");
+    return results;
+  }
+
+  if (apiKeys.length === 0) {
+    console.warn("⚠️ No YouTube API keys configured. Using default videos only.");
+  }
+
   for (const channel of channels) {
-    let videoId = channel.defaultVideo;
+    let videoId = channel.defaultVideo || null;
     let isLive = false;
 
-    for (const key of apiKeys) {
-      try {
-        const res = await axios.get("https://www.googleapis.com/youtube/v3/search", {
-          params: {
-            part: "snippet",
-            channelId: channel.channelId,
-            eventType: "live",
-            type: "video",
-            key,
-          },
-        });
+    if (apiKeys.length > 0) {
+      for (const key of apiKeys) {
+        try {
+          const res = await axios.get("https://www.googleapis.com/youtube/v3/search", {
+            params: {
+              part: "snippet",
+              channelId: channel.channelId,
+              eventType: "live",
+              type: "video",
+              key,
+            },
+          });
 
-        if (res.data.items?.length > 0) {
-          videoId = res.data.items[0].id.videoId;
-          isLive = true;
-          break;
+          if (res.data.items?.length > 0) {
+            videoId = res.data.items[0].id.videoId;
+            isLive = true;
+            break;
+          }
+        } catch (err) {
+          if (err.response?.status === 403) {
+            console.warn(`⚠️ API key quota exceeded: ${key}`);
+            continue; // Try next key
+          }
+          console.error(`🔴 YouTube fetch error for ${channel.title}:`, err.message);
+          break; // Other errors - break and fallback to default
         }
-      } catch (err) {
-        if (err.response?.status === 403) continue; // API quota exceeded, try next key
-        console.error("🔴 YouTube fetch error:", err.message);
-        break; // Other errors - break and fallback to default
       }
     }
 
-    results.push({
-      ...channel._doc,
-      videoId,
-      isLive,
-    });
+    if (videoId) {
+      results.push({
+        ...channel._doc,
+        videoId,
+        isLive,
+      });
+    }
   }
 
+  console.log(`✅ Total enriched channels: ${results.length}`);
   return results;
 };
 
+// ✅ GET /api/live/home → Return top 4 (live first)
 export const getLiveHome = async (req, res) => {
   try {
-    const cached = getCache(); // ⏳ Check cache first
+    const cached = getCache();
 
-    if (cached) {
-      // ✅ Sort live videos first, then others
+    if (cached && cached.length >= 4) {
       const sorted = [...cached].sort((a, b) => Number(b.isLive) - Number(a.isLive));
-      return res.status(200).json(sorted.slice(0, 4)); // 🔁 Return top 4 (live first)
+      return res.status(200).json(sorted.slice(0, 4));
     }
 
-    const data = await fetchLiveVideos(); // 🌐 Fetch fresh from YouTube + DB
-    saveCache(data); // 💾 Save for next time
+    const data = await fetchLiveVideos();
+    if (data.length === 0) {
+      return res.status(200).json([]); // Return empty array if nothing found
+    }
 
+    saveCache(data);
     const sorted = [...data].sort((a, b) => Number(b.isLive) - Number(a.isLive));
     return res.status(200).json(sorted.slice(0, 4));
   } catch (err) {
     console.error("❌ getLiveHome failed:", err.message);
     return res.status(500).json({ message: "Fetch failed and no cache available." });
   }
-};
+}
 
-// ✅ GET /api/live/all → All channels with current status
+// ✅ GET /api/live/all → Return all enriched bhajan channels
 export const getLiveAll = async (req, res) => {
   try {
     const cached = getCache();
-    if (cached) {
+
+    if (cached && cached.length > 0) {
       return res.status(200).json(cached);
     }
 
     const data = await fetchLiveVideos();
+    if (data.length === 0) {
+      return res.status(200).json([]); // Return empty array if nothing found
+    }
+
     saveCache(data);
     return res.status(200).json(data);
   } catch (err) {
