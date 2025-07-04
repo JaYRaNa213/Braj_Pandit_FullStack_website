@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getLiveHome } from "../../../services/user/live.Services";
+import { useTranslation } from "react-i18next";
 import axios from "axios";
 
 const LiveBhajan = () => {
@@ -10,6 +11,7 @@ const LiveBhajan = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   // ⛳ Thumbnail fetcher for non-live cards
   const getThumbnail = async (channelId, fallbackName) => {
@@ -30,7 +32,6 @@ const LiveBhajan = () => {
         const res = await getLiveHome();
         const raw = Array.isArray(res?.data) ? res.data : [];
 
-        // Parallel enrich + fallback thumbnails
         const enriched = await Promise.all(
           raw.map(async (item) => {
             const fallbackName = item.title || "Bhajan";
@@ -54,7 +55,7 @@ const LiveBhajan = () => {
         setError(null);
       } catch (err) {
         console.error("Failed to load live bhajans:", err.message);
-        setError("Failed to load live bhajans.");
+        setError(t("live.error"));
         setBhajans([]);
       } finally {
         setLoading(false);
@@ -62,7 +63,7 @@ const LiveBhajan = () => {
     };
 
     fetchBhajans();
-  }, []);
+  }, [t]);
 
   const BhajanCard = ({ item }) => {
     const isLive = item.isLive;
@@ -70,10 +71,9 @@ const LiveBhajan = () => {
 
     return (
       <Link
-  to={`/live/${item.videoId}`}
-  className="group bg-white dark:bg-[#1f1f1f] rounded-xl overflow-hidden border-2 border-yellow-400 dark:border-orange-400 hover:shadow-lg transition-all duration-300"
->
-
+        to={`/live/${item.videoId}`}
+        className="group bg-white dark:bg-[#1f1f1f] rounded-xl overflow-hidden border-2 border-yellow-400 dark:border-orange-400 hover:shadow-lg transition-all duration-300"
+      >
         <div className="relative w-full aspect-video bg-black">
           <img
             src={thumbnail}
@@ -91,7 +91,7 @@ const LiveBhajan = () => {
               isLive ? "bg-red-600 text-white" : "bg-gray-600 text-white"
             }`}
           >
-            {isLive ? "🔴 LIVE" : "⏳ Not Live"}
+            {isLive ? t("live.live") : t("live.not_live")}
           </span>
         </div>
 
@@ -109,7 +109,7 @@ const LiveBhajan = () => {
               {item.channelName}
             </span>
             <span className="text-xs text-gray-400 dark:text-gray-500">
-              {item.views} views • {item.timeAgo}
+              {item.views} {t("live.views")} • {item.timeAgo}
             </span>
           </div>
         </div>
@@ -121,12 +121,12 @@ const LiveBhajan = () => {
     <section className="py-16 bg-gradient-to-b from-white via-yellow-50 to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 w-full">
       <div className="px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto">
         <h2 className="text-3xl sm:text-4xl font-bold text-center text-red-600 dark:text-red-400 mb-10">
-          Live Darshan & Kirtan
+          {t("live.title")}
         </h2>
 
         {loading && (
           <p className="text-center text-gray-500 dark:text-gray-400 animate-pulse">
-            Loading live bhajans...
+            {t("live.loading")}
           </p>
         )}
         {error && (
@@ -136,7 +136,7 @@ const LiveBhajan = () => {
         )}
         {!loading && bhajans.length === 0 && !error && (
           <p className="text-center text-gray-500 dark:text-gray-400">
-            No live bhajans available at the moment.
+            {t("live.empty")}
           </p>
         )}
 
@@ -151,7 +151,7 @@ const LiveBhajan = () => {
             onClick={() => navigate("/live-bhajans")}
             className="bg-red-600 hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 text-white px-6 py-2 rounded-full font-semibold transition"
           >
-            View More Bhajans
+            {t("live.view_more")}
           </button>
         </div>
       </div>

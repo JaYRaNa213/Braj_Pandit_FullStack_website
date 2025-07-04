@@ -4,9 +4,11 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Element } from "react-scroll";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import pujaData from "../../../data/pujaServices.json";
 
 const PujaServices = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [services, setServices] = useState([]);
 
@@ -33,13 +35,12 @@ const PujaServices = () => {
             "url('https://media.istockphoto.com/id/516416070/photo/the-earth-hour-in-lviv-ukraine.jpg?s=612x612&w=0&k=20&c=nGl1KooAwZIzV6V8ogcpC7AIDKX6wli6FtCgO0AT_4w=')",
         }}
       >
-        {/* Overlay for better readability */}
+        {/* Overlay */}
         <div className="absolute inset-0 bg-white/80 dark:bg-black/60 z-10" />
 
-        {/* Main Content */}
         <div className="relative z-20 max-w-7xl mx-auto px-4 py-16">
           <h2 className="text-4xl font-bold text-center text-red-700 dark:text-yellow-300 mb-10">
-            Pooja Services
+            {t("pujas.heading")}
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -51,7 +52,6 @@ const PujaServices = () => {
                 transition={{ duration: 0.5, delay: idx * 0.2 }}
                 viewport={{ once: true, amount: 0.3 }}
                 className="flex flex-col md:flex-row bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden border-2 border-yellow-400 dark:border-orange-400 hover:shadow-xl transition"
-
               >
                 <img
                   src={service.img}
@@ -63,13 +63,11 @@ const PujaServices = () => {
                     <h3 className="text-xl font-bold text-red-700 dark:text-yellow-200 mb-2">
                       {service.title}
                     </h3>
-                    <p className="text-gray-700 dark:text-gray-300 mb-3">
-                      {service.desc}
-                    </p>
+                    <p className="text-gray-700 dark:text-gray-300 mb-3">{service.desc}</p>
                     <p className="text-gray-800 dark:text-gray-200 font-semibold mb-2">
-                      Price:{" "}
+                      {t("pujas.price")}{" "}
                       <span className="text-red-600 dark:text-orange-400">
-                        ₹ Price on Request
+                        {t("pujas.price_on_request")}
                       </span>
                     </p>
                   </div>
@@ -77,7 +75,7 @@ const PujaServices = () => {
                     onClick={() => handleBooking(service.title)}
                     className="mt-4 w-max bg-red-600 text-white px-5 py-2 rounded hover:bg-red-700 dark:hover:bg-orange-600 transition"
                   >
-                    BOOK NOW
+                    {t("pujas.book_now")}
                   </button>
                 </div>
               </motion.div>
@@ -89,7 +87,7 @@ const PujaServices = () => {
               onClick={handleViewMore}
               className="px-6 py-2 border-2 border-red-600 text-red-600 dark:border-orange-400 dark:text-orange-400 rounded-full hover:bg-red-600 hover:text-white dark:hover:bg-orange-500 dark:hover:text-white transition"
             >
-              View More Puja Services
+              {t("pujas.view_more")}
             </button>
           </div>
         </div>

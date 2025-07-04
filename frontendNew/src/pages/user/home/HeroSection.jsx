@@ -1,6 +1,7 @@
 // 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const heroImages = [
   "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917528/IMG20250619193402_cafibp.jpg",
@@ -12,6 +13,7 @@ const heroImages = [
 
 const HeroSection = ({ onBookPanditClick, onSeeServicesClick }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -60,19 +62,20 @@ const HeroSection = ({ onBookPanditClick, onSeeServicesClick }) => {
       <div className="relative z-30 text-center text-white flex items-center justify-center h-full px-4">
         <div className="max-w-3xl animate-fade-in-up">
           <h5 className="text-lg font-medium mb-2 tracking-wider uppercase text-yellow-300 dark:text-yellow-200">
-            Welcome to BrajPandit
+            {t("hero.welcome")}
           </h5>
           <h1 className="text-5xl font-bold mb-4 leading-snug">
-            Your{" "}
-            <span className="text-red-500 dark:text-orange-400">Trusted</span>{" "}
-            Platform for Sacred{" "}
+            {t("hero.headline_line1")}{" "}
+            <span className="text-red-500 dark:text-orange-400">
+              {t("hero.headline_trusted")}
+            </span>{" "}
+            {t("hero.headline_line2")}{" "}
             <span className="text-yellow-400 dark:text-yellow-300">
-              Hindu Ceremonies
+              {t("hero.headline_ceremonies")}
             </span>
           </h1>
           <p className="mb-8 text-lg text-gray-200 dark:text-gray-300">
-            We provide highly qualified and experienced Panditjis for all communities —
-            Gujarati, Rajasthani, Marathi, Sindhi, Bihari, Bengali, and Punjabi.
+            {t("hero.description")}
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
@@ -80,13 +83,13 @@ const HeroSection = ({ onBookPanditClick, onSeeServicesClick }) => {
               onClick={onSeeServicesClick}
               className="bg-red-600 hover:bg-red-700 text-white py-3 px-8 rounded-full text-lg font-semibold shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105"
             >
-              Puja Booking
+              {t("hero.puja_booking")}
             </button>
             <button
               onClick={onBookPanditClick}
               className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-8 rounded-full text-lg font-semibold shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105"
             >
-              Travel, Food & Stay
+              {t("hero.travel_food_stay")}
             </button>
           </div>
         </div>

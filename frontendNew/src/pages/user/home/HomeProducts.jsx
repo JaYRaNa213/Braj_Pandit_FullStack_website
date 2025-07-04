@@ -6,8 +6,10 @@ import { useCart } from "../../../context/CartContext";
 import { getProducts } from "../../../services/api";
 import { toast } from "react-toastify";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 const HomeProducts = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { addToCart } = useCart();
 
@@ -25,7 +27,7 @@ const HomeProducts = () => {
       product: product._id,
       quantity: 1,
     });
-    toast.success("Added to cart!");
+    toast.success(t("products.added_to_cart"));
   };
 
   const toggleFavorite = (productId) => {
@@ -61,21 +63,22 @@ const HomeProducts = () => {
     >
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-bold text-center text-red-700 dark:text-yellow-300 mb-12 drop-shadow-sm">
-          Featured Religious <span className="text-yellow-600 dark:text-orange-400">Products</span>
+          {t("products.heading_1")}{" "}
+          <span className="text-yellow-600 dark:text-orange-400">
+            {t("products.heading_2")}
+          </span>
         </h2>
 
         {loading ? (
-          <p className="text-center text-gray-600 dark:text-gray-400">Loading products...</p>
+          <p className="text-center text-gray-600 dark:text-gray-400">{t("products.loading")}</p>
         ) : featuredProducts.length === 0 ? (
-          <p className="text-center text-red-500 dark:text-red-300">No products found.</p>
+          <p className="text-center text-red-500 dark:text-red-300">{t("products.no_products")}</p>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
             {featuredProducts.map((product) => (
               <div
                 key={product._id}
                 className="bg-white dark:bg-gray-800 border-2 border-yellow-400 dark:border-orange-400 rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between overflow-hidden relative"
-
-
               >
                 <button
                   onClick={() => toggleFavorite(product._id)}
@@ -109,13 +112,13 @@ const HomeProducts = () => {
                     onClick={() => handleAddToCart(product)}
                     className="flex-1 bg-yellow-500 hover:bg-yellow-600 dark:bg-yellow-600 dark:hover:bg-yellow-500 text-white py-2 rounded-lg text-sm font-medium transition"
                   >
-                    Add to Cart
+                    {t("products.add_to_cart")}
                   </button>
                   <button
                     onClick={() => handleBuyNow(product)}
                     className="flex-1 bg-red-600 hover:bg-red-700 dark:bg-orange-600 dark:hover:bg-orange-700 text-white py-2 rounded-lg text-sm font-medium transition"
                   >
-                    Buy Now
+                    {t("products.buy_now")}
                   </button>
                 </div>
               </div>
@@ -129,7 +132,7 @@ const HomeProducts = () => {
               to="/products"
               className="px-6 py-2 border-2 border-red-700 dark:border-orange-400 text-red-700 dark:text-orange-400 rounded-full hover:bg-red-700 dark:hover:bg-orange-500 hover:text-white transition text-lg font-semibold shadow-md"
             >
-              View More Products
+              {t("products.view_more")}
             </Link>
           </div>
         )}

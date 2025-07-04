@@ -4,6 +4,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { userCancelOrder } from "../services/orderService";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const statusColors = {
   Pending: "bg-yellow-200 text-yellow-800 dark:bg-yellow-100 dark:text-yellow-900",
@@ -15,20 +16,21 @@ const statusColors = {
 
 const OrderCard = ({ order, onCancelSuccess }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleCancel = async () => {
-    if (!window.confirm("Are you sure you want to cancel this order?")) return;
+    if (!window.confirm(t("order.cancel_confirm"))) return;
 
     try {
       const res = await userCancelOrder(order._id);
       if (res.success) {
-        toast.success("Order cancelled successfully.");
-        onCancelSuccess?.(); // optional refetch if passed
+        toast.success(t("order.cancel_success"));
+        onCancelSuccess?.(); // optional refetch
       } else {
-        toast.error(res.message || "Failed to cancel order.");
+        toast.error(res.message || t("order.cancel_failed"));
       }
     } catch (err) {
-      toast.error("Something went wrong while cancelling the order.");
+      toast.error(t("order.cancel_error"));
       console.error(err);
     }
   };
@@ -40,14 +42,14 @@ const OrderCard = ({ order, onCancelSuccess }) => {
           onClick={() => navigate(`/order/${order._id}`)}
           className="text-left font-semibold text-lg text-blue-700 dark:text-blue-400 hover:underline"
         >
-          🧾 Order ID: {order._id}
+          🧾 {t("order.order_id")}: {order._id}
         </button>
         <span
           className={`text-sm font-semibold px-3 py-1 rounded-full ${
             statusColors[order.status] || "bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-100"
           }`}
         >
-          {order.status}
+          {t(`order.status.${order.status}`)}
         </span>
       </div>
 
@@ -67,13 +69,13 @@ const OrderCard = ({ order, onCancelSuccess }) => {
                 className="font-medium text-blue-600 dark:text-blue-400 hover:underline"
                 onClick={() => navigate(`/products/${p.productId?._id}`)}
               >
-                {p.productId?.name || "Unknown Product"}
+                {p.productId?.name || t("order.unknown_product")}
               </button>
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                Quantity: {p.quantity}
+                {t("order.quantity")}: {p.quantity}
               </p>
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                Price: ₹{p.productId?.price?.toFixed(2) || "0.00"}
+                {t("order.price")}: ₹{p.productId?.price?.toFixed(2) || "0.00"}
               </p>
             </div>
           </div>
@@ -82,18 +84,18 @@ const OrderCard = ({ order, onCancelSuccess }) => {
 
       <div className="mt-4 flex justify-between items-center">
         <div className="text-sm text-gray-500 dark:text-gray-400">
-          Ordered on: {new Date(order.createdAt).toLocaleString()}
+          {t("order.ordered_on")}: {new Date(order.createdAt).toLocaleString()}
         </div>
         <div className="text-right">
           <p className="text-lg font-bold text-green-700 dark:text-green-400">
-            Total: ₹{order.totalAmount?.toFixed(2)}
+            {t("order.total")}: ₹{order.totalAmount?.toFixed(2)}
           </p>
           {order.status === "Pending" && (
             <button
               onClick={handleCancel}
               className="mt-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm rounded"
             >
-              Cancel Order
+              {t("order.cancel_btn")}
             </button>
           )}
         </div>

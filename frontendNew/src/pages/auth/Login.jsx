@@ -1,8 +1,5 @@
 // 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
-// If you theft this code, you will be punished or may face legal action by the owner.
 
-// src/pages/auth/Login.jsx
-// src/pages/auth/Login.jsx
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axiosInstance from "../../services/axios";
@@ -10,6 +7,7 @@ import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
 import Navbar from "../../components/common/Navbar";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -17,12 +15,13 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const { login, setUser } = useAuth();
+  const { t, i18n } = useTranslation();
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const validateForm = () => {
     if (!form.email || !form.password) {
-      toast.error("Please fill in all fields.");
+      toast.error(t("login.fill_all_fields"));
       return false;
     }
     return true;
@@ -64,18 +63,18 @@ export default function Login() {
       const { token, user } = res.data;
 
       if (!token || !user) {
-        toast.error("Invalid response from server.");
+        toast.error(t("login.invalid_response"));
         return;
       }
 
-      toast.success("Login successful!");
+      toast.success(t("login.success"));
       login(token);
       await fetchAndStoreProfile(token);
       await syncCartToBackend(token);
 
       navigate(user.role === "admin" ? "/admin/dashboard" : "/dashboard");
     } catch (err) {
-      toast.error(err.response?.data?.message || "Login failed");
+      toast.error(err.response?.data?.message || t("login.failed"));
     } finally {
       setLoading(false);
     }
@@ -97,13 +96,13 @@ export default function Login() {
         <div className="md:w-1/2 flex items-center justify-center bg-gray-100 px-6 py-12">
           <div className="bg-white rounded-xl shadow-lg p-10 w-full max-w-md border border-gray-200">
             <h2 className="text-3xl font-bold text-center text-[#4A1C1C] mb-6">
-              Welcome Back
+              {t("login.title")}
             </h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               <input
                 type="email"
                 name="email"
-                placeholder="Email"
+                placeholder={t("login.email")}
                 value={form.email}
                 onChange={handleChange}
                 className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
@@ -112,7 +111,7 @@ export default function Login() {
                 <input
                   type={showPassword ? "text" : "password"}
                   name="password"
-                  placeholder="Password"
+                  placeholder={t("login.password")}
                   value={form.password}
                   onChange={handleChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
@@ -130,15 +129,21 @@ export default function Login() {
                 className="w-full bg-yellow-600 hover:bg-yellow-700 text-white font-semibold py-3 rounded-md transition duration-300"
                 disabled={loading}
               >
-                {loading ? "Logging in..." : "Login"}
+                {loading ? t("login.loading") : t("login.button")}
               </button>
             </form>
             <p className="text-sm text-center text-gray-600 mt-6">
-              Don’t have an account?{" "}
+              {t("login.no_account")}{" "}
               <Link to="/register" className="text-yellow-700 hover:underline font-medium">
-                Register here
+                {t("login.register_here")}
               </Link>
             </p>
+            <button
+              onClick={() => i18n.changeLanguage(i18n.language === "en" ? "hi" : "en")}
+              className="mt-6 text-sm underline text-gray-500 hover:text-yellow-600"
+            >
+              {i18n.language === "en" ? "हिंदी में बदलें" : "Switch to English"}
+            </button>
           </div>
         </div>
       </div>

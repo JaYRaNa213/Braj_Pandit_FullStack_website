@@ -2,11 +2,12 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import famousPlacesData from "../../../data/famousPlaces.json";
 import "./carousel.css";
 
 const FamousPlacesSection = () => {
-  const [language, setLanguage] = useState("en");
+  const { t, i18n } = useTranslation();
   const [angle, setAngle] = useState(0);
   const containerRef = useRef(null);
   const autoScrollRef = useRef(null);
@@ -84,7 +85,7 @@ const FamousPlacesSection = () => {
   return (
     <section
       className="py-16 px-4 text-center overflow-hidden min-h-[700px] relative"
-      aria-label="3D rotating carousel of famous places"
+      aria-label={t("famous_places_aria_label")}
       role="region"
     >
       <div
@@ -92,9 +93,6 @@ const FamousPlacesSection = () => {
         style={{
           backgroundImage:
             "url('https://www.shutterstock.com/image-photo/white-water-rafting-on-gangas-600nw-2363059301.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
         }}
       >
         <div className="w-full h-full bg-white dark:bg-black opacity-50 dark:opacity-70"></div>
@@ -103,16 +101,14 @@ const FamousPlacesSection = () => {
       <div className="relative z-10">
         <div className="flex justify-between items-center max-w-5xl mx-auto mb-6 px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-yellow-600 dark:text-yellow-400 drop-shadow-lg transition-all duration-500">
-            {language === "en"
-              ? "Famous Places of Mathura"
-              : "मथुरा के प्रसिद्ध स्थल"}
+            {t("famous_places_title")}
           </h2>
           <button
-            onClick={() => setLanguage((prev) => (prev === "en" ? "hi" : "en"))}
+            onClick={() => i18n.changeLanguage(i18n.language === "en" ? "hi" : "en")}
             aria-label="Toggle language"
             className="text-sm border px-3 py-1 rounded-full bg-white dark:bg-gray-800 dark:text-orange-300 text-orange-700 hover:bg-orange-100 dark:hover:bg-gray-700 transition"
           >
-            {language === "en" ? "🌐 हिंदी" : "🌐 English"}
+            {i18n.language === "en" ? "🌐 हिंदी" : "🌐 English"}
           </button>
         </div>
 
@@ -154,7 +150,7 @@ const FamousPlacesSection = () => {
                           className="w-full h-36 object-cover rounded-md mb-2"
                         />
                         <h3 className="text-base font-bold text-orange-700 dark:text-orange-400">
-                          {language === "en" ? place.Name : place.hindi}
+                          {i18n.language === "en" ? place.Name : place.hindi}
                         </h3>
                         <p className="text-xs text-gray-600 dark:text-gray-300 line-clamp-2">
                           {place.description}
@@ -164,26 +160,23 @@ const FamousPlacesSection = () => {
                         onClick={() => openMap(place.location)}
                         className="mt-2 text-xs bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-200 font-semibold py-1 px-2 rounded hover:bg-orange-200 dark:hover:bg-orange-800 transition"
                       >
-                        🔗 {language === "en" ? "View on Map" : "नक्शे पर देखें"}
+                        🔗 {t("view_on_map")}
                       </button>
                     </div>
 
                     <div className="card-face card-back p-3 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-lg border-2 border-yellow-400 dark:border-yellow-300">
                       <div>
                         <p className="text-sm text-gray-700 dark:text-gray-300 mb-2 font-semibold">
-                          {language === "en"
-                            ? "📍 Best Time to Visit:"
-                            : "📍 यात्रा का समय:"}
+                          {t("best_time_to_visit")}
                         </p>
                         <p className="text-xs text-gray-600 dark:text-gray-400 leading-tight">
-                          ☀ {language === "en" ? "Summer" : "गर्मी"}: {place.summer || "N/A"}
+                          ☀ {t("summer")}: {place.summer || "N/A"}
                           <br />
-                          ❄ {language === "en" ? "Winter" : "सर्दी"}: {place.winter || "N/A"}
+                          ❄ {t("winter")}: {place.winter || "N/A"}
                         </p>
                         {place.tips && (
                           <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-2 italic">
-                            💡 {language === "en" ? "Tip: " : "सलाह: "}
-                            {place.tips}
+                            💡 {t("tip")}{place.tips}
                           </p>
                         )}
                       </div>
@@ -191,7 +184,7 @@ const FamousPlacesSection = () => {
                         onClick={() => openMap(place.location)}
                         className="mt-3 text-xs bg-orange-200 dark:bg-orange-700 text-orange-800 dark:text-white font-bold py-1 px-2 rounded hover:bg-orange-300 dark:hover:bg-orange-600 transition"
                       >
-                        📌 {language === "en" ? "Open Map" : "नक्शा खोलें"}
+                        📌 {t("open_map")}
                       </button>
                     </div>
                   </div>
@@ -206,7 +199,7 @@ const FamousPlacesSection = () => {
             onClick={() => navigate("/famous-places")}
             className="bg-orange-600 dark:bg-orange-500 text-white px-6 py-2 rounded-lg shadow hover:bg-orange-700 dark:hover:bg-orange-400 transition"
           >
-            {language === "en" ? "🔍 View More" : "🔍 और देखें"}
+            {t("view_more")}
           </button>
         </div>
       </div>

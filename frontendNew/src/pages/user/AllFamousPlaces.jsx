@@ -4,8 +4,10 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import famousPlacesData from "../../data/famousPlaces.json";
 import FamousCard from "./FamousCard";
+import { useTranslation } from "react-i18next";
 
 const AllFamousPlaces = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const allPlaces = famousPlacesData.mandirs;
   const [visibleCount, setVisibleCount] = useState(3);
@@ -40,11 +42,8 @@ const AllFamousPlaces = () => {
   return (
     <section className="py-16 px-4 bg-[#FFF8E1] dark:bg-gray-900 min-h-screen transition-colors duration-300">
       <div className="max-w-6xl mx-auto">
-
-        
-
         <h1 className="text-4xl font-bold text-center text-orange-600 dark:text-yellow-400 mb-12">
-          All Famous Places in Mathura
+          {t("famous_places.heading")}
         </h1>
 
         <div className="space-y-10">
@@ -59,7 +58,7 @@ const AllFamousPlaces = () => {
 
           {visibleCount < allPlaces.length && (
             <p className="text-center text-gray-500 dark:text-gray-400 mt-4 animate-pulse">
-              Scroll to load more...
+              {t("famous_places.scroll_to_load")}
             </p>
           )}
         </div>

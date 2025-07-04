@@ -3,8 +3,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getBlogById } from "@/services/user/blogService";
+import { useTranslation } from "react-i18next";
 
 const BlogDetails = () => {
+  const { t } = useTranslation();
   const { id } = useParams();
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -27,7 +29,7 @@ const BlogDetails = () => {
   if (loading) {
     return (
       <div className="p-10 text-center text-gray-600 dark:text-gray-300 animate-pulse">
-        Loading blog details...
+        {t("blog_details.loading")}
       </div>
     );
   }
@@ -35,7 +37,7 @@ const BlogDetails = () => {
   if (!blog) {
     return (
       <div className="p-10 text-center text-red-600 dark:text-red-400">
-        Blog not found or something went wrong.
+        {t("blog_details.not_found")}
       </div>
     );
   }
@@ -60,8 +62,9 @@ const BlogDetails = () => {
 
       {/* Meta */}
       <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
-        By <span className="font-medium">{blog.author || "Admin"}</span> •{" "}
-        {new Date(blog.publishedAt || blog.createdAt).toLocaleDateString()}
+        {t("blog_details.by")}{" "}
+        <span className="font-medium">{blog.author || t("blog_details.admin")}</span>{" "}
+        • {new Date(blog.publishedAt || blog.createdAt).toLocaleDateString()}
       </p>
 
       {/* Blog Content */}
@@ -76,7 +79,7 @@ const BlogDetails = () => {
           to="/blogs"
           className="inline-block px-6 py-2 border-2 border-red-700 text-red-700 rounded-full hover:bg-red-700 hover:text-white transition font-semibold"
         >
-          ← Back to Blogs
+          ← {t("blog_details.back_to_blogs")}
         </Link>
       </div>
     </div>

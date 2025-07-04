@@ -6,13 +6,15 @@ import { FaShoppingCart, FaSearch } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const Products = () => {
+  const { t } = useTranslation();
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryList, setCategoryList] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCategory, setSelectedCategory] = useState(t("all"));
   const [sortBy, setSortBy] = useState("");
   const navigate = useNavigate();
   const { addToCart } = useCart();
@@ -24,18 +26,18 @@ const Products = () => {
         setProducts(data);
         setFilteredProducts(data);
 
-        const categories = ["All", ...new Set(data.map((p) => p.category || "Others"))];
+        const categories = [t("all"), ...new Set(data.map((p) => p.category || t("others")))];
         setCategoryList(categories);
       })
       .catch((err) => {
         console.error("Failed to fetch products", err);
       });
-  }, []);
+  }, [t]);
 
   useEffect(() => {
     let temp = [...products];
 
-    if (selectedCategory !== "All") {
+    if (selectedCategory !== t("all")) {
       temp = temp.filter((p) => p.category === selectedCategory);
     }
 
@@ -55,7 +57,7 @@ const Products = () => {
     }
 
     setFilteredProducts(temp);
-  }, [products, searchTerm, selectedCategory, sortBy]);
+  }, [products, searchTerm, selectedCategory, sortBy, t]);
 
   const handleBuyNow = (product) => {
     navigate("/checkout", { state: { product } });
@@ -63,13 +65,13 @@ const Products = () => {
 
   const handleAddToCart = (product) => {
     addToCart({ ...product, product: product._id, quantity: 1 });
-    toast.success("Added to cart!");
+    toast.success(t("addedToCart"));
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-red-50 to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-10 px-4 md:px-10">
       <h2 className="text-4xl font-bold text-center mb-6 text-red-700 dark:text-red-400 drop-shadow-md">
-        🛍️ Our Divine <span className="text-yellow-600 dark:text-yellow-300">Products</span>
+        🛍️ {t("ourDivine")} <span className="text-yellow-600 dark:text-yellow-300">{t("products")}</span>
       </h2>
 
       <div className="max-w-6xl mx-auto mb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -78,7 +80,7 @@ const Products = () => {
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search divine products..."
+            placeholder={t("searchPlaceholder")}
             className="w-full py-3 pl-12 pr-4 rounded-full shadow-md border border-yellow-300 dark:border-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-500 dark:bg-gray-800 dark:text-white"
           />
           <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-yellow-500 text-lg" />
@@ -120,15 +122,15 @@ const Products = () => {
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value)}
         >
-          <option value="">Sort by</option>
-          <option value="priceLowHigh">Price: Low to High</option>
-          <option value="priceHighLow">Price: High to Low</option>
+          <option value="">{t("sortBy")}</option>
+          <option value="priceLowHigh">{t("priceLowHigh")}</option>
+          <option value="priceHighLow">{t("priceHighLow")}</option>
         </select>
       </div>
 
       {filteredProducts.length === 0 ? (
         <p className="text-center text-red-600 dark:text-red-400 text-lg mt-6">
-          No matching products found.
+          {t("noProducts")}
         </p>
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
@@ -164,13 +166,13 @@ const Products = () => {
                   onClick={() => handleAddToCart(product)}
                   className="bg-yellow-500 hover:bg-yellow-600 text-white py-1.5 rounded text-xs font-medium transition"
                 >
-                  Add to Cart
+                  {t("addToCart")}
                 </button>
                 <button
                   onClick={() => handleBuyNow(product)}
                   className="bg-red-600 hover:bg-red-700 text-white py-1.5 rounded text-xs font-medium transition"
                 >
-                  Buy Now
+                  {t("buyNow")}
                 </button>
               </div>
             </div>

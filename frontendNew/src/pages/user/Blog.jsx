@@ -3,8 +3,10 @@
 import React, { useEffect, useState } from "react";
 import { getAllBlogs } from "../../services/user/blogService";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Blog = () => {
+  const { t } = useTranslation();
   const [blogs, setBlogs] = useState([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
@@ -29,12 +31,12 @@ const Blog = () => {
   return (
     <div className="px-4 sm:px-6 lg:px-8 py-6 dark:bg-gray-950 dark:text-white min-h-screen transition-colors duration-300">
       <h2 className="text-3xl font-bold mb-6 text-red-700 dark:text-yellow-400">
-        📰 Latest Blog Posts
+        📰 {t("blogs_page.heading")}
       </h2>
 
       <input
         type="text"
-        placeholder="Search blog by title..."
+        placeholder={t("blogs_page.search_placeholder")}
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         className="mb-6 w-full border border-gray-300 dark:border-gray-700 p-3 rounded shadow-sm dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-red-400"
@@ -42,7 +44,7 @@ const Blog = () => {
 
       {loading ? (
         <p className="text-center text-gray-500 dark:text-gray-400 animate-pulse">
-          Loading blogs...
+          {t("blogs_page.loading")}
         </p>
       ) : blogs.length > 0 ? (
         <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
@@ -69,7 +71,7 @@ const Blog = () => {
                   {blog.title}
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
-                  {blog.category || "General"}
+                  {blog.category || t("blogs_page.general")}
                 </p>
               </div>
             </Link>
@@ -77,7 +79,7 @@ const Blog = () => {
         </div>
       ) : (
         <p className="text-center text-gray-500 dark:text-gray-400">
-          No blogs found for "{search}"
+          {t("blogs_page.no_blogs", { search })}
         </p>
       )}
     </div>

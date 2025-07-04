@@ -3,6 +3,7 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { FaWhatsapp, FaPhoneAlt } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 import pujaServicesData from "../../data/pujaServices.json";
 
 export default function PujaDetails() {
@@ -10,6 +11,7 @@ export default function PujaDetails() {
   const navigate = useNavigate();
   const query = new URLSearchParams(location.search);
   const service = query.get("service");
+  const { t } = useTranslation();
 
   const [pujaData, setPujaData] = useState(null);
 
@@ -24,12 +26,12 @@ export default function PujaDetails() {
   if (!pujaData) {
     return (
       <div className="p-6 text-center text-red-600 min-h-screen flex flex-col justify-center items-center dark:bg-gray-900 dark:text-red-400">
-        <h2 className="text-xl font-semibold">🚫 Invalid Puja Selected</h2>
+        <h2 className="text-xl font-semibold">🚫 {t("puja.invalid")}</h2>
         <button
           onClick={() => navigate("/all-puja-services")}
           className="mt-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800"
         >
-          Go Back to All Services
+          {t("puja.back")}
         </button>
       </div>
     );
@@ -53,13 +55,13 @@ export default function PujaDetails() {
               rel="noopener noreferrer"
               className="flex items-center gap-2 hover:underline"
             >
-              <FaWhatsapp className="text-green-300" /> WhatsApp Us
+              <FaWhatsapp className="text-green-300" /> {t("puja.whatsapp")}
             </a>
             <a
               href="tel:+916395857663"
               className="flex items-center gap-2 hover:underline"
             >
-              <FaPhoneAlt className="text-yellow-300" /> Call Now On +91 6395857663
+              <FaPhoneAlt className="text-yellow-300" /> {t("puja.call")}
             </a>
           </div>
         </div>
@@ -74,7 +76,7 @@ export default function PujaDetails() {
               {pujaData.description}
             </p>
             <p className="text-sm mt-4 text-gray-500 dark:text-gray-400 italic">
-              📂 Category: {pujaData.category} | ⭐ Rating: {pujaData.rating}/5
+              📂 {t("puja.category")}: {pujaData.category} | ⭐ {t("puja.rating")}: {pujaData.rating}/5
             </p>
           </div>
 
@@ -87,13 +89,13 @@ export default function PujaDetails() {
                 )
               }
             >
-              📿 Book This Puja
+              📿 {t("puja.book")}
             </button>
             <button
               className="bg-gray-300 text-gray-700 px-6 py-2 rounded hover:bg-gray-400 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 transition"
               onClick={() => navigate("/all-puja-services")}
             >
-              ← Back to All Services
+              ← {t("puja.back")}
             </button>
           </div>
         </div>

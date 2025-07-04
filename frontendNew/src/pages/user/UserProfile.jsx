@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { uploadProfileImage, updateProfile, getProfile } from "../../services/user/userService";
 import { useAuth } from "../../context/AuthContext";
+import { useTranslation } from "react-i18next";
 
 const ActivityCard = ({ icon, label, count, link }) => (
   <Link to={link}>
@@ -25,6 +26,7 @@ const ActivityCard = ({ icon, label, count, link }) => (
 );
 
 const UserProfile = () => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [image, setImage] = useState(null);
@@ -39,7 +41,7 @@ const UserProfile = () => {
   const handleImageChange = (e) => setImage(e.target.files[0]);
 
   const handleUpload = async () => {
-    if (!image) return alert("Please select an image.");
+    if (!image) return alert(t("profile.select_image"));
     const formData = new FormData();
     formData.append("file", image);
 
@@ -47,13 +49,13 @@ const UserProfile = () => {
       const result = await uploadProfileImage(formData);
       if (result.success) {
         setUploadedUrl(result.data);
-        alert("✅ Image uploaded!");
+        alert(t("profile.upload_success"));
       } else {
-        alert("❌ Upload failed: " + result.message);
+        alert(t("profile.upload_fail") + ": " + result.message);
       }
     } catch (err) {
       console.error("Image upload failed:", err);
-      alert("❌ Image upload failed");
+      alert(t("profile.upload_fail"));
     }
   };
 
@@ -64,7 +66,7 @@ const UserProfile = () => {
     try {
       const data = await updateProfile(userProfileData);
       if (data.success) {
-        alert("✅ Profile updated successfully!");
+        alert(t("profile.update_success"));
         setUser((prev) => {
           const updated = { ...prev, name, profileImage: uploadedUrl };
           localStorage.setItem("user", JSON.stringify(updated));
@@ -72,7 +74,7 @@ const UserProfile = () => {
         });
         fetchProfile();
       } else {
-        alert("❌ Failed to update profile: " + data.message);
+        alert(t("profile.update_fail") + ": " + data.message);
       }
     } catch (err) {
       console.error("Error submitting profile:", err);
@@ -96,7 +98,7 @@ const UserProfile = () => {
         setError(result.message);
       }
     } catch (err) {
-      setError("Failed to load profile");
+      setError(t("profile.load_error"));
     } finally {
       setLoading(false);
     }
@@ -111,7 +113,7 @@ const UserProfile = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white dark:bg-black">
-        <p className="text-lg font-semibold text-[#C0402B] dark:text-red-400">Loading profile...</p>
+        <p className="text-lg font-semibold text-[#C0402B] dark:text-red-400">{t("profile.loading")}</p>
       </div>
     );
   }
@@ -128,7 +130,7 @@ const UserProfile = () => {
     <div className="min-h-screen bg-gradient-to-br from-yellow-50 to-red-50 dark:from-zinc-900 dark:to-zinc-800 p-6">
       <div className="max-w-6xl mx-auto bg-white dark:bg-zinc-900 shadow-2xl rounded-xl p-8">
         <h1 className="text-4xl font-bold text-[#C0402B] dark:text-red-400 mb-6 text-center sm:text-left">
-          👤 My Profile
+          👤 {t("profile.heading")}
         </h1>
 
         <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-10">
@@ -146,7 +148,7 @@ const UserProfile = () => {
 
           <form onSubmit={handleSubmit} className="flex-1 space-y-4 w-full">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Full Name</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">{t("profile.name")}</label>
               <input
                 type="text"
                 value={name}
@@ -155,7 +157,7 @@ const UserProfile = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Email Address</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">{t("profile.email")}</label>
               <input
                 type="email"
                 value={email}
@@ -169,25 +171,23 @@ const UserProfile = () => {
                 onClick={handleUpload}
                 className="bg-[#4A1C1C] text-white px-4 py-2 rounded-md hover:bg-[#5e2a2a]"
               >
-                Upload Image
+                {t("profile.upload_image")}
               </button>
               <button
                 type="submit"
                 className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700"
               >
-                Save Profile
+                {t("profile.save_profile")}
               </button>
             </div>
           </form>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <ActivityCard icon={<Calendar />} label="My Bookings" count={activity.bookings} link="/booking/my" />
-
-          <ActivityCard icon={<ShoppingCart />} label="My Cart" count={activity.cart} link="/cart" />
-          <ActivityCard icon={<Package />} label="My Orders" count={activity.orders} link="/orders" />
-          <ActivityCard icon={<History />} label="Booking History" count={activity.bookings} link="/booking/history" />
-
+          <ActivityCard icon={<Calendar />} label={t("profile.my_bookings")} count={activity.bookings} link="/booking/my" />
+          <ActivityCard icon={<ShoppingCart />} label={t("profile.my_cart")} count={activity.cart} link="/cart" />
+          <ActivityCard icon={<Package />} label={t("profile.my_orders")} count={activity.orders} link="/orders" />
+          <ActivityCard icon={<History />} label={t("profile.booking_history")} count={activity.bookings} link="/booking/history" />
         </div>
       </div>
     </div>

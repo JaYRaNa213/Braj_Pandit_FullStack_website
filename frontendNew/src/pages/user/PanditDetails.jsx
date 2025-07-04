@@ -1,13 +1,15 @@
 // 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getPanditById } from "../../services/user/panditService";
-import { FaMapMarkerAlt, FaStar, FaPhoneAlt } from "react-icons/fa";
+import { FaMapMarkerAlt, FaPhoneAlt } from "react-icons/fa";
 
 const PanditDetails = () => {
   const { id } = useParams();
   const [pandit, setPandit] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPandit = async () => {
@@ -15,20 +17,36 @@ const PanditDetails = () => {
         const res = await getPanditById(id);
         setPandit(res.data?.data);
       } catch (error) {
-        console.error("Error fetching pandit details");
+        console.error("Error fetching pandit details", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchPandit();
   }, [id]);
 
-  if (!pandit) {
+  if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900">
         <p className="text-red-600 dark:text-red-400 text-lg">Loading Pandit Details...</p>
       </div>
     );
   }
+
+  if (!pandit) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-red-600 dark:text-red-400 font-semibold">
+          Unable to fetch pandit details.
+        </p>
+      </div>
+    );
+  }
+
+  const handleBook = () => {
+    navigate(`/booking?pandit=${encodeURIComponent(pandit.name)}&service=Bhagwat Katha`);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-yellow-50 to-red-50 dark:from-gray-900 dark:to-gray-800 py-10 px-4">
@@ -43,20 +61,29 @@ const PanditDetails = () => {
         {/* Info Section */}
         <div className="p-6">
           <h2 className="text-3xl font-bold text-red-700 dark:text-yellow-400">{pandit.name}</h2>
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-300 flex items-center gap-1">
-            <FaMapMarkerAlt className="text-red-500" /> {pandit.location}
-          </p>
 
-          <div className="mt-3 flex items-center gap-4 text-sm">
-            <span className="text-gray-800 dark:text-gray-200">
-              🧘 Expertise: <strong>{pandit.expertise}</strong>
-            </span>
-            <span className="text-gray-800 dark:text-gray-200">
-              ⏳ Experience: <strong>{pandit.experience}</strong>
-            </span>
+          {pandit.location && (
+            <p className="mt-2 text-sm text-gray-600 dark:text-gray-300 flex items-center gap-1">
+              <FaMapMarkerAlt className="text-red-500" /> {pandit.location}
+            </p>
+          )}
+
+          <div className="mt-3 flex flex-wrap gap-4 text-sm">
+            {pandit.expertise && (
+              <span className="text-gray-800 dark:text-gray-200">
+                🧘 <strong>Expertise:</strong> {pandit.expertise}
+              </span>
+            )}
+            {pandit.experience && (
+              <span className="text-gray-800 dark:text-gray-200">
+                ⏳ <strong>Experience:</strong> {pandit.experience} years
+              </span>
+            )}
           </div>
 
-          <p className="mt-4 text-gray-700 dark:text-gray-300 leading-relaxed">{pandit.bio}</p>
+          {pandit.bio && (
+            <p className="mt-4 text-gray-700 dark:text-gray-300 leading-relaxed">{pandit.bio}</p>
+          )}
 
           {/* Actions */}
           <div className="mt-6 flex flex-wrap gap-4">
@@ -66,7 +93,10 @@ const PanditDetails = () => {
             >
               <FaPhoneAlt /> Call Now
             </a>
-            <button className="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-lg transition">
+            <button
+              onClick={handleBook}
+              className="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-lg transition"
+            >
               📿 Book This Pandit
             </button>
           </div>

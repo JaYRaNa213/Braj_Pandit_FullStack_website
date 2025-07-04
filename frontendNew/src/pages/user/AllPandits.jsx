@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { getAllPandits } from "../../services/user/panditService";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const getRating = (name) => {
   const count = parseInt(localStorage.getItem(`clicks_${name}`)) || 0;
@@ -31,6 +32,7 @@ const AllPandits = () => {
   const [pandits, setPandits] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchPandits = async () => {
@@ -54,14 +56,14 @@ const AllPandits = () => {
     navigate(`/booking?pandit=${encodeURIComponent(name)}&service=${encodeURIComponent("Bhagwat Katha")}`);
   };
 
-  if (loading) return <div className="p-6 text-center">Loading Pandits...</div>;
+  if (loading) return <div className="p-6 text-center">{t("pandits.loading")}</div>;
 
   return (
     <section className="bg-white dark:bg-gray-900 px-4 md:px-16 py-10">
-      
-
       <h2 className="text-3xl font-bold mb-6 text-[#4A1C1C] dark:text-white text-center">
-        All <span className="text-red-600">Verified</span> Pandits
+        {t("pandits.heading_prefix")}{" "}
+        <span className="text-red-600">{t("pandits.heading_verified")}</span>{" "}
+        {t("pandits.heading_suffix")}
       </h2>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
@@ -81,9 +83,13 @@ const AllPandits = () => {
               <h3 className="text-sm font-semibold truncate">{p.name}</h3>
               <p className="text-xs text-gray-600 dark:text-gray-300">{p.expertise}</p>
               <div className="flex justify-between items-center mt-2 text-[11px] text-gray-700 dark:text-gray-300">
-                <span>{p.experience} years exp.</span>
+                <span>
+                  {p.experience} {t("pandits.years_exp")}
+                </span>
                 <div className="flex flex-col items-center text-yellow-600">
-                  <span className="text-[10px] text-gray-600 dark:text-gray-300 font-semibold">{p.rating}</span>
+                  <span className="text-[10px] text-gray-600 dark:text-gray-300 font-semibold">
+                    {p.rating}
+                  </span>
                   <div className="text-sm">{renderStars(p.rating)}</div>
                 </div>
               </div>
@@ -91,7 +97,7 @@ const AllPandits = () => {
                 onClick={() => handleBookPandit(p.name)}
                 className="mt-auto bg-red-600 text-white px-3 py-1 text-xs rounded hover:bg-orange-700 font-medium mt-4"
               >
-                Book Pandit
+                {t("pandits.book_now")}
               </button>
             </div>
           </div>

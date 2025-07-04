@@ -7,8 +7,10 @@ import { toast } from 'react-toastify';
 import { useAuth } from '../../context/AuthContext';
 import { useCart } from '../../context/CartContext';
 import { FaShoppingBag, FaMoneyBillWave } from 'react-icons/fa';
+import { useTranslation } from 'react-i18next';
 
 const Checkout = () => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const { cartItems, clearCart } = useCart();
   const location = useLocation();
@@ -52,7 +54,7 @@ const Checkout = () => {
       } else {
         const localCart = JSON.parse(localStorage.getItem('cart')) || [];
         if (localCart.length === 0) {
-          toast.error('No items to checkout.');
+          toast.error(t("checkout.empty"));
           navigate('/');
         } else {
           const mappedItems = localCart.map((item) => ({
@@ -66,7 +68,7 @@ const Checkout = () => {
         }
       }
     }
-  }, [location.state, user, cartItems, navigate]);
+  }, [location.state, user, cartItems, navigate, t]);
 
   const handleChange = (e) => {
     setShipping({ ...shipping, [e.target.name]: e.target.value });
@@ -76,7 +78,7 @@ const Checkout = () => {
     e.preventDefault();
 
     if (!user) {
-      toast.error('Please login to place an order.');
+      toast.error(t("checkout.loginRequired"));
       navigate('/login');
       return;
     }
@@ -94,35 +96,35 @@ const Checkout = () => {
       });
 
       if (res.success) {
-        toast.success('✅ Order placed!');
+        toast.success(t("checkout.success"));
         localStorage.removeItem('cart');
         clearCart();
         navigate('/my-orders');
       } else {
-        toast.error(res.message || '❌ Order failed.');
+        toast.error(res.message || t("checkout.fail"));
       }
     } catch (err) {
       console.error('🔥 Order Error:', err);
-      toast.error('Something went wrong!');
+      toast.error(t("checkout.error"));
     }
   };
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-10 bg-gradient-to-tr from-white to-gray-100 dark:from-gray-900 dark:to-gray-800 rounded-2xl shadow-xl mt-10 text-black dark:text-white">
       <h2 className="text-3xl font-bold text-center text-red-700 dark:text-yellow-300 mb-6 flex items-center justify-center gap-2">
-        <FaShoppingBag className="text-2xl" /> Checkout
+        <FaShoppingBag className="text-2xl" /> {t("checkout.title")}
       </h2>
 
       {items.length === 0 ? (
         <p className="text-center text-lg text-red-500 dark:text-red-300 font-semibold">
-          No products to checkout.
+          {t("checkout.empty")}
         </p>
       ) : (
         <div className="grid md:grid-cols-2 gap-10">
           {/* Left - Order Summary */}
           <div>
             <h3 className="text-xl font-semibold mb-4 border-b pb-2 border-gray-300 dark:border-gray-600">
-              🛒 Your Items
+              {t("checkout.items")}
             </h3>
             <div className="space-y-4">
               {items.map((item, index) => (
@@ -145,7 +147,7 @@ const Checkout = () => {
               ))}
             </div>
             <div className="text-right mt-4 text-xl font-bold text-green-700 dark:text-green-300">
-              Total: ₹
+              {t("checkout.total")}: ₹
               {items
                 .reduce(
                   (acc, item) => acc + (Number(item.price) || 0) * (item.quantity || 1),
@@ -158,7 +160,7 @@ const Checkout = () => {
           {/* Right - Shipping & Payment */}
           <form onSubmit={handleSubmit} className="space-y-5">
             <h3 className="text-xl font-semibold mb-2 border-b pb-2 border-gray-300 dark:border-gray-600">
-              📦 Shipping Details
+              {t("checkout.shipping")}
             </h3>
             {Object.entries(shipping).map(([key, value]) => (
               <div key={key}>
@@ -166,7 +168,7 @@ const Checkout = () => {
                   htmlFor={key}
                   className="block text-sm font-medium text-gray-600 dark:text-gray-300 capitalize mb-1"
                 >
-                  {key}
+                  {t(`checkout.${key}`)}
                 </label>
                 <input
                   id={key}
@@ -174,7 +176,7 @@ const Checkout = () => {
                   required
                   value={value}
                   onChange={handleChange}
-                  placeholder={`Enter your ${key}`}
+                  placeholder={t(`checkout.placeholder.${key}`)}
                   className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm bg-white dark:bg-gray-800 focus:ring-2 focus:ring-red-500 focus:outline-none"
                 />
               </div>
@@ -182,15 +184,15 @@ const Checkout = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">
-                💳 Payment Method
+                {t("checkout.payment")}
               </label>
               <select
                 value={paymentMethod}
                 onChange={(e) => setPaymentMethod(e.target.value)}
                 className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 shadow-sm focus:ring-2 focus:ring-red-500 focus:outline-none"
               >
-                <option value="cod">Cash on Delivery</option>
-                <option value="online">Online Payment</option>
+                <option value="cod">{t("checkout.cod")}</option>
+                <option value="online">{t("checkout.online")}</option>
               </select>
             </div>
 
@@ -199,7 +201,7 @@ const Checkout = () => {
               className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-3 rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl"
             >
               <FaMoneyBillWave className="inline mr-2" />
-              Place Order
+              {t("checkout.button")}
             </button>
           </form>
         </div>

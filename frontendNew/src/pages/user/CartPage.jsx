@@ -4,10 +4,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import { FaTrash, FaPlus, FaMinus, FaShoppingCart } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 const CartPage = () => {
   const navigate = useNavigate();
   const { cartItems, removeFromCart, updateQuantity } = useCart();
+  const { t } = useTranslation();
 
   // 🛡️ Safely calculate total
   const total = cartItems.reduce((acc, item) => {
@@ -26,12 +28,12 @@ const CartPage = () => {
   return (
     <div className="max-w-6xl mx-auto px-4 py-10 min-h-screen bg-[#fdf7e3] dark:bg-gray-900 text-black dark:text-white">
       <h2 className="text-3xl font-bold text-center text-red-700 dark:text-yellow-300 mb-8 flex items-center justify-center gap-2">
-        <FaShoppingCart /> Your Cart
+        <FaShoppingCart /> {t("cart.title")}
       </h2>
 
       {cartItems.length === 0 ? (
         <p className="text-center text-lg text-gray-600 dark:text-gray-400">
-          Your cart is empty. Go add some divine products!
+          {t("cart.empty")}
         </p>
       ) : (
         <>
@@ -39,7 +41,6 @@ const CartPage = () => {
             {cartItems.map((item, index) => {
               const product = item?.product;
 
-              // 🛡️ Skip rendering if product data is invalid
               if (!product || typeof product.price !== "number") return null;
 
               return (
@@ -83,6 +84,7 @@ const CartPage = () => {
                   <button
                     onClick={() => removeFromCart(product._id)}
                     className="text-red-600 hover:text-red-800"
+                    aria-label={t("cart.remove")}
                   >
                     <FaTrash />
                   </button>
@@ -94,13 +96,13 @@ const CartPage = () => {
           {/* Total and Checkout */}
           <div className="text-right mt-10">
             <p className="text-xl font-bold text-green-700 dark:text-green-300">
-              Total: ₹{total.toFixed(2)}
+              {t("cart.total")}: ₹{total.toFixed(2)}
             </p>
             <button
               onClick={handleCheckout}
               className="mt-4 bg-red-600 hover:bg-red-700 text-white py-3 px-6 rounded-lg font-medium shadow-lg"
             >
-              Proceed to Checkout
+              {t("cart.checkout")}
             </button>
           </div>
         </>

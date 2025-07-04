@@ -4,8 +4,10 @@ import React, { useEffect, useState } from "react";
 import { getAllBlogs } from "../../../services/user/blogService";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 const BlogSection = () => {
+  const { t } = useTranslation();
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -45,21 +47,13 @@ const BlogSection = () => {
     fetchBlogs(num, true);
   };
 
-  const isLatest = (date) => {
-    const daysDiff = (new Date() - new Date(date)) / (1000 * 60 * 60 * 24);
-    return daysDiff < 10;
-  };
-
-  const getReadingTime = (content = "") =>
-    Math.ceil(content.split(" ").length / 200);
-
   return (
     <section className="w-full min-h-screen px-4 sm:px-6 lg:px-8 py-12 bg-orange-100 dark:bg-gray-900 transition-colors duration-300 overflow-x-hidden">
       <div className="w-full max-w-7xl mx-auto">
         {/* Filters */}
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-10 gap-4">
           <h2 className="text-3xl sm:text-4xl font-bold text-orange-700 dark:text-yellow-400">
-            Our Blogs
+            {t("blogs.heading")}
           </h2>
           <div className="flex flex-wrap gap-3 items-center">
             <select
@@ -67,11 +61,11 @@ const BlogSection = () => {
               onChange={(e) => setCategory(e.target.value)}
               className="px-4 py-2 rounded-lg border border-orange-300 bg-white dark:bg-gray-800 dark:text-gray-200 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400 hover:border-orange-400 transition-all"
             >
-              <option value="">All Categories</option>
-              <option value="Festivals">Festivals</option>
-              <option value="Spirituality">Spirituality</option>
-              <option value="Culture">Culture</option>
-              <option value="Devotion">Devotion</option>
+              <option value="">{t("blogs.all_categories")}</option>
+              <option value="Festivals">{t("blogs.festivals")}</option>
+              <option value="Spirituality">{t("blogs.spirituality")}</option>
+              <option value="Culture">{t("blogs.culture")}</option>
+              <option value="Devotion">{t("blogs.devotion")}</option>
             </select>
 
             <select
@@ -79,8 +73,8 @@ const BlogSection = () => {
               onChange={(e) => setSortBy(e.target.value)}
               className="px-4 py-2 rounded-lg border border-orange-300 bg-white dark:bg-gray-800 dark:text-gray-200 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400 hover:border-orange-400 transition-all"
             >
-              <option value="latest">Latest First</option>
-              <option value="oldest">Oldest First</option>
+              <option value="latest">{t("blogs.latest")}</option>
+              <option value="oldest">{t("blogs.oldest")}</option>
             </select>
           </div>
         </div>
@@ -101,35 +95,34 @@ const BlogSection = () => {
               ))
             : blogs.map((blog, i) => (
                 <motion.div
-  key={blog._id}
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.4, delay: i * 0.1 }}
-  className="bg-white dark:bg-gray-800 border-2 border-yellow-400 dark:border-orange-400 shadow-md hover:shadow-xl transition-all transform hover:scale-[1.02] rounded-xl flex flex-col items-center text-center p-4"
->
-  <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-orange-300 shadow-lg mb-4">
-    <img
-      src={blog.imageUrl}
-      alt={blog.title}
-      className="w-full h-full object-cover"
-    />
-  </div>
+                  key={blog._id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: i * 0.1 }}
+                  className="bg-white dark:bg-gray-800 border-2 border-yellow-400 dark:border-orange-400 shadow-md hover:shadow-xl transition-all transform hover:scale-[1.02] rounded-xl flex flex-col items-center text-center p-4"
+                >
+                  <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-orange-300 shadow-lg mb-4">
+                    <img
+                      src={blog.imageUrl}
+                      alt={blog.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
 
-  <h3 className="text-lg font-semibold text-gray-800 dark:text-white line-clamp-1">
-    {blog.title}
-  </h3>
-  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 mb-2 line-clamp-3">
-    {blog.content.replace(/<[^>]+>/g, "").slice(0, 100)}...
-  </p>
+                  <h3 className="text-lg font-semibold text-gray-800 dark:text-white line-clamp-1">
+                    {blog.title}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 mb-2 line-clamp-3">
+                    {blog.content.replace(/<[^>]+>/g, "").slice(0, 100)}...
+                  </p>
 
-  <Link
-    to={`/blogs/${blog._id}`}
-    className="text-orange-700 dark:text-orange-400 font-semibold hover:underline text-sm"
-  >
-    Read More →
-  </Link>
-</motion.div>
-
+                  <Link
+                    to={`/blogs/${blog._id}`}
+                    className="text-orange-700 dark:text-orange-400 font-semibold hover:underline text-sm"
+                  >
+                    {t("blogs.read_more")}
+                  </Link>
+                </motion.div>
               ))}
         </div>
 
@@ -158,14 +151,14 @@ const BlogSection = () => {
             to="/blogs"
             className="bg-orange-600 text-white px-6 py-2 rounded hover:bg-orange-700 text-base sm:text-lg font-semibold transition"
           >
-            View More →
+            {t("blogs.view_more")}
           </Link>
         </div>
 
         {/* No Blogs */}
         {!loading && blogs.length === 0 && (
           <div className="mt-10 text-center text-gray-500 dark:text-gray-300">
-            No blogs found.
+            {t("blogs.no_blogs")}
           </div>
         )}
       </div>

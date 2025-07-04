@@ -1,15 +1,14 @@
 // 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 // If you theft this code, you will be punished or may face legal action by the owner.
 
-
-// src/pages/user/ProductDetails.jsx
-
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axiosInstance from "../../services/axios";
 import { useCart } from "../../hooks/useCart";
+import { useTranslation } from "react-i18next";
 
 const ProductDetails = () => {
+  const { t } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
   const { addToCart } = useCart();
@@ -55,14 +54,18 @@ const ProductDetails = () => {
   if (loading)
     return (
       <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900">
-        <p className="text-red-600 dark:text-red-400 font-medium">Loading...</p>
+        <p className="text-red-600 dark:text-red-400 font-medium">
+          {t("product_details.loading")}
+        </p>
       </div>
     );
 
   if (!product)
     return (
       <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900">
-        <p className="text-red-600 dark:text-red-400 font-medium">Product not found.</p>
+        <p className="text-red-600 dark:text-red-400 font-medium">
+          {t("product_details.not_found")}
+        </p>
       </div>
     );
 
@@ -93,13 +96,13 @@ const ProductDetails = () => {
               onClick={handleAddToCart}
               className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-2 rounded shadow"
             >
-              🛒 Add to Cart
+              🛒 {t("product_details.add_to_cart")}
             </button>
             <button
               onClick={handleBuyNow}
               className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded shadow"
             >
-              💰 Buy Now
+              💰 {t("product_details.buy_now")}
             </button>
           </div>
         </div>

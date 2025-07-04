@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const ThemeToggle = () => {
   const [isDarkMode, setIsDarkMode] = useState(() => {
     return localStorage.getItem("theme") === "dark";
   });
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     const root = document.documentElement;
@@ -26,7 +29,7 @@ const ThemeToggle = () => {
         sm:right-6 sm:px-5 sm:py-2`}
       aria-label="Toggle Theme"
     >
-      {isDarkMode ? "🌑 Dark Mode" : "🌞 Light Mode"}
+      {isDarkMode ? t("theme.dark") : t("theme.light")}
     </button>
   );
 };

@@ -1,11 +1,12 @@
-
 import { useState, useRef, useEffect } from "react";
 import { FaComments, FaTimes } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 export default function ChatBot() {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { from: "bot", text: "🙏 Namaste! How can I help you today?" },
+    { from: "bot", text: t("chat.welcome") },
   ]);
   const [input, setInput] = useState("");
 
@@ -17,11 +18,10 @@ export default function ChatBot() {
     const userMsg = { from: "user", text: input };
     setMessages((prev) => [...prev, userMsg]);
 
-    // Simulated bot response
     setTimeout(() => {
       const botReply = {
         from: "bot",
-        text: "Thanks for reaching out! A real pandit will contact you soon. 🚩",
+        text: t("chat.bot_response"),
       };
       setMessages((prev) => [...prev, botReply]);
     }, 1000);
@@ -41,7 +41,7 @@ export default function ChatBot() {
         <div className="w-80 h-96 bg-white dark:bg-gray-800 shadow-xl rounded-lg flex flex-col">
           {/* Header */}
           <div className="bg-red-600 text-white px-4 py-2 flex justify-between items-center rounded-t-lg">
-            <span>Chat with Pandit Assistant</span>
+            <span>{t("chat.title")}</span>
             <button onClick={() => setOpen(false)}>
               <FaTimes />
             </button>
@@ -52,9 +52,7 @@ export default function ChatBot() {
             {messages.map((msg, i) => (
               <div
                 key={i}
-                className={`flex ${
-                  msg.from === "user" ? "justify-end" : "justify-start"
-                }`}
+                className={`flex ${msg.from === "user" ? "justify-end" : "justify-start"}`}
               >
                 <div
                   className={`px-3 py-2 rounded-lg text-sm ${
@@ -76,15 +74,15 @@ export default function ChatBot() {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
+              placeholder={t("chat.placeholder")}
               className="flex-1 px-2 py-1 border rounded text-sm dark:bg-gray-700 dark:text-white dark:border-gray-500"
-              placeholder="Type your message..."
               onKeyDown={(e) => e.key === "Enter" && handleSend()}
             />
             <button
               onClick={handleSend}
               className="bg-red-600 text-white px-3 py-1 rounded text-sm hover:bg-red-700"
             >
-              Send
+              {t("chat.send")}
             </button>
           </div>
         </div>

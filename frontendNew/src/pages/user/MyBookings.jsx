@@ -4,8 +4,10 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getBookings } from "../../services/user/userService";
 import { CalendarCheck2, Loader2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const MyBookings = () => {
+  const { t } = useTranslation();
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -18,11 +20,11 @@ const MyBookings = () => {
       if (res.success) {
         setBookings(res.data);
       } else {
-        setError(res.message || "Failed to load bookings.");
+        setError(res.message || t("myBookings.error"));
       }
     } catch (err) {
       console.error("Error fetching bookings:", err);
-      setError("Something went wrong while fetching bookings.");
+      setError(t("myBookings.fetchFail"));
     } finally {
       setLoading(false);
     }
@@ -32,14 +34,15 @@ const MyBookings = () => {
     const token = localStorage.getItem("token");
     if (!token) navigate("/login");
     else fetchBookings();
-    // eslint-disable-next-line
-  }, []);
+  }, [navigate]);
 
   if (loading) {
     return (
       <div className="min-h-screen flex justify-center items-center bg-white dark:bg-zinc-900">
         <Loader2 className="h-6 w-6 animate-spin text-[#C0402B]" />
-        <p className="ml-2 text-[#C0402B] dark:text-red-400 font-medium">Loading your bookings...</p>
+        <p className="ml-2 text-[#C0402B] dark:text-red-400 font-medium">
+          {t("myBookings.loading")}
+        </p>
       </div>
     );
   }
@@ -57,11 +60,13 @@ const MyBookings = () => {
       <div className="max-w-5xl mx-auto bg-white dark:bg-zinc-900 shadow-2xl rounded-xl p-6">
         <h1 className="text-3xl font-bold text-[#C0402B] dark:text-red-400 mb-6 flex items-center gap-2">
           <CalendarCheck2 className="w-7 h-7" />
-          My Bookings
+          {t("myBookings.title")}
         </h1>
 
         {bookings.length === 0 ? (
-          <p className="text-gray-600 dark:text-gray-400 text-center mt-10">You haven’t booked any pujas yet.</p>
+          <p className="text-gray-600 dark:text-gray-400 text-center mt-10">
+            {t("myBookings.empty")}
+          </p>
         ) : (
           <div className="space-y-4">
             {bookings.map((booking, index) => (
@@ -71,17 +76,18 @@ const MyBookings = () => {
               >
                 <div>
                   <h2 className="text-lg font-semibold text-[#C0402B] dark:text-red-300">
-                    {booking.pujaName || "Puja Service"}
+                    {booking.pujaName || t("myBookings.defaultPuja")}
                   </h2>
                   <p className="text-sm text-gray-700 dark:text-gray-400">
-                    Date: {new Date(booking.date).toLocaleDateString()} | Time: {booking.time}
+                    {t("myBookings.date")}: {new Date(booking.date).toLocaleDateString()} |{" "}
+                    {t("myBookings.time")}: {booking.time}
                   </p>
                   <p className="text-sm text-gray-700 dark:text-gray-400">
-                    Location: {booking.location || "Not specified"}
+                    {t("myBookings.location")}: {booking.location || t("myBookings.noLocation")}
                   </p>
                 </div>
                 <div className="text-sm text-green-600 dark:text-green-400 font-medium">
-                  Status: {booking.status || "Pending"}
+                  {t("myBookings.status")}: {booking.status || t("myBookings.pending")}
                 </div>
               </div>
             ))}
