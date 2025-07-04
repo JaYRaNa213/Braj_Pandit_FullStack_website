@@ -34,7 +34,8 @@ const UserDashboard = () => {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-4">
               <img
-                src={user?.avatar || user?.profilePic || "/default-avatar.png"}
+                src={user?.profileImage || user?.avatar || user?.profilePic || "/default-avatar.png"}
+
                 alt="User Avatar"
                 className="w-16 h-16 rounded-full object-cover border-2 border-white shadow-md"
               />
@@ -57,7 +58,7 @@ const UserDashboard = () => {
               className="block bg-blue-50 dark:bg-blue-900 border border-blue-200 dark:border-blue-700 hover:shadow-lg transition p-5 rounded-xl"
             >
               <h2 className="text-lg font-semibold text-blue-800 dark:text-blue-200">Profile</h2>
-              <p className="text-sm text-blue-600 dark:text-blue-300 mt-1">Update your personal details</p>
+              <p className="text-sm text-blue-60src0 dark:text-blue-300 mt-1">Update your personal details</p>
             </Link>
             <Link
               to="/orders"
