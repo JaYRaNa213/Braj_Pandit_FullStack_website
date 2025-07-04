@@ -157,3 +157,15 @@ export const cancelOrder = async (req, res) => {
     res.status(500).json({ success: false, message: "Server error" });
   }
 };
+
+
+export const getOrderTrackingStatus = async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id).select("status history"); // history: status change log
+    if (!order) return res.status(404).json({ success: false, message: "Order not found" });
+
+    res.status(200).json({ success: true, data: order });
+  } catch (err) {
+    res.status(500).json({ success: false, message: "Server error", error: err.message });
+  }
+};

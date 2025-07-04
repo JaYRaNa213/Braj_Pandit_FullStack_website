@@ -99,6 +99,16 @@ const getMyOrders = async () => {
   }
 };
 
+export const getOrderTracking = async (orderId) => {
+  try {
+    const res = await axiosInstance.get(`${USER.ORDERS.TRACKING}/${orderId}/tracking`);
+    return res.data;
+  } catch (err) {
+    return { success: false, message: err.response?.data?.message || "Error fetching order tracking" };
+  }
+};
+
+
 
 export {
   register,

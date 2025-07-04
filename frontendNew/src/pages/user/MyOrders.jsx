@@ -1,12 +1,14 @@
 // 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getMyOrders } from '../../services/orderService';
-import OrderCard from '../../components/OrderCard';
+import { Loader2 } from 'lucide-react';
 
 const MyOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -26,6 +28,7 @@ const MyOrders = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900">
+        <Loader2 className="w-6 h-6 mr-2 animate-spin text-red-600" />
         <p className="text-gray-600 dark:text-gray-300 text-lg animate-pulse">
           ⏳ Loading your divine orders...
         </p>
@@ -55,21 +58,33 @@ const MyOrders = () => {
           🧾 My Orders
         </h2>
 
-        {/* Order List */}
         <div className="space-y-6">
           {orders.map((order) => (
-            <OrderCard
+            <div
               key={order._id}
-              order={order}
-              onCancelSuccess={() => {
-                // re-fetch orders on successful cancellation
-                setLoading(true);
-                getMyOrders().then((res) => {
-                  setOrders(res.orders || []);
-                  setLoading(false);
-                });
-              }}
-            />
+              className="bg-white dark:bg-zinc-800 p-5 rounded-xl shadow-md border-l-4 border-[#C0402B] flex flex-col md:flex-row justify-between items-start md:items-center gap-4"
+            >
+              <div>
+                <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                  Order #{order._id.slice(-6)}
+                </h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  {new Date(order.createdAt).toLocaleString()}
+                </p>
+                <p className="text-sm text-green-700 dark:text-green-400">
+                  Status: {order.status}
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row items-center gap-3">
+                <button
+                  onClick={() => navigate(`/orders/${order._id}/tracking`)}
+                  className="bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded-md transition"
+                >
+                  📍 Track Order
+                </button>
+              </div>
+            </div>
           ))}
         </div>
       </div>

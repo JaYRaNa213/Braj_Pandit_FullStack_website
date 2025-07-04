@@ -45,6 +45,13 @@ export const USER = {
   PROFILE: `/user/profile`,
   UPDATE_PROFILE: `/user/profile`,
   UPLOAD_IMAGE: `/user/upload-image`,
+
+  // ✅ Now ORDERS is part of USER object
+  ORDERS: {
+    LIST: "/user/orders",
+    DETAILS: "/user/orders", // /:id
+    TRACKING: "/user/orders", // /:id/tracking
+  },
 };
 
 export default {

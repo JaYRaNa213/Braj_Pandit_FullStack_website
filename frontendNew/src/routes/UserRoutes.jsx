@@ -51,7 +51,7 @@ import LivePlayer from "../pages/user/LivePlayer"; // ✅ adjust path as needed
 import MyBookings from "../pages/user/MyBookings";
 
 import BookingHistory from "../pages/user/BookingHistory";
-
+import OrderTracking from "../pages/user/OrderTracking";
 
 const UserRoutes = () => {
   return (
@@ -98,6 +98,9 @@ const UserRoutes = () => {
           <Route path="/live/:id" element={<LivePlayer />} /> 
 
           <Route path="booking/history" element={<BookingHistory />} />
+
+
+          <Route path="orders/:id/tracking" element={<OrderTracking />} />
 
 
 

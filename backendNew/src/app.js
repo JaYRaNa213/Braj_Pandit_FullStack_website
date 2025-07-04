@@ -36,7 +36,9 @@ import commentRoutes from './routes/user/comment.routes.js';
 import cartRoutes from './routes/user/cart.routes.js';
 import orderRoutes from './routes/user/order.routes.js';
 import adminRoutes from './routes/admin/admin.routes.js';
+
 import userOrderRoutes from "./routes/user/order.routes.js";
+
 import adminOrderRoutes from "./routes/admin/order.routes.js";
 
 import adminPanditRoutes from './routes/admin/pandit.admin.routes.js';
@@ -132,6 +134,8 @@ app.use("/api/cart", cartRoutes);
 
 app.use('/api/orders', userOrderRoutes);
 app.use('/api/admin/orders', adminOrderRoutes);
+
+app.use("/api/user/orders", userOrderRoutes);
 
 
 

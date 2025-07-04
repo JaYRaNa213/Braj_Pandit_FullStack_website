@@ -5,8 +5,8 @@
 
 
 import express from 'express';
-import { placeOrder, getMyOrders } from '../../controllers/order.controller.js';
-import { verifyToken } from '../../middleware/auth.middleware.js';
+import { placeOrder, getMyOrders ,getOrderTrackingStatus} from '../../controllers/order.controller.js';
+import { verifyToken,authMiddleware ,authorizeRoles} from '../../middleware/auth.middleware.js';
 
 const router = express.Router();
 
@@ -15,5 +15,9 @@ router.post('/', verifyToken, placeOrder);
 
 // User views their own orders
 router.get('/my', verifyToken, getMyOrders);
+
+// GET /user/orders/:id/tracking
+router.get("/:id/tracking", authMiddleware, authorizeRoles("user"), getOrderTrackingStatus);
+
 
 export default router;
