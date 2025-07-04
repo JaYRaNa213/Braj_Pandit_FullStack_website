@@ -101,58 +101,35 @@ const BlogSection = () => {
               ))
             : blogs.map((blog, i) => (
                 <motion.div
-                  key={blog._id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: i * 0.1 }}
-                  className="bg-white dark:bg-gray-800 border-2 border-yellow-400 dark:border-orange-400 rounded-xl shadow-md hover:shadow-xl transition-all transform hover:scale-[1.02] flex flex-col overflow-hidden"
+  key={blog._id}
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.4, delay: i * 0.1 }}
+  className="bg-white dark:bg-gray-800 border-2 border-yellow-400 dark:border-orange-400 shadow-md hover:shadow-xl transition-all transform hover:scale-[1.02] rounded-xl flex flex-col items-center text-center p-4"
+>
+  <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-orange-300 shadow-lg mb-4">
+    <img
+      src={blog.imageUrl}
+      alt={blog.title}
+      className="w-full h-full object-cover"
+    />
+  </div>
 
-                >
-                  <div className="w-full aspect-video overflow-hidden">
-                    <img
-                      src={blog.imageUrl}
-                      alt={blog.title}
-                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                    />
-                  </div>
+  <h3 className="text-lg font-semibold text-gray-800 dark:text-white line-clamp-1">
+    {blog.title}
+  </h3>
+  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 mb-2 line-clamp-3">
+    {blog.content.replace(/<[^>]+>/g, "").slice(0, 100)}...
+  </p>
 
-                  <div className="p-4 flex flex-col flex-1">
-                    <div className="flex items-center justify-between mb-1">
-                      <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white line-clamp-1">
-                        {blog.title}
-                      </h3>
-                      {isLatest(blog.createdAt) && (
-                        <span className="bg-yellow-200 text-yellow-800 text-xs font-semibold px-2 py-1 rounded">
-                          Latest
-                        </span>
-                      )}
-                    </div>
-                    <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm">
-                      By {blog.author || "Admin"} •{" "}
-                      {new Date(blog.createdAt).toLocaleDateString()}
-                    </p>
-                    <p className="text-gray-700 dark:text-gray-300 mt-2 mb-2 text-sm line-clamp-3">
-                      {blog.content.replace(/<[^>]+>/g, "").slice(0, 100)}...
-                    </p>
-                    <div className="flex flex-wrap gap-1 mb-2 text-xs">
-                      <span className="bg-orange-200 text-orange-800 px-2 py-0.5 rounded">
-                        #{blog.category || "General"}
-                      </span>
-                      <span className="text-gray-500 dark:text-gray-400 ml-auto">
-                        {getReadingTime(blog.content)} min read
-                      </span>
-                    </div>
-                    <div className="flex justify-between items-center text-sm text-gray-600 dark:text-gray-300 mt-auto">
-                      <span>{blog.views || 0} Views</span>
-                      <Link
-                        to={`/blogs/${blog._id}`}
-                        className="text-orange-700 dark:text-orange-400 font-semibold hover:underline"
-                      >
-                        Read More →
-                      </Link>
-                    </div>
-                  </div>
-                </motion.div>
+  <Link
+    to={`/blogs/${blog._id}`}
+    className="text-orange-700 dark:text-orange-400 font-semibold hover:underline text-sm"
+  >
+    Read More →
+  </Link>
+</motion.div>
+
               ))}
         </div>
 
