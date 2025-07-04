@@ -187,6 +187,7 @@ const UserProfile = () => {
           <ActivityCard icon={<ShoppingCart />} label="My Cart" count={activity.cart} link="/cart" />
           <ActivityCard icon={<Package />} label="My Orders" count={activity.orders} link="/orders" />
           <ActivityCard icon={<History />} label="Booking History" count={activity.bookings} link="/booking/history" />
+
         </div>
       </div>
     </div>

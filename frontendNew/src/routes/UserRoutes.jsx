@@ -50,6 +50,7 @@ import LivePlayer from "../pages/user/LivePlayer"; // ✅ adjust path as needed
 
 import MyBookings from "../pages/user/MyBookings";
 
+import BookingHistory from "../pages/user/BookingHistory";
 
 
 const UserRoutes = () => {
@@ -72,7 +73,7 @@ const UserRoutes = () => {
         <Route element={<ProtectedRoute roles={["user", "admin"]} />}>
           <Route path="dashboard" element={<UserDashboard />} />
           <Route path="booking" element={<Booking />} />
-          
+
           <Route path="/booking/my" element={<MyBookings />} />
 
           <Route path="puja/booking" element={<PujaBooking />} />
@@ -95,6 +96,9 @@ const UserRoutes = () => {
           <Route path="/puja-details" element={<PujaDetails />} />
           <Route path="/live-bhajans" element={<AllLiveBhajans />} />
           <Route path="/live/:id" element={<LivePlayer />} /> 
+
+          <Route path="booking/history" element={<BookingHistory />} />
+
 
 
 
