@@ -34,16 +34,14 @@ const AllPujaServices = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
-      {/* 🔙 Back Button (Optional) */}
-
       <h1 className="text-4xl font-bold text-center text-[#4A1C1C] dark:text-yellow-400 mb-10">
-        🕊️ {t("pujaServices.all_puja_services")}
+        🕊️ {t("AllPujaServices.all_puja_services")}
       </h1>
 
       {Object.entries(groupedServices).map(([category, services]) => (
         <div key={category} className="mb-12">
           <h2 className="text-2xl font-semibold text-red-700 dark:text-yellow-300 mb-4">
-            {t(`pujaServices.categories.${category}`, category)}
+            {t(`AllPujaServices.categories.${category}`, category)}
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -63,11 +61,11 @@ const AllPujaServices = () => {
                 />
 
                 <h3 className="mt-3 font-bold text-lg text-[#4A1C1C] dark:text-white">
-                  {t(`pujaServices.titles.${service.title}`, service.title)}
+                  {t(`AllPujaServices.titles.${service.title}`, service.title)}
                 </h3>
 
                 <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 line-clamp-3">
-                  {t(`pujaServices.descriptions.${service.title}`, service.description)}
+                  {t(`AllPujaServices.descriptions.${service.title}`, service.description)}
                 </p>
 
                 <div className="mt-2 text-sm">{renderStars(service.rating)}</div>
@@ -76,7 +74,7 @@ const AllPujaServices = () => {
                   onClick={() => handleBooking(service.title)}
                   className="mt-auto bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition w-full font-semibold text-sm"
                 >
-                  {t("pujaServices.book_button")}
+                  {t("AllPujaServices.book_button")}
                 </button>
               </div>
             ))}

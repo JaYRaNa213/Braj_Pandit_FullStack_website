@@ -53,7 +53,7 @@ const BlogSection = () => {
         {/* Filters */}
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-10 gap-4">
           <h2 className="text-3xl sm:text-4xl font-bold text-orange-700 dark:text-yellow-400">
-            {t("blogs.heading")}
+            {t("homeblog.heading")}
           </h2>
           <div className="flex flex-wrap gap-3 items-center">
             <select
@@ -61,11 +61,11 @@ const BlogSection = () => {
               onChange={(e) => setCategory(e.target.value)}
               className="px-4 py-2 rounded-lg border border-orange-300 bg-white dark:bg-gray-800 dark:text-gray-200 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400 hover:border-orange-400 transition-all"
             >
-              <option value="">{t("blogs.all_categories")}</option>
-              <option value="Festivals">{t("blogs.festivals")}</option>
-              <option value="Spirituality">{t("blogs.spirituality")}</option>
-              <option value="Culture">{t("blogs.culture")}</option>
-              <option value="Devotion">{t("blogs.devotion")}</option>
+              <option value="">{t("homeblog.all_categories")}</option>
+              <option value="Festivals">{t("homeblog.festivals")}</option>
+              <option value="Spirituality">{t("homeblog.spirituality")}</option>
+              <option value="Culture">{t("homeblog.culture")}</option>
+              <option value="Devotion">{t("homeblog.devotion")}</option>
             </select>
 
             <select
@@ -73,8 +73,8 @@ const BlogSection = () => {
               onChange={(e) => setSortBy(e.target.value)}
               className="px-4 py-2 rounded-lg border border-orange-300 bg-white dark:bg-gray-800 dark:text-gray-200 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400 hover:border-orange-400 transition-all"
             >
-              <option value="latest">{t("blogs.latest")}</option>
-              <option value="oldest">{t("blogs.oldest")}</option>
+              <option value="latest">{t("homeblog.latest")}</option>
+              <option value="oldest">{t("homeblog.oldest")}</option>
             </select>
           </div>
         </div>
@@ -120,7 +120,7 @@ const BlogSection = () => {
                     to={`/blogs/${blog._id}`}
                     className="text-orange-700 dark:text-orange-400 font-semibold hover:underline text-sm"
                   >
-                    {t("blogs.read_more")}
+                    {t("homeblog.read_more")}
                   </Link>
                 </motion.div>
               ))}
@@ -151,14 +151,14 @@ const BlogSection = () => {
             to="/blogs"
             className="bg-orange-600 text-white px-6 py-2 rounded hover:bg-orange-700 text-base sm:text-lg font-semibold transition"
           >
-            {t("blogs.view_more")}
+            {t("homeblog.view_more")}
           </Link>
         </div>
 
         {/* No Blogs */}
         {!loading && blogs.length === 0 && (
           <div className="mt-10 text-center text-gray-500 dark:text-gray-300">
-            {t("blogs.no_blogs")}
+            {t("homeblog.no_blogs")}
           </div>
         )}
       </div>

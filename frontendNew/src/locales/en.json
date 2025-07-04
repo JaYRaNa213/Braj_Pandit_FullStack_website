@@ -29,15 +29,16 @@
   },
 
   "live": {
-  "title": "📺 Live Bhajans & Spiritual Streams",
-  "loading": "Fetching divine content for you...",
-  "error": "Unable to fetch bhajans at the moment. Please try again later.",
-  "empty": "No live bhajans found right now. Please check back later.",
-  "live": "LIVE",
-  "not_live": "Offline",
+  "title": "Live Bhajans & Devotional Streams",
+  "loading": "Loading live bhajans...",
+  "error": "Failed to load bhajan videos. Please try again later.",
+  "empty": "No bhajans are currently available.",
+  "live": "LIVE NOW",
+  "not_live": "Not Live",
   "views": "views",
-  "view_more": "View All Live Bhajans"
+  "view_more": "View More Bhajans"
 }
+
 ,
 
   "booking": {
@@ -76,19 +77,8 @@
     "success": "📨 Booking sent successfully. We'll contact you shortly.",
     "error": "❌ Failed to send booking. Try again later."
   },
-"blogs": {
-  "heading": "Our Blogs",
-  "all_categories": "All Categories",
-  "festivals": "Festivals",
-  "spirituality": "Spirituality",
-  "culture": "Culture",
-  "devotion": "Devotion",
-  "latest": "Latest First",
-  "oldest": "Oldest First",
-  "read_more": "Read More →",
-  "view_more": "View More →",
-  "no_blogs": "No blogs found."
-},
+
+
 "famous_places": {
   "famous_places_aria_label": "3D rotating carousel of famous places",
   "famous_places_title": "Famous Places of Mathura",
@@ -110,6 +100,7 @@
     "yearsExp": "years exp",
     "bookNow": "Book Pandit"
   },
+  
   "products": {
     "heading_1": "Featured Religious",
     "heading_2": "Products",
@@ -405,19 +396,6 @@
     "browseBtn": "Browse More Products"
   },
   
-  "ourDivine": "Our Divine",
-  "products": "Products",
-  "searchPlaceholder": "Search divine products...",
-  "all": "All",
-  "others": "Others",
-  "sortBy": "Sort by",
-  "priceLowHigh": "Price: Low to High",
-  "priceHighLow": "Price: High to Low",
-  "noProducts": "No matching products found.",
-  "addToCart": "Add to Cart",
-  "buyNow": "Buy Now",
-  "addedToCart": "Added to cart!"
-  ,
 
   "noDescription": "No description available.",
   "summer": "Summer",
@@ -578,6 +556,132 @@
 "buttons": {
   "back": "Back"
 }
+
+
+
+,
+"homelive": {
+  "title": "Live Darshan & Kirtan",
+  "loading": "Loading live bhajans...",
+  "error": "Failed to load live bhajans.",
+  "empty": "No live bhajans available at the moment.",
+  "live": "LIVE",
+  "not_live": "Not Live",
+  "views": "views",
+  "view_more": "View More Bhajans",
+  "days_ago": "days ago"
+}
+,
+"homeblog": {
+  "heading": "Latest Devotional Blogs",
+  "all_categories": "All Categories",
+  "festivals": "Festivals",
+  "spirituality": "Spirituality",
+  "culture": "Culture",
+  "devotion": "Devotion",
+  "latest": "Latest First",
+  "oldest": "Oldest First",
+  "read_more": "Read More",
+  "view_more": "View All Blogs",
+  "no_blogs": "No blogs available at the moment.",
+  "error": "Failed to load blogs. Please try again later."
+}
+
+,
+"AllProducts": {
+  "products": "Products",
+  "ourDivine": "Our Divine",
+  "searchPlaceholder": "Search products...",
+  "all": "All",
+  "others": "Others",
+  "sortBy": "Sort by",
+  "priceLowHigh": "Price: Low to High",
+  "priceHighLow": "Price: High to Low",
+  "addToCart": "Add to Cart",
+  "buyNow": "Buy Now",
+  "noProducts": "No products available.",
+  "addedToCart": "Product added to cart!",
+  "error": "Something went wrong while loading products."
+}
+
+,
+
+  "pujaServices": [
+    {
+      "title": "Diwali Pooja",
+      "description": "Diwali is the festival of Laxmi, the Goddess of prosperity and wealth. People perform special puja to invite Her into their homes. Invite prosperity by booking a traditional Laxmi-Ganesh Puja.",
+      "category": "Festivals"
+    },
+    {
+      "title": "Navgraha Shanti",
+      "description": "Navgraha Shanti is performed to appease nine celestial bodies (Navagrahas). It brings peace, prosperity, and harmony by reducing planetary doshas.",
+      "category": "Festivals"
+    },
+    {
+      "title": "Rudrabhishek - Lord Shiva Ritual",
+      "description": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
+      "category": "Ancestral & Remedial"
+    },
+    {
+      "title": "Rudrabhishek - Home Puja",
+      "description": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
+      "category": "Household Rituals"
+    },
+    {
+      "title": "Rudrabhishek - Life Events Blessing",
+      "description": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
+      "category": "Life Events"
+    },
+    {
+      "title": "Rudrabhishek - Festive Season Ritual",
+      "description": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
+      "category": "Festivals"
+    }
+  ]
+
+  ,
+
+
+  
+  "AllPujaServices": {
+    "all_puja_services": "All Puja Services",
+    "book_button": "Book Now",
+    "categories": {
+      "Festivals": "Festivals",
+      "Ancestral & Remedial": "Ancestral & Remedial",
+      "Household Rituals": "Household Rituals",
+      "Life Events": "Life Events"
+    },
+    "titles": {
+      "Diwali Pooja": "Diwali Pooja",
+      "Navgraha Shanti": "Navgraha Shanti",
+      "Rudrabhis": "Rudrabhishek",
+      "Rudrabhi": "Rudrabhishek",
+      "Rudrabh": "Rudrabhishek",
+      "Rudrab": "Rudrabhishek",
+      "Rudra": "Rudrabhishek",
+      "Rudr": "Rudrabhishek",
+      "Rudrabhik": "Rudrabhishek",
+      "Rudrk": "Rudrabhishek",
+      "Rudbhishek": "Rudrabhishek",
+      "bhishek": "Rudrabhishek"
+    },
+    "descriptions": {
+      "Diwali Pooja": "Diwali is the festival of Laxmi, the Goddess of prosperity and wealth. People perform special puja to invite Her into their homes. Invite prosperity by booking a traditional Laxmi-Ganesh Puja.",
+      "Navgraha Shanti": "Navgraha Shanti is performed to appease nine celestial bodies (Navagrahas). It brings peace, prosperity, and harmony by reducing planetary doshas.",
+      "Rudrabhis": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
+      "Rudrabhi": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
+      "Rudrabh": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
+      "Rudrab": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
+      "Rudra": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
+      "Rudr": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
+      "Rudrabhik": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
+      "Rudrk": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
+      "Rudbhishek": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
+      "bhishek": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth."
+    }
+  }
+
 
 
 
