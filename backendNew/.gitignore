@@ -70,3 +70,7 @@ out/
 *.crt
 *.key
 *.p12
+
+
+# Ignore uploads
+backendNew/src/uploads/
