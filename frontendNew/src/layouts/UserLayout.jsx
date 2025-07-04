@@ -1,19 +1,16 @@
-// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
-// If you theft this code, you will be punished or may face legal action by the owner.
-
-// File: frontendNew/src/layouts/UserLayout.jsx
-
 import React from "react";
-import Navbar from "../components/common/Navbar"; // Or user/Navbar if you're using that
+import Navbar from "../components/common/Navbar";
 import Footer from "../components/common/Footer";
 import { Outlet } from "react-router-dom";
+import BackButton from "../components/common/BackButton"; // ✅ Import here
 
 const UserLayout = () => {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen">
-        <Outlet /> {/* 👈 Very important! This renders Home.jsx */}
+      <BackButton /> {/* ✅ Add it globally */}
+      <main className="min-h-screen w-full bg-gradient-to-br from-yellow-50 to-red-50 dark:from-zinc-900 dark:to-zinc-800">
+  <Outlet />
       </main>
       <Footer />
     </>

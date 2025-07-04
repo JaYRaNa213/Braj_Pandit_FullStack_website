@@ -33,14 +33,7 @@ const AllPujaServices = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
       {/* 🔙 Back Button */}
-      <div className="mb-6">
-        <button
-          onClick={() => navigate("/")}
-          className="inline-flex items-center gap-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-800 dark:text-white px-4 py-2 rounded-full font-medium shadow transition"
-        >
-          ← Back to Home
-        </button>
-      </div>
+      
 
       <h1 className="text-4xl font-bold text-center text-[#4A1C1C] dark:text-yellow-400 mb-10">
         🕊️ All Puja Services
