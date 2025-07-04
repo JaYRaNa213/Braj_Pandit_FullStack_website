@@ -369,9 +369,7 @@ export default function Navbar() {
               <RouterLink to="/profile" onClick={() => setMenuOpen(false)}>
                 Profile
               </RouterLink>
-              <RouterLink to="/settings" onClick={() => setMenuOpen(false)}>
-                Settings
-              </RouterLink>
+              
               {user.role === "admin" && (
                 <RouterLink
                   to="/admin/dashboard"
