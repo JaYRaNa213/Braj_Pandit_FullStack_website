@@ -87,8 +87,7 @@
 │   │       ├── product.routes.js
 │   │       └── user.routes.js
 │   ├── scripts
-│   │   ├── createAdmin.js
-│   │   └── seedChannels.js
+│   │   └── createAdmin.js
 │   ├── server.js
 │   ├── services
 │   │   ├── auth.service.js
@@ -100,7 +99,6 @@
 │   │   └── youtubeService.js
 │   ├── tests
 │   ├── uploads
-│   │   ├── 1749732263619-bhagwat.jpg
 │   │   ├── 1749732487235-bhagwat.jpg
 │   │   ├── 1749732503724-bhagwat.jpg
 │   │   ├── 1749732535005-images.jpg
@@ -126,10 +124,3 @@
 │           └── resetPassword.html
 ├── tree.js
 └── uploads
-    ├── 1749835255977-tulashi.jpg
-    ├── bhagwat.jpg
-    ├── bihariG.jpg
-    ├── bussiness.jpg
-    ├── diwali.jpg
-    ├── images.jpg
-    └── mahashivaratri.jpg

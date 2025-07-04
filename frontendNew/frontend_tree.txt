@@ -24,6 +24,7 @@
 │   ├── components
 │   │   ├── ChatBot.jsx
 │   │   ├── common
+│   │   │   ├── BackButton.jsx
 │   │   │   ├── Footer.jsx
 │   │   │   ├── Loader.jsx
 │   │   │   ├── Navbar.jsx
@@ -93,6 +94,7 @@
 │   │       ├── Blog.jsx
 │   │       ├── BlogDetails.jsx
 │   │       ├── Booking.jsx
+│   │       ├── BookingHistory.jsx
 │   │       ├── CancelSuccess.jsx
 │   │       ├── Cart.jsx
 │   │       ├── CartPage.jsx
@@ -112,8 +114,10 @@
 │   │       │   ├── VerifiedPanditJis.jsx
 │   │       │   └── ViewMoreBtn.jsx
 │   │       ├── LivePlayer.jsx
+│   │       ├── MyBookings.jsx
 │   │       ├── MyOrders.jsx
 │   │       ├── OrderDetails.jsx
+│   │       ├── OrderTracking.jsx
 │   │       ├── PanditDetails.jsx
 │   │       ├── ProductDetails.jsx
 │   │       ├── Products.jsx
