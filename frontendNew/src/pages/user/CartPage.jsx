@@ -9,10 +9,15 @@ const CartPage = () => {
   const navigate = useNavigate();
   const { cartItems, removeFromCart, updateQuantity } = useCart();
 
-  const total = cartItems.reduce(
-    (acc, item) => acc + item.product.price * item.quantity,
-    0
-  );
+  // 🛡️ Safely calculate total
+  const total = cartItems.reduce((acc, item) => {
+    const price = item?.product?.price;
+    const quantity = item?.quantity || 1;
+    if (typeof price === "number") {
+      return acc + price * quantity;
+    }
+    return acc;
+  }, 0);
 
   const handleCheckout = () => {
     navigate("/checkout");
@@ -31,16 +36,20 @@ const CartPage = () => {
       ) : (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {cartItems.map((item) => {
-              const product = item.product;
+            {cartItems.map((item, index) => {
+              const product = item?.product;
+
+              // 🛡️ Skip rendering if product data is invalid
+              if (!product || typeof product.price !== "number") return null;
+
               return (
                 <div
-                  key={product._id}
+                  key={product._id || index}
                   className="flex items-center gap-4 bg-white dark:bg-gray-800 p-4 rounded-xl shadow-md"
                 >
                   <img
                     src={product.imageUrl || "/default-product.png"}
-                    alt={product.name}
+                    alt={product.name || "Product"}
                     className="w-24 h-24 object-cover rounded-lg"
                   />
                   <div className="flex-1">

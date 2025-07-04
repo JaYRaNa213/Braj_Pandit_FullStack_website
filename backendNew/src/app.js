@@ -33,7 +33,6 @@ import adminBlogRoutes from './routes/admin/blog.routes.js';
 import adminBookingRoutes from './routes/admin/booking.routes.js';
 import commentRoutes from './routes/user/comment.routes.js';
 
-import userBookingRoutes from './routes/user/booking.routes.js';
 import cartRoutes from './routes/user/cart.routes.js';
 import orderRoutes from './routes/user/order.routes.js';
 import adminRoutes from './routes/admin/admin.routes.js';
@@ -59,6 +58,7 @@ import callBookingRoutes from "./routes/user/callBooking.routes.js";
 import liveRoutes from "./routes/user/live.routes.js";
 import adminLiveRoutes from "./routes/admin/live.routes.js";
 
+import userBookingRoutes from './routes/user/booking.routes.js';
 
 
 // ✅ App Initialization
@@ -104,6 +104,12 @@ app.use('/api/auth', authRoutes);
 
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/admin/bookings', verifyToken, adminBookingRoutes); // ✅ FIXED
+
+
+
+// Make sure this exact path is used
+app.use('/api/user/booking', userBookingRoutes);
+
 
 
 

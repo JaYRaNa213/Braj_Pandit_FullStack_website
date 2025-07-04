@@ -1,6 +1,4 @@
 // 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
-// If you theft this code, you will be punished or may face legal action by the owner.
-
 // src/context/AuthContext.jsx
 
 import React, { createContext, useState, useEffect, useContext } from "react";
@@ -34,7 +32,7 @@ export const AuthProvider = ({ children }) => {
   const login = (token) => {
     localStorage.setItem("token", token);
     const decoded = jwtDecode(token);
-    // profile will be fetched separately
+    // 🔁 You may choose to fetch profile immediately after login
   };
 
   const logout = () => {

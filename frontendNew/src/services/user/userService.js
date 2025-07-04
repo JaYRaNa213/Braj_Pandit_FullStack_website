@@ -3,25 +3,25 @@
 
 import axios from "axios";
 import axiosInstance from "../axios.js";
-import { AUTH, USER, BOOKING, PAYMENT } from "../../constants/apiRoutes.js";
+import { USER } from "../../constants/apiRoutes.js";
+
 import { toast } from 'react-toastify';
 
-// ✅ Public Routes (No Auth Required)
 const register = async (userData) => {
-  const response = await axios.post(AUTH.REGISTER, userData);
+  const response = await axios.post(USER.AUTH.REGISTER, userData);
   return response.data;
 };
 
 const login = async (credentials) => {
-  const response = await axios.post(AUTH.LOGIN, credentials);
+  const response = await axios.post(USER.AUTH.LOGIN, credentials);
   return response.data;
 };
 
-// ✅ Authenticated Routes (use axiosInstance with token automatically attached)
 const logout = async () => {
-  const response = await axiosInstance.post(AUTH.LOGOUT);
+  const response = await axiosInstance.post(USER.AUTH.LOGOUT);
   return response.data;
 };
+
 
 const getProfile = async () => {
   const response = await axiosInstance.get(USER.PROFILE);
@@ -34,9 +34,10 @@ const updateProfile = async (updatedData) => {
 };
 
 const getBookings = async () => {
-  const response = await axiosInstance.get(BOOKING.LIST);
+  const response = await axiosInstance.get(USER.BOOKING.LIST); // ✅ FIXED
   return response.data;
 };
+
 
 const addBooking = async (bookingData) => {
   const response = await axiosInstance.post(BOOKING.ADD, bookingData);
@@ -77,7 +78,7 @@ const uploadProfileImage = async (formData) => {
 
 
 
-export const placeOrder = async (data) => {
+const placeOrder = async (data) => {
   try {
     const res = await axiosInstance.post('/api/orders', data);
     toast.success('Order placed successfully');
@@ -88,7 +89,7 @@ export const placeOrder = async (data) => {
   }
 };
 
-export const getMyOrders = async () => {
+const getMyOrders = async () => {
   try {
     const res = await axiosInstance.get('/api/orders/my');
     return res.data.orders;

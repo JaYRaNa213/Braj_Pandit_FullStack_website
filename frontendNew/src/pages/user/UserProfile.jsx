@@ -9,7 +9,8 @@ import {
   History,
   Package,
 } from "lucide-react";
-import { BACKEND_URL } from "../../utils/config";
+import { uploadProfileImage, updateProfile, getProfile } from "../../services/user/userService";
+import { useAuth } from "../../context/AuthContext";
 
 const ActivityCard = ({ icon, label, count, link }) => (
   <Link to={link}>
@@ -32,26 +33,18 @@ const UserProfile = () => {
   const [email, setEmail] = useState("");
   const [activity, setActivity] = useState({ bookings: 0, orders: 0, cart: 0 });
 
+  const { user, setUser } = useAuth();
   const navigate = useNavigate();
 
   const handleImageChange = (e) => setImage(e.target.files[0]);
 
   const handleUpload = async () => {
     if (!image) return alert("Please select an image.");
-
     const formData = new FormData();
     formData.append("file", image);
 
     try {
-      const res = await fetch(`${BACKEND_URL}/user/upload-image`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: formData,
-      });
-
-      const result = await res.json();
+      const result = await uploadProfileImage(formData);
       if (result.success) {
         setUploadedUrl(result.data);
         alert("✅ Image uploaded!");
@@ -66,22 +59,17 @@ const UserProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const userProfileData = { name, email, profileImage: uploadedUrl };
 
     try {
-      const response = await fetch(`${BACKEND_URL}/user/profile`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify(userProfileData),
-      });
-
-      const data = await response.json();
+      const data = await updateProfile(userProfileData);
       if (data.success) {
         alert("✅ Profile updated successfully!");
+        setUser((prev) => {
+          const updated = { ...prev, name, profileImage: uploadedUrl };
+          localStorage.setItem("user", JSON.stringify(updated));
+          return updated;
+        });
         fetchProfile();
       } else {
         alert("❌ Failed to update profile: " + data.message);
@@ -93,14 +81,7 @@ const UserProfile = () => {
 
   const fetchProfile = async () => {
     try {
-      const res = await fetch(`${BACKEND_URL}/user/profile`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-
-      const result = await res.json();
+      const result = await getProfile();
       if (result.success) {
         const { user, bookings, orders, cart } = result.data;
         setName(user.name || "");
@@ -125,7 +106,6 @@ const UserProfile = () => {
     const token = localStorage.getItem("token");
     if (!token) navigate("/login");
     else fetchProfile();
-    // eslint-disable-next-line
   }, []);
 
   if (loading) {
@@ -151,7 +131,6 @@ const UserProfile = () => {
           👤 My Profile
         </h1>
 
-        {/* Profile Info */}
         <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-10">
           <div className="relative w-40 h-40">
             <img
@@ -202,9 +181,9 @@ const UserProfile = () => {
           </form>
         </div>
 
-        {/* Activity Summary */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <ActivityCard icon={<Calendar />} label="My Bookings" count={activity.bookings} link="/booking" />
+          <ActivityCard icon={<Calendar />} label="My Bookings" count={activity.bookings} link="/booking/my" />
+
           <ActivityCard icon={<ShoppingCart />} label="My Cart" count={activity.cart} link="/cart" />
           <ActivityCard icon={<Package />} label="My Orders" count={activity.orders} link="/orders" />
           <ActivityCard icon={<History />} label="Booking History" count={activity.bookings} link="/booking/history" />

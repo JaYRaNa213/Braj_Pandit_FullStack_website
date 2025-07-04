@@ -1,77 +1,6 @@
 // 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 // If you theft this code, you will be punished or may face legal action by the owner.
 
-// import React from "react";
-// import { Routes, Route } from "react-router-dom";
-// import UserLayout from "../layouts/UserLayout";
-// import ProtectedRoute from "./ProtectedRoute";
-
-// // User Pages
-// import Home from "../pages/user/home/Home.jsx";
-// import Products from "../pages/user/Products";
-// import Blog from "../pages/user/Blog";
-// import Booking from "../pages/user/Booking";
-// import PujaBooking from "../pages/user/PujaBooking";
-// import Cart from "../pages/user/Cart";
-// import UserProfile from "../pages/user/UserProfile";
-// import UserDashboard from "../pages/user/UserDashboard";
-// import MyOrders from "../pages/user/MyOrders";
-// import Contact from "../pages/Contact";
-// import NotFound from "../pages/NotFound";
-// import ProductDetails from "../pages/user/ProductDetails";
-// import Checkout from '../pages/user/Checkout';
-// import OrderDetails from '../pages/user/OrderDetails';
-
-// const UserRoutes = () => {
-//   return (
-//     <Routes>
-//       <Route element={<UserLayout />}>
-//         {/* Public Pages */}
-//         <Route path="/" element={<Home />} />
-//         <Route path="/products" element={<Products />} />
-//         <Route path="/blogs" element={<Blog />} />
-//         <Route path="/contact" element={<Contact />} />
-//         <Route path="/products/:id" element={<ProductDetails />} />
-
-//         {/* Protected Pages */}
-//         <Route element={<ProtectedRoute roles={["user", "admin"]} />}>
-//           <Route path="dashboard" element={<UserDashboard />} />
-//           <Route path="/booking" element={<Booking />} />
-//           <Route path="/puja/booking" element={<PujaBooking />} />
-//           <Route path="cart" element={<Cart />} />
-//           <Route path="/profile" element={<UserProfile />} />
-//           <Route path="/my-orders" element={<MyOrders />} /> {/* ✅ Secured */}
-
-//           <Route path="orders" element={<MyOrders />} />
-//           <Route path="orders/:id" element={<OrderDetails />} />
-//           <Route path="checkout" element={<Checkout />} />
-
-
-//         </Route>
-
-//         {/* Fallback */}
-//         <Route path="*" element={<NotFound />} />
-//       </Route>
-//     </Routes>
-//   );
-// };
-
-// export default UserRoutes;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -119,6 +48,9 @@ import About from "../pages/user/About";
 import AllLiveBhajans from "../pages/user/AllLiveBhajans";
 import LivePlayer from "../pages/user/LivePlayer"; // ✅ adjust path as needed
 
+import MyBookings from "../pages/user/MyBookings";
+
+
 
 const UserRoutes = () => {
   return (
@@ -140,12 +72,20 @@ const UserRoutes = () => {
         <Route element={<ProtectedRoute roles={["user", "admin"]} />}>
           <Route path="dashboard" element={<UserDashboard />} />
           <Route path="booking" element={<Booking />} />
+          
+          <Route path="/booking/my" element={<MyBookings />} />
+
           <Route path="puja/booking" element={<PujaBooking />} />
           <Route path="cart" element={<Cart />} />
           <Route path="profile" element={<UserProfile />} />
-          <Route path="my-orders" element={<MyOrders />} />
+
+{/* 
+          <Route path="my-orders" element={<MyOrders />} /> */}
+
           <Route path="orders" element={<MyOrders />} />
+
           <Route path="orders/:id" element={<OrderDetails />} />
+
           <Route path="checkout" element={<Checkout />} />
 
           <Route path="/cancel-success" element={<CancelSuccess />} />

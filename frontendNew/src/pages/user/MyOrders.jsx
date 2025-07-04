@@ -58,7 +58,18 @@ const MyOrders = () => {
         {/* Order List */}
         <div className="space-y-6">
           {orders.map((order) => (
-            <OrderCard key={order._id} order={order} />
+            <OrderCard
+              key={order._id}
+              order={order}
+              onCancelSuccess={() => {
+                // re-fetch orders on successful cancellation
+                setLoading(true);
+                getMyOrders().then((res) => {
+                  setOrders(res.orders || []);
+                  setLoading(false);
+                });
+              }}
+            />
           ))}
         </div>
       </div>
