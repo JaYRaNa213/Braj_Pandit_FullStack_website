@@ -73,19 +73,19 @@ export default function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 bg-[#4A1C1C] text-white shadow-md backdrop-blur bg-opacity-95 dark:bg-[#1F1B1B] dark:text-white">
-      <div className="flex items-center px-4 py-3 md:px-6">
+      <div className="flex items-center px-3 py-1 md:px-6">
         {/* Logo */}
         <RouterLink to="/" className="flex items-center gap-2">
           <img
-            src="/images/premMandir.jpg"
-            alt="Prem Mandir Logo"
-            className="h-8 w-8 object-cover rounded-full"
+            src="https://res.cloudinary.com/djtq2eywl/image/upload/v1751620820/logo_yre5xd.png"
+            alt="braj pandit Logo"
+            className="h-20 w-40 object-cover rounded-full"
           />
-          <span className="text-lg font-bold">Braj Pandit</span>
+          
         </RouterLink>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-6 text-sm ml-10">
+        <div className="hidden md:flex items-center gap-6 text-sm ml-9">
           <RouterLink to="/" className="hover:underline">
             {t("nav.home")}
           </RouterLink>
