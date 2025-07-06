@@ -8,3 +8,28 @@
 }
 
 
+/* Add this to your global CSS or reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  margin-bottom: 0; /* or a smaller value */
+}
+
+.next-section {
+  margin-top: 0;
+}
+
+body {
+  padding-top: 0px; /* Adjust based on your navbar height */
+}
+
+
