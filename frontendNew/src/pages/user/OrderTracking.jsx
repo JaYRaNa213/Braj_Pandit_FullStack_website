@@ -1,10 +1,12 @@
-// 🔐 Developed by Jay Rana © 2025
+// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getOrderTracking } from "../../services/user/userService";
+import { getProductById } from "../../services/api";
 import { Loader2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 const OrderTracking = () => {
   const { id } = useParams();
@@ -22,23 +24,50 @@ const OrderTracking = () => {
   ];
 
   useEffect(() => {
-    const fetchTracking = async () => {
-      try {
-        const res = await getOrderTracking(id);
-        if (res.success) {
-          setTracking(res.data);
-        } else {
-          setError(res.message || t("orderTracking.errors.notAvailable"));
-        }
-      } catch (err) {
-        console.error("Error fetching tracking:", err);
-        setError(t("orderTracking.errors.general"));
-      } finally {
+  const fetchTracking = async () => {
+    try {
+      const res = await getOrderTracking(id);
+      if (!res.success) {
+        setError(res.message || t("orderTracking.errors.notAvailable"));
         setLoading(false);
+        return;
       }
-    };
-    fetchTracking();
-  }, [id, t]);
+
+      const trackingData = res.data;
+
+      // ✅ If product is just ID or missing image, fetch full details
+      if (
+        typeof trackingData.product === "string" ||
+        !trackingData.product?.imageUrl
+      ) {
+        const productId =
+          typeof trackingData.product === "string"
+            ? trackingData.product
+            : trackingData.product?._id;
+
+        if (productId) {
+          const productRes = await getProductById(productId);
+          if (productRes?.data) {
+            trackingData.product = productRes.data;
+            toast.info(
+              t("orderTracking.notifications.productFetched", "Product details were restored for tracking display."),
+              { autoClose: 4000, position: "top-center" }
+            );
+          }
+        }
+      }
+
+      setTracking(trackingData);
+    } catch (err) {
+      console.error("Error fetching tracking:", err);
+      setError(t("orderTracking.errors.general"));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchTracking();
+}, [id, t]);
 
   if (loading) {
     return (
@@ -53,22 +82,26 @@ const OrderTracking = () => {
   }
 
   const currentIndex = STATUS_FLOW.findIndex(
-    (status) => status.toLowerCase() === tracking.status.toLowerCase()
+    (status) => status.toLowerCase() === tracking.status?.toLowerCase()
   );
 
   const product = tracking.product || {};
+  const imageUrl = product.imageUrl || "/default-product.png";
+  const deliveryETA = tracking.eta || t("orderTracking.eta.default", "Estimated delivery in 3-5 days");
 
   return (
     <div className="p-6 max-w-5xl mx-auto bg-white dark:bg-zinc-900 rounded-xl shadow-lg">
+      {/* Language Toggle */}
       <div className="flex justify-end mb-4">
         <button
           onClick={() => i18n.changeLanguage(i18n.language === "en" ? "hi" : "en")}
           className="px-4 py-2 rounded-md bg-yellow-600 text-white text-sm font-semibold"
         >
-          {i18n.language === "en" ? "हिंदी में पढ़ें" : "Read in English"}
+          {i18n.language === "en" ? "हिंदी में पढ़ें" : "Read in English"}
         </button>
       </div>
 
+      {/* Title */}
       <h1 className="text-3xl font-bold mb-6 text-[#C0402B] dark:text-red-400">
         🚚 {t("orderTracking.title")}
       </h1>
@@ -76,9 +109,10 @@ const OrderTracking = () => {
       {/* Product Info */}
       <div className="flex flex-col sm:flex-row items-center gap-6 mb-8">
         <img
-          src={product.image || "/default-product.png"}
-          alt="Product"
+          src={imageUrl}
+          alt={product.name || "Product"}
           className="w-40 h-40 object-cover rounded-xl shadow border"
+          onError={(e) => (e.target.src = "/default-product.png")}
         />
         <div>
           <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100">
@@ -87,10 +121,13 @@ const OrderTracking = () => {
           <p className="text-sm text-gray-600 dark:text-gray-400">
             {t("orderTracking.trackingId")} <span className="font-medium">{id}</span>
           </p>
+          <p className="text-sm text-green-600 dark:text-green-400 mt-1 font-medium">
+            {deliveryETA}
+          </p>
         </div>
       </div>
 
-      {/* Progress Tracker */}
+      {/* Progress Bar */}
       <div className="relative flex justify-between items-center mb-10">
         {STATUS_FLOW.map((status, index) => {
           const isCompleted = index < currentIndex;
@@ -99,18 +136,18 @@ const OrderTracking = () => {
           return (
             <div key={index} className="flex flex-col items-center w-full text-center relative z-10">
               <div
-                className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-semibold border-2 ${
+                className={`w-9 h-9 flex items-center justify-center rounded-full text-sm font-bold border-2 transition-all duration-300 ${
                   isCompleted
                     ? "bg-green-600 text-white border-green-600"
                     : isCurrent
-                    ? "bg-yellow-400 text-black border-yellow-500"
+                    ? "bg-yellow-400 text-black border-yellow-500 animate-pulse"
                     : "bg-gray-300 text-gray-700 border-gray-400"
                 }`}
               >
                 {index + 1}
               </div>
               <span
-                className={`mt-2 text-sm font-medium ${
+                className={`mt-2 text-[13px] font-medium transition ${
                   isCompleted || isCurrent
                     ? "text-[#C0402B] dark:text-red-400"
                     : "text-gray-500"
@@ -123,9 +160,9 @@ const OrderTracking = () => {
         })}
 
         {/* Progress Line */}
-        <div className="absolute top-4 left-4 right-4 h-0.5 bg-gray-300 z-0">
+        <div className="absolute top-4 left-4 right-4 h-1 bg-gray-300 z-0 rounded-full">
           <div
-            className="h-0.5 bg-green-600 transition-all duration-500"
+            className="h-1 bg-green-600 rounded-full transition-all duration-700 ease-in-out"
             style={{
               width: `${(currentIndex / (STATUS_FLOW.length - 1)) * 100}%`,
             }}
