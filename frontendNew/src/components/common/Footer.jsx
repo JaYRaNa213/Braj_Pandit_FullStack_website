@@ -22,29 +22,61 @@ const Footer = () => {
         <div>
           <h3 className="text-lg font-bold mb-3">{t("footer.quick_links")}</h3>
           <ul className="space-y-2 text-sm text-gray-300 dark:text-gray-400">
-            <li><a href="/" className="hover:underline">{t("footer.links.home")}</a></li>
-            <li><a href="/products" className="hover:underline">{t("footer.links.products")}</a></li>
-            <li><a href="/blogs" className="hover:underline">{t("footer.links.blogs")}</a></li>
-            <li><a href="/booking" className="hover:underline">{t("footer.links.booking")}</a></li>
-            <li><a href="/contact" className="hover:underline">{t("footer.links.contact")}</a></li>
+            <li>
+              <a href="/" className="hover:underline">
+                {t("footer.links.home")}
+              </a>
+            </li>
+            <li>
+              <a href="/products" className="hover:underline">
+                {t("footer.links.products")}
+              </a>
+            </li>
+            <li>
+              <a href="/blogs" className="hover:underline">
+                {t("footer.links.blogs")}
+              </a>
+            </li>
+            <li>
+              <a href="/booking" className="hover:underline">
+                {t("footer.links.booking")}
+              </a>
+            </li>
+            <li>
+              <a href="/contact" className="hover:underline">
+                {t("footer.links.contact")}
+              </a>
+            </li>
           </ul>
         </div>
 
         {/* Contact Info */}
         <div>
           <h3 className="text-lg font-bold mb-3">{t("footer.contact")}</h3>
-          <p className="text-sm text-gray-300 dark:text-gray-400">📞 +91 6395857663</p>
-          <p className="text-sm text-gray-300 dark:text-gray-400">📞 +91 6398152781</p>
-          <p className="text-sm text-gray-300 dark:text-gray-400">📧 support@brajpandit.in</p>
+          <p className="text-sm text-gray-300 dark:text-gray-400">
+            📞 +91 8595009640
+          </p>
+          <p className="text-sm text-gray-300 dark:text-gray-400">
+            📞 +91 8979923233
+          </p>
+          <p className="text-sm text-gray-300 dark:text-gray-400">
+            📧 brajpandit123@gmail.com
+          </p>
         </div>
 
         {/* Social Media */}
         <div>
           <h3 className="text-lg font-bold mb-3">{t("footer.follow_us")}</h3>
           <div className="flex gap-4 text-sm">
-            <a href="#" className="hover:text-yellow-300 transition">Facebook</a>
-            <a href="#" className="hover:text-yellow-300 transition">Instagram</a>
-            <a href="#" className="hover:text-yellow-300 transition">YouTube</a>
+            <a href="#" className="hover:text-yellow-300 transition">
+              Facebook
+            </a>
+            <a href="https://www.instagram.com/vedagyanam_official?igsh=ODkyNHhmczZiYnhh" className="hover:text-yellow-300 transition">
+              Instagram
+            </a>
+            <a href="https://youtube.com/@vedagyanam?si=587Ev8d_yQzUOVE4" className="hover:text-yellow-300 transition">
+              YouTube
+            </a>
           </div>
         </div>
       </div>
