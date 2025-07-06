@@ -1,5 +1,4 @@
 // 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
-// If you theft this code, you will be punished or may face legal action by the owner.
 
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -22,61 +21,58 @@ const Footer = () => {
         <div>
           <h3 className="text-lg font-bold mb-3">{t("footer.quick_links")}</h3>
           <ul className="space-y-2 text-sm text-gray-300 dark:text-gray-400">
-            <li>
-              <a href="/" className="hover:underline">
-                {t("footer.links.home")}
-              </a>
-            </li>
-            <li>
-              <a href="/products" className="hover:underline">
-                {t("footer.links.products")}
-              </a>
-            </li>
-            <li>
-              <a href="/blogs" className="hover:underline">
-                {t("footer.links.blogs")}
-              </a>
-            </li>
-            <li>
-              <a href="/booking" className="hover:underline">
-                {t("footer.links.booking")}
-              </a>
-            </li>
-            <li>
-              <a href="/contact" className="hover:underline">
-                {t("footer.links.contact")}
-              </a>
-            </li>
+            <li><a href="/" className="hover:underline">{t("footer.links.home")}</a></li>
+            <li><a href="/products" className="hover:underline">{t("footer.links.products")}</a></li>
+            <li><a href="/blogs" className="hover:underline">{t("footer.links.blogs")}</a></li>
+            <li><a href="/booking" className="hover:underline">{t("footer.links.booking")}</a></li>
+            <li><a href="/contact" className="hover:underline">{t("footer.links.contact")}</a></li>
           </ul>
         </div>
 
         {/* Contact Info */}
         <div>
           <h3 className="text-lg font-bold mb-3">{t("footer.contact")}</h3>
-          <p className="text-sm text-gray-300 dark:text-gray-400">
-            📞 +91 8595009640
-          </p>
-          <p className="text-sm text-gray-300 dark:text-gray-400">
-            📞 +91 8979923233
-          </p>
-          <p className="text-sm text-gray-300 dark:text-gray-400">
-            📧 brajpandit123@gmail.com
-          </p>
+          <p className="text-sm text-gray-300 dark:text-gray-400">📞 +91 8595009640</p>
+          <p className="text-sm text-gray-300 dark:text-gray-400">📞 +91 8979923233</p>
+          <p className="text-sm text-gray-300 dark:text-gray-400">📧 brajpandit123@gmail.com</p>
         </div>
 
-        {/* Social Media */}
-        <div>
-          <h3 className="text-lg font-bold mb-3">{t("footer.follow_us")}</h3>
-          <div className="flex gap-4 text-sm">
-            <a href="#" className="hover:text-yellow-300 transition">
-              Facebook
-            </a>
-            <a href="https://www.instagram.com/vedagyanam_official?igsh=ODkyNHhmczZiYnhh" className="hover:text-yellow-300 transition">
-              Instagram
-            </a>
-            <a href="https://youtube.com/@vedagyanam?si=587Ev8d_yQzUOVE4" className="hover:text-yellow-300 transition">
-              YouTube
-            </a>
+        {/* Social Media - Aligned bottom-right */}
+        <div className="flex-wrap md:items-end md:justify-end">
+          <div>
+            <h3 className="text-lg font-bold mb-3">{t("footer.follow_us")}</h3>
+            <div className="flex flex-col gap-2 text-sm text-gray-300 dark:text-gray-400">
+              <a href="#" className="flex items-center gap-2 hover:text-yellow-300 transition">
+                <img
+                  src="https://res.cloudinary.com/djtq2eywl/image/upload/v1751794911/facebook-circle-logo-blue-70175169479332995fhjt438m_aqi7dg.png"
+                  alt="Instagram"
+                  className="w-5 h-5"
+                />
+                Facebook
+              </a>
+              <a
+                href="https://www.instagram.com/vedagyanam_official?igsh=ODkyNHhmczZiYnhh"
+                className="flex items-center gap-2 hover:text-yellow-300 transition"
+              >
+                <img
+                  src="https://res.cloudinary.com/djtq2eywl/image/upload/v1751794910/instagram-logo_971166-164497_yfnzdl.avif"
+                  alt="Instagram"
+                  className="w-5 h-5"
+                />
+                Instagram
+              </a>
+              <a
+                href="https://youtube.com/@vedagyanam?si=587Ev8d_yQzUOVE4"
+                className="flex items-center gap-2 hover:text-yellow-300 transition"
+              >
+                <img
+                  src="https://res.cloudinary.com/djtq2eywl/image/upload/v1751794910/png-clipart-youtube-logo-youtube-red-logo-sunny-leone-angle-rectangle-thumbnail_lgwxiu.png"
+                  alt="YouTube"
+                  className="w-5 h-5"
+                />
+                YouTube
+              </a>
+            </div>
           </div>
         </div>
       </div>
