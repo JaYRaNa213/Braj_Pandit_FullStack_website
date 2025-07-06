@@ -89,7 +89,10 @@ const FamousPlacesSection = () => {
         </button>
       </div>
     </section>
+    
   );
+
+
 };
 
 export default FamousPlacesSection;
