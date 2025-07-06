@@ -72,7 +72,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-[#4A1C1C] text-white shadow-md backdrop-blur bg-opacity-95 dark:bg-[#1F1B1B] dark:text-white">
+    <nav className="sticky top-0 z-50 bg-[#4A1C1C] text-white shadow-md backdrop-blur  dark:bg-[#1F1B1B] dark:text-white">
       <div className="flex items-center px-3 py-1 md:px-6">
         {/* Logo */}
         <RouterLink to="/" className="flex items-center gap-2">
