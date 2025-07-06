@@ -1,6 +1,6 @@
 // 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import famousPlacesData from "../../../data/famousPlaces.json";
@@ -8,8 +8,27 @@ import famousPlacesData from "../../../data/famousPlaces.json";
 const FamousPlacesSection = () => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  const scrollRef = useRef(null);
 
   const openMap = (url) => window.open(url, "_blank");
+
+  useEffect(() => {
+    const container = scrollRef.current;
+    let scrollSpeed = 1; // pixels per frame
+    const scrollInterval = 20; // ms
+
+    const autoScroll = setInterval(() => {
+      if (container) {
+        if (container.scrollLeft + container.clientWidth >= container.scrollWidth) {
+          container.scrollLeft = 0;
+        } else {
+          container.scrollLeft += scrollSpeed;
+        }
+      }
+    }, scrollInterval);
+
+    return () => clearInterval(autoScroll);
+  }, []);
 
   return (
     <section className="py-16 px-4 text-center bg-[#fef8f4] dark:bg-[#1c1c1c]">
@@ -26,10 +45,14 @@ const FamousPlacesSection = () => {
         </button>
       </div>
 
-      {/* Horizontal Scrollable Cards */}
-      <div className="max-w-7xl mx-auto overflow-x-auto">
-        <div className="flex gap-4 min-w-[1200px]">
-          {famousPlacesData.mandirs.slice(0, 8).map((place, index) => (
+      {/* Auto-scrolling Cards (No scrollbar) */}
+      <div
+        ref={scrollRef}
+        className="max-w-7xl mx-auto overflow-hidden"
+        style={{ scrollbarWidth: "none" }}
+      >
+        <div className="flex gap-4 w-fit">
+          {famousPlacesData.mandirs.map((place, index) => (
             <div
               key={index}
               className="min-w-[140px] max-w-[140px] bg-white dark:bg-gray-900 border border-yellow-300 dark:border-yellow-500 rounded-lg shadow p-2 flex-shrink-0"
