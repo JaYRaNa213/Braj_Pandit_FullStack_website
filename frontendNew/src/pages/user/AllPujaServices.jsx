@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import pujaServicesData from "../../data/pujaServices.json";
 import { useTranslation } from "react-i18next";
 
-// ⭐ Dynamically render star ratings
+// ⭐ Star Ratings Renderer
 const renderStars = (rating = 4) => {
   return [...Array(5)].map((_, i) => (
     <span key={i} className={i < rating ? "text-yellow-500" : "text-gray-300"}>
@@ -48,34 +48,38 @@ const AllPujaServices = () => {
             {services.map((service, idx) => (
               <div
                 key={idx}
-                className="bg-white dark:bg-[#1e1e1e] border border-gray-200 dark:border-gray-700 rounded-xl p-4 shadow hover:shadow-lg transition duration-300 flex flex-col"
+                className="bg-white dark:bg-[#1e1e1e] border border-gray-200 dark:border-gray-700 rounded-xl shadow hover:shadow-lg transition duration-300 flex flex-col"
               >
-                <img
-                  src={service.img || "/default-puja.jpg"}
-                  alt={service.title}
-                  className="w-full h-36 object-cover rounded-md"
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = "/default-puja.jpg";
-                  }}
-                />
+                <div className="w-full aspect-[4/3] overflow-hidden rounded-t-xl bg-gray-100">
+                  <img
+                    src={service.img || "/default-puja.jpg"}
+                    alt={service.title}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = "/default-puja.jpg";
+                    }}
+                  />
+                </div>
 
-                <h3 className="mt-3 font-bold text-lg text-[#4A1C1C] dark:text-white">
-                  {t(`AllPujaServices.titles.${service.title}`, service.title)}
-                </h3>
+                <div className="p-4 flex flex-col flex-1">
+                  <h3 className="font-bold text-lg text-[#4A1C1C] dark:text-white">
+                    {t(`AllPujaServices.titles.${service.title}`, service.title)}
+                  </h3>
 
-                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 line-clamp-3">
-                  {t(`AllPujaServices.descriptions.${service.title}`, service.description)}
-                </p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 line-clamp-3">
+                    {t(`AllPujaServices.descriptions.${service.title}`, service.description)}
+                  </p>
 
-                <div className="mt-2 text-sm">{renderStars(service.rating)}</div>
+                  <div className="mt-2 text-sm">{renderStars(service.rating)}</div>
 
-                <button
-                  onClick={() => handleBooking(service.title)}
-                  className="mt-auto bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition w-full font-semibold text-sm"
-                >
-                  {t("AllPujaServices.book_button")}
-                </button>
+                  <button
+                    onClick={() => handleBooking(service.title)}
+                    className="mt-auto bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition w-full font-semibold text-sm"
+                  >
+                    {t("AllPujaServices.book_button")}
+                  </button>
+                </div>
               </div>
             ))}
           </div>

@@ -76,7 +76,7 @@ const FamousPlacesSection = () => {
       <div className="mt-12">
         <button
           onClick={() => navigate("/famous-places")}
-          className="bg-orange-600 dark:bg-orange-500 text-white px-6 py-2 rounded-lg shadow hover:bg-orange-700 dark:hover:bg-orange-400 transition"
+          className="bg-red-600 hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 text-white px-6 py-2 rounded-full font-semibold transition"
         >
           {t("view_more")}
         </button>

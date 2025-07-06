@@ -31,5 +31,6 @@ body, html {
 body {
   padding-top: 0px; /* Adjust based on your navbar height */
 }
-
-
+.text-shadow-sm {
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+}

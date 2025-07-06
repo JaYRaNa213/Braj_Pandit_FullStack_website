@@ -29,10 +29,10 @@ const PujaServices = () => {
   return (
     <Element name="pujaServicesSection">
       <section
-        className="relative w-full bg-cover bg-center bg-no-repeat"
+        className="light-bg bg-gray-100 dark:bg-gray-900"
         style={{
           backgroundImage:
-            "url('https://media.istockphoto.com/id/516416070/photo/the-earth-hour-in-lviv-ukraine.jpg?s=612x612&w=0&k=20&c=nGl1KooAwZIzV6V8ogcpC7AIDKX6wli6FtCgO0AT_4w=')",
+            "url('https://res.cloudinary.com/djtq2eywl/image/upload/v1751620759/h-about-us.png_kzrnid.png')",
         }}
       >
         {/* Overlay */}
@@ -63,7 +63,9 @@ const PujaServices = () => {
                     <h3 className="text-xl font-bold text-red-700 dark:text-yellow-200 mb-2">
                       {service.title}
                     </h3>
-                    <p className="text-gray-700 dark:text-gray-300 mb-3">{service.desc}</p>
+                    <p className="text-gray-700 dark:text-gray-300 mb-3">
+                      {service.desc}
+                    </p>
                     <p className="text-gray-800 dark:text-gray-200 font-semibold mb-2">
                       {t("pujas.price")}{" "}
                       <span className="text-red-600 dark:text-orange-400">
@@ -85,7 +87,7 @@ const PujaServices = () => {
           <div className="text-center mt-10">
             <button
               onClick={handleViewMore}
-              className="px-6 py-2 border-2 border-red-600 text-red-600 dark:border-orange-400 dark:text-orange-400 rounded-full hover:bg-red-600 hover:text-white dark:hover:bg-orange-500 dark:hover:text-white transition"
+              className="bg-red-600 hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 text-white px-6 py-2 rounded-full font-semibold transition"
             >
               {t("pujas.view_more")}
             </button>
