@@ -1,6 +1,6 @@
-// FamousPlacesSection.jsx
+// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import famousPlacesData from "../../../data/famousPlaces.json";
@@ -9,26 +9,42 @@ const FamousPlacesSection = () => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const scrollRef = useRef(null);
+  const scrollIntervalRef = useRef(null);
+  const [isPaused, setIsPaused] = useState(false);
 
   const openMap = (url) => window.open(url, "_blank");
 
   useEffect(() => {
     const container = scrollRef.current;
-    let scrollSpeed = 1;
+    const scrollSpeed = 1;
     const scrollInterval = 20;
 
-    const autoScroll = setInterval(() => {
-      if (container) {
-        if (container.scrollLeft + container.clientWidth >= container.scrollWidth) {
-          container.scrollLeft = 0;
-        } else {
-          container.scrollLeft += scrollSpeed;
-        }
+    const startAutoScroll = () => {
+      if (!scrollIntervalRef.current) {
+        scrollIntervalRef.current = setInterval(() => {
+          if (container && !isPaused) {
+            if (container.scrollLeft + container.clientWidth >= container.scrollWidth) {
+              container.scrollLeft = 0;
+            } else {
+              container.scrollLeft += scrollSpeed;
+            }
+          }
+        }, scrollInterval);
       }
-    }, scrollInterval);
+    };
 
-    return () => clearInterval(autoScroll);
-  }, []);
+    const stopAutoScroll = () => {
+      clearInterval(scrollIntervalRef.current);
+      scrollIntervalRef.current = null;
+    };
+
+    startAutoScroll();
+
+    return () => stopAutoScroll();
+  }, [isPaused]);
+
+  const handlePause = () => setIsPaused(true);
+  const handleResume = () => setIsPaused(false);
 
   return (
     <section className="py-16 px-4 text-center bg-[#fef8f4] dark:bg-[#1c1c1c]">
@@ -44,12 +60,23 @@ const FamousPlacesSection = () => {
         </button>
       </div>
 
-      <div ref={scrollRef} className="max-w-7xl mx-auto overflow-hidden" style={{ scrollbarWidth: "none" }}>
-        <div className="flex gap-4 w-fit">
+      <div
+        ref={scrollRef}
+        className="max-w-7xl mx-auto overflow-hidden"
+        style={{ scrollbarWidth: "none" }}
+      >
+        <div
+          className="flex gap-4 w-fit"
+          onMouseEnter={handlePause}
+          onMouseLeave={handleResume}
+          onTouchStart={handlePause}
+          onTouchEnd={handleResume}
+        >
           {famousPlacesData.mandirs.map((place) => (
             <div
               key={place.key}
-              className="min-w-[140px] max-w-[140px] bg-white dark:bg-gray-900 border border-yellow-300 dark:border-yellow-500 rounded-lg shadow p-2 flex-shrink-0"
+              onClick={handlePause}
+              className="min-w-[140px] max-w-[140px] bg-white dark:bg-gray-900 border border-yellow-300 dark:border-yellow-500 rounded-lg shadow p-2 flex-shrink-0 transition-transform hover:scale-105 duration-300"
             >
               <img
                 src={t(`HomePlace.url.${place.key}`)}
@@ -63,7 +90,10 @@ const FamousPlacesSection = () => {
                 {t(`HomePlace.description.${place.key}`)}
               </p>
               <button
-                onClick={() => openMap(t(`HomePlace.location.${place.key}`))}
+                onClick={(e) => {
+                  e.stopPropagation(); // Prevent pausing from bubbling up
+                  openMap(t(`HomePlace.location.${place.key}`));
+                }}
                 className="mt-2 text-[10px] bg-orange-100 dark:bg-orange-800 text-orange-700 dark:text-white font-semibold py-1 px-2 rounded hover:bg-orange-200 dark:hover:bg-orange-700 transition"
               >
                 {t("view_on_map")}

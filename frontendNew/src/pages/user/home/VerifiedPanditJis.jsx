@@ -129,7 +129,7 @@ const VerifiedPanditJis = () => {
                     className="w-full h-40 object-cover rounded-t-xl"
                     loading="lazy"
                   />
-                  <div className="bg-orange-100 dark:bg-gray-700 p-4 flex flex-col justify-between flex-1 text-[#4A1C1C] dark:text-yellow-100">
+                  <div className="bg-orange-100 dark:bg-gray-700 p-3 flex flex-col justify-between flex-1 text-[#4A1C1C] dark:text-yellow-100">
                     <div>
                       <h3 className="text-[15px] font-semibold truncate">{pandit.name}</h3>
                       <p className="text-xs text-gray-600 dark:text-gray-300">{pandit.expertise}</p>

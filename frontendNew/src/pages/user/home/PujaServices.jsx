@@ -29,10 +29,10 @@ const PujaServices = () => {
   return (
     <Element name="pujaServicesSection">
       <section
-        className="light-bg bg-gray-100 dark:bg-gray-900"
+        className=" light-bg bg-gray-100 dark:bg-gray-900 "
         style={{
           backgroundImage:
-            "url('https://res.cloudinary.com/djtq2eywl/image/upload/v1751620759/h-about-us.png_kzrnid.png')",
+            "url('https://res.cloudinary.com/djtq2eywl/image/upload/v1751620759/h-about-us.png_kzrnid.pn')",
         }}
       >
         {/* Overlay */}

@@ -18,15 +18,13 @@ const BackButton = () => {
   if (!shouldShow) return null;
 
   return (
-    <div className="px-4 sm:px-6 lg:px-8 mt-4">
-      <button
-        onClick={() => navigate(-1)}
-        className="flex items-center gap-2 px-4 py-2 bg-[#C0402B] text-white dark:bg-red-500 dark:text-white font-medium rounded-full shadow-md hover:shadow-lg hover:bg-[#a83220] dark:hover:bg-red-400 transition duration-200"
-      >
-        <ArrowLeft className="w-5 h-5" />
-        {t("buttons.back")}
-      </button>
-    </div>
+    <button
+      onClick={() => navigate(-1)}
+      className="fixed top-24 left-5 z-50 flex items-center gap-2 px-4 py-2 bg-[#C0402B] text-white dark:bg-red-500 dark:text-white font-medium rounded-full shadow-md hover:shadow-lg hover:bg-[#a83220] dark:hover:bg-red-400 transition duration-200"
+    >
+      <ArrowLeft className="w-5 h-5" />
+      {t("buttons.back")}
+    </button>
   );
 };
 

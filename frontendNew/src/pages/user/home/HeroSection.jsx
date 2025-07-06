@@ -4,9 +4,12 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 const heroImages = [
+  "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917524/IMG20250619193232_zilsdz.jpg",
   "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917528/IMG20250619193402_cafibp.jpg",
   "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917524/IMG20250619193232_zilsdz.jpg",
-  "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917524/IMG20250619193232_zilsdz.jpg",
+  "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917528/IMG20250619193402_cafibp.jpg",
+  
+  
   "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917528/IMG20250619193402_cafibp.jpg",
 ];
 
