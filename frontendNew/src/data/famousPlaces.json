@@ -1,6 +1,7 @@
 {
   "mandirs": [
     {
+      "key": "place1",
       "Name": "Shri Banke Bihari Ji Mandir",
       "hindi": "श्री बांके बिहारी जी मंदिर",
       "url": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750876521/Santan-Prapti-Puja-Shri-Banke-Bihari-Ji-Temple-Vrindavan_y8xzta.jpg",
@@ -14,6 +15,7 @@
       "tips": "Visit early morning for peaceful darshan."
     },
     {
+      "key": "place2",
       "Name": "Radha Rani Mandir (Barsana)",
       "hindi": "राधा रानी मंदिर (बरसाना)",
       "url": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917568/IMG20250620095101_nlu4rx.jpg",
@@ -27,6 +29,7 @@
       "tips": "Don’t miss the view from the hilltop."
     },
     {
+      "key": "place3",
       "Name": "Prem Mandir Vrindavan",
       "hindi": "प्रेम मंदिर वृंदावन",
       "url": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917528/IMG20250619193402_cafibp.jpg",
@@ -40,6 +43,7 @@
       "tips": "Evening lighting is a must-see!"
     },
     {
+      "key": "place4",
       "Name": "Iskon Temple Vrindavan",
       "hindi": "इस्कॉन मंदिर वृंदावन",
       "url": "https://static.tnnbt.in/photo/msid-105506664,width-100,height-200,resizemode-75/105506664.jpg",
@@ -53,6 +57,7 @@
       "tips": "Attend the morning aarti if possible."
     },
     {
+      "key": "place5",
       "Name": "Char Dham Mandir",
       "hindi": "चार धाम मंदिर",
       "url": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917536/IMG20250620122242_p9tc6v.jpg",
@@ -66,6 +71,7 @@
       "tips": "Photogenic spot for traditional architecture lovers."
     },
     {
+      "key": "place6",
       "Name": "Rang Ji Mandir Vrindavan",
       "hindi": "रंग जी मंदिर वृंदावन",
       "url": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Rangji_temple_%28Vrindavan%29.jpg",
@@ -78,8 +84,8 @@
       "category": "heritage",
       "tips": "Look for intricate gopuram carvings."
     },
-    
     {
+      "key": "place7",
       "Name": "Janambhumi Mathura",
       "hindi": "जन्मभूमि मथुरा",
       "url": "https://photos.wikimapia.org/p/00/01/36/85/39_big.jpg",
@@ -93,6 +99,7 @@
       "tips": "Visit with proper ID; tight security at entry."
     },
     {
+      "key": "place8",
       "Name": "Radha Raman Mandir",
       "hindi": "राधा रमण मंदिर",
       "url": "https://shrimathuraji.com/wp-content/uploads/2024/04/shri-radharaman-ji-2.jpg",
@@ -106,6 +113,7 @@
       "tips": "Photography not allowed inside sanctum."
     },
     {
+      "key": "place9",
       "Name": "Radha Vallabh Mandir",
       "hindi": "राधा वल्लभ मंदिर",
       "url": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/10/84/2c/2d/sri-radhavallabh-vrindavan.jpg?w=1200&h=-1&s=1",
@@ -119,6 +127,7 @@
       "tips": "Temple known for unique style of bhajan."
     },
     {
+      "key": "place10",
       "Name": "Nidhivan Mandir",
       "hindi": "निधिवन मंदिर",
       "url": "https://c8.alamy.com/comp/2RR718J/trees-inside-nidhivan-it-is-one-of-the-most-holy-mysterious-and-sacred-place-for-hindu-people-in-the-holy-city-of-vrindavan-2RR718J.jpg",
@@ -132,6 +141,7 @@
       "tips": "Area closes after sunset due to local beliefs."
     },
     {
+      "key": "place11",
       "Name": "Radha Gopinath Mandir",
       "hindi": "राधा गोपीनाथ मंदिर",
       "url": "https://live.staticflickr.com/206/486870747_569a7c1b0f_b.jpg",
@@ -145,6 +155,7 @@
       "tips": "Visit in morning for peaceful darshan."
     },
     {
+      "key": "place12",
       "Name": "Radha Madan Mohan Mandir",
       "hindi": "राधा मदन मोहन मंदिर",
       "url": "https://www.tourmyindia.com/states/uttarpradesh/images/sri-radha-madan-mohan-temple-vrindavan.jpg",

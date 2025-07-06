@@ -682,6 +682,76 @@
     }
   }
 
+  ,
+
+  
+  "famous_places_title": "Famous Spiritual Places",
+  "view_on_map": "View on Map",
+  "view_more": "View More",
+  "famous_places": {
+    "heading": "Explore All Famous Places",
+    "scroll_to_load": "Scroll down to load more places..."
+  },
+  "HomePlace": {
+    "Name": {
+      "place1": "Shri Banke Bihari Ji Mandir",
+      "place2": "Radha Rani Mandir (Barsana)",
+      "place3": "Prem Mandir Vrindavan",
+      "place4": "Iskon Temple Vrindavan",
+      "place5": "Char Dham Mandir",
+      "place6": "Rang Ji Mandir Vrindavan",
+      "place7": "Janambhumi Mathura",
+      "place8": "Radha Raman Mandir",
+      "place9": "Radha Vallabh Mandir",
+      "place10": "Nidhivan Mandir",
+      "place11": "Radha Gopinath Mandir",
+      "place12": "Radha Madan Mohan Mandir"
+    },
+    "description": {
+      "place1": "Banke Bihari Temple is located in Biharipura in Vrindavan Dham in Mathura district in India. It is one of the ancient and famous temples of India.",
+      "place2": "The Radha Barsana Temple is dedicated to Radha, the consort of Krishna, and is one of the most important pilgrimage sites.",
+      "place3": "Prem Mandir was constructed by Jagadguru Kripalu Maharaj and dedicated to Radha Krishna.",
+      "place4": "ISKCON Vrindavan is also called Sri Krishna Balaram Mandir, one of the major ISKCON temples.",
+      "place5": "Char Dham Mandir is dedicated to the four sacred sites: Yamunotri, Gangotri, Kedarnath, and Badrinath.",
+      "place6": "This temple is dedicated to Lord Ranganath (form of Vishnu) and built in South Indian architectural style.",
+      "place7": "The Krishna Janmasthan Temple Complex is a group of Hindu temples in Mathura, believed to be the birthplace of Lord Krishna.",
+      "place8": "Radha Raman Temple is one of the oldest in Vrindavan, established by Gopala Bhatta Goswami in 1542 CE.",
+      "place9": "Radha Vallabh Temple, one of the oldest in Vrindavan, is dedicated to Radha and Krishna.",
+      "place10": "Nidhivan is a sacred grove associated with divine pastimes of Krishna with Radha and gopis.",
+      "place11": "One of the seven ancient temples in Vrindavan, established by Gaudiya Vaishnavas.",
+      "place12": "This temple is the oldest in Vrindavan and associated with Sanatana Goswami."
+    },
+    "url": {
+      "place1": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750876521/Santan-Prapti-Puja-Shri-Banke-Bihari-Ji-Temple-Vrindavan_y8xzta.jpg",
+      "place2": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917568/IMG20250620095101_nlu4rx.jpg",
+      "place3": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917528/IMG20250619193402_cafibp.jpg",
+      "place4": "https://static.tnnbt.in/photo/msid-105506664,width-100,height-200,resizemode-75/105506664.jpg",
+      "place5": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917536/IMG20250620122242_p9tc6v.jpg",
+      "place6": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Rangji_temple_%28Vrindavan%29.jpg",
+      "place7": "https://photos.wikimapia.org/p/00/01/36/85/39_big.jpg",
+      "place8": "https://shrimathuraji.com/wp-content/uploads/2024/04/shri-radharaman-ji-2.jpg",
+      "place9": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/10/84/2c/2d/sri-radhavallabh-vrindavan.jpg?w=1200&h=-1&s=1",
+      "place10": "https://c8.alamy.com/comp/2RR718J/trees-inside-nidhivan-it-is-one-of-the-most-holy-mysterious-and-sacred-place-for-hindu-people-in-the-holy-city-of-vrindavan-2RR718J.jpg",
+      "place11": "https://live.staticflickr.com/206/486870747_569a7c1b0f_b.jpg",
+      "place12": "https://www.tourmyindia.com/states/uttarpradesh/images/sri-radha-madan-mohan-temple-vrindavan.jpg"
+    },
+    "location": {
+      "place1": "https://maps.app.goo.gl/5eNtqTkN7CH9TZmQ6",
+      "place2": "https://maps.app.goo.gl/2b7d8f8d6b1c7f2a9",
+      "place3": "https://www.google.com/maps/place/Prem+Mandir,+Vrindavan",
+      "place4": "https://www.google.com/maps/place/Sri+Sri+Krishna+Balaram+Mandir+(ISKCON+Vrindavan)",
+      "place5": "https://www.google.com/maps/place/Sri+Sri+Krishna+Balaram+Mandir+(ISKCON+Vrindavan)",
+      "place6": "https://maps.app.goo.gl/LZUvb7iJp8HCFZoR9",
+      "place7": "https://maps.app.goo.gl/ssRMdaaGwkM4MJnZ6",
+      "place8": "https://maps.app.goo.gl/2b7d8f8d6b1c7f2a9",
+      "place9": "https://maps.app.goo.gl/2b7d8f8d6b1c7f2a9",
+      "place10": "https://maps.app.goo.gl/2b7d8f8d6b1c7f2a9",
+      "place11": "https://maps.app.goo.gl/2b7d8f8d6b1c7f2a9",
+      "place12": "https://maps.app.goo.gl/2b7d8f8d6b1c7f2a9"
+    }
+  }
+
+
 
 
 

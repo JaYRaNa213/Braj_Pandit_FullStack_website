@@ -601,6 +601,77 @@
       "bhishek": "रुद्राभिषेक भगवान शिव की शक्तिशाली पूजा है। यह नकारात्मकता दूर कर स्वास्थ्य व समृद्धि प्रदान करती है।"
     }
   }
+,
+
+
+
+
+  "famous_places_title": "प्रसिद्ध आध्यात्मिक स्थल",
+  "view_on_map": "मानचित्र पर देखें",
+  "view_more": "और देखें",
+  "famous_places": {
+    "heading": "सभी प्रसिद्ध स्थलों का अन्वेषण करें",
+    "scroll_to_load": "अधिक स्थानों को लोड करने के लिए नीचे स्क्रॉल करें..."
+  },
+  "HomePlace": {
+    "Name": {
+      "place1": "श्री बांके बिहारी जी मंदिर",
+      "place2": "राधा रानी मंदिर (बरसाना)",
+      "place3": "प्रेम मंदिर वृंदावन",
+      "place4": "इस्कॉन मंदिर वृंदावन",
+      "place5": "चार धाम मंदिर",
+      "place6": "रंग जी मंदिर वृंदावन",
+      "place7": "जन्मभूमि मथुरा",
+      "place8": "राधा रमण मंदिर",
+      "place9": "राधा वल्लभ मंदिर",
+      "place10": "निधिवन मंदिर",
+      "place11": "राधा गोपीनाथ मंदिर",
+      "place12": "राधा मदन मोहन मंदिर"
+    },
+    "description": {
+      "place1": "बांके बिहारी मंदिर भारत के मथुरा जिले के वृंदावन धाम में बिहारिपुरा में स्थित है। यह भारत के प्राचीन और प्रसिद्ध मंदिरों में से एक है।",
+      "place2": "राधा बरसाना मंदिर राधा को समर्पित है और यह सबसे महत्वपूर्ण तीर्थ स्थलों में से एक है।",
+      "place3": "प्रेम मंदिर की स्थापना जगद्गुरु कृपालु महाराज द्वारा की गई थी और यह राधा-कृष्ण को समर्पित है।",
+      "place4": "इस्कॉन वृंदावन को श्री कृष्ण बलराम मंदिर भी कहा जाता है, और यह प्रमुख इस्कॉन मंदिरों में से एक है।",
+      "place5": "चार धाम मंदिर चार पवित्र स्थलों: यमुनोत्री, गंगोत्री, केदारनाथ, और बद्रीनाथ को समर्पित है।",
+      "place6": "यह मंदिर भगवान रंगनाथ को समर्पित है और दक्षिण भारतीय वास्तुशैली में निर्मित है।",
+      "place7": "कृष्ण जन्मस्थान मंदिर परिसर मथुरा में हिंदू मंदिरों का एक समूह है, जिसे भगवान कृष्ण का जन्मस्थान माना जाता है।",
+      "place8": "राधा रमण मंदिर वृंदावन के सबसे पुराने मंदिरों में से एक है, जिसकी स्थापना 1542 ईस्वी में गोपाल भट्ट गोस्वामी ने की थी।",
+      "place9": "राधा वल्लभ मंदिर वृंदावन के सबसे पुराने मंदिरों में से एक है, जो राधा और कृष्ण को समर्पित है।",
+      "place10": "निधिवन एक पवित्र उपवन है, जो राधा और गोपियों के साथ कृष्ण की लीलाओं से जुड़ा है।",
+      "place11": "वृंदावन के सात प्राचीन मंदिरों में से एक, जिसकी स्थापना गौड़ीय वैष्णवों द्वारा की गई थी।",
+      "place12": "यह वृंदावन का सबसे पुराना मंदिर है और सनातन गोस्वामी से जुड़ा है।"
+    },
+    "url": {
+      "place1": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750876521/Santan-Prapti-Puja-Shri-Banke-Bihari-Ji-Temple-Vrindavan_y8xzta.jpg",
+      "place2": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917568/IMG20250620095101_nlu4rx.jpg",
+      "place3": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917528/IMG20250619193402_cafibp.jpg",
+      "place4": "https://static.tnnbt.in/photo/msid-105506664,width-100,height-200,resizemode-75/105506664.jpg",
+      "place5": "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917536/IMG20250620122242_p9tc6v.jpg",
+      "place6": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Rangji_temple_%28Vrindavan%29.jpg",
+      "place7": "https://photos.wikimapia.org/p/00/01/36/85/39_big.jpg",
+      "place8": "https://shrimathuraji.com/wp-content/uploads/2024/04/shri-radharaman-ji-2.jpg",
+      "place9": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/10/84/2c/2d/sri-radhavallabh-vrindavan.jpg?w=1200&h=-1&s=1",
+      "place10": "https://c8.alamy.com/comp/2RR718J/trees-inside-nidhivan-it-is-one-of-the-most-holy-mysterious-and-sacred-place-for-hindu-people-in-the-holy-city-of-vrindavan-2RR718J.jpg",
+      "place11": "https://live.staticflickr.com/206/486870747_569a7c1b0f_b.jpg",
+      "place12": "https://www.tourmyindia.com/states/uttarpradesh/images/sri-radha-madan-mohan-temple-vrindavan.jpg"
+    },
+    "location": {
+      "place1": "https://maps.app.goo.gl/5eNtqTkN7CH9TZmQ6",
+      "place2": "https://maps.app.goo.gl/2b7d8f8d6b1c7f2a9",
+      "place3": "https://www.google.com/maps/place/Prem+Mandir,+Vrindavan",
+      "place4": "https://www.google.com/maps/place/Sri+Sri+Krishna+Balaram+Mandir+(ISKCON+Vrindavan)",
+      "place5": "https://www.google.com/maps/place/Sri+Sri+Krishna+Balaram+Mandir+(ISKCON+Vrindavan)",
+      "place6": "https://maps.app.goo.gl/LZUvb7iJp8HCFZoR9",
+      "place7": "https://maps.app.goo.gl/ssRMdaaGwkM4MJnZ6",
+      "place8": "https://maps.app.goo.gl/2b7d8f8d6b1c7f2a9",
+      "place9": "https://maps.app.goo.gl/2b7d8f8d6b1c7f2a9",
+      "place10": "https://maps.app.goo.gl/2b7d8f8d6b1c7f2a9",
+      "place11": "https://maps.app.goo.gl/2b7d8f8d6b1c7f2a9",
+      "place12": "https://maps.app.goo.gl/2b7d8f8d6b1c7f2a9"
+    }
+  }
+
 
 
 
