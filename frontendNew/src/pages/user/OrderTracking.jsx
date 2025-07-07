@@ -3,10 +3,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getOrderTracking } from "../../services/user/userService";
-import { getProductById } from "../../services/api";
 import { Loader2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
 
 const OrderTracking = () => {
   const { id } = useParams();
@@ -24,50 +22,26 @@ const OrderTracking = () => {
   ];
 
   useEffect(() => {
-  const fetchTracking = async () => {
-    try {
-      const res = await getOrderTracking(id);
-      if (!res.success) {
-        setError(res.message || t("orderTracking.errors.notAvailable"));
-        setLoading(false);
-        return;
-      }
-
-      const trackingData = res.data;
-
-      // ✅ If product is just ID or missing image, fetch full details
-      if (
-        typeof trackingData.product === "string" ||
-        !trackingData.product?.imageUrl
-      ) {
-        const productId =
-          typeof trackingData.product === "string"
-            ? trackingData.product
-            : trackingData.product?._id;
-
-        if (productId) {
-          const productRes = await getProductById(productId);
-          if (productRes?.data) {
-            trackingData.product = productRes.data;
-            toast.info(
-              t("orderTracking.notifications.productFetched", "Product details were restored for tracking display."),
-              { autoClose: 4000, position: "top-center" }
-            );
-          }
+    const fetchTracking = async () => {
+      try {
+        const res = await getOrderTracking(id);
+        if (!res.success) {
+          setError(res.message || t("orderTracking.errors.notAvailable"));
+          setLoading(false);
+          return;
         }
+
+        setTracking(res.data);
+      } catch (err) {
+        console.error("Error fetching tracking:", err);
+        setError(t("orderTracking.errors.general"));
+      } finally {
+        setLoading(false);
       }
+    };
 
-      setTracking(trackingData);
-    } catch (err) {
-      console.error("Error fetching tracking:", err);
-      setError(t("orderTracking.errors.general"));
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  fetchTracking();
-}, [id, t]);
+    fetchTracking();
+  }, [id, t]);
 
   if (loading) {
     return (
@@ -87,11 +61,10 @@ const OrderTracking = () => {
 
   const product = tracking.product || {};
   const imageUrl = product.imageUrl || "/default-product.png";
-  const deliveryETA = tracking.eta || t("orderTracking.eta.default", "Estimated delivery in 3-5 days");
+  const deliveryETA = tracking.eta || t("orderTracking.eta.default");
 
   return (
     <div className="p-6 max-w-5xl mx-auto bg-white dark:bg-zinc-900 rounded-xl shadow-lg">
-      {/* Language Toggle */}
       <div className="flex justify-end mb-4">
         <button
           onClick={() => i18n.changeLanguage(i18n.language === "en" ? "hi" : "en")}
@@ -101,12 +74,10 @@ const OrderTracking = () => {
         </button>
       </div>
 
-      {/* Title */}
       <h1 className="text-3xl font-bold mb-6 text-[#C0402B] dark:text-red-400">
         🚚 {t("orderTracking.title")}
       </h1>
 
-      {/* Product Info */}
       <div className="flex flex-col sm:flex-row items-center gap-6 mb-8">
         <img
           src={imageUrl}
@@ -127,7 +98,6 @@ const OrderTracking = () => {
         </div>
       </div>
 
-      {/* Progress Bar */}
       <div className="relative flex justify-between items-center mb-10">
         {STATUS_FLOW.map((status, index) => {
           const isCompleted = index < currentIndex;
@@ -159,7 +129,6 @@ const OrderTracking = () => {
           );
         })}
 
-        {/* Progress Line */}
         <div className="absolute top-4 left-4 right-4 h-1 bg-gray-300 z-0 rounded-full">
           <div
             className="h-1 bg-green-600 rounded-full transition-all duration-700 ease-in-out"
@@ -170,7 +139,6 @@ const OrderTracking = () => {
         </div>
       </div>
 
-      {/* Timeline */}
       <div className="space-y-4">
         {tracking.history?.map((step, idx) => (
           <div key={idx} className="flex items-start space-x-4">
