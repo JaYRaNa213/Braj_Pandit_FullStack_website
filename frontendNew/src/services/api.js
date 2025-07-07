@@ -23,6 +23,9 @@ export const getComments = (blogId) => axiosInstance.get(`/blogs/${blogId}/comme
 // USER (public)
 export const getProducts = () => axiosInstance.get("/products");
 
+export const getProductById = (id) => axiosInstance.get(`/products/${id}`);
+
+
 // ADMIN
 export const getAllAdminProducts = () => axiosInstance.get("/admin/products");
 export const deleteProduct = (id) => axiosInstance.delete(`/admin/products/${id}`);
