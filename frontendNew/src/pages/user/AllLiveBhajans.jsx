@@ -46,7 +46,7 @@ const AllLiveBhajans = () => {
           return {
             ...item,
             views: item.views || `${Math.floor(Math.random() * 900 + 100)}K`,
-            timeAgo: item.timeAgo || `${Math.floor(Math.random() * 10 + 1)} ${t("days_ago")}`,
+            timeAgo: item.timeAgo || `${Math.floor(Math.random() * 10 + 1)} ${t("homelive.days_ago", "days ago")}`,
             channelName: item.channelName || fallbackName,
             channelAvatar,
             image: thumbnail,
@@ -77,6 +77,9 @@ const AllLiveBhajans = () => {
     const isLive = item.isLive;
     const thumbnail = item.image;
 
+    const liveLabel = t("homelive.live", "🔴 LIVE");
+    const notLiveLabel = t("homelive.not_live", "⏳ Not Live");
+
     return (
       <Link
         to={`/live/${item.videoId}`}
@@ -97,7 +100,7 @@ const AllLiveBhajans = () => {
               isLive ? "bg-red-600 text-white" : "bg-gray-600 text-white"
             }`}
           >
-            {isLive ? t("live") : t("not_live")}
+            {isLive ? liveLabel : notLiveLabel}
           </span>
         </div>
 
@@ -115,7 +118,7 @@ const AllLiveBhajans = () => {
               {item.channelName}
             </span>
             <span className="text-xs text-gray-400 dark:text-gray-500">
-              {item.views} {t("views")} • {item.timeAgo}
+              {item.views} {t("homelive.views", "views")} • {item.timeAgo}
             </span>
           </div>
         </div>
@@ -126,16 +129,15 @@ const AllLiveBhajans = () => {
   return (
     <div className="py-12 px-4 bg-white dark:bg-gray-900 min-h-screen">
       <div className="max-w-7xl mx-auto">
-
         <h1 className="text-3xl md:text-4xl font-bold text-red-700 dark:text-yellow-400 mb-8 text-center">
-          {t("all_live_bhajans_heading")}
+          {t("all_live_darshan", "All Live Darshan")}
         </h1>
 
         {/* Search & Filter */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
           <input
             type="text"
-            placeholder={t("search_placeholder")}
+            placeholder={t("search_placeholder", "Search bhajans...")}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="w-full sm:w-1/2 px-4 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-black dark:text-white rounded-full shadow focus:outline-none focus:ring-2 focus:ring-red-400"
@@ -147,19 +149,20 @@ const AllLiveBhajans = () => {
               onChange={(e) => setShowOnlyLive(e.target.checked)}
               className="accent-red-600 w-4 h-4"
             />
-            {t("show_only_live")}
+            {t("show_only_live", "Show only live")}
           </label>
         </div>
 
         {/* Loader / Error / Cards */}
         {loading ? (
           <p className="text-lg text-gray-600 dark:text-gray-300 text-center animate-pulse">
-            {t("loading_bhajans")}
+            {t("homelive.loading", "Loading live darshans...")}
           </p>
         ) : filteredBhajans.length === 0 ? (
           <p className="text-gray-500 dark:text-gray-400 text-center">
-            {t("no_bhajans_found")} {search && `"${search}"`}
-            {showOnlyLive && ` (${t("live_filter_applied")})`}
+            {t("homelive.empty", "No bhajans found.")}
+            {search && ` "${search}"`}
+            {showOnlyLive && ` (${t("live_filter_applied", "Live filter applied")})`}
           </p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-6">

@@ -28,18 +28,32 @@
     "travel_food_stay": "Travel, Food & Stay"
   },
 
-  "live": {
-  "title": "Live Bhajans & Devotional Streams",
-  "loading": "Loading live bhajans...",
-  "error": "Failed to load bhajan videos. Please try again later.",
-  "empty": "No bhajans are currently available.",
-  "live": "LIVE NOW",
-  "not_live": "Not Live",
+"all_live_darshan": "All Live Darshan",
+"search_placeholder": "Search bhajans...",
+"show_only_live": "Show only live",
+"live_filter_applied": "Live filter applied",
+"homelive": {
+  "live": "🔴 LIVE",
+  "not_live": "⏳ Not Live",
   "views": "views",
-  "view_more": "View More Bhajans"
+  "loading": "Loading live darshans...",
+  "empty": "No bhajans found.",
+  "days_ago": "days ago"
 }
-
 ,
+
+  "liveSection": {
+    "title": "Live darshans & Devotional Streams",
+    "loading": "Loading live darshans...",
+    "error": "Failed to load darshans videos. Please try again later.",
+    "empty": "No darshans are currently available.",
+    "live": "LIVE NOW",
+    "not_live": "Not Live",
+    "views": "views",
+    "view_more": "View More darshans"
+  },
+
+
 
   "booking": {
     "title": "Radhe Radhe 🙏 Get Help in Mathura-Vrindavan",
@@ -162,17 +176,7 @@
     "copyright": "All rights reserved."
   },
   
-  "all_live_bhajans_heading": "All Live Bhajans & Darshans",
-  "search_placeholder": "Search by title...",
-  "show_only_live": "Show Only Live",
-  "live": "🔴 LIVE",
-  "not_live": "⏳ Not Live",
-  "views": "views",
-  "days_ago": "days ago",
-  "loading_bhajans": "Loading bhajans...",
-  "no_bhajans_found": "No bhajans found",
-  "live_filter_applied": "Live filter applied"
-  ,
+  
 
   "pujaServices": {
     "all_puja_services": "All Puja Services",
@@ -467,16 +471,6 @@
     "delivered": "Delivered"
   },
 
-
-  "live": {
-    "loadingTitle": "Loading title...",
-    "loading": "Fetching stream info...",
-    "defaultTitle": "Live Bhajan Stream",
-    "noStream": "No Live Bhajan Found",
-    "noStreamDesc": "This bhajan is currently offline or invalid. Please explore other live bhajans.",
-    "back": "Back to All Bhajans"
-  },
-
   "register": {
     "title": "Create Your Account",
     "name": "Full Name",
@@ -561,14 +555,14 @@
 
 ,
 "homelive": {
-  "title": "Live Darshan & Kirtan",
-  "loading": "Loading live bhajans...",
-  "error": "Failed to load live bhajans.",
-  "empty": "No live bhajans available at the moment.",
+  "title": "Live Darshan",
+  "loading": "Loading live darshans...",
+  "error": "Failed to load live darshans.",
+  "empty": "No live darshans available at the moment.",
   "live": "LIVE",
   "not_live": "Not Live",
   "views": "views",
-  "view_more": "View More Bhajans",
+  "view_more": "View More darshans",
   "days_ago": "days ago"
 }
 ,
