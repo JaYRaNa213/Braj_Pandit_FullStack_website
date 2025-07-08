@@ -42,14 +42,19 @@ const Checkout = () => {
         },
       ]);
     } else {
-      if (user && cartItems.length > 0) {
-        const mappedItems = cartItems.map((item) => ({
-          product: item.product._id,
-          name: item.product.name,
-          price: item.product.price,
-          quantity: item.quantity,
-          imageUrl: item.product.imageUrl || '/default-product.png',
-        }));
+      if (user && Array.isArray(cartItems) && cartItems.length > 0) {
+        const mappedItems = cartItems.map((item) => {
+          const prod = item.product || {};
+          const isObject = typeof prod === 'object';
+
+          return {
+            product: isObject ? prod._id : prod,
+            name: isObject ? prod.name : item.name || 'Unknown Product',
+            price: isObject ? prod.price : item.price || 0,
+            quantity: item.quantity || 1,
+            imageUrl: isObject ? prod.imageUrl : item.imageUrl || '/default-product.png',
+          };
+        });
         setItems(mappedItems);
       } else {
         const localCart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -57,13 +62,18 @@ const Checkout = () => {
           toast.error(t("checkout.empty"));
           navigate('/');
         } else {
-          const mappedItems = localCart.map((item) => ({
-            product: item.product._id || item.product,
-            name: item.product.name || item.name,
-            price: item.product.price || item.price || 0,
-            quantity: item.quantity || 1,
-            imageUrl: item.product.imageUrl || item.imageUrl || '/default-product.png',
-          }));
+          const mappedItems = localCart.map((item) => {
+            const prod = item.product || {};
+            const isObject = typeof prod === 'object';
+
+            return {
+              product: isObject ? prod._id : prod,
+              name: isObject ? prod.name : item.name || 'Unknown Product',
+              price: isObject ? prod.price : item.price || 0,
+              quantity: item.quantity || 1,
+              imageUrl: isObject ? prod.imageUrl : item.imageUrl || '/default-product.png',
+            };
+          });
           setItems(mappedItems);
         }
       }
@@ -85,9 +95,16 @@ const Checkout = () => {
 
     try {
       const productsPayload = items.map((item) => ({
-        productId: item.product,
+        productId: typeof item.product === 'object' ? item.product._id : item.product,
+
         quantity: item.quantity,
       }));
+
+      console.log("🛒 Submitting order payload:", {
+        products: productsPayload,
+        address: shipping,
+        paymentMethod,
+      });
 
       const res = await placeOrder({
         products: productsPayload,
@@ -121,7 +138,7 @@ const Checkout = () => {
         </p>
       ) : (
         <div className="grid md:grid-cols-2 gap-10">
-          {/* Left - Order Summary */}
+          {/* Order Summary */}
           <div>
             <h3 className="text-xl font-semibold mb-4 border-b pb-2 border-gray-300 dark:border-gray-600">
               {t("checkout.items")}
@@ -157,7 +174,7 @@ const Checkout = () => {
             </div>
           </div>
 
-          {/* Right - Shipping & Payment */}
+          {/* Shipping Form */}
           <form onSubmit={handleSubmit} className="space-y-5">
             <h3 className="text-xl font-semibold mb-2 border-b pb-2 border-gray-300 dark:border-gray-600">
               {t("checkout.shipping")}

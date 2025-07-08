@@ -34,7 +34,7 @@ import adminBookingRoutes from './routes/admin/booking.routes.js';
 import commentRoutes from './routes/user/comment.routes.js';
 
 import cartRoutes from './routes/user/cart.routes.js';
-import orderRoutes from './routes/user/order.routes.js';
+
 import adminRoutes from './routes/admin/admin.routes.js';
 
 import userOrderRoutes from "./routes/user/order.routes.js";
@@ -65,118 +65,65 @@ import userBookingRoutes from './routes/user/booking.routes.js';
 
 // ✅ App Initialization
 const app = express();
-
-// ✅ Global Middlewares
+// 🔐 Initial Setup
 app.use(express.json({ limit: '16kb' }));
 app.use(express.urlencoded({ extended: true, limit: '16kb' }));
 app.use(cookieParser());
 app.use(morgan('dev'));
 
-// const allowedOrigins = process.env.CORS_ORIGIN?.split(',') || [];
+// 🔐 CORS
+app.use(cors({
+  origin: ["https://brajpandit.vercel.app", "http://localhost:5173"],
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
 
-
-// ✅ Define allowed domains
-const allowedOrigins = [
-  "https://brajpandit.vercel.app",
-  "http://localhost:5173"
-];
-
-// ✅ Use CORS middleware with options
-app.use(
-  cors({
-    origin: [
-      "https://brajpandit.vercel.app",
-      "http://localhost:5173"
-    ],
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
-
-
-
-
-
-// ✅ Static Files
+// 🔐 Static Files
 app.use(express.static(path.join(__dirname, 'public')));
-
-// ✅ User Routes
-app.use('/api/auth', authRoutes);
-
-app.use('/api/bookings', bookingRoutes);
-app.use('/api/admin/bookings', verifyToken, adminBookingRoutes); // ✅ FIXED
-
-
-
-// Make sure this exact path is used
-app.use('/api/user/booking', userBookingRoutes);
-
-
-
-
-// ✅ Admin Routes (PROTECTED)
-app.use('/api/admin/blogs', verifyToken, adminBlogRoutes);
-app.use('/api/user/blogs', userBlogRoutes);
-
-
-app.use('/api/products', userProductRoutes);
-// app.use('/api/admin/products', productRoutes);
-app.use('/api/admin/products', productRoutes);
-// ✅ User Blog Routes
-
-app.use('/api/comments', commentRoutes);
-
-
-app.use("/api/cart", cartRoutes);
-
-
-
-app.use('/api/orders', userOrderRoutes);
-app.use('/api/admin/orders', adminOrderRoutes);
-
-app.use("/api/user/orders", userOrderRoutes);
-
-
-
-
-app.use('/api/admin/dashboard', adminDashboardRoutes);
-app.use('/api/user', userRoutes); // ✅ Enables /api/user/dashboard/summary
-app.use('/api/admin', verifyToken, adminRoutes); // ✅ Admin Dashboard
-
-// app.use('/api/admin', dashboardRoutes);
-
-app.use('/api/payments', paymentRoutes);
-app.use('/api/emails', emailRoutes);
-app.use('/api/test', testRoutes);
-
-app.use('/api/admin/pandits', adminPanditRoutes);
-app.use('/api/user/pandits', userPanditRoutes);
-
-
-app.use("/api/user/callBookings", callBookingRoutes);
-
-
-
-// app.use("/api/user/live-bhajans", liveRoutes);
-
-app.use("/api/live", liveRoutes);
-app.use("/api/admin/live", adminLiveRoutes);
-
-
-
 app.use('/uploads', express.static(path.join(process.cwd(), 'src/public/images/uploads')));
 
-
-
-
-// ✅ Health Route
+// 🩺 Health Route
 app.get('/', (req, res) => {
   res.send('🌸 Welcome to the Vrinda Religious Website API 🌸');
 });
 
-// ✅ Error Handling
+// ✅ Public Routes (No Auth Needed)
+app.use('/api/auth', authRoutes);
+app.use('/api/products', userProductRoutes); // products visible to all
+app.use('/api/user/blogs', userBlogRoutes);
+app.use('/api/comments', commentRoutes);
+app.use('/api/test', testRoutes);
+
+// ✅ Authenticated User Routes
+app.use('/api/user/orders', userOrderRoutes);       // 🛒 Place/View Orders
+app.use('/api/user/booking', userBookingRoutes);    // 🙏 Puja Booking
+app.use('/api/user', userRoutes);                   // 📋 User Profile, dashboard
+app.use('/api/cart', cartRoutes);
+app.use('/api/payments', paymentRoutes);
+app.use('/api/emails', emailRoutes);
+app.use('/api/user/pandits', userPanditRoutes);
+app.use('/api/user/callBookings', callBookingRoutes);
+app.use('/api/live', liveRoutes);
+
+// ✅ Admin Routes (Protected via verifyToken)
+app.use('/api/admin/products', productRoutes);
+app.use('/api/admin/blogs', verifyToken, adminBlogRoutes);
+app.use('/api/admin/bookings', verifyToken, adminBookingRoutes);
+app.use('/api/admin/orders', verifyToken, adminOrderRoutes);
+app.use('/api/admin/pandits', verifyToken, adminPanditRoutes);
+app.use('/api/admin/dashboard', verifyToken, adminDashboardRoutes);
+app.use('/api/admin', verifyToken, adminRoutes); // Catch-all admin
+
+// ✅ Debug Middleware (after all for visibility)
+app.use((req, res, next) => {
+  console.log("📢 Incoming request:", req.method, req.originalUrl);
+  next();
+});
+
+// 🔚 404 & Error Handler
 app.use(notFound);
 app.use(errorHandler);
+
 
 export default app;

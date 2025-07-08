@@ -1,7 +1,5 @@
 // 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
-// If you theft this code, you will be punished or may face legal action by the owner.
 
-// src/services/orderService.js
 import axiosInstance from "./axios";
 
 // ===============================
@@ -9,25 +7,28 @@ import axiosInstance from "./axios";
 // ===============================
 
 // ✅ Place an order
+// ✅ Place an order
 export const placeOrder = async (orderData) => {
-  const res = await axiosInstance.post("/orders", orderData);
+  const res = await axiosInstance.post("/user/orders", orderData); // <-- fixed here
   return res.data;
 };
 
+
 // ✅ Get logged-in user's orders
 export const getMyOrders = async () => {
-  const res = await axiosInstance.get("/orders/my");
+  const res = await axiosInstance.get("/user/orders/my");
   return res.data;
 };
 
 // ✅ Get a single user order
 export const getOrderById = async (id) => {
-  const res = await axiosInstance.get(`/orders/${id}`);
+  const res = await axiosInstance.get(`/user/orders/${id}`);
   return res.data;
 };
 
+// ✅ Cancel an order (user)
 export const userCancelOrder = (orderId) => {
-  return axiosInstance.put(`/orders/${orderId}/cancel`).then(res => res.data);
+  return axiosInstance.put(`/user/orders/${orderId}/cancel`).then((res) => res.data);
 };
 
 // ===============================
@@ -36,7 +37,7 @@ export const userCancelOrder = (orderId) => {
 
 // ✅ Get all orders (admin)
 export const getAllOrders = async () => {
-  const res = await axiosInstance.get("/admin/orders"); // ✅ baseURL = /api
+  const res = await axiosInstance.get("/admin/orders");
   return res.data;
 };
 

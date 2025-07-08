@@ -78,26 +78,6 @@ const uploadProfileImage = async (formData) => {
 
 
 
-const placeOrder = async (data) => {
-  try {
-    const res = await axiosInstance.post('/api/orders', data);
-    toast.success('Order placed successfully');
-    return res.data;
-  } catch (err) {
-    toast.error(err.response?.data?.message || 'Order placement failed');
-    throw err;
-  }
-};
-
-const getMyOrders = async () => {
-  try {
-    const res = await axiosInstance.get('/api/orders/my');
-    return res.data.orders;
-  } catch (err) {
-    toast.error('Failed to load your orders');
-    return [];
-  }
-};
 
 export const getOrderTracking = async (orderId) => {
   try {
@@ -123,6 +103,4 @@ export {
   createPayment,
   getPaymentStatus,
   uploadProfileImage,
-  placeOrder,
-  getMyOrders
 };
