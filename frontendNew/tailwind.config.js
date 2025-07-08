@@ -1,68 +1,59 @@
-// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
-
+// 🔐 Tailwind Config by ChatGPT © 2025 - Jay Rana's Platform
 import forms from '@tailwindcss/forms';
 import scrollbar from 'tailwind-scrollbar';
-import aspectRatio from '@tailwindcss/aspect-ratio'; // ✅ Add this line
+import aspectRatio from '@tailwindcss/aspect-ratio';
 
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class', // Enables dark mode via class strategy
+
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+
   theme: {
     extend: {
       colors: {
-        primary: '#6B21A8',
-        secondary: '#10B981',
-        gold: '#FBBF24',
+        primary: '#6B21A8',       // Purple
+        secondary: '#10B981',     // Emerald
+        gold: '#FBBF24',          // Golden yellow
+        darkBg: '#1a1a1a',        // Deep dark background
+        lightBg: '#fffbe6',       // Soft off-white background
       },
+
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        heading: ['Merriweather', 'serif'],
+        sans: ['Inter', 'sans-serif'],                // Body text
+        heading: ['Merriweather', 'serif'],           // Section titles, large text
       },
     },
   },
+
   plugins: [
     forms,
     scrollbar,
-    aspectRatio, // ✅ Add aspect-ratio plugin here
+    aspectRatio,
 
-    // 🧩 Custom utilities for scrollbar, 3D transforms, perspective, backface visibility
+    // 🧩 Custom Utilities for Advanced UI
     function ({ addUtilities }) {
       addUtilities({
         // Hide native scrollbars
         '.no-scrollbar': {
-          '-ms-overflow-style': 'none', // IE and Edge
-          'scrollbar-width': 'none',    // Firefox
+          '-ms-overflow-style': 'none',
+          'scrollbar-width': 'none',
         },
         '.no-scrollbar::-webkit-scrollbar': {
-          display: 'none',              // Chrome, Safari
+          display: 'none',
         },
 
-        // Perspective for 3D scenes
+        // 3D Transform Support
         '.perspective-1000': {
           perspective: '1000px',
         },
-
-        // Enable child elements to retain 3D transforms
         '.preserve-3d': {
           'transform-style': 'preserve-3d',
         },
-
-        // Hide back face of an element during flip
         '.backface-hidden': {
           'backface-visibility': 'hidden',
         },
-        
       });
     },
   ],
 };
-
-// tailwind.config.js
-module.exports = {
-  darkMode: 'class', // or 'media'
-  content: ['./index.html', './src/**/*.{js,jsx,ts,tsx}'],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-}

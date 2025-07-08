@@ -1,10 +1,21 @@
 // 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { getLiveAll } from "@/services/user/live.Services";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
+
+const ShimmerCard = () => (
+  <div className="animate-pulse bg-white dark:bg-[#1f1f1f] rounded-xl border border-gray-200 dark:border-gray-700 shadow">
+    <div className="aspect-video bg-gray-300 dark:bg-gray-700 rounded-t-xl" />
+    <div className="p-4 space-y-2">
+      <div className="h-4 w-3/4 bg-gray-300 dark:bg-gray-600 rounded"></div>
+      <div className="h-3 w-1/2 bg-gray-200 dark:bg-gray-500 rounded"></div>
+      <div className="h-3 w-2/3 bg-gray-200 dark:bg-gray-500 rounded"></div>
+    </div>
+  </div>
+);
 
 const AllLiveBhajans = () => {
   const { t } = useTranslation();
@@ -12,7 +23,6 @@ const AllLiveBhajans = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [showOnlyLive, setShowOnlyLive] = useState(false);
-  const navigate = useNavigate();
 
   const fetchAllBhajans = async () => {
     setLoading(true);
@@ -75,19 +85,17 @@ const AllLiveBhajans = () => {
 
   const BhajanCard = ({ item }) => {
     const isLive = item.isLive;
-    const thumbnail = item.image;
-
     const liveLabel = t("homelive.live", "🔴 LIVE");
     const notLiveLabel = t("homelive.not_live", "⏳ Not Live");
 
     return (
       <Link
         to={`/live/${item.videoId}`}
-        className="group bg-white dark:bg-[#1f1f1f] rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300"
+        className="group bg-white dark:bg-[#1f1f1f] rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow hover:shadow-[0_0_20px_#facc15] transition-all duration-300"
       >
-        <div className="relative w-full aspect-video bg-black">
+        <div className="relative aspect-video bg-black overflow-hidden">
           <img
-            src={thumbnail}
+            src={item.image}
             alt={item.title}
             className={`w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 ${isLive ? "" : "opacity-80 grayscale"}`}
             onError={(e) => {
@@ -108,7 +116,7 @@ const AllLiveBhajans = () => {
           <img
             src={item.channelAvatar}
             alt="avatar"
-            className="w-10 h-10 rounded-full object-cover"
+            className="w-10 h-10 rounded-full object-cover border border-gray-300 dark:border-gray-600"
           />
           <div className="flex flex-col text-left">
             <h3 className="text-sm font-semibold text-gray-800 dark:text-yellow-100 line-clamp-2 leading-snug">
@@ -127,7 +135,7 @@ const AllLiveBhajans = () => {
   };
 
   return (
-    <div className="py-12 px-4 bg-white dark:bg-gray-900 min-h-screen">
+    <div className="py-12 px-4 bg-gradient-to-br from-[#fffceb] to-[#fef9f3] dark:from-[#0f0f0f] dark:to-[#1a1a1a] min-h-screen">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-3xl md:text-4xl font-bold text-red-700 dark:text-yellow-400 mb-8 text-center">
           {t("all_live_darshan", "All Live Darshan")}
@@ -155,9 +163,11 @@ const AllLiveBhajans = () => {
 
         {/* Loader / Error / Cards */}
         {loading ? (
-          <p className="text-lg text-gray-600 dark:text-gray-300 text-center animate-pulse">
-            {t("homelive.loading", "Loading live darshans...")}
-          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <ShimmerCard key={i} />
+            ))}
+          </div>
         ) : filteredBhajans.length === 0 ? (
           <p className="text-gray-500 dark:text-gray-400 text-center">
             {t("homelive.empty", "No bhajans found.")}
@@ -165,7 +175,7 @@ const AllLiveBhajans = () => {
             {showOnlyLive && ` (${t("live_filter_applied", "Live filter applied")})`}
           </p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredBhajans.map((item, i) => (
               <BhajanCard key={i} item={item} />
             ))}

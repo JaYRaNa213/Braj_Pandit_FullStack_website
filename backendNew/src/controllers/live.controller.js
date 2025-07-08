@@ -102,29 +102,30 @@ const fetchLiveVideos = async () => {
   return results;
 };
 
-// ✅ GET /api/live/home → Return top 4 (live first)
+// ✅ GET /api/live/home → Return all live/fallback videos (sorted by live status)
 export const getLiveHome = async (req, res) => {
   try {
     const cached = getCache();
+    const limit = parseInt(req.query.limit) || null;
 
-    if (cached && cached.length >= 4) {
+    if (cached && cached.length > 0) {
       const sorted = [...cached].sort((a, b) => Number(b.isLive) - Number(a.isLive));
-      return res.status(200).json(sorted.slice(0, 4));
+      return res.status(200).json(limit ? sorted.slice(0, limit) : sorted);
     }
 
     const data = await fetchLiveVideos();
     if (data.length === 0) {
-      return res.status(200).json([]); // Return empty array if nothing found
+      return res.status(200).json([]);
     }
 
     saveCache(data);
     const sorted = [...data].sort((a, b) => Number(b.isLive) - Number(a.isLive));
-    return res.status(200).json(sorted.slice(0, 4));
+    return res.status(200).json(limit ? sorted.slice(0, limit) : sorted);
   } catch (err) {
     console.error("❌ getLiveHome failed:", err.message);
     return res.status(500).json({ message: "Fetch failed and no cache available." });
   }
-}
+};
 
 // ✅ GET /api/live/all → Return all enriched bhajan channels
 export const getLiveAll = async (req, res) => {

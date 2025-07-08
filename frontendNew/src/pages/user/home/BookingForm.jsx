@@ -14,6 +14,7 @@ const BookingForm = () => {
   const [selectedService, setSelectedService] = useState("");
   const [customService, setCustomService] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const [formValues, setFormValues] = useState({
     name: "",
@@ -45,6 +46,7 @@ const BookingForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setShowSuccess(false);
 
     const formData = {
       ...formValues,
@@ -59,6 +61,7 @@ const BookingForm = () => {
       e.target.reset();
       setSelectedService("");
       setCustomService("");
+      setShowSuccess(true);
     } catch (error) {
       toast.error(t("booking.error"));
     } finally {
@@ -117,14 +120,19 @@ const BookingForm = () => {
 
       {/* Right Form Section */}
       <form
-        className="md:w-1/2 p-8 bg-white border-l border-gray-200"
+        className="md:w-1/2 p-8 bg-white dark:bg-gray-900 border-l border-gray-200 dark:border-gray-700"
         onSubmit={handleSubmit}
       >
-        <h2 className="text-2xl font-bold text-[#8B0000] mb-6 text-center">
+        <h2 className="text-2xl font-bold text-[#8B0000] dark:text-yellow-300 mb-6 text-center">
           {t("booking.form_title")}
         </h2>
 
-        {/* NAME */}
+        {/* Aria-live region */}
+        <div className="sr-only" aria-live="polite">
+          {loading ? t("booking.submitting") : ""}
+        </div>
+
+        {/* Name */}
         <div className="mb-4">
           <label className="block text-sm font-semibold text-red-700 mb-1">
             {t("booking.name")}
@@ -140,7 +148,7 @@ const BookingForm = () => {
           />
         </div>
 
-        {/* EMAIL */}
+        {/* Email */}
         <div className="mb-4">
           <label className="block text-sm font-semibold text-red-700 mb-1">
             {t("booking.email")}
@@ -156,7 +164,7 @@ const BookingForm = () => {
           />
         </div>
 
-        {/* PHONE */}
+        {/* Phone */}
         <div className="mb-4">
           <label className="block text-sm font-semibold text-red-700 mb-1">
             {t("booking.phone")}
@@ -172,7 +180,7 @@ const BookingForm = () => {
           />
         </div>
 
-        {/* SERVICE TYPE */}
+        {/* Service Dropdown */}
         <div className="mb-4">
           <label className="block text-sm font-semibold text-red-700 mb-1">
             {t("booking.service_type")}
@@ -195,7 +203,7 @@ const BookingForm = () => {
           </select>
         </div>
 
-        {/* CUSTOM SERVICE */}
+        {/* Custom Service */}
         {selectedService === "Other" && (
           <div className="mb-4">
             <label className="block text-sm font-semibold text-red-700 mb-1">
@@ -213,7 +221,7 @@ const BookingForm = () => {
           </div>
         )}
 
-        {/* MESSAGE */}
+        {/* Message */}
         <div className="mb-4">
           <label className="block text-sm font-semibold text-red-700 mb-1">
             {t("booking.message")}
@@ -226,7 +234,7 @@ const BookingForm = () => {
           ></textarea>
         </div>
 
-        {/* SUBMIT */}
+        {/* Submit Button */}
         <button
           type="submit"
           disabled={loading}
@@ -256,6 +264,17 @@ const BookingForm = () => {
           ) : null}
           {loading ? t("booking.submitting") : t("booking.submit")}
         </button>
+
+        {/* Success Message */}
+        {showSuccess && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="mt-4 text-green-600 font-semibold text-center"
+          >
+            ✅ {t("booking.success")}
+          </motion.div>
+        )}
       </form>
     </motion.section>
   );

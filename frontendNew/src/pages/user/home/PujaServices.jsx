@@ -1,4 +1,4 @@
-// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+// 🔐 Redesigned by ChatGPT © 2025 - Jay Rana's Devotional Platform
 
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -28,45 +28,53 @@ const PujaServices = () => {
 
   return (
     <Element name="pujaServicesSection">
-      <section
-        className=" light-bg bg-gray-100 dark:bg-gray-900 "
-        style={{
-          backgroundImage:
-            "url('https://res.cloudinary.com/djtq2eywl/image/upload/v1751620759/h-about-us.png_kzrnid.pn')",
-        }}
-      >
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-white/80 dark:bg-black/60 z-10" />
+      <section className="relative bg-gray-50 dark:bg-gray-900 py-16">
+        {/* Background Image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-10 dark:opacity-20"
+          style={{
+            backgroundImage:
+              "url('https://res.cloudinary.com/djtq2eywl/image/upload/v1751620759/h-about-us.png_kzrnid.pn')",
+          }}
+        ></div>
 
-        <div className="relative z-20 max-w-7xl mx-auto px-4 py-16">
-          <h2 className="text-4xl font-bold text-center text-red-700 dark:text-yellow-300 mb-10">
-            {t("pujas.heading")}
-          </h2>
+        <div className="relative z-10 max-w-7xl mx-auto px-4">
+          {/* Section Title */}
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-3xl md:text-4xl font-bold text-center text-red-700 dark:text-yellow-300 mb-12"
+          >
+            {t("pujas.heading") || "Popular Puja Services"}
+          </motion.h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Puja Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
             {services.map((service, idx) => (
               <motion.div
                 key={idx}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.5, delay: idx * 0.2 }}
-                viewport={{ once: true, amount: 0.3 }}
-                className="flex flex-col md:flex-row bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden border-2 border-yellow-400 dark:border-orange-400 hover:shadow-xl transition"
+                className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl border border-yellow-400 dark:border-orange-400 transition"
               >
                 <img
                   src={service.img}
                   alt={service.title}
-                  className="w-full md:w-1/2 h-64 object-cover"
+                  className="w-full h-56 object-cover"
                 />
-                <div className="p-6 flex flex-col justify-between md:w-1/2">
+                <div className="p-5 flex flex-col justify-between h-full">
                   <div>
-                    <h3 className="text-xl font-bold text-red-700 dark:text-yellow-200 mb-2">
+                    <h3 className="text-lg font-bold text-red-700 dark:text-yellow-200 mb-2">
                       {service.title}
                     </h3>
-                    <p className="text-gray-700 dark:text-gray-300 mb-3">
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
                       {service.desc}
                     </p>
-                    <p className="text-gray-800 dark:text-gray-200 font-semibold mb-2">
+                    <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
                       {t("pujas.price")}{" "}
                       <span className="text-red-600 dark:text-orange-400">
                         {t("pujas.price_on_request")}
@@ -75,21 +83,22 @@ const PujaServices = () => {
                   </div>
                   <button
                     onClick={() => handleBooking(service.title)}
-                    className="mt-4 w-max bg-red-600 text-white px-5 py-2 rounded hover:bg-red-700 dark:hover:bg-orange-600 transition"
+                    className="mt-4 w-full bg-red-600 hover:bg-red-700 text-white font-medium px-4 py-2 rounded-full transition dark:hover:bg-orange-600"
                   >
-                    {t("pujas.book_now")}
+                    {t("pujas.book_now") || "Book Now"}
                   </button>
                 </div>
               </motion.div>
             ))}
           </div>
 
-          <div className="text-center mt-10">
+          {/* View More Button */}
+          <div className="text-center mt-12">
             <button
               onClick={handleViewMore}
-              className="bg-red-600 hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 text-white px-6 py-2 rounded-full font-semibold transition"
+              className="px-6 py-2 bg-red-600 text-white font-semibold rounded-full hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 transition"
             >
-              {t("pujas.view_more")}
+              {t("pujas.view_more") || "View More Services"}
             </button>
           </div>
         </div>

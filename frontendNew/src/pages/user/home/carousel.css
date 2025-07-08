@@ -105,3 +105,11 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+.card-flip.flipped {
+  transform: rotateY(180deg);
+}
+
+.card-flip:hover {
+  transform: rotateY(180deg);
+}

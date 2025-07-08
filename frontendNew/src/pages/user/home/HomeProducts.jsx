@@ -1,12 +1,13 @@
-// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+// 🔐 Redesigned by ChatGPT © 2025 - Jay Rana's Devotional Platform
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useCart } from "../../../context/CartContext";
 import { getProducts } from "../../../services/api";
-import { toast } from "react-toastify";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { useCart } from "../../../context/CartContext";
 import { useTranslation } from "react-i18next";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
+import { toast } from "react-toastify";
 
 const HomeProducts = () => {
   const { t } = useTranslation();
@@ -14,12 +15,9 @@ const HomeProducts = () => {
   const { addToCart } = useCart();
 
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [favorites, setFavorites] = useState({});
-
-  const handleBuyNow = (product) => {
-    navigate("/checkout", { state: { product } });
-  };
+  const [loading, setLoading] = useState(true);
+  const scrollRef = useRef(null);
 
   const handleAddToCart = (product) => {
     addToCart({
@@ -30,6 +28,10 @@ const HomeProducts = () => {
     toast.success(t("products.added_to_cart"));
   };
 
+  const handleBuyNow = (product) => {
+    navigate("/checkout", { state: { product } });
+  };
+
   const toggleFavorite = (productId) => {
     setFavorites((prev) => ({
       ...prev,
@@ -37,105 +39,120 @@ const HomeProducts = () => {
     }));
   };
 
+  const scrollLeft = () => {
+    scrollRef.current.scrollBy({ left: -300, behavior: "smooth" });
+  };
+
+  const scrollRight = () => {
+    scrollRef.current.scrollBy({ left: 300, behavior: "smooth" });
+  };
+
   useEffect(() => {
     getProducts()
       .then((res) => {
-        if (Array.isArray(res.data?.data)) {
-          setProducts(res.data.data);
-        } else {
-          console.error("Unexpected products data", res.data);
-          setProducts([]);
+        const list = res?.data?.data;
+        if (Array.isArray(list)) {
+          setProducts(list.slice(0, 10)); // max 10 featured
         }
       })
-      .catch((err) => {
-        console.error("Failed to fetch products", err);
-        setProducts([]);
-      })
+      .catch(() => setProducts([]))
       .finally(() => setLoading(false));
   }, []);
 
-  const featuredProducts = products.slice(0, 10);
-
   return (
-    <section
-      id="products"
-      className="py-16 bg-gradient-to-b from-red-50 via-yellow-50 to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"
-    >
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center text-red-700 dark:text-yellow-300 mb-12 drop-shadow-sm">
-          {t("products.heading_1")}{" "}
-          <span className="text-yellow-600 dark:text-orange-400">
-            {t("products.heading_2")}
-          </span>
-        </h2>
+    <section className="py-16 bg-white dark:bg-gray-900">
+      <div className="max-w-7xl mx-auto px-4 relative">
+        {/* Title */}
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white">
+            {t("products.heading_1")}{" "}
+            <span className="text-red-600">{t("products.heading_2")}</span>
+          </h2>
+          <Link
+            to="/products"
+            className="text-sm font-medium text-red-600 hover:underline"
+          >
+            {t("view_all")}
+          </Link>
+        </div>
 
-        {loading ? (
-          <p className="text-center text-gray-600 dark:text-gray-400">{t("products.loading")}</p>
-        ) : featuredProducts.length === 0 ? (
-          <p className="text-center text-red-500 dark:text-red-300">{t("products.no_products")}</p>
-        ) : (
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
-            {featuredProducts.map((product) => (
+        {/* Scroll Buttons */}
+        <button
+          onClick={scrollLeft}
+          className="hidden md:flex items-center justify-center absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-gray-800 rounded-full shadow p-2 hover:scale-110 transition"
+        >
+          <MdKeyboardArrowLeft size={28} />
+        </button>
+        <button
+          onClick={scrollRight}
+          className="hidden md:flex items-center justify-center absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-gray-800 rounded-full shadow p-2 hover:scale-110 transition"
+        >
+          <MdKeyboardArrowRight size={28} />
+        </button>
+
+        {/* Scrollable Row */}
+        <div
+          ref={scrollRef}
+          className="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide pb-4"
+        >
+          {loading ? (
+            <p className="text-gray-500 dark:text-gray-400">
+              {t("products.loading")}
+            </p>
+          ) : products.length === 0 ? (
+            <p className="text-red-500 dark:text-red-300">
+              {t("products.no_products")}
+            </p>
+          ) : (
+            products.map((product) => (
               <div
                 key={product._id}
-                className="bg-white dark:bg-gray-800 border-2 border-yellow-400 dark:border-orange-400 rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between overflow-hidden relative"
+                className="min-w-[160px] max-w-[180px] flex-shrink-0 bg-gray-50 dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg transition p-4 relative"
               >
+                {/* Favorite Toggle */}
                 <button
                   onClick={() => toggleFavorite(product._id)}
-                  className="absolute top-3 right-3 text-red-600 dark:text-orange-400 text-xl hover:scale-110 transition"
+                  className="absolute top-2 right-2 text-red-600 dark:text-orange-400 text-sm"
                 >
                   {favorites[product._id] ? <FaHeart /> : <FaRegHeart />}
                 </button>
 
+                {/* Product Image */}
                 <img
                   src={product.imageUrl || "/default-product.png"}
                   alt={product.name}
-                  className="w-full h-40 object-cover"
+                  className="h-28 w-full object-contain rounded-lg mb-3"
                 />
 
-                <div className="flex flex-col justify-between p-4 flex-grow">
-                  <div>
-                    <h3 className="text-lg font-semibold text-red-800 dark:text-yellow-200 mb-1 line-clamp-1">
-                      {product.name}
-                    </h3>
-                    <p className="text-gray-700 dark:text-gray-300 text-sm mb-2 line-clamp-2">
-                      {product.description}
-                    </p>
-                    <p className="text-lg font-bold text-yellow-700 dark:text-orange-300">
-                      ₹{product.price}
-                    </p>
-                  </div>
-                </div>
+                {/* Name */}
+                <h3 className="text-sm font-medium text-center text-gray-800 dark:text-white line-clamp-2">
+                  {product.name}
+                </h3>
 
-                <div className="flex gap-2 px-4 pb-4 mt-auto">
+                {/* Price */}
+                <p className="text-center text-red-600 font-bold text-sm mt-1">
+                  ₹{product.price}
+                </p>
+
+                {/* Buttons */}
+                <div className="flex flex-col gap-2 mt-3">
                   <button
                     onClick={() => handleAddToCart(product)}
-                    className="flex-1 bg-yellow-500 hover:bg-yellow-600 dark:bg-yellow-600 dark:hover:bg-yellow-500 text-white py-2 rounded-lg text-sm font-medium transition"
+                    className="text-xs bg-red-600 hover:bg-red-700 text-white py-1.5 rounded-full font-semibold transition"
                   >
-                    {t("products.add_to_cart")}
+                    {t("add_to_cart")}
                   </button>
                   <button
                     onClick={() => handleBuyNow(product)}
-                    className="flex-1 bg-red-600 hover:bg-red-700 dark:bg-orange-600 dark:hover:bg-orange-700 text-white py-2 rounded-lg text-sm font-medium transition"
+                    className="text-xs bg-white dark:bg-gray-700 text-red-600 border border-red-600 rounded-full py-1.5 font-semibold transition hover:bg-gray-100"
                   >
-                    {t("products.buy_now")}
+                    {t("buy_now")}
                   </button>
                 </div>
               </div>
-            ))}
-          </div>
-        )}
-
-        {products.length > 5 && (
-          <div className="text-center mt-12">
-            <Link
-              to="/products"
-              className="bg-red-600 hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 text-white px-6 py-2 rounded-full font-semibold transition"
-            >
-              {t("products.view_more")}
-            </Link>
-          </div>
-        )}
+            ))
+          )}
+        </div>
       </div>
     </section>
   );
