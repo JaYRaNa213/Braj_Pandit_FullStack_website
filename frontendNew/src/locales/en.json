@@ -614,11 +614,11 @@
       "place10": "https://maps.app.goo.gl/2b7d8f8d6b1c7f2a9",
       "place11": "https://maps.app.goo.gl/2b7d8f8d6b1c7f2a9",
       "place12": "https://maps.app.goo.gl/2b7d8f8d6b1c7f2a9"
-    },
+    }
 
 
 
-
+  },
 
 
 
@@ -819,7 +819,6 @@
 
 
 
-    
 
     "footer": {
       "about_title": "About BrajPandit",
@@ -837,5 +836,6 @@
       "rights_reserved": "All rights reserved.",
       "legal_warning": "Unauthorized copying or reuse of this code or design is strictly prohibited. Legal action may be taken against violators."
     }
+    
   }
-}
+
