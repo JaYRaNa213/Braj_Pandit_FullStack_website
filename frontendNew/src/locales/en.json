@@ -1,5 +1,26 @@
-
 {
+  "about": {
+    "title": "About Us",
+    "brand": "Braj Pandit",
+    "intro": "is a digital devotional platform created to connect devotees with verified pandits, puja services, bhajan events, and religious products. Rooted in the spiritual culture of Braj (Mathura–Vrindavan), we aim to simplify your spiritual journey online.",
+    "missionTitle": "Our Mission",
+    "mission": "We strive to revive and digitize traditional religious practices so that every devotee—regardless of location—can book pujas, attend bhajans, and seek divine blessings effortlessly.",
+    "founderTitle": "Founder",
+    "founder": "This platform was founded by Jay Rana, a Computer Science engineer with deep devotion toward spiritual values and Indian traditions. With a passion for combining tech and tradition, he built this full-stack platform for all spiritual needs.",
+    "visionTitle": "Our Vision",
+    "vision": {
+      "point1": "Digitize all rituals, bhajans, and bookings.",
+      "point2": "Promote Vedic culture among youth.",
+      "point3": "Offer verified pandits with transparency & respect.",
+      "point4": "Enable easy access to pujas even from abroad."
+    }
+  },
+
+
+
+
+  
+
   "nav": {
     "home": "Home",
     "services": "Services",
@@ -17,6 +38,11 @@
   },
 
 
+
+
+
+
+
   "hero": {
     "welcome": "Welcome to BrajPandit",
     "headline_line1": "Your",
@@ -28,20 +54,24 @@
     "travel_food_stay": "Travel, Food & Stay"
   },
 
-"all_live_darshan": "All Live Darshan",
-"search_placeholder": "Search bhajans...",
-"show_only_live": "Show only live",
-"live_filter_applied": "Live filter applied",
-"homelive": {
-  "live": "🔴 LIVE",
-  "not_live": "⏳ Not Live",
-  "views": "views",
-  "loading": "Loading live darshans...",
-  "empty": "No bhajans found.",
-  "days_ago": "days ago"
-}
-,
 
+
+
+
+
+
+  "all_live_darshan": "All Live Darshan",
+  "search_placeholder": "Search bhajans...",
+  "show_only_live": "Show only live",
+  "live_filter_applied": "Live filter applied",
+  "homelive": {
+    "live": "🔴 LIVE",
+    "not_live": "⏳ Not Live",
+    "views": "views",
+    "loading": "Loading live darshans...",
+    "empty": "No bhajans found.",
+    "days_ago": "days ago"
+  },
   "liveSection": {
     "title": "Live darshans & Devotional Streams",
     "loading": "Loading live darshans...",
@@ -53,9 +83,300 @@
     "view_more": "View More darshans"
   },
 
+  "homelive": {
+      "title": "Live Darshan",
+      "loading": "Loading live darshans...",
+      "error": "Failed to load live darshans.",
+      "empty": "No live darshans available at the moment.",
+      "live": "LIVE",
+      "not_live": "Not Live",
+      "views": "views",
+      "view_more": "View More darshans",
+      "days_ago": "days ago"
+    },
+    
+
+
+
+
+
+
+
+
+  "products": {
+    "heading_1": "Featured Religious",
+    "heading_2": "Products",
+    "loading": "Loading products...",
+    "no_products": "No products found.",
+    "add_to_cart": "Add to Cart",
+    "buy_now": "Buy Now",
+    "view_more": "View More Products",
+    "added_to_cart": "Added to cart!"
+  },
+
+  "product_details": {
+    "loading": "Loading...",
+    "not_found": "Product not found.",
+    "add_to_cart": "Add to Cart",
+    "buy_now": "Buy Now"
+  },
+
+    "AllProducts": {
+      "products": "Products",
+      "ourDivine": "Our Divine",
+      "searchPlaceholder": "Search products...",
+      "all": "All",
+      "others": "Others",
+      "sortBy": "Sort by",
+      "priceLowHigh": "Price: Low to High",
+      "priceHighLow": "Price: High to Low",
+      "addToCart": "Add to Cart",
+      "buyNow": "Buy Now",
+      "noProducts": "No products available.",
+      "addedToCart": "Product added to cart!",
+      "error": "Something went wrong while loading products."
+    },
+
+
+
+  "cart": {
+    "title": "Your Cart",
+    "empty": "Your cart is empty. Go add some divine products!",
+    "total": "Total",
+    "checkout": "Proceed to Checkout",
+    "remove": "Remove from cart"
+  },
+
+  "order": {
+    "track": "Track Your Order",
+    "loading": "Loading order details...",
+    "id": "Order ID",
+    "status": "Status",
+    "total": "Total Amount",
+    "date": "Ordered On",
+    "payment": "Payment Method",
+    "progress": "Tracking Progress",
+    "products": "Products",
+    "qty": "Qty",
+    "price": "Price",
+    "back": "Back to My Orders",
+    "unnamed": "Unnamed Product",
+    "steps": {
+      "ordered": "Ordered",
+      "packed": "Packed",
+      "shipped": "Shipped",
+      "delivered": "Delivered"
+    }
+  },
+
+  "orderTracking": {
+    "title": "Order Tracking",
+    "loading": "Loading...",
+    "trackingId": "Tracking ID:",
+    "errors": {
+      "notAvailable": "Tracking not available.",
+      "general": "Something went wrong."
+    },
+    "status": {
+      "pending": "Pending",
+      "confirmed": "Confirmed",
+      "packed": "Packed",
+      "shipped": "Shipped",
+      "delivered": "Delivered"
+    }
+  },
+
+
+  "myOrders": {
+    "title": "My Orders",
+    "loading": "Loading your divine orders...",
+    "noOrders": "You haven’t placed any orders yet.",
+    "startShopping": "Start your spiritual shopping now!",
+    "order": "Order",
+    "status": "Status",
+    "track": "Track Order"
+  },
+
+
+  "orderStatus": {
+    "pending": "Pending",
+    "confirmed": "Confirmed",
+    "packed": "Packed",
+    "shipped": "Shipped",
+    "delivered": "Delivered"
+  },
+
+  "cancel": {
+    "title": "Order Cancelled",
+    "message": "Your order has been successfully cancelled. You can continue browsing other spiritual products.",
+    "browseBtn": "Browse More Products"
+  },
+
+  "cart": {
+    "heading": "Your Cart",
+    "empty_message": "Your cart is empty.",
+    "remove": "Remove",
+    "total": "Total",
+    "checkout": "Proceed to Checkout"
+  },
+
+  "checkout": {
+    "title": "Checkout",
+    "items": "Your Items",
+    "total": "Total",
+    "empty": "No products to checkout.",
+    "loginRequired": "Please login to place an order.",
+    "success": "Order placed successfully!",
+    "fail": "Order failed.",
+    "error": "Something went wrong!",
+    "shipping": "Shipping Details",
+    "fullName": "Full Name",
+    "mobile": "Mobile Number",
+    "pincode": "Pincode",
+    "state": "State",
+    "city": "City",
+    "address": "Address",
+    "placeholder": {
+      "fullName": "Enter your full name",
+      "mobile": "Enter your mobile number",
+      "pincode": "Enter your area pincode",
+      "state": "Enter your state",
+      "city": "Enter your city",
+      "address": "Enter your address"
+    },
+
+
+    "payment": "Payment Method",
+    "cod": "Cash on Delivery",
+    "online": "Online Payment",
+    "button": "Place Order"
+  },
+
+
+  "order": {
+    "order_id": "Order ID",
+    "status": {
+      "Pending": "Pending",
+      "Confirmed": "Confirmed",
+      "Shipped": "Shipped",
+      "Delivered": "Delivered",
+      "Cancelled": "Cancelled"
+    },
+
+
+    "quantity": "Quantity",
+    "price": "Price",
+    "total": "Total",
+    "ordered_on": "Ordered on",
+    "cancel_btn": "Cancel Order",
+    "cancel_confirm": "Are you sure you want to cancel this order?",
+    "cancel_success": "Order cancelled successfully.",
+    "cancel_failed": "Failed to cancel order.",
+    "cancel_error": "Something went wrong while cancelling the order.",
+    "unknown_product": "Unknown Product"
+  },
+
+
+
+
+
+
+
+  "pujas": {
+    "heading": "Pooja Services",
+    "price": "Price:",
+    "price_on_request": "₹ Price on Request",
+    "book_now": "BOOK NOW",
+    "view_more": "View More Puja Services"
+  },
+
+
+  "pujaServices": {
+    "all_puja_services": "All Puja Services",
+    "book_button": "Book Puja",
+    "categories": {
+      "Festival Puja": "Festival Puja",
+      "Spiritual Rituals": "Spiritual Rituals"
+    },
+    "titles": {
+      "Satyanarayan Katha": "Satyanarayan Katha",
+      "Navgrah Shanti Puja": "Navgrah Shanti Puja"
+    },
+    "descriptions": {
+      "Satyanarayan Katha": "A sacred storytelling ritual for prosperity and peace.",
+      "Navgrah Shanti Puja": "Puja to appease the nine planetary deities for harmony."
+    }
+  },
+
+
+  "puja": {
+    "invalid": "Invalid Puja Selected",
+    "back": "Back to All Services",
+    "book": "Book This Puja",
+    "category": "Category",
+    "rating": "Rating",
+    "whatsapp": "WhatsApp Us",
+    "call": "Call Now On +91 6395857663"
+  },
 
 
   "booking": {
+    "heading": "📿 Book a Puja",
+    "name": "Your Full Name",
+    "email": "Your Email",
+    "selectService": "-- Select a Puja Service --",
+    "customService": "Enter custom puja/service",
+    "selectPandit": "-- Select Pandit --",
+    "noPandit": "No approved pandits available",
+    "date": "Date",
+    "time": "Time",
+    "address": "Full Address for the Puja",
+    "confirm": "📿 Confirm Puja Booking",
+    "descDefault": "A sacred ceremony to invoke divine blessings and remove obstacles.",
+    "descOther": "Please describe your custom puja or requirement."
+  },
+
+
+  "booking": {
+    "title": "Book Divine Travel Services",
+    "description": "Let us help you with spiritual travel, temple visits, and religious arrangements across Braj.",
+    "service1": "Room/Hotel Booking Help",
+    "service2": "VIP Darshan Assistance",
+    "service3": "Transportation Services",
+    "service4": "Local Tour Guide",
+    "service5": "Seva & Food Arrangements",
+    "note": "Note: We aim to connect you with the right pandit or guide as per your needs.",
+    "call": "Call Now",
+    "whatsapp": "WhatsApp Us",
+    "form_title": "Get a Call Back",
+    "name": "Full Name",
+    "name_placeholder": "Enter your full name",
+    "email": "Email Address",
+    "email_placeholder": "Enter your email address",
+    "phone": "Phone Number",
+    "phone_placeholder": "Enter your phone number",
+    "service_type": "Select Service Type",
+    "option_default": "-- Choose a service --",
+    "opt1": "Room/Hotel Booking Help",
+    "opt2": "VIP Darshan",
+    "opt3": "Need a Vehicle",
+    "opt4": "Vrindavan Tour Guide",
+    "opt5": "Food Seva",
+    "opt6": "Hotel Seva",
+    "opt_other": "Other (Specify Below)",
+    "custom_service": "Custom Service",
+    "custom_service_placeholder": "Describe your custom request",
+    "message": "Additional Message (Optional)",
+    "message_placeholder": "Anything else you want to share?",
+    "submit": "Submit Request",
+    "submitting": "Submitting...",
+    "success": "Your request has been submitted successfully!",
+    "error": "Something went wrong. Please try again."
+  },
+
+
+
+  "Formbooking": {
     "title": "Radhe Radhe 🙏 Get Help in Mathura-Vrindavan",
     "description": "Planning a visit? Need help with travel, darshan, hotel or local seva? Fill this form to get connected with our support team instantly!",
     "service1": "Room/Hotel Booking Assistance",
@@ -93,282 +414,6 @@
   },
 
 
-"famous_places": {
-  "famous_places_aria_label": "3D rotating carousel of famous places",
-  "famous_places_title": "Famous Places of Mathura",
-  "view_on_map": "View on Map",
-  "best_time_to_visit": "📍 Best Time to Visit:",
-  "summer": "Summer",
-  "winter": "Winter",
-  "tip": "Tip: ",
-  "open_map": "Open Map",
-  "view_more": "🔍 View More"
-},
-
-"verifiedPandits": {
-    "title": "Our",
-    "topRated": "Top-Rated",
-    "panditji": "PanditJi",
-    "description": "Book highly knowledgeable Vedic Pandits and Purohits, well-versed in Sanskrit mantras, Hindu scriptures, and astrology.",
-    "seeAll": "See All PanditJis",
-    "yearsExp": "years exp",
-    "bookNow": "Book Pandit"
-  },
-  
-  "products": {
-    "heading_1": "Featured Religious",
-    "heading_2": "Products",
-    "loading": "Loading products...",
-    "no_products": "No products found.",
-    "add_to_cart": "Add to Cart",
-    "buy_now": "Buy Now",
-    "view_more": "View More Products",
-    "added_to_cart": "Added to cart!"
-  },
-  "pujas": {
-    "heading": "Pooja Services",
-    "price": "Price:",
-    "price_on_request": "₹ Price on Request",
-    "book_now": "BOOK NOW",
-    "view_more": "View More Puja Services"
-  },
-  "famous_places": {
-    "heading": "All Famous Places in Mathura",
-    "scroll_to_load": "Scroll to load more..."
-  },
-  "blogs_page": {
-    "heading": "Latest Blog Posts",
-    "search_placeholder": "Search blog by title...",
-    "loading": "Loading blogs...",
-    "no_blogs": "No blogs found for \"{{search}}\"",
-    "general": "General"
-  },
-  
-  "product_details": {
-    "loading": "Loading...",
-    "not_found": "Product not found.",
-    "add_to_cart": "Add to Cart",
-    "buy_now": "Buy Now"
-  },
-  "blog_details": {
-    "loading": "Loading blog details...",
-    "not_found": "Blog not found or something went wrong.",
-    "by": "By",
-    "admin": "Admin",
-    "back_to_blogs": "Back to Blogs"
-
-  },
-  "dashboard": {
-    "welcome": "Welcome, {{name}}",
-    "subtitle": "Explore your profile, orders, and puja bookings",
-    "profile": "Profile",
-    "update_profile": "Update your personal details",
-    "orders": "My Orders",
-    "track_orders": "Track your spiritual product orders",
-    "blogs": "Blogs",
-    "read_blogs": "Read latest articles and insights",
-    "logout": "Logout",
-    "bookings_heading": "Your Recent Puja Bookings",
-    "no_bookings": "You have no bookings yet.",
-    "date": "Date",
-    "time": "Time",
-    "note": "Note",
-    "copyright": "All rights reserved."
-  },
-  
-  
-
-  "pujaServices": {
-    "all_puja_services": "All Puja Services",
-    "book_button": "Book Puja",
-    "categories": {
-      "Festival Puja": "Festival Puja",
-      "Spiritual Rituals": "Spiritual Rituals"
-    },
-    "titles": {
-      "Satyanarayan Katha": "Satyanarayan Katha",
-      "Navgrah Shanti Puja": "Navgrah Shanti Puja"
-    },
-    "descriptions": {
-      "Satyanarayan Katha": "A sacred storytelling ritual for prosperity and peace.",
-      "Navgrah Shanti Puja": "Puja to appease the nine planetary deities for harmony."
-    }
-  },
-  "cart": {
-    "title": "Your Cart",
-    "empty": "Your cart is empty. Go add some divine products!",
-    "total": "Total",
-    "checkout": "Proceed to Checkout",
-    "remove": "Remove from cart"
-  },
-
-
-  "order": {
-    "track": "Track Your Order",
-    "loading": "Loading order details...",
-    "id": "Order ID",
-    "status": "Status",
-    "total": "Total Amount",
-    "date": "Ordered On",
-    "payment": "Payment Method",
-    "progress": "Tracking Progress",
-    "products": "Products",
-    "qty": "Qty",
-    "price": "Price",
-    "back": "Back to My Orders",
-    "unnamed": "Unnamed Product",
-    "steps": {
-      "ordered": "Ordered",
-      "packed": "Packed",
-      "shipped": "Shipped",
-      "delivered": "Delivered"
-    }
-  },
-
-  "puja": {
-    "invalid": "Invalid Puja Selected",
-    "back": "Back to All Services",
-    "book": "Book This Puja",
-    "category": "Category",
-    "rating": "Rating",
-    "whatsapp": "WhatsApp Us",
-    "call": "Call Now On +91 6395857663"
-  },
-  "booking": {
-    "heading": "📿 Book a Puja",
-    "name": "Your Full Name",
-    "email": "Your Email",
-    "selectService": "-- Select a Puja Service --",
-    "customService": "Enter custom puja/service",
-    "selectPandit": "-- Select Pandit --",
-    "noPandit": "No approved pandits available",
-    "date": "Date",
-    "time": "Time",
-    "address": "Full Address for the Puja",
-    "confirm": "📿 Confirm Puja Booking",
-    "descDefault": "A sacred ceremony to invoke divine blessings and remove obstacles.",
-    "descOther": "Please describe your custom puja or requirement."
-  },
-
-
-  "booking": {
-  "title": "Book Divine Travel Services",
-  "description": "Let us help you with spiritual travel, temple visits, and religious arrangements across Braj.",
-  "service1": "Room/Hotel Booking Help",
-  "service2": "VIP Darshan Assistance",
-  "service3": "Transportation Services",
-  "service4": "Local Tour Guide",
-  "service5": "Seva & Food Arrangements",
-  "note": "Note: We aim to connect you with the right pandit or guide as per your needs.",
-  "call": "Call Now",
-  "whatsapp": "WhatsApp Us",
-  "form_title": "Get a Call Back",
-  "name": "Full Name",
-  "name_placeholder": "Enter your full name",
-  "email": "Email Address",
-  "email_placeholder": "Enter your email address",
-  "phone": "Phone Number",
-  "phone_placeholder": "Enter your phone number",
-  "service_type": "Select Service Type",
-  "option_default": "-- Choose a service --",
-  "opt1": "Room/Hotel Booking Help",
-  "opt2": "VIP Darshan",
-  "opt3": "Need a Vehicle",
-  "opt4": "Vrindavan Tour Guide",
-  "opt5": "Food Seva",
-  "opt6": "Hotel Seva",
-  "opt_other": "Other (Specify Below)",
-  "custom_service": "Custom Service",
-  "custom_service_placeholder": "Describe your custom request",
-  "message": "Additional Message (Optional)",
-  "message_placeholder": "Anything else you want to share?",
-  "submit": "Submit Request",
-  "submitting": "Submitting...",
-  "success": "Your request has been submitted successfully!",
-  "error": "Something went wrong. Please try again."
-}
-,
-
-  "history": {
-    "title": "Booking History",
-    "loading": "Loading booking history...",
-    "load_fail": "Failed to load booking history.",
-    "load_error": "Something went wrong while fetching history.",
-    "empty": "You don’t have any past bookings yet.",
-    "default_puja": "Puja Service",
-    "date": "Date",
-    "time": "Time",
-    "location": "Location",
-    "not_specified": "Not specified",
-    "status": "Status",
-    "completed": "Completed"
-  },
-
-  "pandits": {
-    "loading": "Loading Pandits...",
-    "heading_prefix": "All",
-    "heading_verified": "Verified",
-    "heading_suffix": "Pandits",
-    "years_exp": "years exp.",
-    "book_now": "Book Pandit"
-  },
-
-  "profile": {
-    "heading": "My Profile",
-    "loading": "Loading profile...",
-    "name": "Full Name",
-    "email": "Email Address",
-    "upload_image": "Upload Image",
-    "save_profile": "Save Profile",
-    "my_bookings": "My Bookings",
-    "my_orders": "My Orders",
-    "my_cart": "My Cart",
-    "booking_history": "Booking History",
-    "select_image": "Please select an image.",
-    "upload_success": "✅ Image uploaded!",
-    "upload_fail": "❌ Image upload failed",
-    "update_success": "✅ Profile updated successfully!",
-    "update_fail": "❌ Failed to update profile",
-    "load_error": "Failed to load profile"
-  },
-
-  "cart": {
-    "heading": "Your Cart",
-    "empty_message": "Your cart is empty.",
-    "remove": "Remove",
-    "total": "Total",
-    "checkout": "Proceed to Checkout"
-  },
-
-  "checkout": {
-    "title": "Checkout",
-    "items": "Your Items",
-    "total": "Total",
-    "empty": "No products to checkout.",
-    "loginRequired": "Please login to place an order.",
-    "success": "Order placed successfully!",
-    "fail": "Order failed.",
-    "error": "Something went wrong!",
-    "shipping": "Shipping Details",
-    "fullName": "Full Name",
-    "mobile": "Mobile Number",
-    "pincode": "Pincode",
-    "state": "State",
-    "city": "City",
-    "address": "Address",
-    "placeholder": {
-      "fullName": "Enter your full name",
-      "mobile": "Enter your mobile number",
-      "pincode": "Enter your area pincode",
-      "state": "Enter your state",
-      "city": "Enter your city",
-      "address": "Enter your address"
-    },
-    "payment": "Payment Method",
-    "cod": "Cash on Delivery",
-    "online": "Online Payment",
-    "button": "Place Order"
-  },
 
   "myBookings": {
     "title": "My Bookings",
@@ -385,6 +430,108 @@
     "pending": "Pending"
   },
 
+
+
+  "pujaServices": [
+      {
+        "title": "Diwali Pooja",
+        "description": "Diwali is the festival of Laxmi, the Goddess of prosperity and wealth. People perform special puja to invite Her into their homes. Invite prosperity by booking a traditional Laxmi-Ganesh Puja.",
+        "category": "Festivals"
+      },
+      {
+        "title": "Navgraha Shanti",
+        "description": "Navgraha Shanti is performed to appease nine celestial bodies (Navagrahas). It brings peace, prosperity, and harmony by reducing planetary doshas.",
+        "category": "Festivals"
+      },
+      {
+        "title": "Rudrabhishek - Lord Shiva Ritual",
+        "description": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
+        "category": "Ancestral & Remedial"
+      },
+      {
+        "title": "Rudrabhishek - Home Puja",
+        "description": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
+        "category": "Household Rituals"
+      },
+      {
+        "title": "Rudrabhishek - Life Events Blessing",
+        "description": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
+        "category": "Life Events"
+      },
+      {
+        "title": "Rudrabhishek - Festive Season Ritual",
+        "description": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
+        "category": "Festivals"
+      }
+    ],
+
+    
+    "AllPujaServices": {
+      "all_puja_services": "All Puja Services",
+      "book_button": "Book Now",
+      "categories": {
+        "Festivals": "Festivals",
+        "Ancestral & Remedial": "Ancestral & Remedial",
+        "Household Rituals": "Household Rituals",
+        "Life Events": "Life Events"
+      },
+      
+      "titles": {
+        "Diwali Pooja": "Diwali Pooja",
+        "Navgraha Shanti": "Navgraha Shanti",
+        "Rudrabhis": "Rudrabhishek",
+        "Rudrabhi": "Rudrabhishek",
+        "Rudrabh": "Rudrabhishek",
+        "Rudrab": "Rudrabhishek",
+        "Rudra": "Rudrabhishek",
+        "Rudr": "Rudrabhishek",
+        "Rudrabhik": "Rudrabhishek",
+        "Rudrk": "Rudrabhishek",
+        "Rudbhishek": "Rudrabhishek",
+        "bhishek": "Rudrabhishek"
+      },
+      "descriptions": {
+        "Diwali Pooja": "Diwali is the festival of Laxmi, the Goddess of prosperity and wealth. People perform special puja to invite Her into their homes. Invite prosperity by booking a traditional Laxmi-Ganesh Puja.",
+        "Navgraha Shanti": "Navgraha Shanti is performed to appease nine celestial bodies (Navagrahas). It brings peace, prosperity, and harmony by reducing planetary doshas.",
+        "Rudrabhis": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
+        "Rudrabhi": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
+        "Rudrabh": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
+        "Rudrab": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
+        "Rudra": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
+        "Rudr": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
+        "Rudrabhik": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
+        "Rudrk": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
+        "Rudbhishek": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
+        "bhishek": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth."
+      }
+    },
+
+
+
+
+
+
+
+
+
+
+  "famous_places": {
+    "famous_places_aria_label": "3D rotating carousel of famous places",
+    "famous_places_title": "Famous Places of Mathura",
+    "view_on_map": "View on Map",
+    "best_time_to_visit": "📍 Best Time to Visit:",
+    "summer": "Summer",
+    "winter": "Winter",
+    "tip": "Tip: ",
+    "open_map": "Open Map",
+    "view_more": "🔍 View More"
+  },
+
+  "famous_places": {
+    "heading": "All Famous Places in Mathura",
+    "scroll_to_load": "Scroll to load more..."
+  },
+
   "famousCard": {
     "rotate": "Rotate to view",
     "noDescription": "No description available.",
@@ -394,298 +541,23 @@
     "viewMap": "View on Map"
   },
 
-  "cancel": {
-    "title": "Order Cancelled",
-    "message": "Your order has been successfully cancelled. You can continue browsing other spiritual products.",
-    "browseBtn": "Browse More Products"
-  },
-  
-
   "noDescription": "No description available.",
   "summer": "Summer",
   "winter": "Winter",
-  "viewOnMap": "View on Map"
+  "viewOnMap": "View on Map",
 
-  ,
-  "panditDetails": {
-    "loading": "Loading Pandit Details...",
-    "error": "Unable to fetch pandit details.",
-    "expertise": "Expertise",
-    "experience": "Experience",
-    "years": "years",
-    "callNow": "Call Now",
-    "bookThisPandit": "Book This Pandit"
-  },
-
-
-  
-  "about": {
-    "title": "About Us",
-    "brand": "Braj Pandit",
-    "intro": "is a digital devotional platform created to connect devotees with verified pandits, puja services, bhajan events, and religious products. Rooted in the spiritual culture of Braj (Mathura–Vrindavan), we aim to simplify your spiritual journey online.",
-    "missionTitle": "Our Mission",
-    "mission": "We strive to revive and digitize traditional religious practices so that every devotee—regardless of location—can book pujas, attend bhajans, and seek divine blessings effortlessly.",
-    "founderTitle": "Founder",
-    "founder": "This platform was founded by Jay Rana, a Computer Science engineer with deep devotion toward spiritual values and Indian traditions. With a passion for combining tech and tradition, he built this full-stack platform for all spiritual needs.",
-    "visionTitle": "Our Vision",
-    "vision": {
-      "point1": "Digitize all rituals, bhajans, and bookings.",
-      "point2": "Promote Vedic culture among youth.",
-      "point3": "Offer verified pandits with transparency & respect.",
-      "point4": "Enable easy access to pujas even from abroad."
-    }
-  },
-
-  "orderTracking": {
-    "title": "Order Tracking",
-    "loading": "Loading...",
-    "trackingId": "Tracking ID:",
-    "errors": {
-      "notAvailable": "Tracking not available.",
-      "general": "Something went wrong."
-    },
-    "status": {
-      "pending": "Pending",
-      "confirmed": "Confirmed",
-      "packed": "Packed",
-      "shipped": "Shipped",
-      "delivered": "Delivered"
-    }
-  },
-
-
-  "myOrders": {
-    "title": "My Orders",
-    "loading": "Loading your divine orders...",
-    "noOrders": "You haven’t placed any orders yet.",
-    "startShopping": "Start your spiritual shopping now!",
-    "order": "Order",
-    "status": "Status",
-    "track": "Track Order"
-  },
-  "orderStatus": {
-    "pending": "Pending",
-    "confirmed": "Confirmed",
-    "packed": "Packed",
-    "shipped": "Shipped",
-    "delivered": "Delivered"
-  },
-
-  "register": {
-    "title": "Create Your Account",
-    "name": "Full Name",
-    "email": "Email",
-    "password": "Password",
-    "already": "Already have an account?",
-    "loginHere": "Login here",
-    "button": "Register",
-    "registering": "Registering..."
-  },
-
-  "login": {
-  "title": "Welcome Back",
-  "email": "Email",
-  "password": "Password",
-  "button": "Login",
-  "loading": "Logging in...",
-  "no_account": "Don’t have an account?",
-  "register_here": "Register here",
-  "fill_all_fields": "Please fill in all fields.",
-  "invalid_response": "Invalid response from server.",
-  "success": "Login successful!",
-  "failed": "Login failed"
-},
-
-"chat": {
-  "title": "Chat with Pandit Assistant",
-  "welcome": "🙏 Namaste! How can I help you today?",
-  "bot_response": "Thanks for reaching out! A real pandit will contact you soon. 🚩",
-  "send": "Send",
-  "placeholder": "Type your message..."
-},
-
-"order": {
-  "order_id": "Order ID",
-  "status": {
-    "Pending": "Pending",
-    "Confirmed": "Confirmed",
-    "Shipped": "Shipped",
-    "Delivered": "Delivered",
-    "Cancelled": "Cancelled"
-  },
-  "quantity": "Quantity",
-  "price": "Price",
-  "total": "Total",
-  "ordered_on": "Ordered on",
-  "cancel_btn": "Cancel Order",
-  "cancel_confirm": "Are you sure you want to cancel this order?",
-  "cancel_success": "Order cancelled successfully.",
-  "cancel_failed": "Failed to cancel order.",
-  "cancel_error": "Something went wrong while cancelling the order.",
-  "unknown_product": "Unknown Product"
-},
-
-"theme": {
-  "dark": "🌙 Dark Mode",
-  "light": "🌞 Light Mode"
-},
-
-"footer": {
-  "about_title": "About BrajPandit",
-  "about_text": "We are your trusted spiritual partner offering professional pandits for pooja services, live bhajan, religious products, and blog knowledge — all in one place.",
-  "quick_links": "Quick Links",
-  "contact": "Contact",
-  "follow_us": "Follow Us",
-  "links": {
-    "home": "Home",
-    "products": "Products",
-    "blogs": "Blogs",
-    "booking": "Puja Booking",
-    "contact": "Contact"
-  },
-  "rights_reserved": "All rights reserved.",
-  "legal_warning": "Unauthorized copying or reuse of this code or design is strictly prohibited. Legal action may be taken against violators."
-},
-
-"buttons": {
-  "back": "Back"
-}
-
-
-
-,
-"homelive": {
-  "title": "Live Darshan",
-  "loading": "Loading live darshans...",
-  "error": "Failed to load live darshans.",
-  "empty": "No live darshans available at the moment.",
-  "live": "LIVE",
-  "not_live": "Not Live",
-  "views": "views",
-  "view_more": "View More darshans",
-  "days_ago": "days ago"
-}
-,
-"homeblog": {
-  "heading": "Latest Devotional Blogs",
-  "all_categories": "All Categories",
-  "festivals": "Festivals",
-  "spirituality": "Spirituality",
-  "culture": "Culture",
-  "devotion": "Devotion",
-  "latest": "Latest First",
-  "oldest": "Oldest First",
-  "read_more": "Read More",
-  "view_more": "View All Blogs",
-  "no_blogs": "No blogs available at the moment.",
-  "error": "Failed to load blogs. Please try again later."
-}
-
-,
-"AllProducts": {
-  "products": "Products",
-  "ourDivine": "Our Divine",
-  "searchPlaceholder": "Search products...",
-  "all": "All",
-  "others": "Others",
-  "sortBy": "Sort by",
-  "priceLowHigh": "Price: Low to High",
-  "priceHighLow": "Price: High to Low",
-  "addToCart": "Add to Cart",
-  "buyNow": "Buy Now",
-  "noProducts": "No products available.",
-  "addedToCart": "Product added to cart!",
-  "error": "Something went wrong while loading products."
-}
-
-,
-
-  "pujaServices": [
-    {
-      "title": "Diwali Pooja",
-      "description": "Diwali is the festival of Laxmi, the Goddess of prosperity and wealth. People perform special puja to invite Her into their homes. Invite prosperity by booking a traditional Laxmi-Ganesh Puja.",
-      "category": "Festivals"
-    },
-    {
-      "title": "Navgraha Shanti",
-      "description": "Navgraha Shanti is performed to appease nine celestial bodies (Navagrahas). It brings peace, prosperity, and harmony by reducing planetary doshas.",
-      "category": "Festivals"
-    },
-    {
-      "title": "Rudrabhishek - Lord Shiva Ritual",
-      "description": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
-      "category": "Ancestral & Remedial"
-    },
-    {
-      "title": "Rudrabhishek - Home Puja",
-      "description": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
-      "category": "Household Rituals"
-    },
-    {
-      "title": "Rudrabhishek - Life Events Blessing",
-      "description": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
-      "category": "Life Events"
-    },
-    {
-      "title": "Rudrabhishek - Festive Season Ritual",
-      "description": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
-      "category": "Festivals"
-    }
-  ]
-
-  ,
-
-
-  
-  "AllPujaServices": {
-    "all_puja_services": "All Puja Services",
-    "book_button": "Book Now",
-    "categories": {
-      "Festivals": "Festivals",
-      "Ancestral & Remedial": "Ancestral & Remedial",
-      "Household Rituals": "Household Rituals",
-      "Life Events": "Life Events"
-    },
-    "titles": {
-      "Diwali Pooja": "Diwali Pooja",
-      "Navgraha Shanti": "Navgraha Shanti",
-      "Rudrabhis": "Rudrabhishek",
-      "Rudrabhi": "Rudrabhishek",
-      "Rudrabh": "Rudrabhishek",
-      "Rudrab": "Rudrabhishek",
-      "Rudra": "Rudrabhishek",
-      "Rudr": "Rudrabhishek",
-      "Rudrabhik": "Rudrabhishek",
-      "Rudrk": "Rudrabhishek",
-      "Rudbhishek": "Rudrabhishek",
-      "bhishek": "Rudrabhishek"
-    },
-    "descriptions": {
-      "Diwali Pooja": "Diwali is the festival of Laxmi, the Goddess of prosperity and wealth. People perform special puja to invite Her into their homes. Invite prosperity by booking a traditional Laxmi-Ganesh Puja.",
-      "Navgraha Shanti": "Navgraha Shanti is performed to appease nine celestial bodies (Navagrahas). It brings peace, prosperity, and harmony by reducing planetary doshas.",
-      "Rudrabhis": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
-      "Rudrabhi": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
-      "Rudrabh": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
-      "Rudrab": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
-      "Rudra": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
-      "Rudr": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
-      "Rudrabhik": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
-      "Rudrk": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
-      "Rudbhishek": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth.",
-      "bhishek": "Rudrabhishek is a powerful ritual to worship Lord Shiva. It removes negativity and grants health, prosperity, and spiritual growth."
-    }
-  }
-
-  ,
-
-  
   "famous_places_title": "Famous Spiritual Places",
   "view_on_map": "View on Map",
   "view_more": "View More",
+
   "famous_places": {
     "heading": "Explore All Famous Places",
     "scroll_to_load": "Scroll down to load more places..."
   },
+
+
+  
+
   "HomePlace": {
     "Name": {
       "place1": "Shri Banke Bihari Ji Mandir",
@@ -742,26 +614,228 @@
       "place10": "https://maps.app.goo.gl/2b7d8f8d6b1c7f2a9",
       "place11": "https://maps.app.goo.gl/2b7d8f8d6b1c7f2a9",
       "place12": "https://maps.app.goo.gl/2b7d8f8d6b1c7f2a9"
+    },
+
+
+
+
+
+
+
+
+
+    "blogs_page": {
+      "heading": "Latest Blog Posts",
+      "search_placeholder": "Search blog by title...",
+      "loading": "Loading blogs...",
+      "no_blogs": "No blogs found for \"{{search}}\"",
+      "general": "General"
+    },
+    "blog_details": {
+      "loading": "Loading blog details...",
+      "not_found": "Blog not found or something went wrong.",
+      "by": "By",
+      "admin": "Admin",
+      "back_to_blogs": "Back to Blogs"
+    },
+
+    "homeblog": {
+      "heading": "Latest Devotional Blogs",
+      "all_categories": "All Categories",
+      "festivals": "Festivals",
+      "spirituality": "Spirituality",
+      "culture": "Culture",
+      "devotion": "Devotion",
+      "latest": "Latest First",
+      "oldest": "Oldest First",
+      "read_more": "Read More",
+      "view_more": "View All Blogs",
+      "no_blogs": "No blogs available at the moment.",
+      "error": "Failed to load blogs. Please try again later."
+    },
+
+
+
+
+
+
+    "verifiedPandits": {
+      "title": "Our",
+      "topRated": "Top-Rated",
+      "panditji": "PanditJi",
+      "description": "Book highly knowledgeable Vedic Pandits and Purohits, well-versed in Sanskrit mantras, Hindu scriptures, and astrology.",
+      "seeAll": "See All PanditJis",
+      "yearsExp": "years exp",
+      "bookNow": "Book Pandit"
+    },
+
+    "pandits": {
+      "loading": "Loading Pandits...",
+      "heading_prefix": "All",
+      "heading_verified": "Verified",
+      "heading_suffix": "Pandits",
+      "years_exp": "years exp.",
+      "book_now": "Book Pandit"
+    },
+
+    "panditDetails": {
+      "loading": "Loading Pandit Details...",
+      "error": "Unable to fetch pandit details.",
+      "expertise": "Expertise",
+      "experience": "Experience",
+      "years": "years",
+      "callNow": "Call Now",
+      "bookThisPandit": "Book This Pandit"
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    "register": {
+      "title": "Create Your Account",
+      "name": "Full Name",
+      "email": "Email",
+      "password": "Password",
+      "already": "Already have an account?",
+      "loginHere": "Login here",
+      "button": "Register",
+      "registering": "Registering..."
+    },
+
+    "login": {
+      "title": "Welcome Back",
+      "email": "Email",
+      "password": "Password",
+      "button": "Login",
+      "loading": "Logging in...",
+      "no_account": "Don’t have an account?",
+      "register_here": "Register here",
+      "fill_all_fields": "Please fill in all fields.",
+      "invalid_response": "Invalid response from server.",
+      "success": "Login successful!",
+      "failed": "Login failed"
+    },
+
+
+
+    "dashboard": {
+      "welcome": "Welcome, {{name}}",
+      "subtitle": "Explore your profile, orders, and puja bookings",
+      "profile": "Profile",
+      "update_profile": "Update your personal details",
+      "orders": "My Orders",
+      "track_orders": "Track your spiritual product orders",
+      "blogs": "Blogs",
+      "read_blogs": "Read latest articles and insights",
+      "logout": "Logout",
+      "bookings_heading": "Your Recent Puja Bookings",
+      "no_bookings": "You have no bookings yet.",
+      "date": "Date",
+      "time": "Time",
+      "note": "Note",
+      "copyright": "All rights reserved."
+    },
+
+
+
+
+    "profile": {
+      "heading": "My Profile",
+      "loading": "Loading profile...",
+      "name": "Full Name",
+      "email": "Email Address",
+      "upload_image": "Upload Image",
+      "save_profile": "Save Profile",
+      "my_bookings": "My Bookings",
+      "my_orders": "My Orders",
+      "my_cart": "My Cart",
+      "booking_history": "Booking History",
+      "select_image": "Please select an image.",
+      "upload_success": "✅ Image uploaded!",
+      "upload_fail": "❌ Image upload failed",
+      "update_success": "✅ Profile updated successfully!",
+      "update_fail": "❌ Failed to update profile",
+      "load_error": "Failed to load profile"
+    },
+
+
+
+
+
+    "history": {
+      "title": "Booking History",
+      "loading": "Loading booking history...",
+      "load_fail": "Failed to load booking history.",
+      "load_error": "Something went wrong while fetching history.",
+      "empty": "You don’t have any past bookings yet.",
+      "default_puja": "Puja Service",
+      "date": "Date",
+      "time": "Time",
+      "location": "Location",
+      "not_specified": "Not specified",
+      "status": "Status",
+      "completed": "Completed"
+    },
+
+
+
+    "chat": {
+      "title": "Chat with Pandit Assistant",
+      "welcome": "🙏 Namaste! How can I help you today?",
+      "bot_response": "Thanks for reaching out! A real pandit will contact you soon. 🚩",
+      "send": "Send",
+      "placeholder": "Type your message..."
+    },
+
+
+
+    "theme": {
+      "dark": "🌙 Dark Mode",
+      "light": "🌞 Light Mode"
+    },
+
+
+
+    "buttons": {
+      "back": "Back"
+    },
+
+
+
+
+
+
+
+    
+
+    "footer": {
+      "about_title": "About BrajPandit",
+      "about_text": "We are your trusted spiritual partner offering professional pandits for pooja services, live bhajan, religious products, and blog knowledge — all in one place.",
+      "quick_links": "Quick Links",
+      "contact": "Contact",
+      "follow_us": "Follow Us",
+      "links": {
+        "home": "Home",
+        "products": "Products",
+        "blogs": "Blogs",
+        "booking": "Puja Booking",
+        "contact": "Contact"
+      },
+      "rights_reserved": "All rights reserved.",
+      "legal_warning": "Unauthorized copying or reuse of this code or design is strictly prohibited. Legal action may be taken against violators."
     }
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
