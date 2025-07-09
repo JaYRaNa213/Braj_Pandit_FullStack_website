@@ -55,26 +55,11 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Booking */}
-      <section ref={bookingRef} className="py-20 bg-white dark:bg-[#1a1a1a]">
-        <div className="max-w-7xl mx-auto px-4">
-          <BookingForm />
-        </div>
-      </section>
+      
 
-      {/* Famous Places */}
-      <section className="py-20 bg-[#f5f5f5] dark:bg-[#0f0f0f]">
-        <div className="max-w-7xl mx-auto px-4">
-          <FamousPlaces />
-        </div>
-      </section>
+      
 
-      {/* Blogs */}
-      <Element name="blogSection" className="py-20 bg-white dark:bg-[#181818]">
-        <div className="max-w-7xl mx-auto px-4">
-          <BlogSection />
-        </div>
-      </Element>
+      
 
       {/* Verified Pandits */}
       <section className="py-20 bg-gradient-to-b from-white to-orange-50 dark:from-[#1a1a1a] dark:to-[#2b2b2b]">

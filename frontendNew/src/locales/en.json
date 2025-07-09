@@ -15,6 +15,11 @@
       "point4": "Enable easy access to pujas even from abroad."
     }
   },
+  "topbar": {
+    "announcement": "🌟 Free shipping on all puja items!",
+    "about": "About",
+    "contact": "Contact"
+  },
 
 
 
@@ -280,15 +285,14 @@
 
 
 
-
-
-  "pujas": {
-    "heading": "Pooja Services",
-    "price": "Price:",
-    "price_on_request": "₹ Price on Request",
-    "book_now": "BOOK NOW",
-    "view_more": "View More Puja Services"
-  },
+"pujas": {
+  "heading": "Popular Puja Services",
+  "price": "Price:",
+  "price_on_request": "On Request",
+  "book_now": "Book Now",
+  "view_more": "View More Services"
+}
+,
 
 
   "pujaServices": {

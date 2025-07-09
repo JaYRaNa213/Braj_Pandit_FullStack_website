@@ -13,6 +13,7 @@ import ScrollToTop from "./components/common/ScrollToTop";
 // 🆕 i18n support
 import { I18nextProvider } from "react-i18next";
 import i18n from "./i18n";
+import TopNavbar from "./components/common/TopNavbar";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <ScrollToTop />
         <AuthProvider>
           <CartProvider>
+            <TopNavbar />
             <AppRoutes />
             <ToastContainer position="top-center" autoClose={3000} />
           </CartProvider>

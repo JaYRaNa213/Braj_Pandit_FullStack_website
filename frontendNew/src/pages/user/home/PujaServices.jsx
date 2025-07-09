@@ -1,4 +1,4 @@
-// 🔐 Redesigned by ChatGPT © 2025 - Jay Rana's Devotional Platform
+// 🔐 Finalized by ChatGPT © 2025 - Jay Rana's Devotional Platform
 
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -13,12 +13,12 @@ const PujaServices = () => {
   const [services, setServices] = useState([]);
 
   useEffect(() => {
-    setServices(pujaData.slice(0, 4));
+    setServices(pujaData.slice(0, 4)); // Show only 4 on homepage
   }, []);
 
-  const handleBooking = (serviceTitle) => {
-    const encodedService = encodeURIComponent(serviceTitle);
-    navigate(`/puja-details?service=${encodedService}`);
+  const handleBookNow = (serviceTitle) => {
+    const encoded = encodeURIComponent(serviceTitle);
+    navigate(`/booking?service=${encoded}`);
   };
 
   const handleViewMore = () => {
@@ -28,13 +28,13 @@ const PujaServices = () => {
 
   return (
     <Element name="pujaServicesSection">
-      <section className="relative bg-gray-50 dark:bg-gray-900 py-16">
-        {/* Background Image */}
+      <div className="relative bg-gray-50 dark:bg-gray-900 py-10">
+        {/* ✅ Background Watermark with fixed URL */}
         <div
-          className="absolute inset-0 bg-cover bg-center opacity-10 dark:opacity-20"
+          className="absolute inset-0 bg-cover bg-center opacity-10 dark:opacity-40"
           style={{
             backgroundImage:
-              "url('https://res.cloudinary.com/djtq2eywl/image/upload/v1751620759/h-about-us.png_kzrnid.pn')",
+              "url('https://res.cloudinary.com/djtq2eywl/image/upload/v1751620759/h-about-us.png')",
           }}
         ></div>
 
@@ -50,8 +50,8 @@ const PujaServices = () => {
             {t("pujas.heading") || "Popular Puja Services"}
           </motion.h2>
 
-          {/* Puja Cards Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+          {/* Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
             {services.map((service, idx) => (
               <motion.div
                 key={idx}
@@ -64,30 +64,33 @@ const PujaServices = () => {
                 <img
                   src={service.img}
                   alt={service.title}
-                  className="w-full h-56 object-cover"
+                  className="w-full h-60 object-cover"
                 />
-                <div className="p-5 flex flex-col justify-between h-full">
-                  <div>
-                    <h3 className="text-lg font-bold text-red-700 dark:text-yellow-200 mb-2">
-                      {service.title}
-                    </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
-                      {service.desc}
-                    </p>
-                    <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
-                      {t("pujas.price")}{" "}
-                      <span className="text-red-600 dark:text-orange-400">
-                        {t("pujas.price_on_request")}
-                      </span>
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => handleBooking(service.title)}
-                    className="mt-4 w-full bg-red-600 hover:bg-red-700 text-white font-medium px-4 py-2 rounded-full transition dark:hover:bg-orange-600"
-                  >
-                    {t("pujas.book_now") || "Book Now"}
-                  </button>
-                </div>
+                <div className="p-2 flex flex-col justify-between min-h-[20px]">
+  <div>
+    <h3 className="text-lg font-bold text-red-700 dark:text-yellow-200 mb-2">
+      {service.title}
+    </h3>
+    <p className="text-sm text-gray-600 dark:text-gray-300 mb-3 line-clamp-2">
+  {service.desc}
+</p>
+
+    <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
+      {t("pujas.price")}{" "}
+      <span className="text-red-600 dark:text-orange-400">
+        {t("pujas.price_on_request")}
+      </span>
+    </p>
+  </div>
+
+  <button
+    onClick={() => handleBookNow(service.title)}
+    className="mt-4 w-full bg-red-600 hover:bg-red-700 text-white font-medium px-4 py-2 rounded-full transition dark:hover:bg-orange-600"
+  >
+    {t("pujas.book_now") || "Book Now"}
+  </button>
+</div>
+
               </motion.div>
             ))}
           </div>
@@ -102,7 +105,7 @@ const PujaServices = () => {
             </button>
           </div>
         </div>
-      </section>
+      </div>
     </Element>
   );
 };
