@@ -72,8 +72,13 @@ const VerifiedPanditJis = () => {
         {/* LEFT TEXT SECTION */}
         <div className="md:w-1/3 w-full">
           <h2 className="text-2xl md:text-3xl font-bold text-orange-700 dark:text-orange-300 mb-3">
-            {t("verifiedPandits.title", "Verified Pandits")}
-          </h2>
+  {t("verifiedPandits.title")}{" "}
+  <span className="text-red-700 dark:text-red-400">
+    {t("verifiedPandits.topRated")}{" "}
+    {t("verifiedPandits.panditji")}
+  </span>
+</h2>
+
           <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
             {t("verifiedPandits.description", "Connect with our most trusted and experienced panditjis for your sacred rituals.")}
           </p>
