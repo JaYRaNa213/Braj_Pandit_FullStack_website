@@ -15,11 +15,16 @@
       "point4": "Enable easy access to pujas even from abroad."
     }
   },
+
+
   "topbar": {
-    "announcement": "🌟 Free shipping on all puja items!",
-    "about": "About",
-    "contact": "Contact"
-  },
+  "announcement": "🌟 Free shipping on all puja items!",
+  "about": "About",
+  "contact": "Contact",
+  "special_offer": "Book Grah Shanti Puja at only ₹201!",
+  "book_now": "Book Now"
+}
+,
 
 
 
@@ -28,12 +33,14 @@
 
   "nav": {
     "home": "Home",
+    
     "services": "Services",
     "all_services": "See All Services",
     "blogs": "Blogs",
     "products": "Products",
     "book_pandit": "Book Pandit",
-    "about": "About Us",
+    "mathura_tourism": "Mathura Tourism",
+    
     "profile": "Profile",
     "settings": "Settings",
     "admin_dashboard": "Admin Dashboard",

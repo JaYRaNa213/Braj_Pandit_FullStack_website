@@ -53,3 +53,6 @@ body {
   scrollbar-width: none;
 }
 
+.animate-marquee:hover {
+  animation-play-state: paused;
+}

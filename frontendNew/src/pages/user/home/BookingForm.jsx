@@ -6,10 +6,12 @@ import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import { AuthContext } from "../../../context/AuthContext";
 import { useTranslation } from "react-i18next";
+import { useLocation } from "react-router-dom";
 
 const BookingForm = () => {
   const { user } = useContext(AuthContext);
   const { t } = useTranslation();
+  const location = useLocation();
 
   const [selectedService, setSelectedService] = useState("");
   const [customService, setCustomService] = useState("");
@@ -22,6 +24,14 @@ const BookingForm = () => {
     phone: "",
   });
 
+  // ✅ Get service from query param
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const serviceFromURL = params.get("service");
+    if (serviceFromURL) setSelectedService(serviceFromURL);
+  }, [location.search]);
+
+  // ✅ Autofill form if user logged in
   useEffect(() => {
     if (user) {
       setFormValues({
@@ -127,11 +137,6 @@ const BookingForm = () => {
           {t("booking.form_title")}
         </h2>
 
-        {/* Aria-live region */}
-        <div className="sr-only" aria-live="polite">
-          {loading ? t("booking.submitting") : ""}
-        </div>
-
         {/* Name */}
         <div className="mb-4">
           <label className="block text-sm font-semibold text-red-700 mb-1">
@@ -199,6 +204,7 @@ const BookingForm = () => {
             <option value="Vrindavan Tour Guide">{t("booking.opt4")}</option>
             <option value="Food Seva">{t("booking.opt5")}</option>
             <option value="Hotel Seva">{t("booking.opt6")}</option>
+            <option value="Grah Shanti">Grah Shanti</option>
             <option value="Other">{t("booking.opt_other")}</option>
           </select>
         </div>

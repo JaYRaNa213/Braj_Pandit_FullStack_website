@@ -176,9 +176,10 @@ export default function Navbar() {
 </span>
 
 
-          <RouterLink to="/about" className="hover:underline">
-            {t("nav.about")}
-          </RouterLink>
+          <RouterLink to="/famous-places" className="hover:underline">
+  {t("nav.mathura_tourism")}
+</RouterLink>
+
         </div>
 
         {/* Right Side: Lang + Cart + Profile */}
@@ -350,9 +351,10 @@ export default function Navbar() {
 
           
 
-          <RouterLink to="/about" onClick={() => setMenuOpen(false)}>
-            About Us
-          </RouterLink>
+          <RouterLink to="/famous-places" onClick={() => setMenuOpen(false)}>
+  {t("nav.mathura_tourism") || "Mathura Tourism"}
+</RouterLink>
+
 
           <button
             onClick={() => {

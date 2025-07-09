@@ -1,11 +1,10 @@
-// 🔐 Tailwind Config by ChatGPT © 2025 - Jay Rana's Platform
 import forms from '@tailwindcss/forms';
 import scrollbar from 'tailwind-scrollbar';
 import aspectRatio from '@tailwindcss/aspect-ratio';
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  darkMode: 'class', // Enables dark mode via class strategy
+  darkMode: 'class',
 
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
 
@@ -21,7 +20,18 @@ export default {
 
       fontFamily: {
         sans: ['Inter', 'sans-serif'],                // Body text
-        heading: ['Merriweather', 'serif'],           // Section titles, large text
+        heading: ['Merriweather', 'serif'],           // Section titles
+      },
+
+      animation: {
+        marquee: 'marquee 15s linear infinite',
+      },
+
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(300%)' },
+          '100%': { transform: 'translateX(-100%)' },
+        },
       },
     },
   },
@@ -31,10 +41,9 @@ export default {
     scrollbar,
     aspectRatio,
 
-    // 🧩 Custom Utilities for Advanced UI
+    // 🧩 Custom Utilities
     function ({ addUtilities }) {
       addUtilities({
-        // Hide native scrollbars
         '.no-scrollbar': {
           '-ms-overflow-style': 'none',
           'scrollbar-width': 'none',
@@ -42,8 +51,6 @@ export default {
         '.no-scrollbar::-webkit-scrollbar': {
           display: 'none',
         },
-
-        // 3D Transform Support
         '.perspective-1000': {
           perspective: '1000px',
         },
