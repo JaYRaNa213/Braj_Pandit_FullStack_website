@@ -139,14 +139,14 @@ const HomeProducts = () => {
                   <button
                     onClick={() => handleAddToCart(product)}
                     className="text-xs bg-red-600 hover:bg-red-700 text-white py-1.5 rounded-full font-semibold transition"
-                  >
-                    {t("add_to_cart")}
+                  > 
+                    {t("products.add_to_cart")}
                   </button>
                   <button
                     onClick={() => handleBuyNow(product)}
                     className="text-xs bg-white dark:bg-gray-700 text-red-600 border border-red-600 rounded-full py-1.5 font-semibold transition hover:bg-gray-100"
                   >
-                    {t("buy_now")}
+                     {t("products.buy_now")}
                   </button>
                 </div>
               </div>

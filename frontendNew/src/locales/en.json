@@ -123,7 +123,9 @@
     "add_to_cart": "Add to Cart",
     "buy_now": "Buy Now",
     "view_more": "View More Products",
-    "added_to_cart": "Added to cart!"
+    "added_to_cart": "Added to cart!",
+    "view_all": "View All Products"
+
   },
 
   "product_details": {
