@@ -10,6 +10,7 @@
 ├── package.json
 ├── postcss.config.js
 ├── public
+│   ├── g
 │   └── images
 │       ├── 3d74f98793e06e413eb658b769633cd7.jpg
 │       ├── barsana-temple.jpg
@@ -33,12 +34,15 @@
 │   │   │   ├── Footer.jsx
 │   │   │   ├── Loader.jsx
 │   │   │   ├── Navbar.jsx
-│   │   │   └── ScrollToTop.jsx
+│   │   │   ├── ScrollToTop.jsx
+│   │   │   └── TopNavbar.jsx
 │   │   ├── OrderCard.jsx
 │   │   ├── OrderStatusChart.jsx
 │   │   ├── shared
 │   │   │   └── Button.jsx
 │   │   ├── ThemeToggle.jsx
+│   │   ├── ui
+│   │   │   └── button.jsx
 │   │   └── user
 │   │       ├── Footer.jsx
 │   │       ├── Layout.jsx
@@ -98,7 +102,6 @@
 │   │       ├── AllPujaServices.jsx
 │   │       ├── Blog.jsx
 │   │       ├── BlogDetails.jsx
-│   │       ├── Booking.jsx
 │   │       ├── BookingHistory.jsx
 │   │       ├── CancelSuccess.jsx
 │   │       ├── Cart.jsx
@@ -150,6 +153,8 @@
 │   │       ├── live.Services.js
 │   │       ├── panditService.js
 │   │       └── userService.js
+│   ├── styles
+│   │   └── marquee.css
 │   ├── types
 │   │   └── user.d.ts
 │   └── utils
