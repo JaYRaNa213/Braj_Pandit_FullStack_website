@@ -3,15 +3,16 @@ import axios from '../../services/axios'; // Custom axios instance
 
 const AddBlogPost = () => {
   const [form, setForm] = useState({
-    title_en: '',
-    title_hi: '',
-    content_en: '',
-    content_hi: '',
-    author: '',
-    category: 'Puja',
-    image: null,
-    imageUrl: '',
-  });
+  title_en: '',
+  title_hi: '',
+  content_en: '',
+  content_hi: '',
+  author: '',
+  category: 'Puja',
+  image: null,
+  imageUrl: '',
+});
+
 
   const [imagePreview, setImagePreview] = useState(null);
   const [imageType, setImageType] = useState('file'); // 'file' or 'url'

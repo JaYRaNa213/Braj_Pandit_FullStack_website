@@ -5,41 +5,57 @@ import express from 'express';
 import {
   addBlog,
   getAllBlogs,
+  getBlogById,
   updateBlog,
   deleteBlog,
-  getBlogById, // ✅ add this import if needed
 } from '../../controllers/blog.controller.js';
 
 import { authMiddleware } from '../../middleware/auth.middleware.js';
 import { authorizeRoles } from '../../middleware/role.middleware.js';
-import { uploadSingle } from '../../middleware/upload.middleware.js'; // ✅ use named import
+import { uploadSingle } from '../../middleware/upload.middleware.js'; // handles "image" field
 
 const router = express.Router();
 
-// ✅ Admin create blog with image
+// ✅ Create a new blog with image
 router.post(
   '/',
   authMiddleware,
   authorizeRoles('admin'),
-  uploadSingle('image'), // ✅ add this line
+  uploadSingle('image'), // from formData
   addBlog
 );
 
-// ✅ Admin get all blogs
-router.get('/', authMiddleware, authorizeRoles('admin'), getAllBlogs);
-// ✅ Add this route after the getAllBlogs route
-router.get('/:id', authMiddleware, authorizeRoles('admin'), getBlogById);
+// ✅ Get all blogs (with optional search/category/lang filtering)
+router.get(
+  '/',
+  authMiddleware,
+  authorizeRoles('admin'),
+  getAllBlogs
+);
 
-// ✅ Admin update blog with image (optional)
+// ✅ Get single blog by ID
+router.get(
+  '/:id',
+  authMiddleware,
+  authorizeRoles('admin'),
+  getBlogById
+);
+
+// ✅ Update blog with optional image upload
 router.put(
   '/:id',
   authMiddleware,
   authorizeRoles('admin'),
-  uploadSingle('image'), // ✅ reuse same for update
+  uploadSingle('image'), // optional image file
   updateBlog
 );
 
-// ✅ Admin delete blog
-router.delete('/:id', authMiddleware, authorizeRoles('admin'), deleteBlog);
+// ✅ Delete blog
+router.delete(
+  '/:id',
+  authMiddleware,
+  authorizeRoles('admin'),
+  deleteBlog
+);
 
 export default router;

@@ -1,8 +1,6 @@
 // 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 // If you theft this code, you will be punished or may face legal action by the owner.
 
-// src/controllers/blog.controller.js
-
 import Blog from '../models/blog.model.js';
 import { uploadOnCloudinary } from '../utils/cloudinary.js';
 
@@ -13,7 +11,7 @@ export const getAllBlogs = async (req, res) => {
     const category = req.query.category || "";
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 1000;
-    const lang = req.query.lang || "en"; // 'en' or 'hi'
+    const lang = req.query.lang || "en";
 
     const query = {
       [`title.${lang}`]: { $regex: search, $options: "i" },
@@ -24,7 +22,6 @@ export const getAllBlogs = async (req, res) => {
     }
 
     const skip = (page - 1) * limit;
-
     const blogs = await Blog.find(query)
       .sort({ createdAt: -1 })
       .skip(skip)
@@ -48,43 +45,58 @@ export const getAllBlogs = async (req, res) => {
 export const getBlogById = async (req, res) => {
   try {
     const blog = await Blog.findById(req.params.id);
-    if (!blog) return res.status(404).json({ success: false, message: 'Blog not found' });
+    if (!blog)
+      return res.status(404).json({ success: false, message: "Blog not found" });
 
     res.status(200).json({ success: true, data: blog });
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Error fetching blog', error: error.message });
+    res.status(500).json({ success: false, message: "Error fetching blog", error: error.message });
   }
 };
 
-// ✅ Add a new blog with multilingual support
+// ✅ Add new blog
 export const addBlog = async (req, res) => {
   try {
-    const { title, content, author, category } = req.body;
+    const titleEn = req.body['title.en'];
+    const titleHi = req.body['title.hi'];
+    const contentEn = req.body['content.en'];
+    const contentHi = req.body['content.hi'];
+    const author = req.body.author;
+    const categoryEn = req.body['category.en'];
+    const categoryHi = req.body['category.hi'];
+    const imageUrl = req.body.imageUrl;
 
-    if (!title || !content || !author || !req.file) {
-      return res.status(400).json({ success: false, message: 'All fields are required' });
+    // Basic validation
+    if (!titleEn || !contentEn || !author || !categoryEn) {
+      return res.status(400).json({ message: 'Missing required fields' });
     }
 
-    const uploadResult = await uploadOnCloudinary(req.file.path);
-    if (!uploadResult?.secure_url) {
-      return res.status(400).json({ success: false, message: 'Image upload failed' });
+    let finalImageUrl = '';
+
+    // Upload from file (multipart)
+    if (req.files && req.files.length > 0) {
+      const imageFile = req.files.find((file) => file.fieldname === 'image');
+      if (imageFile) {
+        const cloudinaryRes = await uploadOnCloudinary(imageFile.path);
+        if (!cloudinaryRes?.secure_url) {
+          return res.status(500).json({ message: 'Cloudinary upload failed' });
+        }
+        finalImageUrl = cloudinaryRes.secure_url;
+      }
+    } else if (imageUrl) {
+      finalImageUrl = imageUrl;
+    }
+
+    if (!finalImageUrl) {
+      return res.status(400).json({ message: 'Image is required' });
     }
 
     const blog = await Blog.create({
-      title: {
-        en: title.en,
-        hi: title.hi || '',
-      },
-      content: {
-        en: content.en,
-        hi: content.hi || '',
-      },
+      title: { en: titleEn, hi: titleHi || '' },
+      content: { en: contentEn, hi: contentHi || '' },
       author,
-      category: {
-        en: category.en,
-        hi: category.hi || '',
-      },
-      imageUrl: uploadResult.secure_url,
+      category: { en: categoryEn, hi: categoryHi || '' },
+      imageUrl: finalImageUrl,
       createdBy: req.user?.id || null,
     });
 
@@ -98,41 +110,63 @@ export const addBlog = async (req, res) => {
   }
 };
 
-// ✅ Update blog with multilingual fields
+// ✅ Update blog
 export const updateBlog = async (req, res) => {
   try {
+    const titleEn = req.body['title.en'];
+    const titleHi = req.body['title.hi'];
+    const contentEn = req.body['content.en'];
+    const contentHi = req.body['content.hi'];
+    const author = req.body.author;
+    const categoryEn = req.body['category.en'];
+    const categoryHi = req.body['category.hi'];
+    const imageUrl = req.body.imageUrl;
+
     let updatedData = {
       updatedBy: req.user?.id || "admin",
     };
 
-    const { title, content, category, author } = req.body;
-
-    if (title) {
+    if (titleEn || titleHi) {
       updatedData.title = {
-        en: title.en,
-        hi: title.hi || '',
+        en: titleEn,
+        hi: titleHi || '',
       };
     }
 
-    if (content) {
+    if (contentEn || contentHi) {
       updatedData.content = {
-        en: content.en,
-        hi: content.hi || '',
+        en: contentEn,
+        hi: contentHi || '',
       };
     }
 
-    if (category) {
+    if (categoryEn || categoryHi) {
       updatedData.category = {
-        en: category.en,
-        hi: category.hi || '',
+        en: categoryEn,
+        hi: categoryHi || '',
       };
     }
 
     if (author) updatedData.author = author;
 
-    if (req.file) {
-      const cloudinaryResponse = await uploadOnCloudinary(req.file.path);
-      updatedData.imageUrl = cloudinaryResponse?.secure_url;
+    // Image handling
+    let finalImageUrl = '';
+
+    if (req.files && req.files.length > 0) {
+      const imageFile = req.files.find((file) => file.fieldname === 'image');
+      if (imageFile) {
+        const cloudinaryRes = await uploadOnCloudinary(imageFile.path);
+        if (!cloudinaryRes?.secure_url) {
+          return res.status(500).json({ message: 'Cloudinary upload failed' });
+        }
+        finalImageUrl = cloudinaryRes.secure_url;
+      }
+    } else if (imageUrl) {
+      finalImageUrl = imageUrl;
+    }
+
+    if (finalImageUrl) {
+      updatedData.imageUrl = finalImageUrl;
     }
 
     const blog = await Blog.findByIdAndUpdate(req.params.id, updatedData, {
