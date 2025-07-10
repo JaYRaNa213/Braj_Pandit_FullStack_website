@@ -43,33 +43,53 @@ export default function Navbar() {
     }
   }, [isDarkMode]);
 
+  // const handleNavClick = (sectionId, route) => {
+  //   if (isHome) {
+  //     scroller.scrollTo(sectionId, {
+  //       duration: 1000,
+  //       delay: 0,
+  //       smooth: "easeInOutQuart",
+  //       offset: -80,
+  //     });
+  //   } else {
+  //     navigate(`/${route}`);
+  //   }
+  //   setMenuOpen(false);
+  // };
+
+
   const handleNavClick = (sectionId, route) => {
-    if (isHome) {
-      scroller.scrollTo(sectionId, {
-        duration: 1000,
-        delay: 0,
-        smooth: "easeInOutQuart",
-        offset: -80,
-      });
-    } else {
-      navigate(`/${route}`);
-    }
-    setMenuOpen(false);
-  };
+  navigate(`/${route}`);
+  setMenuOpen(false);
+};
+
+
+
+
+
+
+  // const handleBlogsClick = () => {
+  //   if (isHome) {
+  //     scroller.scrollTo("blogSection", {
+  //       duration: 1000,
+  //       delay: 0,
+  //       smooth: "easeInOutQuart",
+  //       offset: -80,
+  //     });
+  //   } else {
+  //     navigate("/blogs");
+  //   }
+  //   setMenuOpen(false);
+  // };
 
   const handleBlogsClick = () => {
-    if (isHome) {
-      scroller.scrollTo("blogSection", {
-        duration: 1000,
-        delay: 0,
-        smooth: "easeInOutQuart",
-        offset: -80,
-      });
-    } else {
-      navigate("/blogs");
-    }
-    setMenuOpen(false);
-  };
+  navigate("/blogs");
+  setMenuOpen(false);
+};
+
+
+
+
 
   return (
     <nav className="sticky top-0 z-50 bg-[#4A1C1C] text-white shadow-md backdrop-blur  dark:bg-[#1F1B1B] dark:text-white">
@@ -166,7 +186,7 @@ export default function Navbar() {
         offset: -80,
       });
     } else {
-      navigate("/booking");
+      navigate("/puja-booking");
     }
     setMenuOpen(false); // Close mobile menu if open
   }}

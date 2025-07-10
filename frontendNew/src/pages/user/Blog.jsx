@@ -30,7 +30,7 @@ const Blog = () => {
 
   return (
     <div className="px-4 sm:px-6 lg:px-8 py-6 dark:bg-gray-950 dark:text-white min-h-screen transition-colors duration-300">
-      <h2 className="text-3xl font-bold mb-6 text-red-700 dark:text-yellow-400">
+      <h2 className="text-3xl text-center font-bold mb-6 text-red-700 dark:text-yellow-400">
         📰 {t("blogs_page.heading")}
       </h2>
 
@@ -54,7 +54,7 @@ const Blog = () => {
               to={`/blogs/${blog._id}`}
               className="flex flex-col h-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-md hover:shadow-xl transition-all overflow-hidden"
             >
-              <div className="aspect-video w-full overflow-hidden">
+              <div className="relative w-full pb-[56.25%] overflow-hidden rounded-t-xl">
                 <img
                   src={blog.imageUrl}
                   alt={blog.title}
@@ -63,9 +63,10 @@ const Blog = () => {
                     e.target.src =
                       "https://via.placeholder.com/400x250?text=No+Image";
                   }}
-                  className="w-full h-full object-cover"
+                  className="absolute inset-0 w-full h-full object-cover"
                 />
               </div>
+
               <div className="p-4 flex flex-col gap-1 flex-1">
                 <h3 className="font-bold text-lg text-red-700 dark:text-yellow-400 line-clamp-1">
                   {blog.title}

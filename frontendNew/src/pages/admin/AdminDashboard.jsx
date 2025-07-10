@@ -5,6 +5,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
 import { getAdminDashboardSummary } from "../../services/admin/adminService";
 import OrderStatusChart from "@/components/OrderStatusChart";
+import Navbar from "../../components/common/Navbar";
 import {
   LayoutDashboard,
   FileText,
@@ -96,6 +97,8 @@ const AdminDashboard = () => {
   }
 
   return (
+    <>
+    <Navbar/>
     <div className="min-h-screen bg-gradient-to-br from-[#fffaf0] to-[#f5f5f5] dark:from-[#1a1a1a] dark:to-[#0e0e0e] p-6 text-[#4A1C1C] dark:text-white">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-5xl font-extrabold text-center mb-12 tracking-tight">
@@ -188,6 +191,7 @@ const AdminDashboard = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
