@@ -18,7 +18,8 @@ const PujaServices = () => {
 
   const handleBookNow = (serviceTitle) => {
     const encoded = encodeURIComponent(serviceTitle);
-    navigate(`/booking?service=${encoded}`);
+    navigate(`/puja-details?service=${encoded}`);
+
   };
 
   const handleViewMore = () => {

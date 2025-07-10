@@ -1,125 +1,246 @@
-// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+// 🔐 UI/UX redesigned by ChatGPT © Jay Rana’s Devotional Platform (2025)
 
-import React, { useState } from "react";
-import { BACKEND_URL } from "../../utils/config";
-import { toast } from "react-toastify";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
+import { bookPuja } from "../../services/api";
+import axiosInstance from "../../services/axios";
+import pujaServicesData from "../../data/pujaServices.json";
+import Loader from "../../components/common/Loader";
+import { useTranslation } from "react-i18next";
 
-const PujaBooking = () => {
-  const [service] = useState("puja"); // Static service name
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-  const [selectedPandit, setSelectedPandit] = useState("");
-  const [additionalInfo, setAdditionalInfo] = useState("");
+const defaultImg =
+  "https://res.cloudinary.com/djtq2eywl/image/upload/v1750917528/default-puja_fallback.jpg";
+
+export default function PujaBooking() {
+  const location = useLocation();
+  const { t } = useTranslation();
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    service: "",
+    date: "",
+    time: "",
+    pandit: "",
+    address: "",
+  });
+
+  const [pujaImage, setPujaImage] = useState(defaultImg);
+  const [pujaDescription, setPujaDescription] = useState("");
   const [loading, setLoading] = useState(false);
+  const [pandits, setPandits] = useState([]);
+  const [showCustomService, setShowCustomService] = useState(false);
 
-  const handleBooking = async (e) => {
-    e.preventDefault();
+  const commonPujas = pujaServicesData.map((puja) => puja.title);
 
-    const bookingData = {
-      service,
-      date,
-      time,
-      pandit: selectedPandit,
-      additionalInfo,
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    const params = new URLSearchParams(location.search);
+    const service = decodeURIComponent(params.get("service") || "");
+    const pandit = decodeURIComponent(params.get("pandit") || "");
+
+    setFormData((prev) => ({ ...prev, service, pandit }));
+
+    if (service && !commonPujas.includes(service)) {
+      setShowCustomService(true);
+    }
+
+    const matched = pujaServicesData.find(
+      (p) => p.title.toLowerCase().trim() === service.toLowerCase().trim()
+    );
+
+    setPujaImage(matched?.img || defaultImg);
+    setPujaDescription(matched?.description || t("pujaBooking.default_description"));
+
+    const fetchPandits = async () => {
+      try {
+        const res = await axiosInstance.get("/user/pandits");
+        const approved =
+          res.data?.data?.filter((p) => p.status?.toLowerCase() === "approved") || [];
+        setPandits(approved);
+      } catch (err) {
+        console.error("Failed to fetch pandits", err);
+      }
     };
 
-    try {
-      setLoading(true);
-      const res = await fetch(`${BACKEND_URL}/bookings/puja`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify(bookingData),
-      });
+    fetchPandits();
+  }, [location, t]);
 
-      const data = await res.json();
-      if (res.ok) {
-        toast.success("✅ Puja booked successfully!");
-        setDate("");
-        setTime("");
-        setSelectedPandit("");
-        setAdditionalInfo("");
-      } else {
-        toast.error(`❌ ${data.message || "Booking failed."}`);
-      }
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleServiceSelect = (e) => {
+    const selected = e.target.value;
+
+    if (selected === "Other") {
+      setShowCustomService(true);
+      setFormData((prev) => ({ ...prev, service: "" }));
+      setPujaImage(defaultImg);
+      setPujaDescription(t("pujaBooking.custom_description"));
+    } else {
+      setShowCustomService(false);
+      setFormData((prev) => ({ ...prev, service: selected }));
+
+      const match = pujaServicesData.find((p) => p.title === selected);
+      setPujaImage(match?.img || defaultImg);
+      setPujaDescription(match?.description || t("pujaBooking.default_description"));
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const res = await bookPuja(formData);
+      alert(t("pujaBooking.success") + ": " + res.data.message);
+      setFormData({
+        name: "",
+        email: "",
+        service: "",
+        date: "",
+        time: "",
+        pandit: "",
+        address: "",
+      });
     } catch (err) {
-      console.error("Booking Error:", err);
-      toast.error("❌ Something went wrong. Please try again.");
+      console.error(err);
+      alert(t("pujaBooking.failure"));
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-yellow-50 via-red-50 to-pink-50 dark:from-gray-900 dark:to-gray-800 px-4 py-10">
-      <form
-        onSubmit={handleBooking}
-        className="w-full max-w-md p-6 rounded-xl shadow-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 transition-all"
-      >
-        <h2 className="text-2xl font-bold mb-6 text-center text-red-700 dark:text-yellow-300">
-          📿 Book a Puja
-        </h2>
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      className="min-h-screen px-4 py-14 bg-gradient-to-br from-yellow-100 via-pink-50 to-orange-100 dark:from-gray-900 dark:via-gray-800 dark:to-black"
+    >
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 bg-white dark:bg-gray-900 rounded-3xl overflow-hidden shadow-[0_0_40px_rgba(255,145,0,0.2)] dark:shadow-yellow-900 border border-yellow-200 dark:border-gray-800">
+        {/* Puja Information */}
+        <div className="p-8 md:p-12 bg-gradient-to-tr from-yellow-200 via-white to-pink-100 dark:from-yellow-950 dark:to-black">
+          <img
+            src={pujaImage}
+            alt={formData.service}
+            onError={(e) => (e.target.src = defaultImg)}
+            className="rounded-2xl mb-6 w-full h-64 object-cover shadow-xl border border-yellow-300 dark:border-yellow-800"
+          />
+          <h2 className="text-4xl font-bold text-orange-800 dark:text-yellow-300 mb-4">
+            {formData.service || t("pujaBooking.default_title")}
+          </h2>
+          <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
+            {pujaDescription}
+          </p>
+        </div>
 
-        {/* Date */}
-        <label className="block text-sm mb-1 text-gray-600 dark:text-gray-300">Puja Date</label>
-        <input
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          required
-          className="w-full mb-4 p-2 rounded border border-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 dark:bg-gray-800 dark:text-white"
-        />
-
-        {/* Time */}
-        <label className="block text-sm mb-1 text-gray-600 dark:text-gray-300">Puja Time</label>
-        <input
-          type="time"
-          value={time}
-          onChange={(e) => setTime(e.target.value)}
-          required
-          className="w-full mb-4 p-2 rounded border border-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 dark:bg-gray-800 dark:text-white"
-        />
-
-        {/* Pandit */}
-        <label className="block text-sm mb-1 text-gray-600 dark:text-gray-300">Select Pandit</label>
-        <select
-          value={selectedPandit}
-          onChange={(e) => setSelectedPandit(e.target.value)}
-          required
-          className="w-full mb-4 p-2 rounded border border-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 dark:bg-gray-800 dark:text-white"
-        >
-          <option value="">-- Choose Pandit --</option>
-          <option value="pandit1">Pandit 1</option>
-          <option value="pandit2">Pandit 2</option>
-        </select>
-
-        {/* Additional Info */}
-        <label className="block text-sm mb-1 text-gray-600 dark:text-gray-300">
-          Additional Information
-        </label>
-        <textarea
-          rows={3}
-          placeholder="Any special requests..."
-          value={additionalInfo}
-          onChange={(e) => setAdditionalInfo(e.target.value)}
-          className="w-full mb-6 p-2 rounded border border-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 dark:bg-gray-800 dark:text-white"
-        />
-
-        {/* Submit */}
-        <button
-          type="submit"
-          disabled={loading}
-          className={`w-full py-2 rounded bg-red-600 hover:bg-red-700 text-white font-semibold transition ${
-            loading ? "opacity-50 cursor-not-allowed" : ""
-          }`}
-        >
-          {loading ? "Booking..." : "Book Puja"}
-        </button>
-      </form>
-    </div>
+        {/* Booking Form */}
+        <div className="p-8 md:p-12 flex flex-col justify-center">
+          <h2 className="text-4xl font-extrabold text-center text-orange-700 dark:text-yellow-300 mb-8">
+            {t("pujaBooking.title")}
+          </h2>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder={t("pujaForm.name")}
+              className="w-full p-4 rounded-xl border border-gray-300 dark:border-gray-600 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-400"
+              required
+            />
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder={t("pujaForm.email")}
+              className="w-full p-4 rounded-xl border border-gray-300 dark:border-gray-600 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-400"
+              required
+            />
+            <select
+              name="service"
+              value={commonPujas.includes(formData.service) ? formData.service : "Other"}
+              onChange={handleServiceSelect}
+              className="w-full p-4 rounded-xl border border-gray-300 dark:border-gray-600 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-400"
+              required
+            >
+              <option value="">{t("pujaForm.select_puja")}</option>
+              {commonPujas.map((puja, idx) => (
+                <option key={idx} value={puja}>
+                  {puja}
+                </option>
+              ))}
+              <option value="Other">{t("pujaForm.custom_service")}</option>
+            </select>
+            {showCustomService && (
+              <input
+                type="text"
+                name="service"
+                value={formData.service}
+                onChange={handleChange}
+                placeholder={t("pujaForm.custom_service")}
+                className="w-full p-4 rounded-xl border border-gray-300 dark:border-gray-600 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-400"
+                required
+              />
+            )}
+            <select
+              name="pandit"
+              value={formData.pandit}
+              onChange={handleChange}
+              className="w-full p-4 rounded-xl border border-gray-300 dark:border-gray-600 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-400"
+              required
+            >
+              <option value="">{t("pujaForm.select_pandit")}</option>
+              {pandits.length > 0 ? (
+                pandits.map((p) => (
+                  <option key={p._id} value={p.name}>
+                    {p.name} ({p.expertise}) - {p.location}
+                  </option>
+                ))
+              ) : (
+                <option disabled>{t("pujaForm.no_pandits")}</option>
+              )}
+            </select>
+            <div className="flex gap-4">
+              <input
+                type="date"
+                name="date"
+                value={formData.date}
+                onChange={handleChange}
+                className="w-1/2 p-4 rounded-xl border border-gray-300 dark:border-gray-600 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-400"
+                required
+              />
+              <input
+                type="time"
+                name="time"
+                value={formData.time}
+                onChange={handleChange}
+                className="w-1/2 p-4 rounded-xl border border-gray-300 dark:border-gray-600 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-400"
+                required
+              />
+            </div>
+            <textarea
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+              rows={3}
+              placeholder={t("pujaForm.address")}
+              className="w-full p-4 rounded-xl border border-gray-300 dark:border-gray-600 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-400"
+              required
+            ></textarea>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full py-4 rounded-xl font-semibold text-lg bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 text-white shadow-lg transition-all"
+            >
+              {loading ? <Loader small /> : t("pujaForm.confirm_booking")}
+            </button>
+          </form>
+        </div>
+      </div>
+    </motion.div>
   );
-};
-
-export default PujaBooking;
+}

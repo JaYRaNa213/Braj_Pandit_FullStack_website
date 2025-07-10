@@ -9,7 +9,6 @@ import ProtectedRoute from "./ProtectedRoute";
 import Home from "../pages/user/home/Home.jsx";
 import Products from "../pages/user/Products";
 import Blog from "../pages/user/Blog";
-import PujaBooking from "../pages/user/PujaBooking";
 import Cart from "../pages/user/CartPage";
 import UserProfile from "../pages/user/UserProfile";
 import UserDashboard from "../pages/user/UserDashboard.jsx";
@@ -33,6 +32,7 @@ import MyBookings from "../pages/user/MyBookings";
 import BookingHistory from "../pages/user/BookingHistory";
 import OrderTracking from "../pages/user/OrderTracking";
 import BookingForm from "../pages/user/home/BookingForm"; // ✅ Correct import
+import PujaBooking from "../pages/user/PujaBooking";
 
 const UserRoutes = () => {
   return (
@@ -52,9 +52,11 @@ const UserRoutes = () => {
         {/* ✅ Protected Pages */}
         <Route element={<ProtectedRoute roles={["user", "admin"]} />}>
           <Route path="dashboard" element={<UserDashboard />} />
-          <Route path="/booking" element={<BookingForm />} /> {/* ✅ Final Booking Form Route */}
+
+          <Route path="/booking" element={<BookingForm />} />
           <Route path="/booking/my" element={<MyBookings />} />
-          <Route path="puja/booking" element={<PujaBooking />} />
+          <Route path="/puja-booking" element={<PujaBooking />} />
+
           <Route path="cart" element={<Cart />} />
           <Route path="profile" element={<UserProfile />} />
           <Route path="orders" element={<MyOrders />} />

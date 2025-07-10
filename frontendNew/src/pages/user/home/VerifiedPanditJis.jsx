@@ -63,7 +63,7 @@ const VerifiedPanditJis = () => {
 
   const handleBookPandit = (name) => {
     incrementClick(name);
-    navigate(`/booking?pandit=${encodeURIComponent(name)}&service=${encodeURIComponent("Bhagwat Katha")}`);
+    navigate(`/puja-booking?pandit=${encodeURIComponent(name)}&service=${encodeURIComponent("Bhagwat Katha")}`);
   };
 
   return (

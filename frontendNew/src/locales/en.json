@@ -333,21 +333,27 @@
   },
 
 
-  "booking": {
-    "heading": "📿 Book a Puja",
-    "name": "Your Full Name",
-    "email": "Your Email",
-    "selectService": "-- Select a Puja Service --",
-    "customService": "Enter custom puja/service",
-    "selectPandit": "-- Select Pandit --",
-    "noPandit": "No approved pandits available",
-    "date": "Date",
-    "time": "Time",
-    "address": "Full Address for the Puja",
-    "confirm": "📿 Confirm Puja Booking",
-    "descDefault": "A sacred ceremony to invoke divine blessings and remove obstacles.",
-    "descOther": "Please describe your custom puja or requirement."
-  },
+  "pujaBooking": {
+  "title": "Book a Puja",
+  "default_title": "Puja Service",
+  "default_description": "Book an auspicious puja ceremony with verified pandits.",
+  "custom_description": "Please enter your custom puja service and details.",
+  "success": "Booking successful",
+  "failure": "Failed to book puja. Please try again."
+},
+"pujaForm": {
+  "name": "Your Name",
+  "email": "Your Email",
+  "select_puja": "Select Puja Service",
+  "custom_service": "Enter Custom Service",
+  "select_pandit": "Select Pandit Ji",
+  "no_pandits": "No Pandits available at the moment",
+  "address": "Your Full Address",
+  "confirm_booking": "Confirm Booking",
+  "date": "Date",
+  "time": "Time"
+}
+,
 
 
   "booking": {
