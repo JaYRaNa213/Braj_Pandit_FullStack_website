@@ -854,7 +854,18 @@
       },
       "rights_reserved": "All rights reserved.",
       "legal_warning": "Unauthorized copying or reuse of this code or design is strictly prohibited. Legal action may be taken against violators."
-    }
+    },
+    "admin": {
+  "manage_blogs": "Manage Blogs",
+  "add_blog": "Add Blog",
+  "title": "Title",
+  "category": "Category",
+  "actions": "Actions",
+  "edit": "Edit",
+  "delete": "Delete",
+  "no_blogs": "No blogs available."
+}
+
     
   }
 

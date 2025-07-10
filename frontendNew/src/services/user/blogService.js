@@ -9,7 +9,6 @@ import axiosInstance from '../axios';
  * Fetch all blogs (optional search keyword)
  * @param {string} search - Optional search keyword
  */
-
 export const getAllBlogs = async ({
   search = "",
   category = "",
@@ -20,8 +19,9 @@ export const getAllBlogs = async ({
   const response = await axiosInstance.get("/user/blogs", {
     params: { search, category, page, limit, sortBy },
   });
-  return response.data;
+  return response.data; // Already good
 };
+
 
 /**
  * Fetch a single blog by its ID
@@ -29,5 +29,5 @@ export const getAllBlogs = async ({
  */
 export const getBlogById = async (id) => {
   const response = await axiosInstance.get(`/user/blogs/${id}`);
-  return response.data;
+  return response.data; // Already returns blog with multilingual fields
 };

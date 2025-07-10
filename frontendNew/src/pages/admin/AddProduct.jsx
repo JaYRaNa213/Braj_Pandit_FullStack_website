@@ -1,28 +1,46 @@
 // 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
-// If you theft this code, you will be punished or may face legal action by the owner.
-
-// src/pages/admin/AddProduct.jsx
 
 import React, { useState } from "react";
 import axiosInstance from "../../services/axios";
 
 function AddProduct() {
+  const [imageType, setImageType] = useState("file"); // 'file' or 'url'
   const [image, setImage] = useState(null);
+  const [imageUrl, setImageUrl] = useState("");
   const [productName, setProductName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [loading, setLoading] = useState(false);
+  const [preview, setPreview] = useState(null);
 
   const handleImageChange = (e) => {
-    setImage(e.target.files[0]);
+    const file = e.target.files[0];
+    setImage(file);
+    setImageUrl("");
+    if (file) {
+      setPreview(URL.createObjectURL(file));
+    }
+  };
+
+  const handleImageUrlChange = (e) => {
+    setImageUrl(e.target.value);
+    setImage(null);
+    setPreview(e.target.value);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!image || !productName || !price || !description || !category) {
-      alert("Please fill all fields and select an image.");
+    if (
+      !productName ||
+      !price ||
+      !description ||
+      !category ||
+      (imageType === "file" && !image) ||
+      (imageType === "url" && !imageUrl)
+    ) {
+      alert("Please fill all fields and provide an image.");
       return;
     }
 
@@ -31,7 +49,12 @@ function AddProduct() {
     formData.append("price", price);
     formData.append("description", description);
     formData.append("category", category);
-    formData.append("image", image);
+
+    if (imageType === "file") {
+      formData.append("image", image);
+    } else {
+      formData.append("imageUrl", imageUrl); // Backend must handle this
+    }
 
     setLoading(true);
     try {
@@ -44,11 +67,14 @@ function AddProduct() {
 
       if (res?.data?.success) {
         alert("✅ Product added successfully!");
+        // Reset form
         setProductName("");
         setPrice("");
         setDescription("");
         setCategory("");
         setImage(null);
+        setImageUrl("");
+        setPreview(null);
       } else {
         alert("❌ Failed to add product: " + (res?.data?.message || "Unknown error"));
       }
@@ -92,12 +118,60 @@ function AddProduct() {
           onChange={(e) => setCategory(e.target.value)}
           className="w-full border p-3 rounded"
         />
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleImageChange}
-          className="w-full border p-2 rounded"
-        />
+
+        {/* Image upload method */}
+        <div className="flex gap-6 items-center">
+          <label className="flex items-center gap-2">
+            <input
+              type="radio"
+              name="imageType"
+              value="file"
+              checked={imageType === "file"}
+              onChange={() => setImageType("file")}
+            />
+            Upload from device
+          </label>
+          <label className="flex items-center gap-2">
+            <input
+              type="radio"
+              name="imageType"
+              value="url"
+              checked={imageType === "url"}
+              onChange={() => setImageType("url")}
+            />
+            Use image URL
+          </label>
+        </div>
+
+        {/* Conditional input field */}
+        {imageType === "file" ? (
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="w-full border p-2 rounded"
+          />
+        ) : (
+          <input
+            type="text"
+            placeholder="Paste image URL"
+            value={imageUrl}
+            onChange={handleImageUrlChange}
+            className="w-full border p-2 rounded"
+          />
+        )}
+
+        {preview && (
+          <div className="mt-2">
+            <p className="text-sm text-gray-600">Image Preview:</p>
+            <img
+              src={preview}
+              alt="Preview"
+              className="w-full max-h-64 object-contain rounded shadow"
+            />
+          </div>
+        )}
+
         <button
           type="submit"
           className="w-full bg-[#4A1C1C] text-white py-3 rounded hover:bg-[#3a1515] transition"

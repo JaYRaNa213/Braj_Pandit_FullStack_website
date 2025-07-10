@@ -6,20 +6,21 @@
 import Blog from '../models/blog.model.js';
 import { uploadOnCloudinary } from '../utils/cloudinary.js';
 
-// ✅ Get all blogs (User) with search and limit
+// ✅ Get all blogs with search, category filter, and multilingual search
 export const getAllBlogs = async (req, res) => {
   try {
     const search = req.query.search || "";
     const category = req.query.category || "";
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 1000;
+    const lang = req.query.lang || "en"; // 'en' or 'hi'
 
     const query = {
-      title: { $regex: search, $options: "i" },
+      [`title.${lang}`]: { $regex: search, $options: "i" },
     };
 
     if (category) {
-      query.category = category;
+      query[`category.${lang}`] = category;
     }
 
     const skip = (page - 1) * limit;
@@ -43,8 +44,6 @@ export const getAllBlogs = async (req, res) => {
   }
 };
 
-
-
 // ✅ Get a single blog by ID
 export const getBlogById = async (req, res) => {
   try {
@@ -57,36 +56,36 @@ export const getBlogById = async (req, res) => {
   }
 };
 
-// ✅ Add a new blog (Admin only)
-// ✅ Add a new blog (Admin only)
+// ✅ Add a new blog with multilingual support
 export const addBlog = async (req, res) => {
   try {
-    const { title, content, category = "Puja", author } = req.body;
+    const { title, content, author, category } = req.body;
 
-    // Check for required fields
     if (!title || !content || !author || !req.file) {
-      return res.status(400).json({
-        success: false,
-        message: 'All fields are required',
-      });
+      return res.status(400).json({ success: false, message: 'All fields are required' });
     }
 
-    // ✅ Upload to Cloudinary
     const uploadResult = await uploadOnCloudinary(req.file.path);
-    if (!uploadResult || !uploadResult.secure_url) {
-      return res.status(400).json({
-        success: false,
-        message: 'Image upload failed',
-      });
+    if (!uploadResult?.secure_url) {
+      return res.status(400).json({ success: false, message: 'Image upload failed' });
     }
 
-    // ✅ Create blog with Cloudinary image URL
-    const blog = await Blog.create({ 
-      title,
-      content, 
-      author, 
-      category,
-      imageUrl: uploadResult.secure_url, // ✅ Correct image URL
+    const blog = await Blog.create({
+      title: {
+        en: title.en,
+        hi: title.hi || '',
+      },
+      content: {
+        en: content.en,
+        hi: content.hi || '',
+      },
+      author,
+      category: {
+        en: category.en,
+        hi: category.hi || '',
+      },
+      imageUrl: uploadResult.secure_url,
+      createdBy: req.user?.id || null,
     });
 
     res.status(201).json({
@@ -99,37 +98,63 @@ export const addBlog = async (req, res) => {
   }
 };
 
-
+// ✅ Update blog with multilingual fields
 export const updateBlog = async (req, res) => {
   try {
     let updatedData = {
-      ...req.body,
-      updatedBy: req.user.id,
+      updatedBy: req.user?.id || "admin",
     };
+
+    const { title, content, category, author } = req.body;
+
+    if (title) {
+      updatedData.title = {
+        en: title.en,
+        hi: title.hi || '',
+      };
+    }
+
+    if (content) {
+      updatedData.content = {
+        en: content.en,
+        hi: content.hi || '',
+      };
+    }
+
+    if (category) {
+      updatedData.category = {
+        en: category.en,
+        hi: category.hi || '',
+      };
+    }
+
+    if (author) updatedData.author = author;
 
     if (req.file) {
       const cloudinaryResponse = await uploadOnCloudinary(req.file.path);
       updatedData.imageUrl = cloudinaryResponse?.secure_url;
     }
 
-    const blog = await Blog.findByIdAndUpdate(
-      req.params.id,
-      updatedData,
-      { new: true, runValidators: true }
-    );
+    const blog = await Blog.findByIdAndUpdate(req.params.id, updatedData, {
+      new: true,
+      runValidators: true,
+    });
 
     if (!blog) {
       return res.status(404).json({ success: false, message: 'Blog not found' });
     }
 
-    res.status(200).json({ success: true, message: 'Blog updated successfully', data: blog });
+    res.status(200).json({
+      success: true,
+      message: 'Blog updated successfully',
+      data: blog,
+    });
   } catch (error) {
     res.status(400).json({ success: false, message: 'Error updating blog', error: error.message });
   }
 };
 
-
-// ✅ Delete a blog
+// ✅ Delete blog
 export const deleteBlog = async (req, res) => {
   try {
     const blog = await Blog.findByIdAndDelete(req.params.id);

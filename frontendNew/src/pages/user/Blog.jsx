@@ -1,12 +1,10 @@
-// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
-
 import React, { useEffect, useState } from "react";
 import { getAllBlogs } from "../../services/user/blogService";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 const Blog = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [blogs, setBlogs] = useState([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
@@ -14,7 +12,7 @@ const Blog = () => {
   const fetchBlogs = async () => {
     setLoading(true);
     try {
-      const res = await getAllBlogs({ search });
+      const res = await getAllBlogs({ search, lang: i18n.language });
       setBlogs(res?.data || []);
     } catch (err) {
       console.error("Error fetching blogs", err);
@@ -26,7 +24,14 @@ const Blog = () => {
 
   useEffect(() => {
     fetchBlogs();
-  }, [search]);
+  }, [search, i18n.language]);
+
+  // ✅ Helper to safely get localized strings
+  const getLocalized = (field) => {
+    if (!field) return "";
+    if (typeof field === "string") return field;
+    return field[i18n.language] || field.en || "";
+  };
 
   return (
     <div className="px-4 sm:px-6 lg:px-8 py-6 dark:bg-gray-950 dark:text-white min-h-screen transition-colors duration-300">
@@ -57,7 +62,7 @@ const Blog = () => {
               <div className="relative w-full pb-[56.25%] overflow-hidden rounded-t-xl">
                 <img
                   src={blog.imageUrl}
-                  alt={blog.title}
+                  alt={getLocalized(blog.title)}
                   onError={(e) => {
                     e.target.onerror = null;
                     e.target.src =
@@ -69,10 +74,10 @@ const Blog = () => {
 
               <div className="p-4 flex flex-col gap-1 flex-1">
                 <h3 className="font-bold text-lg text-red-700 dark:text-yellow-400 line-clamp-1">
-                  {blog.title}
+                  {getLocalized(blog.title)}
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
-                  {blog.category || t("blogs_page.general")}
+                  {getLocalized(blog.category) || t("blogs_page.general")}
                 </p>
               </div>
             </Link>

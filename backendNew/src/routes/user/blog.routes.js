@@ -1,17 +1,28 @@
-// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
-// If you theft this code, you will be punished or may face legal action by the owner.
-
-// File: backendNew/src/routes/user/blog.routes.js
-
 import express from 'express';
-import { getAllBlogs, getBlogById } from '../../controllers/blog.controller.js';
+import upload from '../../middleware/multer.middleware.js';
+import {
+  addBlog,
+  getAllBlogs,
+  getBlogById,
+  updateBlog,
+  deleteBlog,
+} from '../../controllers/blog.controller.js';
 
 const router = express.Router();
 
-// Public: Get all blogs
+// POST: Create blog
+router.post('/', upload.single('image'), addBlog);
+
+// GET: All blogs
 router.get('/', getAllBlogs);
 
-// Public: Get a blog by ID
+// GET: Blog by ID
 router.get('/:id', getBlogById);
+
+// PUT: Update blog
+router.put('/:id', upload.single('image'), updateBlog);
+
+// DELETE: Delete blog
+router.delete('/:id', deleteBlog);
 
 export default router;
