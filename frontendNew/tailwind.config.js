@@ -13,6 +13,9 @@ export default {
       boxShadow: {
       glow: "0 0 8px 2px rgba(255,255,255,0.6)",
     },
+    fontFamily:{
+      playfair: ['"Playfair Display"', 'serif'],
+    },
       colors: {
         primary: '#6B21A8',       // Purple
         secondary: '#10B981',     // Emerald

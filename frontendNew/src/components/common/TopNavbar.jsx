@@ -9,22 +9,31 @@ import { MdClose } from "react-icons/md";
 const TopNavbar = () => {
   const { t, i18n } = useTranslation();
   const [visible, setVisible] = useState(true);
+  const [animateClose, setAnimateClose] = useState(false);
 
   const toggleLanguage = () => {
     const newLang = i18n.language === "en" ? "hi" : "en";
     i18n.changeLanguage(newLang);
   };
 
+  const handleClose = () => {
+    setAnimateClose(true);
+    setTimeout(() => setVisible(false), 400);
+  };
+
   if (!visible) return null;
 
   return (
     <div
-      className="w-full px-4 pt-6 pb-3 pr-10 relative flex flex-col sm:flex-row items-center justify-between gap-4
-      bg-[#7b1414] text-white dark:bg-[#1a1a1a] dark:text-white transition-all duration-300 shadow-md z-50"
+      className={`sticky top-0 w-full px-4 pt-6 pb-3 pr-10 z-50 shadow-md transition-all duration-300
+      ${animateClose ? "opacity-0 scale-95 translate-y-[-10px]" : "opacity-100 scale-100"}
+      flex flex-col sm:flex-row items-center justify-between gap-4
+      bg-gradient-to-r from-[#7b1414] to-[#5d1010] text-white dark:from-[#1a1a1a] dark:to-[#111]
+      dark:text-white font-playfair`}
     >
       {/* ❌ Dismiss Button */}
       <button
-        onClick={() => setVisible(false)}
+        onClick={handleClose}
         className="absolute top-1 right-2 sm:top-2 text-white dark:text-white hover:text-yellow-300 text-xl transition"
         aria-label="Close"
       >
@@ -34,7 +43,7 @@ const TopNavbar = () => {
       {/* 🌐 Left: Social + Contact */}
       <div className="flex items-center gap-4 text-lg justify-center sm:justify-start">
         <a
-          href="https://www.instagram.com/vedagyanam_official?igsh=ODkyNHhmczZiYnhh"
+          href="https://www.instagram.com/vedagyanam_official"
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-yellow-300 dark:hover:text-yellow-400 transition"
@@ -42,7 +51,7 @@ const TopNavbar = () => {
           <FaInstagram />
         </a>
         <a
-          href="https://youtube.com/@vedagyanam?si=587Ev8d_yQzUOVE4"
+          href="https://youtube.com/@vedagyanam"
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-yellow-300 dark:hover:text-yellow-400 transition"
@@ -57,7 +66,10 @@ const TopNavbar = () => {
         >
           <FaFacebookF />
         </a>
-        <Link to="/contact" className="text-xs hover:underline font-medium tracking-wide">
+        <Link
+          to="/contact"
+          className="text-xs hover:underline font-medium tracking-wide"
+        >
           {t("topbar.contact") || "Contact"}
         </Link>
       </div>
