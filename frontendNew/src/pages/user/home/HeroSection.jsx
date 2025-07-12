@@ -48,7 +48,7 @@ const HeroSection = ({ onBookPanditClick, onSeeServicesClick }) => {
               onClick={onBookPanditClick}
               className="bg-yellow-500 hover:bg-yellow-600 text-black px-6 py-3 rounded-full font-medium text-base transition duration-300"
             >
-              {t("hero.travel_food_stay")}
+              {t("hero.all_E_pujas")}
             </button>
           </div>
         </div>
