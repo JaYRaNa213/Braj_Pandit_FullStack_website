@@ -1,289 +1,258 @@
-// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+// 🔐 Code redesigned by Jay Rana & ChatGPT © 2025. Razorpay-style Puja Booking Form
 
-import React, { useContext, useEffect, useState } from "react";
-import axiosInstance from "../../../services/axios";
-import { toast } from "react-toastify";
-import { motion } from "framer-motion";
-import { AuthContext } from "../../../context/AuthContext";
-import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
+import React, { useState } from "react";
 
 const BookingForm = () => {
-  const { user } = useContext(AuthContext);
-  const { t } = useTranslation();
-  const location = useLocation();
-
-  const [selectedService, setSelectedService] = useState("");
-  const [customService, setCustomService] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
-
-  const [formValues, setFormValues] = useState({
-    name: "",
-    email: "",
-    phone: "",
-  });
-
-  // ✅ Get service from query param
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const serviceFromURL = params.get("service");
-    if (serviceFromURL) setSelectedService(serviceFromURL);
-  }, [location.search]);
-
-  // ✅ Autofill form if user logged in
-  useEffect(() => {
-    if (user) {
-      setFormValues({
-        name: user.name || "",
-        email: user.email || "",
-        phone: user.phone || "",
-      });
-    }
-  }, [user]);
-
-  const handleServiceChange = (e) => {
-    const value = e.target.value;
-    setSelectedService(value);
-    if (value !== "Other") setCustomService("");
-  };
+  const [formValues, setFormValues] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    setShowSuccess(false);
-
-    const formData = {
-      ...formValues,
-      service: selectedService === "Other" ? customService : selectedService,
-      message: e.target.message.value,
-    };
-
-    try {
-      await axiosInstance.post("/user/callBookings", formData);
-      toast.success(t("booking.success"));
-      setFormValues({ name: "", email: "", phone: "" });
-      e.target.reset();
-      setSelectedService("");
-      setCustomService("");
-      setShowSuccess(true);
-    } catch (error) {
-      toast.error(t("booking.error"));
-    } finally {
-      setLoading(false);
-    }
+    alert("Form submitted! (Implement logic)");
   };
 
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      className="w-full max-w-6xl mx-auto mt-16 mb-24 flex flex-col md:flex-row overflow-hidden rounded-3xl shadow-2xl border-2 border-yellow-300 dark:border-orange-400"
-    >
-      {/* Left Info Section */}
-      <div
-        className="md:w-1/2 p-8 text-white flex flex-col justify-between"
-        style={{ backgroundColor: "#4A1C1C" }}
-      >
-        <div>
-          <h2 className="text-3xl font-bold mb-4 leading-snug">
-            ✨ {t("booking.title")}
+    <section className="bg-gray-100 dark:bg-gray-900 py-10 px-4">
+      <div className="max-w-7xl mx-auto bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-xl grid grid-cols-1 md:grid-cols-2">
+        {/* LEFT SIDE */}
+        <div className="p-6 sm:p-10 space-y-4 border-r border-gray-200 dark:border-gray-700">
+          <img
+            src="https://s3.ap-south-1.amazonaws.com/rzp-prod-merchant-assets/payment-link/description/qajracehodehzq.jpeg"
+            alt="Puja"
+            className="rounded-xl object-cover w-full aspect-video"
+          />
+
+          <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
+            Rudrabhishek Group Puja Online
           </h2>
-          <p className="text-white/90 text-sm mb-3 leading-relaxed">
-            {t("booking.description")}
+
+          <p className="text-sm text-gray-600 dark:text-gray-300">
+            Participate in a spiritually enriching{" "}
+            <strong>Rudrabhishek Puja</strong> conducted online by certified
+            Pandits through brajpandit. This group puja is performed to invoke
+            Lord Shiva's blessings for health, prosperity, and spiritual growth.
           </p>
-          <ul className="mt-4 text-sm list-disc list-inside text-white/80 space-y-1">
-            <li>{t("booking.service1")}</li>
-            <li>{t("booking.service2")}</li>
-            <li>{t("booking.service3")}</li>
-            <li>{t("booking.service4")}</li>
-            <li>{t("booking.service5")}</li>
+
+          <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+            <li>
+              <strong>Mode:</strong> Online (Live via Zoom/Google Meet)
+            </li>
+            <li>
+              <strong>Benefits:</strong> Peace, protection, prosperity, and
+              spiritual cleansing.
+            </li>
           </ul>
-          <p className="mt-4 italic text-yellow-100 text-xs">
-            {t("booking.note")}
+
+          <p className="text-sm text-gray-600 dark:text-gray-300">
+            Please proceed with the payment to confirm your participation in the
+            Rudrabhishek Group Puja.
           </p>
-        </div>
 
-        <div className="mt-8 flex gap-4">
           <a
-            href="tel:+918888888888"
-            className="bg-white text-[#4A1C1C] font-semibold px-4 py-2 rounded-lg shadow hover:bg-red-100 transition text-sm"
+            href="https://brajpandit/rudrabhishek-puja-samagri"
+            className="text-blue-600 hover:underline text-sm"
           >
-            📞 {t("booking.call")}
+            For the list of Puja Samagri, please visit our website
           </a>
-          <a
-            href="https://wa.me/+916395857663?text=Namaste!%20I%20need%20help%20regarding%20travel%20services."
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-green-500 text-white font-semibold px-4 py-2 rounded-lg shadow hover:bg-green-600 transition text-sm"
-          >
-            💬 {t("booking.whatsapp")}
-          </a>
-        </div>
-      </div>
 
-      {/* Right Form Section */}
-      <form
-        className="md:w-1/2 p-8 bg-white dark:bg-gray-900 border-l border-gray-200 dark:border-gray-700"
-        onSubmit={handleSubmit}
-      >
-        <h2 className="text-2xl font-bold text-[#8B0000] dark:text-yellow-300 mb-6 text-center">
-          {t("booking.form_title")}
-        </h2>
-
-        {/* Name */}
-        <div className="mb-4">
-          <label className="block text-sm font-semibold text-red-700 mb-1">
-            {t("booking.name")}
-          </label>
-          <input
-            type="text"
-            name="name"
-            required
-            value={formValues.name}
-            onChange={handleChange}
-            placeholder={t("booking.name_placeholder")}
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-400"
-          />
+          <div className="text-sm mt-4 space-y-2 text-gray-600 dark:text-gray-300">
+            <p>
+              <strong>Contact Us:</strong>
+            </p>
+            <p>📧 brajpandit123@gmail.com</p>
+            <p>📞 8595009640</p>
+            <p>
+              <strong>Terms & Conditions:</strong>
+              <br />
+              <a
+                href="https://brajpandit/terms-and-conditions/"
+                className="text-blue-600 hover:underline"
+              >
+                https://brajpandit/terms-and-conditions/
+              </a>
+            </p>
+            <p>
+              You agree to share information entered on this page with
+              brajPandit (owner of this page) and Razorpay, adhering to
+              applicable laws.
+            </p>
+          </div>
         </div>
 
-        {/* Email */}
-        <div className="mb-4">
-          <label className="block text-sm font-semibold text-red-700 mb-1">
-            {t("booking.email")}
-          </label>
-          <input
-            type="email"
-            name="email"
-            required
-            value={formValues.email}
-            onChange={handleChange}
-            placeholder={t("booking.email_placeholder")}
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-400"
-          />
-        </div>
+        {/* RIGHT SIDE FORM */}
+        <form onSubmit={handleSubmit} className="p-6 sm:p-10 space-y-5">
+          <div className="flex justify-between items-center mb-4">
+            <img
+              src="https://res.cloudinary.com/djtq2eywl/image/upload/v1751620820/logo_yre5xd.png"
+              alt="Logo"
+              className="h-40"
+            />
+            <h2 className="text-xl font-bold text-gray-800 dark:text-yellow-300">
+              Payment Details
+            </h2>
+          </div>
 
-        {/* Phone */}
-        <div className="mb-4">
-          <label className="block text-sm font-semibold text-red-700 mb-1">
-            {t("booking.phone")}
-          </label>
-          <input
-            type="tel"
-            name="phone"
-            required
-            value={formValues.phone}
-            onChange={handleChange}
-            placeholder={t("booking.phone_placeholder")}
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-400"
-          />
-        </div>
+          <div className="grid grid-cols-1 gap-4 text-sm">
+  {/* Amount - Fixed, No Checkbox */}
+  <label className="font-medium">Amount (₹201.00)</label>
+  <input
+    name="amount"
+    value="₹201.00"
+    readOnly
+    className="input bg-gray-100 cursor-not-allowed"
+  />
 
-        {/* Service Dropdown */}
-        <div className="mb-4">
-          <label className="block text-sm font-semibold text-red-700 mb-1">
-            {t("booking.service_type")}
-          </label>
-          <select
-            name="service"
-            required
-            value={selectedService}
-            onChange={handleServiceChange}
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-400"
-          >
-            <option value="">{t("booking.option_default")}</option>
-            <option value="Room/Hotel Booking Help">{t("booking.opt1")}</option>
-            <option value="VIP Darshan">{t("booking.opt2")}</option>
-            <option value="Need a Vehicle">{t("booking.opt3")}</option>
-            <option value="Vrindavan Tour Guide">{t("booking.opt4")}</option>
-            <option value="Food Seva">{t("booking.opt5")}</option>
-            <option value="Hotel Seva">{t("booking.opt6")}</option>
-            <option value="Grah Shanti">Grah Shanti</option>
-            <option value="Other">{t("booking.opt_other")}</option>
-          </select>
-        </div>
+  {/* Kit 43 Items */}
+  <label className="font-medium">Rudrabhishek Kit 43 Items (₹799.00)</label>
+  <div className="flex items-center justify-between border rounded px-3 py-2">
+    <input
+      name="kit43"
+      placeholder="₹799.00"
+      className="flex-1 outline-none"
+      readOnly
+    />
+    <input
+      type="checkbox"
+      name="kit43Selected"
+      onChange={handleChange}
+      className="ml-2"
+    />
+  </div>
 
-        {/* Custom Service */}
-        {selectedService === "Other" && (
-          <div className="mb-4">
-            <label className="block text-sm font-semibold text-red-700 mb-1">
-              {t("booking.custom_service")}
-            </label>
+  {/* Kit 32 Items */}
+  <label className="font-medium">Rudrabhishek Kit 32 Items (₹599.00)</label>
+  <div className="flex items-center justify-between border rounded px-3 py-2">
+    <input
+      name="kit32"
+      placeholder="₹599.00"
+      className="flex-1 outline-none"
+      readOnly
+    />
+    <input
+      type="checkbox"
+      name="kit32Selected"
+      onChange={handleChange}
+      className="ml-2"
+    />
+  </div>
+
+  {/* Gotra Input */}
+  <label className="font-medium">Gotra</label>
+  <input
+    name="gotraName"
+    placeholder="Name and Gotra"
+    onChange={handleChange}
+    className="input"
+  />
+
+  {/* Bilva Patra */}
+  <label className="font-medium">Bilva Patra</label>
+  <div className="flex items-center justify-between border rounded px-3 py-2">
+    <input
+      name="bilva"
+      placeholder="₹51.00"
+      className="flex-1 outline-none"
+      readOnly
+    />
+    <input
+      type="checkbox"
+      name="bilvaSelected"
+      onChange={handleChange}
+      className="ml-2"
+    />
+  </div>
+
+  {/* Narmadeshwar Shivling */}
+  <label className="font-medium">Narmadeshwar Shivling</label>
+  <div className="flex items-center justify-between border rounded px-3 py-2">
+    <input
+      name="shivling"
+      placeholder="₹501.00"
+      className="flex-1 outline-none"
+      readOnly
+    />
+    <input
+      type="checkbox"
+      name="shivlingSelected"
+      onChange={handleChange}
+      className="ml-2"
+    />
+  </div>
+
+
+            <select name="pujaDate" onChange={handleChange} className="input">
+              <option value="">-- Select Puja Date --</option>
+              <option value="2025-07-15">15 July 2025</option>
+              <option value="2025-07-20">20 July 2025</option>
+            </select>
+
             <input
-              type="text"
-              name="customService"
-              required
-              value={customService}
-              onChange={(e) => setCustomService(e.target.value)}
-              placeholder={t("booking.custom_service_placeholder")}
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-400"
+              name="phone"
+              placeholder="Phone"
+              onChange={handleChange}
+              className="input"
+            />
+            <input
+              name="whatsapp"
+              placeholder="WhatsApp Number"
+              onChange={handleChange}
+              className="input"
+            />
+            <input
+              name="email"
+              placeholder="Email"
+              onChange={handleChange}
+              className="input"
+            />
+            <input
+              name="name"
+              placeholder="Name"
+              onChange={handleChange}
+              className="input"
+            />
+            <input
+              name="address"
+              placeholder="Address"
+              onChange={handleChange}
+              className="input"
+            />
+            <input
+              name="city"
+              placeholder="City"
+              onChange={handleChange}
+              className="input"
+            />
+            <input
+              name="state"
+              placeholder="State"
+              onChange={handleChange}
+              className="input"
+            />
+            <input
+              name="pincode"
+              placeholder="Pincode"
+              onChange={handleChange}
+              className="input"
             />
           </div>
-        )}
 
-        {/* Message */}
-        <div className="mb-4">
-          <label className="block text-sm font-semibold text-red-700 mb-1">
-            {t("booking.message")}
-          </label>
-          <textarea
-            name="message"
-            rows="4"
-            placeholder={t("booking.message_placeholder")}
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-400"
-          ></textarea>
-        </div>
-
-        {/* Submit Button */}
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full py-3 bg-[#8B0000] text-white rounded-lg font-semibold hover:bg-red-800 transition-all duration-300 flex items-center justify-center text-lg tracking-wide shadow-lg hover:scale-105"
-        >
-          {loading ? (
-            <svg
-              className="animate-spin h-5 w-5 mr-2 text-white"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              ></circle>
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-              ></path>
-            </svg>
-          ) : null}
-          {loading ? t("booking.submitting") : t("booking.submit")}
-        </button>
-
-        {/* Success Message */}
-        {showSuccess && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="mt-4 text-green-600 font-semibold text-center"
+          <button
+            type="submit"
+            className="w-full bg-red-600 text-white font-semibold text-lg py-3 rounded-lg hover:bg-red-700 shadow-lg mt-4"
           >
-            ✅ {t("booking.success")}
-          </motion.div>
-        )}
-      </form>
-    </motion.section>
+            Pay ₹201.00
+          </button>
+        </form>
+      </div>
+    </section>
   );
 };
 
 export default BookingForm;
+
+// Tailwind utility: .input {
+//   @apply w-full px-4 py-2 border rounded-md border-gray-300 focus:ring-2 focus:ring-orange-500 focus:outline-none
