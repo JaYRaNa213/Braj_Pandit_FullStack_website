@@ -17,7 +17,6 @@ const TopNavbar = () => {
 
   return (
     <div className="bg-[#7b1414] text-white text-sm w-full px-4 py-3 relative flex flex-wrap items-center justify-between gap-y-3 z-50">
-      
       {/* ❌ Dismiss Button */}
       <button
         onClick={() => setVisible(false)}
@@ -28,13 +27,28 @@ const TopNavbar = () => {
 
       {/* 🌐 Left: Social + Contact */}
       <div className="hidden sm:flex items-center gap-4 text-lg">
-        <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-300">
+        <a
+          href="https://www.instagram.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-yellow-300"
+        >
           <FaInstagram />
         </a>
-        <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-300">
+        <a
+          href="https://www.youtube.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-yellow-300"
+        >
           <FaYoutube />
         </a>
-        <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-300">
+        <a
+          href="https://www.facebook.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-yellow-300"
+        >
           <FaFacebookF />
         </a>
         <Link to="/contact" className="text-xs hover:underline ml-2">
@@ -45,11 +59,12 @@ const TopNavbar = () => {
       {/* 🎯 Center: Offer + Book Now */}
       <div className="flex flex-wrap items-center justify-center gap-2 text-center">
         <div className="flex flex-wrap justify-center items-center gap-2 text-xs sm:text-sm">
-          <span className="px-3 py-1  font-medium whitespace-nowrap">
+          <span className="px-3 py-1  font-highlighted text-yellow-300 font-semibold whitespace-nowrap ">
             {t("topbar.authentic_pandit") || "Authentic Braj Pandit"}
           </span>
           <span className="px-4 py-1 rounded-full border border-white font-semibold whitespace-nowrap bg-white text-[#7b1414]">
-            {t("topbar.rudrabhishek_offer") || "🛕 Rudrabhishek Group Puja (E-puja - 201/-)"}
+            {t("topbar.rudrabhishek_offer") ||
+              " Rudrabhishek Group Puja (E-puja - 201/-)"}
           </span>
         </div>
         <Link
@@ -74,7 +89,6 @@ const TopNavbar = () => {
         <Link to="/about" className="hover:underline">
           {t("topbar.about") || "About Us"}
         </Link>
-        
       </div>
     </div>
   );

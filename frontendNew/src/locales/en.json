@@ -723,8 +723,10 @@
     "success": "✅ Application submitted! We'll get back to you soon.",
     "error": "❌ Submission failed. Please try again.",
     "upload_error": "❌ Please upload a profile image.",
-    "load_error": "⚠️ Could not load approved pandits.",
-    "approved_heading": "Our Approved Pandits"
+    "load_error": "❌ Failed to load pandits.",
+    "approved_heading": "Verified Pandits",
+    "view_all": "View All Verified Pandits",
+    "view_less": "View Less"
   },
 
 
