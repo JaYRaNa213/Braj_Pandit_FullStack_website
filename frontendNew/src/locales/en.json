@@ -17,15 +17,19 @@
   },
 
 
+  
+  
   "topbar": {
-  "announcement": "🌟 Free shipping on all puja items!",
-  "about": "About",
-  "contact": "Contact",
-  "special_offer": "Book Grah Shanti Puja at only ₹201!",
-  "book_now": "Book Now"
-}
-,
+    "authentic_pandit": "Authentic Braj Pandit",
+    "rudrabhishek_offer": "🛕 Rudrabhishek Group Puja (E-puja - 201/-)",
+    "book_now": "Book Now",
+    "be_a_pandit": "Be a Pandit",
+    "about": "About Us",
+    "contact": "Contact"
+  }
 
+
+,
 
 
 
