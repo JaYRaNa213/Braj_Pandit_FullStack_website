@@ -28,7 +28,7 @@ const TopNavbar = () => {
       {/* 🌐 Left: Social + Contact */}
       <div className="hidden sm:flex items-center gap-4 text-lg">
         <a
-          href="https://www.instagram.com"
+          href="https://www.instagram.com/vedagyanam_official?igsh=ODkyNHhmczZiYnhh"
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-yellow-300"
@@ -36,7 +36,7 @@ const TopNavbar = () => {
           <FaInstagram />
         </a>
         <a
-          href="https://www.youtube.com"
+          href="https://youtube.com/@vedagyanam?si=587Ev8d_yQzUOVE4"
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-yellow-300"
