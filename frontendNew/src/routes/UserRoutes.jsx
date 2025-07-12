@@ -33,6 +33,7 @@ import BookingHistory from "../pages/user/BookingHistory";
 import OrderTracking from "../pages/user/OrderTracking";
 import BookingForm from "../pages/user/home/BookingForm"; // ✅ Correct import
 import PujaBooking from "../pages/user/PujaBooking";
+import BePanditForm from "../pages/user/BePanditForm.jsx";
 
 const UserRoutes = () => {
   return (
@@ -70,6 +71,9 @@ const UserRoutes = () => {
           <Route path="booking/history" element={<BookingHistory />} />
           <Route path="orders/:id/tracking" element={<OrderTracking />} />
           <Route path="/all-puja-services" element={<AllPujaServices />} />
+
+         <Route path="/be-a-pandit" element={<BePanditForm />} />
+
         </Route>
 
         {/* ✅ Fallback */}

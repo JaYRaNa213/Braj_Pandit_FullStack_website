@@ -100,6 +100,7 @@
 │   │       ├── AllLiveBhajans.jsx
 │   │       ├── AllPandits.jsx
 │   │       ├── AllPujaServices.jsx
+│   │       ├── BePanditForm.jsx
 │   │       ├── Blog.jsx
 │   │       ├── BlogDetails.jsx
 │   │       ├── BookingHistory.jsx

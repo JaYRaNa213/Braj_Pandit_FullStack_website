@@ -12,3 +12,5 @@ export const getAllPandits = async () => {
 export const getPanditById = async (id) => {
   return await axiosInstance.get(`/user/pandits/${id}`);
 };
+
+export const applyAsPandit = (data) => axiosInstance.post("/pandit/apply", data);

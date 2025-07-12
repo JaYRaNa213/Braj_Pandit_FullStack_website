@@ -711,6 +711,19 @@
       "bookThisPandit": "Book This Pandit"
     },
 
+    "BePanditForm": {
+    "heading": "Be a Pandit",
+    "name": "Full Name",
+    "expertise": "Expertise (e.g., Vedic Astrology)",
+    "experience": "Experience (e.g., 10+ years)",
+    "location": "Location",
+    "email": "Email Address",
+    "upload_image": "Upload Profile Image",
+    "submit": "Submit",
+    "success": "✅ Application submitted! We'll get back to you soon.",
+    "error": "❌ Submission failed. Please try again."
+  },
+
 
 
 

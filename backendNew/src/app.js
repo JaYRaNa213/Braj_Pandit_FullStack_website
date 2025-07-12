@@ -61,6 +61,7 @@ import liveRoutes from "./routes/user/live.routes.js";
 import adminLiveRoutes from "./routes/admin/live.routes.js";
 
 import userBookingRoutes from './routes/user/booking.routes.js';
+import panditRoutes from "./routes/user/pandit.routes.js";
 
 
 // ✅ App Initialization
@@ -114,6 +115,7 @@ app.use('/api/admin/orders', verifyToken, adminOrderRoutes);
 app.use('/api/admin/pandits', verifyToken, adminPanditRoutes);
 app.use('/api/admin/dashboard', verifyToken, adminDashboardRoutes);
 app.use('/api/admin', verifyToken, adminRoutes); // Catch-all admin
+app.use("/api/pandit", panditRoutes);  // 👈 Must be this
 
 // ✅ Debug Middleware (after all for visibility)
 app.use((req, res, next) => {

@@ -21,6 +21,19 @@ export const getAdminAllPandits = asyncHandler(async (req, res) => {
   });
 });
 
+// ✅ Controller function
+export const applyPandit = async (req, res) => {
+  try {
+    const newPandit = new Pandit({ ...req.body, approved: false });
+
+    await newPandit.save();
+    res.status(201).json({ message: "Application submitted, pending approval." });
+  } catch (err) {
+    res.status(500).json({ error: "Error applying as pandit." });
+  }
+};
+
+
 
 
 
