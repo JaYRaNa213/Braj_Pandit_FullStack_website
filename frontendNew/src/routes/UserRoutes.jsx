@@ -35,6 +35,8 @@ import BookingForm from "../pages/user/home/BookingForm"; // ✅ Correct import
 import PujaBooking from "../pages/user/PujaBooking";
 import BePanditForm from "../pages/user/BePanditForm.jsx";
 
+import AllEPujas from "../pages/user/AllEPujas.jsx";
+
 const UserRoutes = () => {
   return (
     <Routes>
@@ -73,6 +75,8 @@ const UserRoutes = () => {
           <Route path="/all-puja-services" element={<AllPujaServices />} />
 
          <Route path="/be-a-pandit" element={<BePanditForm />} />
+         <Route path="/all-e-pujas" element={<AllEPujas />} />
+
 
         </Route>
 

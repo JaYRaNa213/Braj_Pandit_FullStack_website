@@ -271,6 +271,28 @@
 }
 ,
 
+
+"AllEPujas": {
+    "all_e_pujas": "सभी ई-पूजाएं",
+    "book_button": "बुक करें",
+    "categories": {
+      "Daily Puja": "दैनिक पूजा",
+      "Festive Puja": "त्योहार पूजा",
+      "Special Puja": "विशेष पूजा"
+    },
+    "titles": {
+      "Rudrabhishek": "रुद्राभिषेक",
+      "Satyanarayan Katha": "सत्यनारायण कथा",
+      "Navgraha Shanti": "नवग्रह शांति"
+    },
+    "descriptions": {
+      "Rudrabhishek": "स्वास्थ्य, शांति और समृद्धि के लिए भगवान शिव को समर्पित एक पवित्र पूजा।",
+      "Satyanarayan Katha": "सफलता और समरसता के लिए की जाने वाली एक भक्तिपूर्ण कथा।",
+      "Navgraha Shanti": "ग्रह दोषों के नकारात्मक प्रभाव को कम करने के लिए की जाती है।"
+    }
+  },
+
+
 "pujaServices": {
     "all_puja_services": "सभी पूजा सेवाएँ",
     "book_button": "पूजा बुक करें",

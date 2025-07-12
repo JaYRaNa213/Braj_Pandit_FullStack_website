@@ -56,3 +56,7 @@ body {
 .animate-marquee:hover {
   animation-play-state: paused;
 }
+
+body {
+  font-family: 'Playfair Display', serif;
+}

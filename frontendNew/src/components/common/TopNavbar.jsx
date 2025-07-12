@@ -1,3 +1,5 @@
+// 🔐 Redesigned by ChatGPT © 2025 - Jay Rana's Devotional Platform
+
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
@@ -16,22 +18,26 @@ const TopNavbar = () => {
   if (!visible) return null;
 
   return (
-    <div className="bg-[#7b1414] text-white text-sm w-full px-4 py-3 relative flex flex-wrap items-center justify-between gap-y-3 z-50">
+    <div
+      className="w-full px-4 pt-6 pb-3 pr-10 relative flex flex-col sm:flex-row items-center justify-between gap-4
+      bg-[#7b1414] text-white dark:bg-[#1a1a1a] dark:text-white transition-all duration-300 shadow-md z-50"
+    >
       {/* ❌ Dismiss Button */}
       <button
         onClick={() => setVisible(false)}
-        className="absolute top-2 right-2 text-white hover:text-yellow-300 text-xl"
+        className="absolute top-1 right-2 sm:top-2 text-white dark:text-white hover:text-yellow-300 text-xl transition"
+        aria-label="Close"
       >
         <MdClose />
       </button>
 
       {/* 🌐 Left: Social + Contact */}
-      <div className="hidden sm:flex items-center gap-4 text-lg">
+      <div className="flex items-center gap-4 text-lg justify-center sm:justify-start">
         <a
           href="https://www.instagram.com/vedagyanam_official?igsh=ODkyNHhmczZiYnhh"
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:text-yellow-300"
+          className="hover:text-yellow-300 dark:hover:text-yellow-400 transition"
         >
           <FaInstagram />
         </a>
@@ -39,7 +45,7 @@ const TopNavbar = () => {
           href="https://youtube.com/@vedagyanam?si=587Ev8d_yQzUOVE4"
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:text-yellow-300"
+          className="hover:text-yellow-300 dark:hover:text-yellow-400 transition"
         >
           <FaYoutube />
         </a>
@@ -47,48 +53,50 @@ const TopNavbar = () => {
           href="https://www.facebook.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:text-yellow-300"
+          className="hover:text-yellow-300 dark:hover:text-yellow-400 transition"
         >
           <FaFacebookF />
         </a>
-        <Link to="/contact" className="text-xs hover:underline ml-2">
+        <Link to="/contact" className="text-xs hover:underline font-medium tracking-wide">
           {t("topbar.contact") || "Contact"}
         </Link>
       </div>
 
       {/* 🎯 Center: Offer + Book Now */}
-      <div className="flex flex-wrap items-center justify-center gap-2 text-center">
-        <div className="flex flex-wrap justify-center items-center gap-2 text-xs sm:text-sm">
-          <span className="px-3 py-1  font-highlighted text-yellow-300 font-semibold whitespace-nowrap ">
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-center">
+        <div className="flex flex-wrap justify-center items-center gap-2 text-xs sm:text-sm text-center">
+          <span className="px-3 py-1 font-bold text-yellow-300 tracking-wide uppercase shadow-sm">
             {t("topbar.authentic_pandit") || "Authentic Braj Pandit"}
           </span>
-          <span className="px-4 py-1 rounded-full border border-white font-semibold whitespace-nowrap bg-white text-[#7b1414]">
-            {t("topbar.rudrabhishek_offer") ||
-              " Rudrabhishek Group Puja (E-puja - 201/-)"}
+          <span className="px-4 py-1 rounded-full border border-white dark:border-[#7b1414] font-semibold whitespace-nowrap bg-white text-[#7b1414] dark:bg-[#7b1414] dark:text-white transition-all shadow-sm">
+            {t("topbar.rudrabhishek_offer") || "Rudrabhishek Group Puja (E-puja - ₹201)"}
           </span>
         </div>
         <Link
           to="/booking"
-          className="bg-white text-[#7b1414] font-semibold text-xs sm:text-sm px-4 py-2 rounded-full hover:bg-yellow-300 transition-all"
-          style={{
-            boxShadow: "0 0 8px 2px rgba(255, 255, 255, 0.6)",
-          }}
+          className="bg-white text-[#7b1414] dark:bg-[#7b1414] dark:text-white font-semibold text-xs sm:text-sm px-4 py-2 rounded-full hover:bg-yellow-300 dark:hover:bg-yellow-400 transition-all shadow-md"
         >
           {t("topbar.book_now") || "Book Now"}
         </Link>
       </div>
 
       {/* 📌 Right: Be a Pandit + About + Lang Toggle */}
-      <div className="hidden sm:flex items-center gap-3 text-xs">
+      <div className="flex items-center gap-3 text-xs font-medium justify-center sm:justify-end mt-2 sm:mt-0">
         <Link
           to="/be-a-pandit"
-          className="bg-white text-[#7b1414] font-semibold border border-[#7b1414] px-4 py-2 rounded-full hover:bg-yellow-300 transition"
+          className="bg-white text-[#7b1414] dark:bg-[#7b1414] dark:text-white border border-[#7b1414] dark:border-white px-4 py-2 rounded-full hover:bg-yellow-300 dark:hover:bg-yellow-400 transition shadow-sm"
         >
           {t("topbar.be_a_pandit") || "Be a Pandit"}
         </Link>
-        <Link to="/about" className="hover:underline">
+        <Link to="/about" className="hover:underline transition">
           {t("topbar.about") || "About Us"}
         </Link>
+        <button
+          onClick={toggleLanguage}
+          className="ml-2 px-3 py-1 rounded-full border border-white dark:border-[#7b1414] bg-transparent dark:bg-transparent hover:bg-yellow-300 dark:hover:bg-yellow-400 text-xs transition"
+        >
+          {i18n.language === "en" ? "हिंदी" : "EN"}
+        </button>
       </div>
     </div>
   );

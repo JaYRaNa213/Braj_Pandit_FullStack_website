@@ -21,7 +21,7 @@
   
   "topbar": {
     "authentic_pandit": "Authentic Braj Pandit",
-    "rudrabhishek_offer": "🛕 Rudrabhishek Group Puja (E-puja - 201/-)",
+    "rudrabhishek_offer": " Rudrabhishek Group Puja (E-puja - 201/-)",
     "book_now": "Book Now",
     "be_a_pandit": "Be a Pandit",
     "about": "About Us",
@@ -307,6 +307,26 @@
 }
 ,
 
+
+"AllEPujas": {
+    "all_e_pujas": "All E-Pujas",
+    "book_button": "Book Now",
+    "categories": {
+      "Daily Puja": "Daily Puja",
+      "Festive Puja": "Festive Puja",
+      "Special Puja": "Special Puja"
+    },
+    "titles": {
+      "Rudrabhishek": "Rudrabhishek",
+      "Satyanarayan Katha": "Satyanarayan Katha",
+      "Navgraha Shanti": "Navgraha Shanti"
+    },
+    "descriptions": {
+      "Rudrabhishek": "A sacred puja dedicated to Lord Shiva for health, peace, and prosperity.",
+      "Satyanarayan Katha": "A devotional narrative to seek blessings for success and harmony.",
+      "Navgraha Shanti": "Performed to reduce the negative effects of planetary doshas."
+    }
+  },
 
   "pujaServices": {
     "all_puja_services": "All Puja Services",
