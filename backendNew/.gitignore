@@ -7,6 +7,15 @@ dist/
 .idea/
 coverage/
 
+
+
+
+
+.env
+.env.production
+.env.local
+
+
 # Environment and sensitive files
 .env
 .env.local
@@ -55,6 +64,7 @@ Thumbs.db
 /test-results
 /target
 
+.env*
 # Build-related
 build/
 out/
