@@ -1,7 +1,3 @@
-// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
-// If you theft this code, you will be punished or may face legal action by the owner.
-
-// src/services/user/panditService.js
 import axiosInstance from "../axios";
 
 export const getAllPandits = async () => {
@@ -13,4 +9,8 @@ export const getPanditById = async (id) => {
   return await axiosInstance.get(`/user/pandits/${id}`);
 };
 
-export const applyAsPandit = (data) => axiosInstance.post("/pandit/apply", data);
+export const applyAsPandit = (data) =>
+  axiosInstance.post("/user/pandits/apply", data);
+
+export const getApprovedPandits = () =>
+  axiosInstance.get("/user/pandits");
