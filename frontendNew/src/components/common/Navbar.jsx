@@ -418,6 +418,13 @@ export default function Navbar() {
               <RouterLink to="/register" onClick={() => setMenuOpen(false)}>
                 Register
               </RouterLink>
+
+              <RouterLink
+                          to="/contact"
+                          className="text-xs hover:underline font-medium tracking-wide"
+                        >
+                          {t("topbar.contact") || "Contact"}
+                        </RouterLink>
             </>
           )}
         </div>
