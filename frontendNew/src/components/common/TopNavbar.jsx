@@ -25,7 +25,7 @@ const TopNavbar = () => {
 
   return (
     <div
-      className={`sticky top-0 w-full px-4 pt-3 pb-3 z-50 shadow-md transition-all duration-300
+      className={`sticky top-0 w-full px-4 pt-4 pb-3 z-50 shadow-md transition-all duration-300
       ${animateClose ? "opacity-0 scale-95 translate-y-[-10px]" : "opacity-100 scale-100"}
       bg-gradient-to-r from-[#7b1414] to-[#5d1010] text-white dark:from-[#1a1a1a] dark:to-[#111]
       dark:text-white font-playfair`}
