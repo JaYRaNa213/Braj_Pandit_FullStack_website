@@ -23,7 +23,7 @@ export const register = async (req, res) => {
     const email = req.body.email?.trim();
     const password = req.body.password?.trim();
 
-    if (!name || !email || !password) {
+    if (!name || !email || !password ) {
       return res.status(400).json({
         success: false,
         message: 'Name, email, and password are required.',
@@ -116,6 +116,8 @@ export const logout = async (req, res) => {
     message: await logoutUser(),
   });
 };
+
+
 
 // ✅ Get Authenticated User Profile
 export const getProfile = async (req, res) => {
