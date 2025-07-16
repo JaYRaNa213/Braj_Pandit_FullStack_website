@@ -1,10 +1,12 @@
+
 // 🔐 Redesigned by ChatGPT © 2025 - Jay Rana's Devotional Platform
 
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { FaInstagram, FaYoutube, FaFacebookF } from "react-icons/fa";
-import { MdClose } from "react-icons/md";
+import { FaInstagram, FaYoutube, FaFacebookF, FaPhone, FaEnvelope } from "react-icons/fa";
+import { MdClose, MdLanguage } from "react-icons/md";
+import { motion, AnimatePresence } from "framer-motion";
 
 const TopNavbar = () => {
   const { t, i18n } = useTranslation();
@@ -24,100 +26,164 @@ const TopNavbar = () => {
   if (!visible) return null;
 
   return (
-    <div
-      className={`sticky top-0 w-full px-4 pt-4 pb-3 z-50 shadow-md transition-all duration-300
-      ${animateClose ? "opacity-0 scale-95 translate-y-[-10px]" : "opacity-100 scale-100"}
-      bg-gradient-to-r from-[#7b1414] to-[#5d1010] text-white dark:from-[#1a1a1a] dark:to-[#111]
-      dark:text-white font-playfair`}
-    >
-      {/* ❌ Close Button */}
-      <button
-        onClick={handleClose}
-        className="absolute top-2 right-3 text-white dark:text-white hover:text-yellow-300 text-xl transition sm:top-3"
-        aria-label="Close"
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ 
+          opacity: animateClose ? 0 : 1, 
+          y: animateClose ? -50 : 0,
+          scale: animateClose ? 0.95 : 1
+        }}
+        exit={{ opacity: 0, y: -50 }}
+        transition={{ duration: 0.4, ease: "easeInOut" }}
+        className="sticky top-0 w-full z-50 shadow-xl backdrop-blur-sm
+        bg-gradient-to-r from-orange-600 via-red-600 to-orange-700 
+        dark:from-gray-900 dark:via-gray-800 dark:to-gray-900
+        text-white font-inter border-b border-orange-300/20"
       >
-        <MdClose />
-      </button>
+        {/* Close Button */}
+        <button
+          onClick={handleClose}
+          className="absolute top-3 right-4 z-10 p-2 rounded-full
+          bg-white/10 hover:bg-white/20 text-white hover:text-yellow-300 
+          transition-all duration-300 backdrop-blur-sm group"
+          aria-label="Close"
+        >
+          <MdClose className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
+        </button>
 
-      {/* 🌐 Desktop + Tablet View */}
-      <div className="hidden sm:flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
-        {/* Left: Socials */}
-        <div className="flex items-center gap-4 text-lg justify-center sm:justify-start">
-          <a
-            href="https://www.instagram.com/vedagyanam_official"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-2 hover:text-yellow-300 dark:hover:text-yellow-400 transition"
-          >
-            <FaInstagram />
-          </a>
-          <a
-            href="https://youtube.com/@vedagyanam"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-1 hover:text-yellow-300 dark:hover:text-yellow-400 transition"
-          >
-            <FaYoutube />
-          </a>
-          <a
-            href="https://www.facebook.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-yellow-300 dark:hover:text-yellow-400 transition"
-          >
-            <FaFacebookF />
-          </a>
-          
+        <div className="max-w-7xl mx-auto px-4 py-3">
+          {/* Desktop View */}
+          <div className="hidden lg:flex items-center justify-between">
+            {/* Left: Contact Info */}
+            <div className="flex items-center space-x-6">
+              <div className="flex items-center space-x-2 text-sm">
+                <FaPhone className="w-4 h-4 text-yellow-300" />
+                <span className="font-medium">+91 8979923233</span>
+              </div>
+              <div className="flex items-center space-x-2 text-sm">
+                <FaEnvelope className="w-4 h-4 text-yellow-300" />
+                <span className="font-medium">info@merovrindavan.in</span>
+              </div>
+            </div>
+
+            {/* Center: Special Offer */}
+            <div className="flex items-center space-x-4">
+              <div className="bg-gradient-to-r from-yellow-400 to-orange-400 text-orange-900 
+              px-6 py-2 rounded-full font-bold text-sm shadow-lg transform hover:scale-105 transition-all duration-300">
+                ✨ {t("topbar.rudrabhishek_offer") || "Rudrabhishek Group Puja (E-puja - ₹201)"}
+              </div>
+              <Link
+                to="/booking"
+                className="bg-white text-orange-600 hover:bg-yellow-100 
+                font-bold text-sm px-6 py-2 rounded-full shadow-lg 
+                transform hover:scale-105 transition-all duration-300 
+                border-2 border-transparent hover:border-yellow-300"
+              >
+                🕉️ {t("topbar.book_now") || "Book Now"}
+              </Link>
+            </div>
+
+            {/* Right: Actions & Social */}
+            <div className="flex items-center space-x-4">
+              <Link
+                to="/be-a-pandit"
+                className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white 
+                hover:from-yellow-600 hover:to-orange-600 font-semibold text-sm 
+                px-5 py-2 rounded-full shadow-md transform hover:scale-105 transition-all duration-300"
+              >
+                🙏 {t("topbar.be_a_pandit") || "Be a Pandit"}
+              </Link>
+
+              <button
+                onClick={toggleLanguage}
+                className="flex items-center space-x-2 bg-white/10 hover:bg-white/20 
+                px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 backdrop-blur-sm"
+              >
+                <MdLanguage className="w-4 h-4" />
+                <span>{i18n.language === "en" ? "हिंदी" : "English"}</span>
+              </button>
+
+              <div className="flex items-center space-x-3">
+                <a
+                  href="https://www.instagram.com/vedagyanam_official"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-full bg-white/10 hover:bg-pink-500 transition-all duration-300 transform hover:scale-110"
+                >
+                  <FaInstagram className="w-4 h-4" />
+                </a>
+                <a
+                  href="https://youtube.com/@vedagyanam"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-full bg-white/10 hover:bg-red-500 transition-all duration-300 transform hover:scale-110"
+                >
+                  <FaYoutube className="w-4 h-4" />
+                </a>
+                <a
+                  href="https://www.facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-full bg-white/10 hover:bg-blue-500 transition-all duration-300 transform hover:scale-110"
+                >
+                  <FaFacebookF className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Tablet View */}
+          <div className="hidden md:flex lg:hidden flex-col space-y-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-4 text-sm">
+                <FaPhone className="w-4 h-4 text-yellow-300" />
+                <span>+91 8979923233</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <a href="https://www.instagram.com/vedagyanam_official" target="_blank" rel="noopener noreferrer"
+                   className="p-2 rounded-full bg-white/10 hover:bg-pink-500 transition-all duration-300">
+                  <FaInstagram className="w-4 h-4" />
+                </a>
+                <a href="https://youtube.com/@vedagyanam" target="_blank" rel="noopener noreferrer"
+                   className="p-2 rounded-full bg-white/10 hover:bg-red-500 transition-all duration-300">
+                  <FaYoutube className="w-4 h-4" />
+                </a>
+                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer"
+                   className="p-2 rounded-full bg-white/10 hover:bg-blue-500 transition-all duration-300">
+                  <FaFacebookF className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+            <div className="flex items-center justify-center space-x-3">
+              <div className="bg-gradient-to-r from-yellow-400 to-orange-400 text-orange-900 
+              px-4 py-2 rounded-full font-bold text-sm shadow-lg">
+                ✨ Rudrabhishek Group Puja (₹201)
+              </div>
+              <Link to="/booking" className="bg-white text-orange-600 hover:bg-yellow-100 
+              font-bold text-sm px-4 py-2 rounded-full shadow-lg transition-all duration-300">
+                🕉️ Book Now
+              </Link>
+            </div>
+          </div>
+
+          {/* Mobile View */}
+          <div className="flex md:hidden flex-col space-y-3 items-center text-center">
+            <div className="bg-gradient-to-r from-yellow-400 to-orange-400 text-orange-900 
+            px-4 py-2 rounded-full font-bold text-xs shadow-lg">
+              ✨ {t("topbar.rudrabhishek_offer") || "Rudrabhishek Group Puja (₹201)"}
+            </div>
+            <Link
+              to="/booking"
+              className="bg-white text-orange-600 hover:bg-yellow-100 
+              font-bold text-xs px-6 py-2 rounded-full shadow-lg transition-all duration-300"
+            >
+              🕉️ {t("topbar.book_now") || "Book Now"}
+            </Link>
+          </div>
         </div>
-
-        {/* Center: Puja Offer + Book Now */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-center">
-          <span className="px-5 py-2 rounded-full border border-white dark:border-[#7b1414] font-semibold whitespace-nowrap bg-white text-[#7b1414] dark:bg-[#7b1414] dark:text-white transition-all shadow-sm text-xs sm:text-sm">
-            {t("topbar.rudrabhishek_offer") || "Rudrabhishek Group Puja (E-puja - ₹201)"}
-          </span>
-
-          <Link
-            to="/booking"
-            className="bg-white text-[#7b1414] dark:bg-[#7b1414] dark:text-white font-semibold text-xs sm:text-sm px-4 py-2 rounded-full hover:bg-yellow-300 dark:hover:bg-yellow-400 transition-all shadow-md"
-          >
-            {t("topbar.book_now") || "Book Now"}
-          </Link>
-        </div>
-
-        {/* Right: Be a Pandit + About + Lang */}
-        <div className="flex items-center gap-3 text-xs font-medium justify-center sm:justify-end">
-          <Link
-            to="/be-a-pandit"
-            className="bg-white text-[#7b1414] dark:bg-[#7b1414] dark:text-white border border-[#7b1414] dark:border-white px-4 py-2 rounded-full hover:bg-yellow-300 dark:hover:bg-yellow-400 transition shadow-sm"
-          >
-            {t("topbar.be_a_pandit") || "Be a Pandit"}
-          </Link>
-          <Link to="/about" className="hover:underline transition">
-            {t("topbar.about") || "About Us"}
-          </Link>
-          
-        </div>
-      </div>
-
-      {/* 📱 Mobile View: ONLY Puja Offer */}
-      <div className="flex sm:hidden flex-col items-center justify-center gap-2 text-center mt-2">
-        <span className="px-5 py-2 rounded-full border border-white dark:border-[#7b1414] font-semibold whitespace-nowrap bg-white text-[#7b1414] dark:bg-[#7b1414] dark:text-white transition-all shadow-sm text-xs">
-          {t("topbar.rudrabhishek_offer") || "Rudrabhishek Group Puja (E-puja - ₹201)"}
-          </span>
-
-        <button>
-          
-          <Link
-            to="/booking"
-            className="bg-white text-[#7b1414] dark:bg-[#7b1414] dark:text-white font-semibold text-xs sm:text-sm px-4 py-2 rounded-full hover:bg-yellow-300 dark:hover:bg-yellow-400 transition-all shadow-md"
-          >
-            {t("topbar.book_now") || "Book Now"}
-          </Link>
-
-          </button>
-        
-      </div>
-    </div>
+      </motion.div>
+    </AnimatePresence>
   );
 };
 
