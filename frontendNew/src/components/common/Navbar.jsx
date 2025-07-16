@@ -74,12 +74,9 @@ export default function Navbar() {
               <img
                 src="https://res.cloudinary.com/djtq2eywl/image/upload/v1751620820/logo_yre5xd.png"
                 alt="Braj Pandit Logo"
-                className="h-16 w-32 object-contain rounded-xl shadow-lg 
-                transform group-hover:scale-105 transition-all duration-300
-                ring-2 ring-orange-300/30 group-hover:ring-orange-300/60"
+                className="h-40 w-48 "
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-orange-400/20 to-yellow-400/20 
-              rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className=""></div>
             </div>
           </RouterLink>
 
@@ -194,7 +191,7 @@ export default function Navbar() {
                 setMenuOpen(false);
               }}
               className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600
-              text-white font-bold px-6 py-3 rounded-xl shadow-lg
+              text-white font-bold px-9 py-6 rounded-xl shadow-lg
               transform hover:scale-105 transition-all duration-300
               border-2 border-transparent hover:border-yellow-300/50"
             >
@@ -208,7 +205,7 @@ export default function Navbar() {
             <button
               onClick={toggleLanguage}
               className="flex items-center space-x-2 bg-white/10 hover:bg-white/20 
-              text-white px-4 py-2 rounded-xl font-medium transition-all duration-300
+              text-white px-4 py-4 rounded-xl font-medium transition-all duration-300
               backdrop-blur-sm border border-white/20 hover:border-white/40"
             >
               <MdLanguage className="w-4 h-4" />
