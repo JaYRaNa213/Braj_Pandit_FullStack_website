@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { CartProvider } from "./context/CartContext";
 import ScrollToTop from "./components/common/ScrollToTop";
 
+
 // 🆕 i18n support
 import { I18nextProvider } from "react-i18next";
 import i18n from "./i18n";

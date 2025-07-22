@@ -37,6 +37,8 @@ import BePanditForm from "../pages/user/BePanditForm.jsx";
 
 import AllEPujas from "../pages/user/AllEPujas.jsx";
 
+import ThankYouPage from "../pages/user/ThankYouPage.jsx";
+
 const UserRoutes = () => {
   return (
     <Routes>
@@ -73,6 +75,8 @@ const UserRoutes = () => {
           <Route path="booking/history" element={<BookingHistory />} />
           <Route path="orders/:id/tracking" element={<OrderTracking />} />
           <Route path="/all-puja-services" element={<AllPujaServices />} />
+          <Route path="/thank-you" element={<ThankYouPage />} />
+
 
          <Route path="/be-a-pandit" element={<BePanditForm />} />
          <Route path="/all-e-pujas" element={<AllEPujas />} />
