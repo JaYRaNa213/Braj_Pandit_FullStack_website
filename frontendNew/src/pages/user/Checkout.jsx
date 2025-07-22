@@ -96,15 +96,8 @@ const Checkout = () => {
     try {
       const productsPayload = items.map((item) => ({
         productId: typeof item.product === 'object' ? item.product._id : item.product,
-
         quantity: item.quantity,
       }));
-
-      console.log("🛒 Submitting order payload:", {
-        products: productsPayload,
-        address: shipping,
-        paymentMethod,
-      });
 
       const res = await placeOrder({
         products: productsPayload,
@@ -116,7 +109,7 @@ const Checkout = () => {
         toast.success(t("checkout.success"));
         localStorage.removeItem('cart');
         clearCart();
-        navigate('/my-orders');
+        navigate('/thank-you');
       } else {
         toast.error(res.message || t("checkout.fail"));
       }
