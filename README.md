@@ -11,6 +11,8 @@
 
 
 This repository contains the **full-stack implementation** of a modern and dynamic **Religious Website**, designed to provide spiritual services online — including Pandit booking, puja services, devotional products, and live Aarti & Bhajan streaming.
+
+
 <img src="./img/brajpandit.png" alt="brajpandit" width="900" />
 ---
 
