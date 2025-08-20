@@ -1,5 +1,12 @@
 # 🖉️ Religious Website (Full-Stack Project)
 
+<div align="center">
+
+ [Live Demo : Brajpandit.com](https://brajpandit.vercel.app/)     
+
+</div>
+
+
 This repository contains the **full-stack implementation** of a modern and dynamic **Religious Website**, designed to provide spiritual services online — including Pandit booking, puja services, devotional products, and live Aarti & Bhajan streaming.
 
 ---
