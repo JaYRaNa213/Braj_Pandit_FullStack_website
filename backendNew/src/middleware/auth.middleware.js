@@ -1,14 +1,14 @@
-//  Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 // If you theft this code, you will be punished or may face legal action by the owner.
 
 // src/middleware/auth.middleware.js
 import jwt from 'jsonwebtoken';
-import mongoose from 'mongoose'; //  Required for ObjectId check
+import mongoose from 'mongoose'; // ✅ Required for ObjectId check
 import ApiError from '../utils/ApiError.js';
 import User from '../models/user.model.js';
 import asyncHandler from '../utils/asyncHandler.js';
 
-//  Verify JWT Token Middleware
+// 🔐 Verify JWT Token Middleware
 export const verifyToken = asyncHandler(async (req, res, next) => {
   const token = req.headers.authorization?.startsWith('Bearer ')
     ? req.headers.authorization.split(' ')[1]
@@ -22,12 +22,12 @@ export const verifyToken = asyncHandler(async (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const userId = decoded.id;
 
-    //  Validate userId format
+    // ✅ Validate userId format
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       throw new ApiError(401, 'Invalid user ID format');
     }
 
-    //  Special Case: Admin
+    // ✅ Special Case: Admin
     if (userId === process.env.ADMIN_ID) {
       req.user = {
         id: new mongoose.Types.ObjectId(userId),
@@ -38,7 +38,7 @@ export const verifyToken = asyncHandler(async (req, res, next) => {
       return next();
     }
 
-    //  Normal User from DB
+    // ✅ Normal User from DB
     const user = await User.findById(userId).select('-password -refreshToken');
     if (!user) throw new ApiError(401, 'User not found');
 
@@ -55,20 +55,18 @@ export const verifyToken = asyncHandler(async (req, res, next) => {
   }
 });
 
-//  Role-based access middleware
-export const authorizeRoles =
-  (...roles) =>
-  (req, res, next) => {
-    if (!req.user?.role) {
-      return next(new ApiError(403, 'Access denied: No role provided'));
-    }
-    if (!roles.includes(req.user.role)) {
-      return next(new ApiError(403, `Access denied: Only [${roles.join(', ')}] allowed`));
-    }
-    next();
-  };
+// 🔐 Role-based access middleware
+export const authorizeRoles = (...roles) => (req, res, next) => {
+  if (!req.user?.role) {
+    return next(new ApiError(403, 'Access denied: No role provided'));
+  }
+  if (!roles.includes(req.user.role)) {
+    return next(new ApiError(403, `Access denied: Only [${roles.join(', ')}] allowed`));
+  }
+  next();
+};
 
-//  Fallback middleware (not usually used if verifyToken is used)
+// ✅ Fallback middleware (not usually used if verifyToken is used)
 export const authMiddleware = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -89,7 +87,7 @@ export const authMiddleware = (req, res, next) => {
   }
 };
 
-//  Admin-only check
+// ✅ Admin-only check
 export const isAdmin = (req, res, next) => {
   if (req.user?.role !== 'admin') {
     return next(new ApiError(403, 'Access denied: Admins only'));

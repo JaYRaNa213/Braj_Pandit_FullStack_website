@@ -1,4 +1,4 @@
-//  Code redesigned by Jay Rana & ChatGPT © 2025. Razorpay-style Puja Booking Form
+// 🔐 Code redesigned by Jay Rana & ChatGPT © 2025. Razorpay-style Puja Booking Form
 
 import React, { useState } from "react";
 

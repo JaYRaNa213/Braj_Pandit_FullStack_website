@@ -1,4 +1,4 @@
-//  Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 // If you theft this code, you will be punished or may face legal action by the owner.
 
 // // src/hooks/useCart.js
@@ -44,7 +44,7 @@
 //     }
 //   }, [cartItems, user]);
 
-//   //  Add item (merge quantity if exists)
+//   // ✅ Add item (merge quantity if exists)
 //   const addToCart = (item) => {
 //     setCartItems((prev) => {
 //       const exists = prev.find((i) => i.product === item.product);
@@ -59,7 +59,7 @@
 //     });
 //   };
 
-//   //  Remove item
+//   // ✅ Remove item
 //   const removeFromCart = async (productId) => {
 //     if (user) {
 //       try {
@@ -71,7 +71,7 @@
 //     setCartItems((prev) => prev.filter((item) => item.product !== productId));
 //   };
 
-//   //  Clear all
+//   // ✅ Clear all
 //   const clearCart = async () => {
 //     if (user) {
 //       try {
@@ -85,6 +85,8 @@
 
 //   return { cartItems, addToCart, removeFromCart, clearCart };
 // };
+
+
 
 //src/hooks/useCart.js
 import { useState, useEffect } from "react";
@@ -120,7 +122,7 @@ export const useCart = () => {
   useEffect(() => {
     if (user) {
       syncCart(cartItems).catch((err) =>
-        console.error("Cart sync failed:", err),
+        console.error("Cart sync failed:", err)
       );
     } else {
       localStorage.setItem("cart", JSON.stringify(cartItems));
@@ -134,7 +136,7 @@ export const useCart = () => {
         return prev.map((i) =>
           i.product === item.product
             ? { ...i, quantity: i.quantity + (item.quantity || 1) }
-            : i,
+            : i
         );
       }
       return [...prev, { ...item, quantity: item.quantity || 1 }];

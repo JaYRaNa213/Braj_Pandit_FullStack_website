@@ -1,4 +1,4 @@
-//  Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 // If you theft this code, you will be punished or may face legal action by the owner.
 
 import Comment from '../models/comment.model.js';
@@ -42,9 +42,7 @@ export const deleteComment = async (req, res) => {
     });
 
     if (!deleted) {
-      return res
-        .status(404)
-        .json({ success: false, message: 'Comment not found or not authorized' });
+      return res.status(404).json({ success: false, message: 'Comment not found or not authorized' });
     }
 
     res.status(200).json({ success: true, message: 'Comment deleted' });

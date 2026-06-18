@@ -1,20 +1,20 @@
-//  Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 // If you theft this code, you will be punished or may face legal action by the owner.
 
 import Blog from '../models/blog.model.js';
 import { uploadOnCloudinary } from '../utils/cloudinary.js';
 
-//  Get all blogs with search, category filter, and multilingual search
+// ✅ Get all blogs with search, category filter, and multilingual search
 export const getAllBlogs = async (req, res) => {
   try {
-    const search = req.query.search || '';
-    const category = req.query.category || '';
+    const search = req.query.search || "";
+    const category = req.query.category || "";
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 1000;
-    const lang = req.query.lang || 'en';
+    const lang = req.query.lang || "en";
 
     const query = {
-      [`title.${lang}`]: { $regex: search, $options: 'i' },
+      [`title.${lang}`]: { $regex: search, $options: "i" },
     };
 
     if (category) {
@@ -22,7 +22,10 @@ export const getAllBlogs = async (req, res) => {
     }
 
     const skip = (page - 1) * limit;
-    const blogs = await Blog.find(query).sort({ createdAt: -1 }).skip(skip).limit(limit);
+    const blogs = await Blog.find(query)
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
 
     const total = await Blog.countDocuments(query);
 
@@ -34,23 +37,24 @@ export const getAllBlogs = async (req, res) => {
       totalPages: Math.ceil(total / limit),
     });
   } catch (error) {
-    return res.status(500).json({ message: 'Something went wrong', error });
+    return res.status(500).json({ message: "Something went wrong", error });
   }
 };
 
-//  Get a single blog by ID
+// ✅ Get a single blog by ID
 export const getBlogById = async (req, res) => {
   try {
     const blog = await Blog.findById(req.params.id);
-    if (!blog) return res.status(404).json({ success: false, message: 'Blog not found' });
+    if (!blog)
+      return res.status(404).json({ success: false, message: "Blog not found" });
 
     res.status(200).json({ success: true, data: blog });
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Error fetching blog', error: error.message });
+    res.status(500).json({ success: false, message: "Error fetching blog", error: error.message });
   }
 };
 
-//  Add new blog
+// ✅ Add new blog
 export const addBlog = async (req, res) => {
   try {
     const titleEn = req.body['title.en'];
@@ -106,7 +110,7 @@ export const addBlog = async (req, res) => {
   }
 };
 
-//  Update blog
+// ✅ Update blog
 export const updateBlog = async (req, res) => {
   try {
     const titleEn = req.body['title.en'];
@@ -119,7 +123,7 @@ export const updateBlog = async (req, res) => {
     const imageUrl = req.body.imageUrl;
 
     let updatedData = {
-      updatedBy: req.user?.id || 'admin',
+      updatedBy: req.user?.id || "admin",
     };
 
     if (titleEn || titleHi) {
@@ -184,7 +188,7 @@ export const updateBlog = async (req, res) => {
   }
 };
 
-//  Delete blog
+// ✅ Delete blog
 export const deleteBlog = async (req, res) => {
   try {
     const blog = await Blog.findByIdAndDelete(req.params.id);

@@ -1,4 +1,4 @@
-//  Redesigned by ChatGPT © 2025 – BrajPandit Spiritual Platform
+// 🔐 Redesigned by ChatGPT © 2025 – BrajPandit Spiritual Platform
 
 import React from "react";
 import { useTranslation } from "react-i18next";

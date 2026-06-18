@@ -1,11 +1,11 @@
-//  Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 // If you theft this code, you will be punished or may face legal action by the owner.
 
 //src/controllers/booking.controller.js
 
 import Booking from '../models/booking.model.js';
 
-//  User: Create Booking
+// ✅ User: Create Booking
 export const createBooking = async (req, res) => {
   try {
     const { service, date, time, additionalInfo, pandit } = req.body;
@@ -28,12 +28,12 @@ export const createBooking = async (req, res) => {
 
     res.status(201).json({ success: true, message: 'Booking created', booking });
   } catch (err) {
-    console.error('Error creating booking:', err.message);
+    console.error("Error creating booking:", err.message);
     res.status(500).json({ success: false, message: 'Server Error' });
   }
 };
 
-//  Admin: Get All Bookings
+// ✅ Admin: Get All Bookings
 export const getAllBookings = async (req, res) => {
   try {
     const bookings = await Booking.find().populate('user', 'name email');
@@ -43,7 +43,7 @@ export const getAllBookings = async (req, res) => {
   }
 };
 
-//  User: Get own bookings
+// ✅ User: Get own bookings
 export const getUserBookings = async (req, res) => {
   try {
     const bookings = await Booking.find({ user: req.user.id });
@@ -53,7 +53,7 @@ export const getUserBookings = async (req, res) => {
   }
 };
 
-//  Admin: Get booking by ID
+// ✅ Admin: Get booking by ID
 export const getSingleBooking = async (req, res) => {
   try {
     const booking = await Booking.findById(req.params.id).populate('user', 'name email');
@@ -66,7 +66,7 @@ export const getSingleBooking = async (req, res) => {
   }
 };
 
-//  Admin: Update Booking (all fields)
+// ✅ Admin: Update Booking (all fields)
 export const updateBooking = async (req, res) => {
   try {
     const updated = await Booking.findByIdAndUpdate(req.params.id, req.body, {
@@ -81,7 +81,7 @@ export const updateBooking = async (req, res) => {
   }
 };
 
-//  Admin: Update Booking Status Only
+// ✅ Admin: Update Booking Status Only
 export const updateBookingStatus = async (req, res) => {
   try {
     const { status } = req.body;
@@ -113,7 +113,7 @@ export const updateBookingStatus = async (req, res) => {
   }
 };
 
-//  Admin: Delete Booking
+// ✅ Admin: Delete Booking
 export const deleteBooking = async (req, res) => {
   try {
     const deleted = await Booking.findByIdAndDelete(req.params.id);
@@ -126,4 +126,6 @@ export const deleteBooking = async (req, res) => {
   }
 };
 
+
 // Also make sure to export other booking controller functions, e.g.,
+

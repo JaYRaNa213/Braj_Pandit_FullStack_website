@@ -1,4 +1,4 @@
-//  Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 // If you theft this code, you will be punished or may face legal action by the owner.
 
 // backendNew/src/services/auth.service.js
@@ -7,7 +7,7 @@ import bcrypt from 'bcryptjs';
 import User from '../models/user.model.js';
 
 // ========================
-//  Register User Logic
+// ✅ Register User Logic
 // ========================
 export const registerUser = async (userData) => {
   const { name, email, password, role } = userData;
@@ -26,7 +26,7 @@ export const registerUser = async (userData) => {
     role: role || 'user',
   });
 
-  console.log(' New User Registered:', newUser);
+  console.log('✅ New User Registered:', newUser);
 
   return {
     userId: newUser._id,
@@ -37,8 +37,9 @@ export const registerUser = async (userData) => {
   };
 };
 
+
 // ========================
-//  Login User Logic
+// ✅ Login User Logic
 // ========================
 export const loginUser = async (email, password, role) => {
   const normalizedEmail = email.trim().toLowerCase();
@@ -81,26 +82,26 @@ export const loginUser = async (email, password, role) => {
 };
 
 // ========================
-//  Logout Logic
+// ✅ Logout Logic
 // ========================
 export const logoutUser = async () => {
   return 'User logged out successfully';
 };
 
 // ========================
-//  Get User Profile
+// ✅ Get User Profile
 // ========================
 export const getUserProfile = async (userId) => {
   const user = await User.findById(userId).select('-password');
   if (!user) {
     throw new Error('User not found');
   }
-  console.log(' User Profile Fetched:', user);
+  console.log('✅ User Profile Fetched:', user);
   return user;
 };
 
 // ========================
-//  Get All Users
+// ✅ Get All Users
 // ========================
 export const getAllUsers = async () => {
   const users = await User.find().select('-password');

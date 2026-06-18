@@ -1,4 +1,4 @@
-//  Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 // If you theft this code, you will be punished or may face legal action by the owner.
 
 // File: backendNew/tree.js
@@ -16,7 +16,7 @@ const MAX_DEPTH = 5;
 const IGNORE_FOLDERS = ['node_modules', '.git', '.next', 'dist', '.cache', '.idea', '.vscode'];
 
 // File to save tree output
-const OUTPUT_FILE = './backend_tree.txt'; //  Uncommented and set to the desired file name
+const OUTPUT_FILE = './backend_tree.txt'; // ✅ Uncommented and set to the desired file name
 
 // Initialize content for writing
 let treeOutput = '📂 Religious website backend Tree structure\n\n';
@@ -34,15 +34,16 @@ function printTree(dirPath, prefix = '', depth = 0) {
     return;
   }
 
+
   files.forEach((file, index) => {
     const filePath = path.join(dirPath, file);
     let isDirectory;
     try {
       isDirectory = fs.statSync(filePath).isDirectory();
     } catch (e) {
-      console.error(`Error stating file ${filePath}: ${e.message}`);
-      // If stat fails, assume it's not a directory or skip
-      return;
+       console.error(`Error stating file ${filePath}: ${e.message}`);
+       // If stat fails, assume it's not a directory or skip
+       return;
     }
 
     const isLast = index === files.length - 1;
@@ -65,12 +66,13 @@ function printTree(dirPath, prefix = '', depth = 0) {
 // Start printing from the ROOT_DIR
 console.log('📂 Religious website Tree structure\n');
 printTree(ROOT_DIR);
-console.log('\n Tree generation complete!');
+console.log('\n✅ Tree generation complete!');
 
 // Save the output to the file
 try {
-  fs.writeFileSync(OUTPUT_FILE, treeOutput);
-  console.log(`\n📄 Tree saved to ${OUTPUT_FILE}`);
+    fs.writeFileSync(OUTPUT_FILE, treeOutput);
+    console.log(`\n📄 Tree saved to ${OUTPUT_FILE}`);
 } catch (e) {
-  console.error(`Error writing tree to file ${OUTPUT_FILE}: ${e.message}`);
+    console.error(`Error writing tree to file ${OUTPUT_FILE}: ${e.message}`);
 }
+

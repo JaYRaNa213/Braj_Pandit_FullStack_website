@@ -1,4 +1,4 @@
-//  Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 
 import React, { useEffect, useState } from "react";
 import { getBlogs, deleteBlog } from "../../services/admin/blogService";
@@ -23,7 +23,7 @@ const ManageBlogs = () => {
     if (!window.confirm("Are you sure you want to delete this blog?")) return;
     try {
       await deleteBlog(id);
-      toast.success(" Blog deleted successfully");
+      toast.success("✅ Blog deleted successfully");
       fetchBlogs();
     } catch (err) {
       toast.error("❌ Error deleting blog");

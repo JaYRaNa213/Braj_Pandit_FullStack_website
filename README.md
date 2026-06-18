@@ -2,13 +2,19 @@
 
 <div align="center">
 
-[Live Demo : Brajpandit.com](https://brajpandit.vercel.app/)
+ [Live Demo : Brajpandit.com](https://brajpandit.vercel.app/)    
+ 
+
 
 </div>
 
+
+
 This repository contains the **full-stack implementation** of a modern and dynamic **Religious Website**, designed to provide spiritual services online — including Pandit booking, puja services, devotional products, and live Aarti & Bhajan streaming.
 
-## <img src="./img/brajpandit.png" alt="brajpandit" width="900" />
+
+<img src="./img/brajpandit.png" alt="brajpandit" width="900" />
+---
 
 ## 🌟 Features
 
@@ -42,9 +48,7 @@ This repository contains the **full-stack implementation** of a modern and dynam
 ## 🚀 Getting Started
 
 ### 1️⃣ Backend Setup
-
 #### Requirements:
-
 - Node.js (v14+)
 - MongoDB
 
@@ -55,9 +59,7 @@ npm run dev
 ```
 
 ### 2️⃣ Frontend Setup
-
 #### Requirements:
-
 - Node.js
 - React.js
 
@@ -69,10 +71,9 @@ npm run dev
 
 ---
 
-## Environment Variables
+## 🔐 Environment Variables
 
 ### 📦 Backend `.env`
-
 ```
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
@@ -81,7 +82,6 @@ PAYMENT_API_KEY=your_payment_gateway_key
 ```
 
 ### 📦 Frontend `.env`
-
 ```
 REACT_APP_API_URL=http://localhost:5000/api
 REACT_APP_PAYMENT_KEY=your_payment_gateway_key
@@ -92,17 +92,14 @@ REACT_APP_PAYMENT_KEY=your_payment_gateway_key
 ## 📡 API Endpoints (Sample)
 
 ### 🧑‍💼 Authentication
-
 - `POST /api/auth/register` – Register new user
 - `POST /api/auth/login` – User login
 
 ### 🙏 Booking
-
 - `POST /api/booking` – Book puja
 - `GET /api/booking` – View bookings
 
 ### 💳 Payment
-
 - `POST /api/payment/initiate` – Start payment session
 
 ---

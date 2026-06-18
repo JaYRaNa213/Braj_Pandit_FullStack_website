@@ -1,4 +1,4 @@
-//  UI/UX redesigned by ChatGPT © Jay Rana’s Devotional Platform (2025)
+// 🔐 UI/UX redesigned by ChatGPT © Jay Rana’s Devotional Platform (2025)
 
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";

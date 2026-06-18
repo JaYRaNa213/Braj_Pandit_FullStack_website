@@ -1,4 +1,4 @@
-//  Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 // If you theft this code, you will be punished or may face legal action by the owner.
 
 // backend/src/controllers/pandit.controller.js
@@ -6,7 +6,7 @@ import Pandit from '../models/pandit.model.js';
 import asyncHandler from '../utils/asyncHandler.js';
 export const getAllPandits = async (req, res) => {
   try {
-    const pandits = await Pandit.find({ status: 'approved' });
+    const pandits = await Pandit.find({ status: "approved" });
     res.status(200).json({ success: true, data: pandits });
   } catch (error) {
     res.status(500).json({ success: false, message: 'Error fetching pandits' });
@@ -17,21 +17,25 @@ export const getAdminAllPandits = asyncHandler(async (req, res) => {
   const pandits = await Pandit.find().sort({ createdAt: -1 });
   res.status(200).json({
     success: true,
-    data: pandits,
+    data: pandits
   });
 });
 
-//  Controller function
+// ✅ Controller function
 export const applyPandit = async (req, res) => {
   try {
     const newPandit = new Pandit({ ...req.body, approved: false });
 
     await newPandit.save();
-    res.status(201).json({ message: 'Application submitted, pending approval.' });
+    res.status(201).json({ message: "Application submitted, pending approval." });
   } catch (err) {
-    res.status(500).json({ error: 'Error applying as pandit.' });
+    res.status(500).json({ error: "Error applying as pandit." });
   }
 };
+
+
+
+
 
 export const addPandit = async (req, res) => {
   try {
@@ -75,9 +79,9 @@ export const getPanditById = async (req, res) => {
 export const getSinglePandit = async (req, res) => {
   try {
     const pandit = await Pandit.findById(req.params.id);
-    if (!pandit) return res.status(404).json({ message: 'Pandit not found' });
+    if (!pandit) return res.status(404).json({ message: "Pandit not found" });
     res.status(200).json({ success: true, data: pandit });
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Error fetching pandit' });
+    res.status(500).json({ success: false, message: "Error fetching pandit" });
   }
 };

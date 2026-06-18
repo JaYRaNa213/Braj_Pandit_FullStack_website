@@ -26,7 +26,7 @@ const Blog = () => {
     fetchBlogs();
   }, [search, i18n.language]);
 
-  //  Helper to safely get localized strings
+  // ✅ Helper to safely get localized strings
   const getLocalized = (field) => {
     if (!field) return "";
     if (typeof field === "string") return field;

@@ -1,62 +1,59 @@
-//  Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 // If you theft this code, you will be punished or may face legal action by the owner.
 
 // models/order.model.js
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-const orderSchema = new mongoose.Schema(
+const orderSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+
+  // Properly structured embedded address object
+  address: {
+    fullName: { type: String, required: true },
+    mobile: { type: String, required: true },
+    pincode: { type: String, required: true },
+    state: { type: String, required: true },
+    city: { type: String, required: true },
+    address: { type: String, required: true },
+  },
+
+  products: [
   {
-    user: {
+    productId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      required: true,
+      ref: "Product",
     },
-
-    // Properly structured embedded address object
-    address: {
-      fullName: { type: String, required: true },
-      mobile: { type: String, required: true },
-      pincode: { type: String, required: true },
-      state: { type: String, required: true },
-      city: { type: String, required: true },
-      address: { type: String, required: true },
-    },
-
-    products: [
-      {
-        productId: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'Product',
-        },
-        quantity: {
-          type: Number,
-          default: 1,
-          required: true,
-        },
-      },
-    ],
-
-    totalAmount: {
+    quantity: {
       type: Number,
+      default: 1,
       required: true,
-    },
-
-    paymentMethod: {
-      type: String,
-      enum: ['cod', 'online'],
-      default: 'cod',
-    },
-
-    status: {
-      type: String,
-      enum: ['pending', 'confirmed', 'shipped', 'delivered', 'cancelled'],
-      default: 'pending',
     },
   },
-  {
-    timestamps: true,
-  }
-);
+],
 
-const Order = mongoose.model('Order', orderSchema);
+  totalAmount: {
+    type: Number,
+    required: true,
+  },
+
+  paymentMethod: {
+    type: String,
+    enum: ["cod", "online"],
+    default: "cod",
+  },
+
+  status: {
+    type: String,
+    enum: ["pending", "confirmed", "shipped", "delivered", "cancelled"],
+    default: "pending",
+  },
+}, {
+  timestamps: true,
+});
+
+const Order = mongoose.model("Order", orderSchema);
 export default Order;

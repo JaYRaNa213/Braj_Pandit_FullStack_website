@@ -1,4 +1,4 @@
-//  Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 // If you theft this code, you will be punished or may face legal action by the owner.
 
 import React from "react";
@@ -24,7 +24,7 @@ import OrderDetailsAdmin from '../pages/admin/OrderDetailsAdmin';
 import AdminAddPandit from "../pages/admin/AdminAddPandit";
 import ManagePandits from "../pages/admin/ManagePandits";
 
-// import ManageLiveBhajans from "../pages/admin/ManageLiveBhajans";
+import ManageLiveBhajans from "../pages/admin/ManageLiveBhajans";
 
 
 
@@ -35,7 +35,7 @@ const AdminRoutes = () => {
     <Routes>
       <Route
   element={
-    <ProtectedRoute allowedRoles={["admin"]}>   {/*  fixed */}
+    <ProtectedRoute allowedRoles={["admin"]}>   {/* ✅ fixed */}
       <AdminLayout />
     </ProtectedRoute>
   }
@@ -61,7 +61,7 @@ const AdminRoutes = () => {
         <Route path="add-pandit" element={<AdminAddPandit />} />
 <Route path="manage-pandits" element={<ManagePandits />} />
 
-{/* <Route path="manage-live-bhajans" element={<ManageLiveBhajans />} /> */}
+<Route path="manage-live-bhajans" element={<ManageLiveBhajans />} />
 
 
 

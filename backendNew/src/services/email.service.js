@@ -1,9 +1,9 @@
-//  Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 // If you theft this code, you will be punished or may face legal action by the owner.
 
 import nodemailer from 'nodemailer';
 
-//  Configure the SMTP Transport
+// ✅ Configure the SMTP Transport
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST, // smtp.gmail.com
   port: process.env.EMAIL_PORT, // 587
@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-//  Send Email
+// ✅ Send Email
 export const sendEmail = async (to, subject, html) => {
   try {
     const mailOptions = {
@@ -25,7 +25,7 @@ export const sendEmail = async (to, subject, html) => {
     };
 
     const info = await transporter.sendMail(mailOptions);
-    console.log(' Email Sent:', info.response);
+    console.log('✅ Email Sent:', info.response);
     return info.response;
   } catch (error) {
     console.error('❌ Error sending email:', error.message);

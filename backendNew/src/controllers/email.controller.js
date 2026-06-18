@@ -1,9 +1,9 @@
-//  Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 // If you theft this code, you will be punished or may face legal action by the owner.
 
 import nodemailer from 'nodemailer';
 
-//  Send email controller
+// ✅ Send email controller
 export const sendEmail = async (req, res) => {
   const { to, subject, message } = req.body;
 
@@ -37,7 +37,7 @@ export const sendEmail = async (req, res) => {
   }
 };
 
-//  Contact Form Submission Controller
+// ✅ Contact Form Submission Controller
 export const submitContactForm = async (req, res) => {
   const { name, email, subject, message } = req.body;
 

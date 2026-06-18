@@ -1,4 +1,4 @@
-//  Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 // If you theft this code, you will be punished or may face legal action by the owner.
 
 import User from '../models/user.model.js';
@@ -20,17 +20,8 @@ export const getAdminDashboardSummary = asyncHandler(async (req, res) => {
     const sevenDaysAgo = new Date();
     sevenDaysAgo.setDate(today.getDate() - 6);
 
-    //  Total counts
-    const [
-      totalUsers,
-      totalBookings,
-      totalProducts,
-      totalOrders,
-      totalBlogs,
-      totalPandits,
-      approvedPandits,
-      pendingPandits,
-    ] = await Promise.all([
+    // 📊 Total counts
+    const [totalUsers, totalBookings, totalProducts, totalOrders, totalBlogs, totalPandits, approvedPandits, pendingPandits] = await Promise.all([
       User.countDocuments(),
       Booking.countDocuments(),
       Product.countDocuments(),
@@ -41,14 +32,14 @@ export const getAdminDashboardSummary = asyncHandler(async (req, res) => {
       Pandit.countDocuments({ status: 'pending' }),
     ]);
 
-    //  Order status breakdown
+    // 📊 Order status breakdown
     const [pendingOrders, confirmedOrders, cancelledOrders] = await Promise.all([
       Order.countDocuments({ status: 'pending' }),
       Order.countDocuments({ status: 'confirmed' }),
       Order.countDocuments({ status: 'cancelled' }),
     ]);
 
-    //  Booking stats (last 7 days)
+    // 🧾 Booking stats (last 7 days)
     const bookingStats = await Booking.aggregate([
       { $match: { createdAt: { $gte: sevenDaysAgo } } },
       {
@@ -60,7 +51,7 @@ export const getAdminDashboardSummary = asyncHandler(async (req, res) => {
       { $sort: { _id: 1 } },
     ]);
 
-    //  Order stats (last 7 days)
+    // 🧾 Order stats (last 7 days)
     const orderStats = await Order.aggregate([
       { $match: { createdAt: { $gte: sevenDaysAgo } } },
       {
@@ -72,14 +63,12 @@ export const getAdminDashboardSummary = asyncHandler(async (req, res) => {
       { $sort: { _id: 1 } },
     ]);
 
-    //  Last 7 days (formatted)
+    // 📆 Last 7 days (formatted)
     const last7Days = Array.from({ length: 7 }).map((_, i) =>
-      dayjs()
-        .subtract(6 - i, 'day')
-        .format('YYYY-MM-DD')
+      dayjs().subtract(6 - i, 'day').format('YYYY-MM-DD')
     );
 
-    //  Format chart data (complete 7-day timeline)
+    // 📈 Format chart data (complete 7-day timeline)
     const bookingChart = last7Days.map((date) => {
       const entry = bookingStats.find((d) => d._id === date);
       return { date, count: entry?.count || 0 };
@@ -90,7 +79,7 @@ export const getAdminDashboardSummary = asyncHandler(async (req, res) => {
       return { date, count: entry?.count || 0 };
     });
 
-    //  Final Response
+    // ✅ Final Response
     return res.status(200).json(
       new ApiResponse(
         200,
@@ -118,6 +107,8 @@ export const getAdminDashboardSummary = asyncHandler(async (req, res) => {
     );
   } catch (error) {
     console.error('Dashboard Summary Error:', error);
-    return res.status(500).json(new ApiResponse(500, null, 'Failed to fetch dashboard summary'));
+    return res
+      .status(500)
+      .json(new ApiResponse(500, null, 'Failed to fetch dashboard summary'));
   }
 });

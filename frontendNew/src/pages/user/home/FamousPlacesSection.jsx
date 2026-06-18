@@ -1,5 +1,5 @@
 
-//  Enhanced by ChatGPT © 2025 - Jay Rana's Devotional Platform - Premium Famous Places Section
+// 🔐 Enhanced by ChatGPT © 2025 - Jay Rana's Devotional Platform - Premium Famous Places Section
 
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";

@@ -1,24 +1,29 @@
-//  Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 // If you theft this code, you will be punished or may face legal action by the owner.
 
 // src/controllers/auth.controller.js
 import dotenv from 'dotenv';
 dotenv.config();
 
-import { registerUser, logoutUser, getAllUsers, getUserProfile } from '../services/auth.service.js';
+import {
+  registerUser,
+  logoutUser,
+  getAllUsers,
+  getUserProfile,
+} from '../services/auth.service.js';
 
 import User from '../models/user.model.js';
 import bcrypt from 'bcryptjs';
 import generateToken from '../utils/generateToken.js';
 
-//  Register User
+// ✅ Register User
 export const register = async (req, res) => {
   try {
     const name = req.body.name?.trim();
     const email = req.body.email?.trim();
     const password = req.body.password?.trim();
 
-    if (!name || !email || !password) {
+    if (!name || !email || !password ) {
       return res.status(400).json({
         success: false,
         message: 'Name, email, and password are required.',
@@ -43,7 +48,7 @@ export const register = async (req, res) => {
   }
 };
 
-//  Login (Handles Admin + Users)
+// ✅ Login (Handles Admin + Users)
 export const login = async (req, res) => {
   try {
     const email = req.body.email?.trim();
@@ -56,8 +61,11 @@ export const login = async (req, res) => {
       });
     }
 
-    //  Admin Login
-    if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
+    // ✅ Admin Login
+    if (
+      email === process.env.ADMIN_EMAIL &&
+      password === process.env.ADMIN_PASSWORD
+    ) {
       const token = generateToken(process.env.ADMIN_ID, 'admin');
       return res.status(200).json({
         token,
@@ -70,14 +78,18 @@ export const login = async (req, res) => {
       });
     }
 
-    //  Normal User Login
+    // ✅ Normal User Login
     const user = await User.findOne({ email });
     if (!user)
-      return res.status(401).json({ success: false, message: 'Invalid email or password' });
+      return res
+        .status(401)
+        .json({ success: false, message: 'Invalid email or password' });
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch)
-      return res.status(401).json({ success: false, message: 'Invalid email or password' });
+      return res
+        .status(401)
+        .json({ success: false, message: 'Invalid email or password' });
 
     const token = generateToken(user._id, user.role);
     res.cookie('token', token, { httpOnly: true });
@@ -96,7 +108,7 @@ export const login = async (req, res) => {
   }
 };
 
-//  Logout
+// ✅ Logout
 export const logout = async (req, res) => {
   res.clearCookie('token');
   res.status(200).json({
@@ -105,7 +117,9 @@ export const logout = async (req, res) => {
   });
 };
 
-//  Get Authenticated User Profile
+
+
+// ✅ Get Authenticated User Profile
 export const getProfile = async (req, res) => {
   try {
     const userId = req.user.id;
@@ -121,7 +135,7 @@ export const getProfile = async (req, res) => {
   }
 };
 
-//  Get All Users
+// ✅ Get All Users
 export const getUsers = async (req, res) => {
   try {
     const users = await getAllUsers();

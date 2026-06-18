@@ -1,5 +1,5 @@
 
-//  Redesigned by ChatGPT © 2025 - Jay Rana's Devotional Platform
+// 🔐 Redesigned by ChatGPT © 2025 - Jay Rana's Devotional Platform
 
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";

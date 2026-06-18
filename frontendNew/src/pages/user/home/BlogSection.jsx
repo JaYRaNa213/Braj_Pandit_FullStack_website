@@ -1,5 +1,5 @@
 
-//  Enhanced by ChatGPT © 2025 - Jay Rana's Devotional Platform - Premium Blog Section
+// 🔐 Enhanced by ChatGPT © 2025 - Jay Rana's Devotional Platform - Premium Blog Section
 
 import React, { useEffect, useState, useRef } from "react";
 import { getAllBlogs } from "../../../services/user/blogService";

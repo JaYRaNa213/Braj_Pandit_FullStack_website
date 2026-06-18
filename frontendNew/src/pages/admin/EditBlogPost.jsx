@@ -1,4 +1,4 @@
-//  Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
@@ -75,7 +75,7 @@ const EditBlogPost = () => {
 
     try {
       await updateBlog(id, formData);
-      toast.success(" Blog updated successfully");
+      toast.success("✅ Blog updated successfully");
       navigate("/admin/manage-blogs");
     } catch (err) {
       toast.error("❌ Update failed");

@@ -1,9 +1,10 @@
-//  Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 // If you theft this code, you will be punished or may face legal action by the owner.
+
 
 import express from 'express';
 import User from '../models/user.model.js';
-import Booking from '../models/booking.model.js';
+import Booking from "../models/booking.model.js";
 import Product from '../models/product.model.js';
 import Order from '../models/order.model.js';
 import Blog from '../models/blog.model.js';
@@ -11,9 +12,16 @@ import Blog from '../models/blog.model.js';
 import asyncHandler from '../utils/asyncHandler.js';
 import ApiResponse from '../utils/ApiResponse.js';
 
+
 export const getPujaBookings = async (req, res) => {
   try {
-    const { page = 1, limit = 1000, search = '', sort = 'date', order = 'asc' } = req.query;
+    const {
+      page = 1,
+      limit = 1000,
+      search = '',
+      sort = 'date',
+      order = 'asc',
+    } = req.query;
 
     const currentPage = Math.max(Number(page), 1);
     const perPage = Math.max(Number(limit), 1);
@@ -32,7 +40,7 @@ export const getPujaBookings = async (req, res) => {
     const total = await Booking.countDocuments(searchFilter);
 
     const bookings = await Booking.find(searchFilter)
-      .populate('user', 'name')
+      .populate("user", "name")
       .sort({ [sortField]: sortOrder })
       .skip((currentPage - 1) * perPage)
       .limit(perPage);
@@ -49,29 +57,28 @@ export const getPujaBookings = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      message: 'Bookings fetched',
+      message: "Bookings fetched",
       data: formatted,
       total,
       page: currentPage,
       totalPages: Math.ceil(total / perPage),
     });
   } catch (err) {
-    console.error('Booking fetch error:', err);
-    res.status(500).json({ success: false, message: 'Server error' });
+    console.error("Booking fetch error:", err);
+    res.status(500).json({ success: false, message: "Server error" });
   }
 };
 
 export const getUserAdminDashboardSummary = async (req, res) => {
   try {
-    const [totalUsers, totalBookings, totalProducts, totalOrders, totalBlogs, totalPandits] =
-      await Promise.all([
-        User.countDocuments(),
-        Booking.countDocuments(),
-        Product.countDocuments(),
-        Order.countDocuments(),
-        Blog.countDocuments(),
-        Pandit.countDocuments(),
-      ]);
+    const [totalUsers, totalBookings, totalProducts, totalOrders, totalBlogs,totalPandits] = await Promise.all([
+      User.countDocuments(),
+      Booking.countDocuments(),
+      Product.countDocuments(),
+      Order.countDocuments(),
+      Blog.countDocuments(),
+      Pandit.countDocuments(),
+    ]);
 
     res.status(200).json({
       success: true,
@@ -94,38 +101,47 @@ export const getUserAdminDashboardSummary = async (req, res) => {
   }
 };
 
+
 export const updatePujaBookingStatus = async (req, res) => {
   try {
     const { id } = req.params;
     const { status } = req.body;
 
-    console.log('Updating booking ID:', id);
-    console.log('New status:', status);
+    console.log("Updating booking ID:", id);
+    console.log("New status:", status);
 
-    const booking = await Booking.findByIdAndUpdate(id, { status }, { new: true });
+    const booking = await Booking.findByIdAndUpdate(
+      id,
+      { status },
+      { new: true }
+    );
 
     if (!booking) {
-      return res.status(404).json({ success: false, message: 'Booking not found' });
+      return res.status(404).json({ success: false, message: "Booking not found" });
     }
 
-    res.json({ success: true, message: 'Status updated', booking });
+    res.json({ success: true, message: "Status updated", booking });
   } catch (error) {
-    console.error('Error updating booking status:', error);
-    res.status(500).json({ success: false, message: 'Server error' });
+    console.error("Error updating booking status:", error);
+    res.status(500).json({ success: false, message: "Server error" });
   }
 };
+
 
 export const getAllUsersAdmin = asyncHandler(async (req, res) => {
   const users = await User.find().select('-password -refreshToken');
   res.status(200).json(new ApiResponse(200, users, 'All users fetched successfully'));
 });
 
+
+
+
 export const getAllUsers = async (req, res) => {
   try {
-    const users = await User.find().select('-password');
+    const users = await User.find().select("-password");
     res.status(200).json({ success: true, data: users });
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Failed to fetch users' });
+    res.status(500).json({ success: false, message: "Failed to fetch users" });
   }
 };
 
@@ -136,7 +152,7 @@ export const updateUserByAdmin = async (req, res) => {
     const { name, email, phone, address, role, isVerified } = req.body;
 
     const user = await User.findById(id);
-    if (!user) return res.status(404).json({ success: false, message: 'User not found' });
+    if (!user) return res.status(404).json({ success: false, message: "User not found" });
 
     user.name = name || user.name;
     user.email = email || user.email;
@@ -146,9 +162,9 @@ export const updateUserByAdmin = async (req, res) => {
     user.isVerified = isVerified ?? user.isVerified;
 
     await user.save();
-    res.status(200).json({ success: true, message: 'User updated', user });
+    res.status(200).json({ success: true, message: "User updated", user });
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Failed to update user' });
+    res.status(500).json({ success: false, message: "Failed to update user" });
   }
 };
 
@@ -158,13 +174,14 @@ export const deleteUserByAdmin = async (req, res) => {
     const { id } = req.params;
 
     const deletedUser = await User.findByIdAndDelete(id);
-    if (!deletedUser) return res.status(404).json({ success: false, message: 'User not found' });
+    if (!deletedUser) return res.status(404).json({ success: false, message: "User not found" });
 
-    res.status(200).json({ success: true, message: 'User deleted' });
+    res.status(200).json({ success: true, message: "User deleted" });
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Failed to delete user' });
+    res.status(500).json({ success: false, message: "Failed to delete user" });
   }
 };
+
 
 export const deletePujaBooking = asyncHandler(async (req, res) => {
   const booking = await Booking.findByIdAndDelete(req.params.id);
@@ -174,7 +191,9 @@ export const deletePujaBooking = asyncHandler(async (req, res) => {
   res.status(200).json({ success: true, message: 'Booking deleted successfully' });
 });
 
+
 // controllers/admin/order.controller.js
+
 
 export const getAllOrders = async (req, res) => {
   try {
@@ -185,7 +204,9 @@ export const getAllOrders = async (req, res) => {
     // Optional: dynamic search on user name, email, product name, or status
     const searchFilter = search
       ? {
-          $or: [{ status: { $regex: search, $options: 'i' } }],
+          $or: [
+            { status: { $regex: search, $options: 'i' } },
+          ],
         }
       : {};
 
@@ -221,20 +242,22 @@ export const getAllOrders = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      message: 'Orders fetched successfully',
+      message: "Orders fetched successfully",
       data: formattedOrders,
       total,
       page: parseInt(page),
       totalPages: Math.ceil(total / limit),
     });
   } catch (error) {
-    console.error('Error fetching orders:', error);
+    console.error("Error fetching orders:", error);
     res.status(500).json({
       success: false,
-      message: 'Server error while fetching orders',
+      message: "Server error while fetching orders",
     });
   }
 };
+
+
 
 export const updateOrderStatus = async (req, res) => {
   try {
@@ -244,7 +267,7 @@ export const updateOrderStatus = async (req, res) => {
     if (!status) {
       return res.status(400).json({
         success: false,
-        message: 'Status is required',
+        message: "Status is required",
       });
     }
 
@@ -255,7 +278,7 @@ export const updateOrderStatus = async (req, res) => {
     if (!order) {
       return res.status(404).json({
         success: false,
-        message: 'Order not found',
+        message: "Order not found",
       });
     }
 
@@ -264,14 +287,14 @@ export const updateOrderStatus = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      message: 'Order status updated successfully',
+      message: "Order status updated successfully",
       order,
     });
   } catch (error) {
-    console.error('Error updating order status:', error);
+    console.error("Error updating order status:", error);
     res.status(500).json({
       success: false,
-      message: 'Server error while updating order status',
+      message: "Server error while updating order status",
     });
   }
 };
