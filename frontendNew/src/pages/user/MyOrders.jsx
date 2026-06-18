@@ -1,4 +1,4 @@
-// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+//  Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';

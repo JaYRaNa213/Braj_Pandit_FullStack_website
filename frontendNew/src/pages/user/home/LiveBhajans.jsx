@@ -1,5 +1,5 @@
 
-// 🔐 Enhanced by ChatGPT © 2025 - Jay Rana's Devotional Platform - Premium Live Bhajans Section
+//  Enhanced by ChatGPT © 2025 - Jay Rana's Devotional Platform - Premium Live Bhajans Section
 
 import React, { useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -280,12 +280,7 @@ const LiveBhajan = () => {
 
   return (
     <section className="py-24 bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative overflow-hidden">
-      {/* Background Decorations */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-32 h-32 bg-orange-200/20 dark:bg-yellow-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-20 w-40 h-40 bg-yellow-200/20 dark:bg-orange-500/10 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-orange-100/10 to-yellow-100/10 dark:from-yellow-500/5 dark:to-orange-500/5 rounded-full blur-3xl" />
-      </div>
+      {/* Background Decorations Removed for Performance */}
 
       <div className="px-4 sm:px-6 lg:px-16 max-w-7xl mx-auto relative z-10">
         {/* Enhanced Header */}

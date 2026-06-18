@@ -1,4 +1,4 @@
-// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+//  Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 
 import User from '../models/user.model.js';
 import Booking from '../models/booking.model.js';
@@ -8,7 +8,7 @@ import asyncHandler from '../utils/asyncHandler.js';
 import ApiResponse from '../utils/ApiResponse.js';
 import { uploadOnCloudinary } from '../utils/cloudinary.js';
 
-// ✅ GET User Profile
+//  GET User Profile
 export const getUserProfile = asyncHandler(async (req, res) => {
   const userId = req.user.id;
 
@@ -24,16 +24,20 @@ export const getUserProfile = asyncHandler(async (req, res) => {
   ]);
 
   return res.status(200).json(
-    new ApiResponse(200, {
-      user,
-      bookings,
-      orders,
-      cart: cart?.items || [],
-    }, 'User profile fetched successfully')
+    new ApiResponse(
+      200,
+      {
+        user,
+        bookings,
+        orders,
+        cart: cart?.items || [],
+      },
+      'User profile fetched successfully'
+    )
   );
 });
 
-// ✅ PUT Update User Profile
+//  PUT Update User Profile
 export const updateUserProfile = asyncHandler(async (req, res) => {
   const userId = req.user.id;
   const { name, profileImage } = req.body;
@@ -51,21 +55,19 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
   const cleanUser = user.toObject();
   delete cleanUser.password;
 
-  return res.status(200).json(
-    new ApiResponse(200, cleanUser, 'Profile updated successfully')
-  );
+  return res.status(200).json(new ApiResponse(200, cleanUser, 'Profile updated successfully'));
 });
 
-// ✅ POST Upload Profile Image
+//  POST Upload Profile Image
 export const uploadProfileImage = asyncHandler(async (req, res) => {
   if (!req.file) {
-    return res.status(400).json(new ApiResponse(400, null, "No file uploaded"));
+    return res.status(400).json(new ApiResponse(400, null, 'No file uploaded'));
   }
 
   const uploadResult = await uploadOnCloudinary(req.file.path);
   if (!uploadResult) {
-    return res.status(500).json(new ApiResponse(500, null, "Cloudinary upload failed"));
+    return res.status(500).json(new ApiResponse(500, null, 'Cloudinary upload failed'));
   }
 
-  return res.status(200).json(new ApiResponse(200, uploadResult.secure_url, "Image uploaded"));
+  return res.status(200).json(new ApiResponse(200, uploadResult.secure_url, 'Image uploaded'));
 });

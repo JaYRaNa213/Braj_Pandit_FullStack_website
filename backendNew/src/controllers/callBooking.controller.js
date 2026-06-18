@@ -1,10 +1,10 @@
-// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+//  Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 // If you theft this code, you will be punished or may face legal action by the owner.
 
 // File: src/controllers/callBooking.controller.js
 
-import nodemailer from "nodemailer";
-import emailReceivers from "../config/emailReceivers.js";
+import nodemailer from 'nodemailer';
+import emailReceivers from '../config/emailReceivers.js';
 
 export const sendBookingEmail = async (req, res) => {
   const { name, email, phone, service, message } = req.body;
@@ -14,7 +14,7 @@ export const sendBookingEmail = async (req, res) => {
     const receiverEmail = emailReceivers[service] || process.env.MAIL_RECEIVER;
 
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      service: 'gmail',
       auth: {
         user: process.env.MAIL_USER,
         pass: process.env.MAIL_PASS,
@@ -31,16 +31,16 @@ export const sendBookingEmail = async (req, res) => {
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Phone:</strong> ${phone}</p>
         <p><strong>Service:</strong> ${service}</p>
-        <p><strong>Message:</strong> ${message || "N/A"}</p>
+        <p><strong>Message:</strong> ${message || 'N/A'}</p>
         <hr/>
         <p style="font-size:12px;color:#777;">Received on: ${new Date().toLocaleString()}</p>
       `,
     };
 
     await transporter.sendMail(mailOptions);
-    res.status(200).json({ message: "Email sent successfully" });
+    res.status(200).json({ message: 'Email sent successfully' });
   } catch (err) {
-    console.error("Email Error:", err);
-    res.status(500).json({ message: "Failed to send email" });
+    console.error('Email Error:', err);
+    res.status(500).json({ message: 'Failed to send email' });
   }
 };

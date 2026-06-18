@@ -1,5 +1,5 @@
 
-// 🔐 Redesigned by ChatGPT © 2025 - Jay Rana's Devotional Platform
+//  Redesigned by ChatGPT © 2025 - Jay Rana's Devotional Platform
 
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -24,30 +24,13 @@ const HeroSection = ({ onAllEPujasClick, onSeeServicesClick }) => {
   useEffect(() => {
     setIsMounted(true);
     setIsVisible(true);
-    
-    // Image rotation effect
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % backgroundImages.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
   }, []);
 
   const handleAllEPujasClick = () => {
     navigate("/all-e-pujas");
   };
 
-  // Floating animation variants
-  const floatingVariants = {
-    animate: {
-      y: [0, -20, 0],
-      transition: {
-        duration: 4,
-        repeat: Infinity,
-        ease: "easeInOut"
-      }
-    }
-  };
+  // Removed floating variants to improve CPU usage
 
   const staggerContainer = {
     hidden: { opacity: 0 },
@@ -95,63 +78,16 @@ const HeroSection = ({ onAllEPujasClick, onSeeServicesClick }) => {
 
   return (
     <section className="relative h-screen w-full overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-900">
-      {/* Animated Background Images */}
-      <AnimatePresence>
-        <motion.div
-          key={currentImageIndex}
-          className="absolute inset-0 bg-cover bg-center z-10"
-          style={{ backgroundImage: `url(${backgroundImages[currentImageIndex]})` }}
-          initial={{ opacity: 0, scale: 1.1 }}
-          animate={{ opacity: 0.4, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.9 }}
-          transition={{ duration: 1.5, ease: "easeInOut" }}
-        />
-      </AnimatePresence>
+      {/* Static Background Image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center z-10 opacity-40"
+        style={{ backgroundImage: `url(${backgroundImages[0]})` }}
+      />
 
       {/* Dynamic Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-orange-900/30 to-black/80 z-20" />
 
-      {/* Floating Decorative Elements */}
-      <div className="absolute inset-0 z-25 pointer-events-none">
-        {/* Floating Om Symbol */}
-        <motion.div 
-          className="absolute top-20 left-10 text-6xl text-yellow-400/20"
-          variants={floatingVariants}
-          animate="animate"
-        >
-          🕉️
-        </motion.div>
-        
-        {/* Floating Lotus */}
-        <motion.div 
-          className="absolute top-40 right-20 text-5xl text-orange-400/20"
-          variants={floatingVariants}
-          animate="animate"
-          style={{ animationDelay: "1s" }}
-        >
-          🪷
-        </motion.div>
-
-        {/* Floating Diya */}
-        <motion.div 
-          className="absolute bottom-32 left-20 text-4xl text-yellow-500/20"
-          variants={floatingVariants}
-          animate="animate"
-          style={{ animationDelay: "2s" }}
-        >
-          🪔
-        </motion.div>
-
-        {/* Floating Temple */}
-        <motion.div 
-          className="absolute bottom-40 right-10 text-5xl text-orange-300/20"
-          variants={floatingVariants}
-          animate="animate"
-          style={{ animationDelay: "3s" }}
-        >
-          🛕
-        </motion.div>
-      </div>
+      {/* Floating Decorative Elements Removed for Performance */}
 
       {/* Main Content Container */}
       <div className="relative z-30 flex items-center justify-center h-full px-6 sm:px-10">
@@ -161,11 +97,10 @@ const HeroSection = ({ onAllEPujasClick, onSeeServicesClick }) => {
           initial="hidden"
           animate={isVisible ? "show" : "hidden"}
         >
-          {/* Glassmorphism Content Card */}
-          <div className="backdrop-blur-xl bg-gradient-to-br from-black/40 via-orange-900/20 to-black/40 rounded-3xl border border-white/10 shadow-2xl p-8 sm:p-12 text-center text-white space-y-8 relative overflow-hidden">
+          {/* Content Card (Removed backdrop-blur and glowing effects) */}
+          <div className="bg-gray-900/80 rounded-3xl border border-white/10 shadow-2xl p-8 sm:p-12 text-center text-white space-y-8 relative overflow-hidden">
             
-            {/* Subtle Glow Effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-orange-400/5 via-yellow-400/5 to-orange-400/5 rounded-3xl blur-xl" />
+            {/* Removed Subtle Glow Effect */}
             
             <motion.div variants={itemVariants} className="relative z-10">
               <p className="text-sm sm:text-base tracking-[0.3em] uppercase text-yellow-400 font-bold mb-2 opacity-90">
@@ -255,25 +190,12 @@ const HeroSection = ({ onAllEPujasClick, onSeeServicesClick }) => {
         </motion.div>
       </div>
 
-      {/* Scroll Indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30"
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 2, duration: 1 }}
-      >
-        <motion.div
-          className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center"
-          animate={{ y: [0, 5, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <motion.div
-            className="w-1 h-3 bg-white/60 rounded-full mt-2"
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          />
-        </motion.div>
-      </motion.div>
+      {/* Scroll Indicator (Simplified) */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30 opacity-70">
+        <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
+          <div className="w-1 h-3 bg-white/60 rounded-full mt-2" />
+        </div>
+      </div>
     </section>
   );
 };

@@ -1,34 +1,34 @@
-// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+//  Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 
-import axios from "axios";
-import fs from "fs";
-import path from "path";
-import BhajanChannel from "../models/BhajanChannel.js";
+import axios from 'axios';
+import fs from 'fs';
+import path from 'path';
+import BhajanChannel from '../models/BhajanChannel.js';
 
 // 📁 Local cache file to prevent excessive YouTube API hits
-const CACHE_DIR = path.resolve("cache");
-const CACHE_FILE = path.join(CACHE_DIR, "liveBhajans.json");
+const CACHE_DIR = path.resolve('cache');
+const CACHE_FILE = path.join(CACHE_DIR, 'liveBhajans.json');
 
 // 🔑 Support multiple API keys to rotate through quota limits
-const apiKeys = process.env.YOUTUBE_API_KEY?.split(",") || [];
+const apiKeys = process.env.YOUTUBE_API_KEY?.split(',') || [];
 
-// ✅ Read cache if available and valid
+//  Read cache if available and valid
 const getCache = () => {
   try {
     if (!fs.existsSync(CACHE_FILE)) return null;
-    const content = fs.readFileSync(CACHE_FILE, "utf-8");
+    const content = fs.readFileSync(CACHE_FILE, 'utf-8');
     const json = JSON.parse(content);
     const today = new Date().toISOString().slice(0, 10);
     return json?.date === today && Array.isArray(json.data) && json.data.length > 0
       ? json.data
       : null;
   } catch (error) {
-    console.error("❌ Error reading cache:", error.message);
+    console.error('❌ Error reading cache:', error.message);
     return null;
   }
 };
 
-// ✅ Save data to cache
+//  Save data to cache
 const saveCache = (data) => {
   try {
     if (!fs.existsSync(CACHE_DIR)) fs.mkdirSync(CACHE_DIR, { recursive: true });
@@ -38,22 +38,22 @@ const saveCache = (data) => {
     };
     fs.writeFileSync(CACHE_FILE, JSON.stringify(payload, null, 2));
   } catch (error) {
-    console.error("❌ Error saving cache:", error.message);
+    console.error('❌ Error saving cache:', error.message);
   }
 };
 
-// ✅ Fetch latest video (live or fallback) from YouTube
+//  Fetch latest video (live or fallback) from YouTube
 const fetchLiveVideos = async () => {
   const channels = await BhajanChannel.find({});
   const results = [];
 
   if (channels.length === 0) {
-    console.warn("⚠️ No bhajan channels found in DB");
+    console.warn('⚠️ No bhajan channels found in DB');
     return results;
   }
 
   if (apiKeys.length === 0) {
-    console.warn("⚠️ No YouTube API keys configured. Using default videos only.");
+    console.warn('⚠️ No YouTube API keys configured. Using default videos only.');
   }
 
   for (const channel of channels) {
@@ -63,12 +63,12 @@ const fetchLiveVideos = async () => {
     if (apiKeys.length > 0) {
       for (const key of apiKeys) {
         try {
-          const res = await axios.get("https://www.googleapis.com/youtube/v3/search", {
+          const res = await axios.get('https://www.googleapis.com/youtube/v3/search', {
             params: {
-              part: "snippet",
+              part: 'snippet',
               channelId: channel.channelId,
-              eventType: "live",
-              type: "video",
+              eventType: 'live',
+              type: 'video',
               key,
             },
           });
@@ -98,11 +98,11 @@ const fetchLiveVideos = async () => {
     }
   }
 
-  console.log(`✅ Total enriched channels: ${results.length}`);
+  console.log(` Total enriched channels: ${results.length}`);
   return results;
 };
 
-// ✅ GET /api/live/home → Return all live/fallback videos (sorted by live status)
+//  GET /api/live/home → Return all live/fallback videos (sorted by live status)
 export const getLiveHome = async (req, res) => {
   try {
     const cached = getCache();
@@ -122,12 +122,12 @@ export const getLiveHome = async (req, res) => {
     const sorted = [...data].sort((a, b) => Number(b.isLive) - Number(a.isLive));
     return res.status(200).json(limit ? sorted.slice(0, limit) : sorted);
   } catch (err) {
-    console.error("❌ getLiveHome failed:", err.message);
-    return res.status(500).json({ message: "Fetch failed and no cache available." });
+    console.error('❌ getLiveHome failed:', err.message);
+    return res.status(500).json({ message: 'Fetch failed and no cache available.' });
   }
 };
 
-// ✅ GET /api/live/all → Return all enriched bhajan channels
+//  GET /api/live/all → Return all enriched bhajan channels
 export const getLiveAll = async (req, res) => {
   try {
     const cached = getCache();
@@ -144,45 +144,45 @@ export const getLiveAll = async (req, res) => {
     saveCache(data);
     return res.status(200).json(data);
   } catch (err) {
-    console.error("❌ getLiveAll failed:", err.message);
-    return res.status(500).json({ message: "Fetch failed and no cache available." });
+    console.error('❌ getLiveAll failed:', err.message);
+    return res.status(500).json({ message: 'Fetch failed and no cache available.' });
   }
 };
 
-// ✅ POST /api/admin/live → Add multiple bhajan channels
+//  POST /api/admin/live → Add multiple bhajan channels
 export const addChannels = async (req, res) => {
   try {
     const body = req.body;
     if (!Array.isArray(body)) {
-      return res.status(400).json({ message: "Payload must be an array of channels." });
+      return res.status(400).json({ message: 'Payload must be an array of channels.' });
     }
 
     await BhajanChannel.insertMany(body);
-    res.status(201).json({ message: "Channels added successfully." });
+    res.status(201).json({ message: 'Channels added successfully.' });
   } catch (err) {
-    console.error("❌ addChannels failed:", err.message);
-    res.status(500).json({ message: "Failed to add channels", error: err.message });
+    console.error('❌ addChannels failed:', err.message);
+    res.status(500).json({ message: 'Failed to add channels', error: err.message });
   }
 };
 
-// ✅ GET /api/admin/live → Return all stored bhajan channels
+//  GET /api/admin/live → Return all stored bhajan channels
 export const getChannels = async (req, res) => {
   try {
     const list = await BhajanChannel.find({});
     res.status(200).json(list);
   } catch (err) {
-    console.error("❌ getChannels failed:", err.message);
-    res.status(500).json({ message: "Failed to get channels" });
+    console.error('❌ getChannels failed:', err.message);
+    res.status(500).json({ message: 'Failed to get channels' });
   }
 };
 
-// ✅ DELETE /api/admin/live/:id → Delete channel by ID
+//  DELETE /api/admin/live/:id → Delete channel by ID
 export const deleteChannel = async (req, res) => {
   try {
     await BhajanChannel.findByIdAndDelete(req.params.id);
-    res.status(200).json({ message: "Channel deleted successfully" });
+    res.status(200).json({ message: 'Channel deleted successfully' });
   } catch (err) {
-    console.error("❌ deleteChannel failed:", err.message);
-    res.status(500).json({ message: "Failed to delete channel" });
+    console.error('❌ deleteChannel failed:', err.message);
+    res.status(500).json({ message: 'Failed to delete channel' });
   }
 };

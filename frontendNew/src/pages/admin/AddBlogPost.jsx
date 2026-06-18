@@ -64,7 +64,7 @@ const AddBlogPost = () => {
         withCredentials: true,
       });
 
-      alert('✅ Blog posted successfully!');
+      alert(' Blog posted successfully!');
       console.log('📦 Blog created:', response.data);
 
       // Reset form
