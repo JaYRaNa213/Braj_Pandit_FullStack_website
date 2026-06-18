@@ -1,4 +1,4 @@
-// 🔐 Code developed by Jay Rana © 26/09/2025
+//  Code developed by Jay Rana © 26/09/2025
 
 import mongoose from 'mongoose';
 import path from 'path';
@@ -36,7 +36,7 @@ const createAdmins = async () => {
     for (const adminData of admins) {
       const existing = await User.findOne({ email: adminData.email });
       if (existing) {
-        console.log(`✅ Admin already exists: ${adminData.email}`);
+        console.log(` Admin already exists: ${adminData.email}`);
         continue;
       }
 
@@ -48,7 +48,7 @@ const createAdmins = async () => {
         role: 'admin',
       });
 
-      console.log(`✅ Created admin: ${newAdmin.email} (ID: ${newAdmin._id})`);
+      console.log(` Created admin: ${newAdmin.email} (ID: ${newAdmin._id})`);
     }
 
     process.exit(0);

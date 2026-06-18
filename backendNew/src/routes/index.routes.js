@@ -1,4 +1,4 @@
-// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+//  Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 // If you theft this code, you will be punished or may face legal action by the owner.
 
 // Main router for the application
@@ -29,6 +29,5 @@ router.use('api/admin/blogs', adminblogRoutes);
 router.use('/payment', paymentRoutes);
 router.use('/email', emailRoutes);
 router.use('/api/test', testRoutes);
-
 
 export default router; // Export the main router

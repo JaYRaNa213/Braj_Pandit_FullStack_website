@@ -1,4 +1,4 @@
-// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+//  Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 // If you theft this code, you will be punished or may face legal action by the owner.
 
 // src/controllers/payment.controller.js
@@ -6,7 +6,7 @@ import mongoose from 'mongoose';
 import Payment from '../models/payment.model.js';
 import User from '../models/user.model.js';
 
-// ✅ Validate MongoDB ObjectId format
+//  Validate MongoDB ObjectId format
 const isValidObjectId = (id) => mongoose.Types.ObjectId.isValid(id);
 
 /**
@@ -16,18 +16,17 @@ const isValidObjectId = (id) => mongoose.Types.ObjectId.isValid(id);
 export const initiatePayment = async (req, res) => {
   try {
     const { userId, amount, paymentMethod } = req.body;
-    console.log("This is User Id---------------------------",userId);
+    console.log('This is User Id---------------------------', userId);
 
-    // ✅ Validate userId format
+    //  Validate userId format
     if (!isValidObjectId(userId)) {
       return res.status(400).json({
         success: false,
         message: 'Invalid userId format. Must be a valid ObjectId.',
       });
-     
     }
 
-    // ✅ Check if the user exists
+    //  Check if the user exists
     const userExists = await User.findById(userId);
     if (!userExists) {
       return res.status(404).json({
@@ -36,7 +35,7 @@ export const initiatePayment = async (req, res) => {
       });
     }
 
-    // ✅ Validate amount and payment method
+    //  Validate amount and payment method
     if (!amount || isNaN(amount) || amount <= 0) {
       return res.status(400).json({
         success: false,
@@ -44,14 +43,18 @@ export const initiatePayment = async (req, res) => {
       });
     }
 
-    if (!paymentMethod || !['credit_card', 'debit_card', 'upi', 'net_banking'].includes(paymentMethod)) {
+    if (
+      !paymentMethod ||
+      !['credit_card', 'debit_card', 'upi', 'net_banking'].includes(paymentMethod)
+    ) {
       return res.status(400).json({
         success: false,
-        message: 'Invalid payment method. Supported methods: credit_card, debit_card, upi, net_banking.',
+        message:
+          'Invalid payment method. Supported methods: credit_card, debit_card, upi, net_banking.',
       });
     }
 
-    // ✅ Create a pending payment record
+    //  Create a pending payment record
     const payment = new Payment({
       user: userId,
       amount,
@@ -59,7 +62,7 @@ export const initiatePayment = async (req, res) => {
       status: 'pending',
     });
 
-    // ✅ Save payment to database
+    //  Save payment to database
     await payment.save();
 
     res.status(201).json({
@@ -84,7 +87,7 @@ export const verifyPayment = async (req, res) => {
   try {
     const { paymentId, status } = req.body;
 
-    // ✅ Validate paymentId format
+    //  Validate paymentId format
     if (!isValidObjectId(paymentId)) {
       return res.status(400).json({
         success: false,
@@ -92,7 +95,7 @@ export const verifyPayment = async (req, res) => {
       });
     }
 
-    // ✅ Find and update payment status
+    //  Find and update payment status
     const payment = await Payment.findById(paymentId);
     if (!payment) {
       return res.status(404).json({
@@ -101,7 +104,7 @@ export const verifyPayment = async (req, res) => {
       });
     }
 
-    // ✅ Update payment status
+    //  Update payment status
     payment.status = status;
     await payment.save();
 
@@ -127,7 +130,7 @@ export const getPaymentStatus = async (req, res) => {
   try {
     const { id } = req.params;
 
-    // ✅ Validate paymentId format
+    //  Validate paymentId format
     if (!isValidObjectId(id)) {
       return res.status(400).json({
         success: false,
@@ -135,7 +138,7 @@ export const getPaymentStatus = async (req, res) => {
       });
     }
 
-    // ✅ Find payment by ID
+    //  Find payment by ID
     const payment = await Payment.findById(id);
     if (!payment) {
       return res.status(404).json({
@@ -166,7 +169,7 @@ export const getUserPayments = async (req, res) => {
   try {
     const { userId } = req.params;
 
-    // ✅ Validate userId format
+    //  Validate userId format
     if (!isValidObjectId(userId)) {
       return res.status(400).json({
         success: false,
@@ -174,7 +177,7 @@ export const getUserPayments = async (req, res) => {
       });
     }
 
-    // ✅ Find all payments by the user
+    //  Find all payments by the user
     const payments = await Payment.find({ user: userId }).populate('user');
 
     res.status(200).json({
@@ -189,4 +192,3 @@ export const getUserPayments = async (req, res) => {
     });
   }
 };
-

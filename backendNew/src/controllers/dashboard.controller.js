@@ -1,4 +1,4 @@
-// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+//  Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 // If you theft this code, you will be punished or may face legal action by the owner.
 
 import User from '../models/user.model.js';
@@ -21,7 +21,16 @@ export const getAdminDashboardSummary = asyncHandler(async (req, res) => {
     sevenDaysAgo.setDate(today.getDate() - 6);
 
     // 📊 Total counts
-    const [totalUsers, totalBookings, totalProducts, totalOrders, totalBlogs, totalPandits, approvedPandits, pendingPandits] = await Promise.all([
+    const [
+      totalUsers,
+      totalBookings,
+      totalProducts,
+      totalOrders,
+      totalBlogs,
+      totalPandits,
+      approvedPandits,
+      pendingPandits,
+    ] = await Promise.all([
       User.countDocuments(),
       Booking.countDocuments(),
       Product.countDocuments(),
@@ -65,7 +74,9 @@ export const getAdminDashboardSummary = asyncHandler(async (req, res) => {
 
     // 📆 Last 7 days (formatted)
     const last7Days = Array.from({ length: 7 }).map((_, i) =>
-      dayjs().subtract(6 - i, 'day').format('YYYY-MM-DD')
+      dayjs()
+        .subtract(6 - i, 'day')
+        .format('YYYY-MM-DD')
     );
 
     // 📈 Format chart data (complete 7-day timeline)
@@ -79,7 +90,7 @@ export const getAdminDashboardSummary = asyncHandler(async (req, res) => {
       return { date, count: entry?.count || 0 };
     });
 
-    // ✅ Final Response
+    //  Final Response
     return res.status(200).json(
       new ApiResponse(
         200,
@@ -107,8 +118,6 @@ export const getAdminDashboardSummary = asyncHandler(async (req, res) => {
     );
   } catch (error) {
     console.error('Dashboard Summary Error:', error);
-    return res
-      .status(500)
-      .json(new ApiResponse(500, null, 'Failed to fetch dashboard summary'));
+    return res.status(500).json(new ApiResponse(500, null, 'Failed to fetch dashboard summary'));
   }
 });

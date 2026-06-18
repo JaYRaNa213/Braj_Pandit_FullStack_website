@@ -1,8 +1,13 @@
-// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+//  Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 // If you theft this code, you will be punished or may face legal action by the owner.
 
 import express from 'express';
-import { addProduct, getAllProducts, deleteProduct, updateProduct } from '../../controllers/product.controller.js';
+import {
+  addProduct,
+  getAllProducts,
+  deleteProduct,
+  updateProduct,
+} from '../../controllers/product.controller.js';
 import { verifyToken } from '../../middleware/auth.middleware.js';
 import { isAdmin } from '../../middleware/role.middleware.js';
 import upload from '../../middleware/multer.middleware.js';

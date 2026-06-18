@@ -1,4 +1,4 @@
-// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+//  Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 // If you theft this code, you will be punished or may face legal action by the owner.
 
 import express from 'express';
@@ -16,7 +16,7 @@ import { uploadSingle } from '../../middleware/upload.middleware.js'; // handles
 
 const router = express.Router();
 
-// ✅ Create a new blog with image
+//  Create a new blog with image
 router.post(
   '/',
   authMiddleware,
@@ -25,23 +25,13 @@ router.post(
   addBlog
 );
 
-// ✅ Get all blogs (with optional search/category/lang filtering)
-router.get(
-  '/',
-  authMiddleware,
-  authorizeRoles('admin'),
-  getAllBlogs
-);
+//  Get all blogs (with optional search/category/lang filtering)
+router.get('/', authMiddleware, authorizeRoles('admin'), getAllBlogs);
 
-// ✅ Get single blog by ID
-router.get(
-  '/:id',
-  authMiddleware,
-  authorizeRoles('admin'),
-  getBlogById
-);
+//  Get single blog by ID
+router.get('/:id', authMiddleware, authorizeRoles('admin'), getBlogById);
 
-// ✅ Update blog with optional image upload
+//  Update blog with optional image upload
 router.put(
   '/:id',
   authMiddleware,
@@ -50,12 +40,7 @@ router.put(
   updateBlog
 );
 
-// ✅ Delete blog
-router.delete(
-  '/:id',
-  authMiddleware,
-  authorizeRoles('admin'),
-  deleteBlog
-);
+//  Delete blog
+router.delete('/:id', authMiddleware, authorizeRoles('admin'), deleteBlog);
 
 export default router;

@@ -31,7 +31,7 @@ import LivePlayer from "../pages/user/LivePlayer";
 import MyBookings from "../pages/user/MyBookings";
 import BookingHistory from "../pages/user/BookingHistory";
 import OrderTracking from "../pages/user/OrderTracking";
-import BookingForm from "../pages/user/home/BookingForm"; // ✅ Correct import
+import BookingForm from "../pages/user/home/BookingForm"; //  Correct import
 import PujaBooking from "../pages/user/PujaBooking";
 import BePanditForm from "../pages/user/BePanditForm.jsx";
 
@@ -43,7 +43,7 @@ const UserRoutes = () => {
   return (
     <Routes>
       <Route element={<UserLayout />}>
-        {/* ✅ Public Pages */}
+        {/*  Public Pages */}
         <Route path="/about" element={<About />} />
         <Route path="" element={<Home />} />
         <Route path="products" element={<Products />} />
@@ -54,7 +54,7 @@ const UserRoutes = () => {
         <Route path="/famous-places" element={<AllFamousPlaces />} />
         <Route path="/live-bhajans" element={<AllLiveBhajans />} />
 
-        {/* ✅ Protected Pages */}
+        {/*  Protected Pages */}
         <Route element={<ProtectedRoute roles={["user", "admin"]} />}>
           <Route path="dashboard" element={<UserDashboard />} />
 
@@ -84,7 +84,7 @@ const UserRoutes = () => {
 
         </Route>
 
-        {/* ✅ Fallback */}
+        {/*  Fallback */}
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

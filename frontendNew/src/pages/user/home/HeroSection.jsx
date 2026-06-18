@@ -1,5 +1,5 @@
 
-// 🔐 Redesigned by ChatGPT © 2025 - Jay Rana's Devotional Platform
+//  Redesigned by ChatGPT © 2025 - Jay Rana's Devotional Platform
 
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -10,7 +10,6 @@ const HeroSection = ({ onAllEPujasClick, onSeeServicesClick }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [isMounted, setIsMounted] = useState(false);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
 
   // Array of background images for rotation
@@ -24,13 +23,6 @@ const HeroSection = ({ onAllEPujasClick, onSeeServicesClick }) => {
   useEffect(() => {
     setIsMounted(true);
     setIsVisible(true);
-    
-    // Image rotation effect
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % backgroundImages.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
   }, []);
 
   const handleAllEPujasClick = () => {
@@ -95,18 +87,11 @@ const HeroSection = ({ onAllEPujasClick, onSeeServicesClick }) => {
 
   return (
     <section className="relative h-screen w-full overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-900">
-      {/* Animated Background Images */}
-      <AnimatePresence>
-        <motion.div
-          key={currentImageIndex}
-          className="absolute inset-0 bg-cover bg-center z-10"
-          style={{ backgroundImage: `url(${backgroundImages[currentImageIndex]})` }}
-          initial={{ opacity: 0, scale: 1.1 }}
-          animate={{ opacity: 0.4, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.9 }}
-          transition={{ duration: 1.5, ease: "easeInOut" }}
-        />
-      </AnimatePresence>
+      {/* Static Background Image - animation removed, image kept */}
+      <div
+        className="absolute inset-0 bg-cover bg-center z-10 opacity-40"
+        style={{ backgroundImage: `url(${backgroundImages[0]})` }}
+      />
 
       {/* Dynamic Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-orange-900/30 to-black/80 z-20" />
