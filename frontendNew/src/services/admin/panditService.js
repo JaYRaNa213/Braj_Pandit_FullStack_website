@@ -1,4 +1,4 @@
-// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+//  Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 // If you theft this code, you will be punished or may face legal action by the owner.
 
 // src/services/admin/panditService.js
@@ -15,7 +15,9 @@ export const addPandit = async (data) => {
 };
 
 export const updatePanditStatus = async (id, status) => {
-  const res = await axiosInstance.patch(`/admin/pandits/${id}/status`, { status });
+  const res = await axiosInstance.patch(`/admin/pandits/${id}/status`, {
+    status,
+  });
   return res.data;
 };
 

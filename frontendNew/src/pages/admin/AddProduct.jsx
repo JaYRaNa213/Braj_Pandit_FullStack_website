@@ -1,4 +1,4 @@
-// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+//  Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 
 import React, { useState } from "react";
 import axiosInstance from "../../services/axios";
@@ -66,7 +66,7 @@ function AddProduct() {
       });
 
       if (res?.data?.success) {
-        alert("✅ Product added successfully!");
+        alert(" Product added successfully!");
         // Reset form
         setProductName("");
         setPrice("");

@@ -1,5 +1,5 @@
 
-// 🔐 Redesigned by ChatGPT © 2025 - Jay Rana's Devotional Platform
+//  Redesigned by ChatGPT © 2025 - Jay Rana's Devotional Platform
 
 import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
 import { Link as ScrollLink, scroller } from "react-scroll";

@@ -1,9 +1,9 @@
-// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+//  Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 // If you theft this code, you will be punished or may face legal action by the owner.
 
-import mongoose from "mongoose";
-import Cart from "../models/cart.model.js";
-import Product from "../models/product.model.js";
+import mongoose from 'mongoose';
+import Cart from '../models/cart.model.js';
+import Product from '../models/product.model.js';
 
 // Helper to check for valid MongoDB ObjectId
 const isValidObjectId = mongoose.Types.ObjectId.isValid;
@@ -14,7 +14,7 @@ export const addToCart = async (req, res) => {
   const userId = req.user.id;
 
   if (!isValidObjectId(userId)) {
-    return res.status(400).json({ success: false, message: "Invalid user ID" });
+    return res.status(400).json({ success: false, message: 'Invalid user ID' });
   }
 
   try {
@@ -26,9 +26,7 @@ export const addToCart = async (req, res) => {
         items: [{ product: productId, quantity }],
       });
     } else {
-      const index = cart.items.findIndex(
-        (item) => item.product.toString() === productId
-      );
+      const index = cart.items.findIndex((item) => item.product.toString() === productId);
       if (index !== -1) {
         cart.items[index].quantity += quantity;
       } else {
@@ -37,11 +35,9 @@ export const addToCart = async (req, res) => {
       await cart.save();
     }
 
-    res.status(200).json({ success: true, message: "Product added to cart", cart });
+    res.status(200).json({ success: true, message: 'Product added to cart', cart });
   } catch (error) {
-    res
-      .status(500)
-      .json({ success: false, message: "Server Error", error: error.message });
+    res.status(500).json({ success: false, message: 'Server Error', error: error.message });
   }
 };
 
@@ -52,16 +48,14 @@ export const getUserCart = async (req, res) => {
   if (!isValidObjectId(userId)) {
     return res
       .status(200)
-      .json({ success: true, cart: { items: [] }, message: "Admin has no cart" });
+      .json({ success: true, cart: { items: [] }, message: 'Admin has no cart' });
   }
 
   try {
-    const cart = await Cart.findOne({ user: userId }).populate("items.product");
+    const cart = await Cart.findOne({ user: userId }).populate('items.product');
     res.status(200).json({ success: true, cart });
   } catch (error) {
-    res
-      .status(500)
-      .json({ success: false, message: "Server Error", error: error.message });
+    res.status(500).json({ success: false, message: 'Server Error', error: error.message });
   }
 };
 
@@ -71,7 +65,7 @@ export const updateCartItem = async (req, res) => {
   const userId = req.user.id;
 
   if (!isValidObjectId(userId)) {
-    return res.status(400).json({ success: false, message: "Invalid user ID" });
+    return res.status(400).json({ success: false, message: 'Invalid user ID' });
   }
 
   try {
@@ -83,11 +77,9 @@ export const updateCartItem = async (req, res) => {
       await cart.save();
     }
 
-    res.status(200).json({ success: true, message: "Cart updated", cart });
+    res.status(200).json({ success: true, message: 'Cart updated', cart });
   } catch (error) {
-    res
-      .status(500)
-      .json({ success: false, message: "Server Error", error: error.message });
+    res.status(500).json({ success: false, message: 'Server Error', error: error.message });
   }
 };
 
@@ -97,7 +89,7 @@ export const removeCartItem = async (req, res) => {
   const userId = req.user.id;
 
   if (!isValidObjectId(userId)) {
-    return res.status(400).json({ success: false, message: "Invalid user ID" });
+    return res.status(400).json({ success: false, message: 'Invalid user ID' });
   }
 
   try {
@@ -107,11 +99,9 @@ export const removeCartItem = async (req, res) => {
       { new: true }
     );
 
-    res.status(200).json({ success: true, message: "Item removed", cart });
+    res.status(200).json({ success: true, message: 'Item removed', cart });
   } catch (error) {
-    res
-      .status(500)
-      .json({ success: false, message: "Server Error", error: error.message });
+    res.status(500).json({ success: false, message: 'Server Error', error: error.message });
   }
 };
 
@@ -120,9 +110,7 @@ export const syncCart = async (req, res) => {
   const userId = req.user.id;
 
   if (!isValidObjectId(userId)) {
-    return res
-      .status(200)
-      .json({ success: true, items: [], message: "Admin has no cart" });
+    return res.status(200).json({ success: true, items: [], message: 'Admin has no cart' });
   }
 
   try {
@@ -149,15 +137,15 @@ export const syncCart = async (req, res) => {
     });
 
     await userCart.save();
-    const populatedCart = await userCart.populate("items.product");
+    const populatedCart = await userCart.populate('items.product');
 
     res.status(200).json({
       success: true,
-      message: "Cart synced successfully",
+      message: 'Cart synced successfully',
       items: populatedCart.items,
     });
   } catch (err) {
-    console.error("Cart sync failed:", err);
-    res.status(500).json({ success: false, message: "Failed to sync cart" });
+    console.error('Cart sync failed:', err);
+    res.status(500).json({ success: false, message: 'Failed to sync cart' });
   }
 };

@@ -1,4 +1,4 @@
-// 🔐 Developed by Jay Rana © 2025
+//  Developed by Jay Rana © 2025
 
 import React from "react";
 import { useTranslation } from "react-i18next";

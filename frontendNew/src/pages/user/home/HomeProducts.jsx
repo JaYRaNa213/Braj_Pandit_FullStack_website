@@ -1,5 +1,5 @@
 
-// 🔐 Enhanced by ChatGPT © 2025 - Jay Rana's Devotional Platform - Premium Products Section
+//  Enhanced by ChatGPT © 2025 - Jay Rana's Devotional Platform - Premium Products Section
 
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";

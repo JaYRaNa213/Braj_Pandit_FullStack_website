@@ -1,5 +1,5 @@
 
-// 🔐 Enhanced by ChatGPT © 2025 - Jay Rana's Devotional Platform - Premium Verified Pandits Section
+//  Enhanced by ChatGPT © 2025 - Jay Rana's Devotional Platform - Premium Verified Pandits Section
 
 import React, { useEffect, useState } from "react";
 import { getAllPandits } from "../../../services/user/panditService";

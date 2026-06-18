@@ -1,5 +1,5 @@
 
-// 🔐 Enhanced by ChatGPT © 2025 - Jay Rana's Devotional Platform - Premium Products Page
+//  Enhanced by ChatGPT © 2025 - Jay Rana's Devotional Platform - Premium Products Page
 
 import { useEffect, useState } from "react";
 import { getProducts } from "../../services/api";

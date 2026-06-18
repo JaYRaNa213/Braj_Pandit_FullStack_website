@@ -1,11 +1,11 @@
-// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+//  Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 // If you theft this code, you will be punished or may face legal action by the owner.
 
 import axios from "axios";
 import axiosInstance from "../axios.js";
 import { USER } from "../../constants/apiRoutes.js";
 
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 const register = async (userData) => {
   const response = await axios.post(USER.AUTH.REGISTER, userData);
@@ -22,7 +22,6 @@ const logout = async () => {
   return response.data;
 };
 
-
 const getProfile = async () => {
   const response = await axiosInstance.get(USER.PROFILE);
   return response.data;
@@ -34,10 +33,9 @@ const updateProfile = async (updatedData) => {
 };
 
 const getBookings = async () => {
-  const response = await axiosInstance.get(USER.BOOKING.LIST); // ✅ FIXED
+  const response = await axiosInstance.get(USER.BOOKING.LIST); //  FIXED
   return response.data;
 };
-
 
 const addBooking = async (bookingData) => {
   const response = await axiosInstance.post(BOOKING.ADD, bookingData);
@@ -76,19 +74,19 @@ const uploadProfileImage = async (formData) => {
 // const placeOrder = (data) => axiosInstance.post("api/orders", data);
 // const getMyOrders = () => axiosInstance.get("api/orders/my");
 
-
-
-
 export const getOrderTracking = async (orderId) => {
   try {
-    const res = await axiosInstance.get(`${USER.ORDERS.TRACKING}/${orderId}/tracking`);
+    const res = await axiosInstance.get(
+      `${USER.ORDERS.TRACKING}/${orderId}/tracking`,
+    );
     return res.data;
   } catch (err) {
-    return { success: false, message: err.response?.data?.message || "Error fetching order tracking" };
+    return {
+      success: false,
+      message: err.response?.data?.message || "Error fetching order tracking",
+    };
   }
 };
-
-
 
 export {
   register,

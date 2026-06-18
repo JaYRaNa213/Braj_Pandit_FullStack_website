@@ -1,4 +1,4 @@
-// 🔐 Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
+//  Code developed by Jay Rana © 26/09/2025. Not for reuse or redistribution.
 // If you theft this code, you will be punished or may face legal action by the owner.
 
 // backendNew/src/routes/user/booking.routes.js
@@ -12,8 +12,7 @@ import {
   updateBooking,
   updateBookingStatus,
   deleteBooking,
-} from '../../controllers/booking.controller.js'; 
-
+} from '../../controllers/booking.controller.js';
 
 import { authMiddleware, verifyToken } from '../../middleware/auth.middleware.js';
 import { authorizeRoles } from '../../middleware/role.middleware.js';
@@ -21,7 +20,7 @@ import { authorizeRoles } from '../../middleware/role.middleware.js';
 const router = express.Router();
 
 // Puja Booking (alias)
-router.post('/puja',verifyToken, authMiddleware, authorizeRoles('user'), createBooking);
+router.post('/puja', verifyToken, authMiddleware, authorizeRoles('user'), createBooking);
 
 // Default Create Booking
 router.post('/', authMiddleware, authorizeRoles('user'), createBooking);

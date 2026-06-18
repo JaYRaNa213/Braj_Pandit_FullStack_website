@@ -1,6 +1,6 @@
 // src/constants/apiRoutes.js
 
-const BASE_URL = ""; // ✅ Leave this empty because baseURL already includes "/api"
+const BASE_URL = ""; //  Leave this empty because baseURL already includes "/api"
 
 export const ADMIN = {
   BLOGS: {
@@ -46,7 +46,7 @@ export const USER = {
   UPDATE_PROFILE: `/user/profile`,
   UPLOAD_IMAGE: `/user/upload-image`,
 
-  // ✅ Now ORDERS is part of USER object
+  //  Now ORDERS is part of USER object
   ORDERS: {
     LIST: "/user/orders",
     DETAILS: "/user/orders", // /:id
