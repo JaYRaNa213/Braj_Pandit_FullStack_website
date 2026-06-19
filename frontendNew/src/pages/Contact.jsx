@@ -22,10 +22,10 @@ export default function Contact() {
           <p>
             📱 Phone:{" "}
             <a
-              href="tel:+911234567890"
+              href="tel:+919873441656"
               className="text-blue-600 hover:underline dark:text-blue-400"
             >
-              +91 12345 67890
+              +91 9873441656
             </a>
           </p>
 
